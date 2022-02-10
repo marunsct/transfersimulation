@@ -1,0 +1,1 @@
+using srv.CPI_API as service from '../../srv/CPIAPI-service';

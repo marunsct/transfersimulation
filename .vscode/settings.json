@@ -1,0 +1,4 @@
+{
+    "[yaml].editor.defaultFormatter": "redhat.vscode-yaml",
+    "[xml].editor.defaultFormatter": "dotjoshjohnson.xml"
+}

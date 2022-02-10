@@ -1,0 +1,193 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:dnd="sap.ui.core.dnd" controllerName="initiator.controller.EmployeeList" id="EmployeeList" displayBlock="false">
+    <f:DynamicPage id="dynamicPageId" showFooter="{FclRouter>/footerVisible}" headerExpanded="{FclRouter>/headerExpanded}">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading/>
+                <f:content>
+                    <Title id="textH" text="{i18n>employeeTitle}"/>
+                </f:content>
+                <f:actions/>
+                <f:navigationActions/>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="false">
+                <f:content>
+                    <VBox fitContainer="true">
+                        <items>
+                            <fb:FilterBar id="filterbar0" search=".onSearch" clear="onClear" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="false">
+                                <fb:filterGroupItems>
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="{i18n>department}" visibleInFilterBar="true" labelTooltip="{i18n>department}">
+                                        <fb:control>
+                                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'filter>/filter/department1', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}" showSuggestion="true" id="fDepartment" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
+                                                <suggestionItems>
+                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
+                                                </suggestionItems>
+                                            </Input>
+
+                                        </fb:control>
+                                    </fb:FilterGroupItem>
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="{i18n>class}" visibleInFilterBar="true" labelTooltip="{i18n>class}">
+                                        <fb:control>
+                                            <Input value="{filter>/filter/EmploymentClass}" showSuggestion="true" id="fEmploymentClass" suggest=".onSuggestClass" suggestionItems="{filter>/EmploymentClass}">
+                                                <suggestionItems>
+                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
+                                                </suggestionItems>
+                                            </Input>
+                                        </fb:control>
+                                    </fb:FilterGroupItem>
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="{i18n>type}" visibleInFilterBar="true" labelTooltip="{i18n>type}">
+                                        <fb:control>
+                                            <!--Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'suppInvoiceNo', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}"/ -->
+                                            <Input value="{filter>/filter/EmploymentType}" suggestionItems="{filter>/EmploymentType}" showSuggestion="true" suggest=".onSuggestType">
+                                                <suggestionItems>
+                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
+                                                </suggestionItems>
+                                            </Input>
+                                        </fb:control>
+                                    </fb:FilterGroupItem>
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="D" label="{i18n>location}" visibleInFilterBar="true" labelTooltip="{i18n>location}">
+                                        <fb:control>
+                                            <Input value="{filter>/filter/location}" suggestionItems="{filter>/location}" showSuggestion="true" suggest=".onSuggestLoc">
+                                             <suggestionItems>
+                                                 <!--  <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/> --> 
+                                                 <core:Item text="{filter>name}"/>
+                                                </suggestionItems>
+                                            </Input>
+                                        </fb:control>
+                                    </fb:FilterGroupItem>
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="F" visibleInFilterBar="true" label="{i18n>position}" labelTooltip="{i18n>position}">
+                                        <fb:control>
+                                          <!--   <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'wbsElement', type: 'sap.ui.model.type.String'}"/> --> 
+                                            <Input value="{filter>/filter/position}" suggestionItems="{filter>/position}" showSuggestion="true" suggest=".onSuggestPosition">
+                                                <suggestionItems>
+                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
+                                                </suggestionItems>
+                                            </Input>                                           
+                                        </fb:control>
+                                    </fb:FilterGroupItem>
+                                </fb:filterGroupItems>
+                            </fb:FilterBar>
+                        </items>
+                    </VBox>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <!-- commnt scroll 	
+							
+					
+						<ScrollContainer id="sc1" height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
+							-->
+            <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{oData>/EmployeeJobs}" fixedLayout="true" includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="15" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" growingTriggerText="..." itemPress="_onTableItemPress" mode="SingleSelectMaster">
+                <dragDropConfig>
+                    <dnd:DragInfo groupName="available2selected" sourceAggregation="items"/>
+                </dragDropConfig>
+                <items>
+                    <ColumnListItem type="Active" id="item0">
+                        <cells>
+                            <f:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg" displaySize="S" showBorder="true" press="_onAvatarPress1" initials="{parts:[ {path: 'oData>First_Name'}, {path: 'oData>Last_Name'}, 'true' ], formatter:'.avatarInitialsFormatter'}"/>
+                            <ObjectIdentifier title="LName FName" text="{oData>userId}" titleActive="false" visible="true"/>
+                            <ObjectIdentifier title="Department Name" text="{oData>department}" titleActive="false" visible="true"/>
+                            <ObjectIdentifier title="Class Description" text="{oData>employeeClass}" titleActive="false" visible="true"/>
+                            <ObjectIdentifier title="Employment Type" text="{oData>employmentType}" titleActive="false" visible="true"/>
+                            <ObjectIdentifier title="Location" text="{oData>location}" titleActive="false" visible="true"/>
+                            <ObjectIdentifier title="Manager Name" text="{oData>managerId}" titleActive="false" visible="true"/>
+                            <ObjectIdentifier title="Position Name" text="{oData>position}" titleActive="false" visible="true"/>
+                            <!--
+                            <Text text="{oData>department}" id="text4" wrapping="true"/>
+                            <Text text="{oData>employeeClass}" id="text5" wrapping="true"/>
+                            <Text text="{oData>employmentType}" id="text6" wrapping="true"/>
+                            <Text text="{oData>location}" id="text7" wrapping="true"/>
+                            <Text text="{oData>managerId}" id="text8" wrapping="true"/>
+                            <Text text="{oData>position}" id="text9" wrapping="true"/>
+                            -->
+                            <ObjectStatus xmlns="sap.m" text="{oData>Transfer_Criteria}" state="{=${oData>Transfer_Criteria} === 'Eligible' ? 'Success' : 'Error' }" id="status0" icon="{=${oData>Transfer_Criteria} === 'Eligible' ? 'sap-icon://status-positive' : 'sap-icon://status-negative' }" tooltip="Transfer for the Employee is not possible as the Retirement Date is Near"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+                <columns>
+                    <Column id="column0" minScreenWidth="Phone">
+                        <header>
+                            <Label id="label0"/>
+                        </header>
+                    </Column>
+                    <Column id="column1" minScreenWidth="Phone">
+                        <header>
+                            <Label text="{i18n>employee}" id="label1" wrapping="true"/>
+                        </header>
+                    </Column>
+                    <Column id="column2" demandPopin="true" minScreenWidth="Tablet" popinDisplay="Inline">
+                        <header>
+                            <Label text="{i18n>department}" id="label2" wrapping="true"/>
+                        </header>
+                    </Column>
+                    <Column id="column3" minScreenWidth="Desktop">
+                        <header>
+                            <Label id="label3" text="{i18n>class}" wrapping="true"/>
+                        </header>
+                    </Column>
+                    <Column id="column4" minScreenWidth="Desktop">
+                        <header>
+                            <Label text="{i18n>type}" id="label4" wrapping="true"/>
+                        </header>
+                    </Column>
+                    <Column id="column5" minScreenWidth="Desktop">
+                        <header>
+                            <Label text="{i18n>location}" id="label5" wrapping="true"/>
+                        </header>
+                    </Column>
+                    <Column id="column6" demandPopin="true" minScreenWidth="Tablet" popinDisplay="Inline">
+                        <header>
+                            <Label text="{i18n>supervisor}" id="label6" wrapping="true"/>
+                        </header>
+                    </Column>
+                    <Column id="column7" minScreenWidth="Desktop">
+                        <header>
+                            <Label text="{i18n>position}" id="label7" wrapping="true"/>
+                        </header>
+                    </Column>
+                    <Column id="column8" demandPopin="true" minScreenWidth="Tablet" popinDisplay="Inline">
+                        <header>
+                            <Label id="label8" text="{i18n>criteria}" wrapping="true"/>
+                        </header>
+                    </Column>
+                </columns>
+                <headerToolbar>
+                    <OverflowToolbar width="100%" id="toolbar2" class="sapUiLargeMarginEnd">
+                        <content>
+                            <Text text="{parts : [{path : 'i18n>employeeTH'}, {path : 'oData>/EmployeeJobs'}],formatter:'.productCount'}" id="text06"/> <!-- "{i18n>employeeTH}"     -->
+                            <ToolbarSpacer id="spacer2"/>
+                            <Button xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:dnd="sap.ui.core.dnd" xmlns="sap.m" text="Show Eligible Employees" id="button0_1629447758341"/>
+                            <!-- <Button id="button0_1579056670196" press="onNavtoDetail" text="{i18n>tbnew}"/> -->
+                            <Button id="button0" icon="sap-icon://sort" press="handleSortButtonPressed"/>
+                            <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings"/>
+                            <Button id="button3" icon="sap-icon://refresh" press="onTablePersoRefresh"/>
+                            <Button id="button4" icon="sap-icon://excel-attachment" press="onExport" enabled="false" class="sapUiLargeMarginEnd"/>
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+            </Table>
+
+            <!-- commnt scroll
+				</ScrollContainer>
+							<content/> <Text text="{i18n>theader} {/reply/hNumbers}" id="text06"/>
+						
+						-->
+        </f:content>
+        <!-- DynamicPage Footer -->
+        <f:footer>
+            <Toolbar width="100%" id="toolbar1" class="sapUiLargeMarginEnd">
+                <content>
+                    <Button icon="sap-icon://alert" text="{= ${message>/}.length }" visible="{= ${message>/}.length &gt; 0 }" type="Emphasized" press="onMessagePopoverPress"/>
+                    <ToolbarSpacer id="spacer1"/>
+                    <Button xmlns="sap.m" text="Initiate Transfer" id="button0_1629447933973" press="initiateTransfer" type="Emphasized"/>
+                    <Button xmlns="sap.m" text="Cancel" id="button1" class="sapUiLargeMarginEnd" press="cancelSimulation" type="Reject"/>
+                </content>
+            </Toolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

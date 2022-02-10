@@ -1,0 +1,47 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.f" controllerName="initiator.controller.App" displayBlock="false" busy="{appView>/busy}" busyIndicatorDelay="{appView>/delay}" height="100%">
+	<Shell id="shell" appWidthLimited="false" class="sapMBrandingBar-CTX">
+		<App id="app">
+			<pages>
+				<Page id="page" enableScrolling="true">
+					 
+	             
+             
+                <customHeader>
+    				    <Bar xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.f" xmlns="sap.m" id="bar0" class="sapThemeBrand-asBackgroundColor titleBgColor">
+				        <contentLeft>
+				            <Image src="https://hcm44.sapsf.com/companyLogoServlet/?companyId=nipponshinD&amp;mod=1625099370959" width="140px" height="30px" id="image0" class="sapUiSmallMarginBegin"/>
+				            
+				        </contentLeft>
+				        <contentMiddle>
+				            <Title xmlns="sap.m" text="{i18n>title}" id="title0" level="H1" class="titleText" titleStyle="H3"/>
+				            
+				        </contentMiddle>
+				        <contentRight>
+				            <Button xmlns="sap.m" text="{i18n>language}" id="button0" press="onLanguageChange"/>
+				            <Button xmlns="sap.m" id="button1" icon="sap-icon://log" class="sapUiSmallMarginEnd"/>
+				            </contentRight>
+				        </Bar>
+                </customHeader>
+               <!--      
+                   <f:FlexibleColumnLayout id="idAppControl" stateChange="onStateChanged" layout="{FclRouter>/uiState/layout}"/>
+				<headerContent>
+                                			<f:ShellBar
+					title="{i18n>title}" 
+					  homeIcon="https://hcm44.sapsf.com/companyLogoServlet/?companyId=nipponshinD&amp;mod=1625099370959"
+					  showCopilot="false"
+					  showSearch="true"
+					  showNotifications="true"
+					  showProductSwitcher="true"
+					  showNavButton="false"
+					  notificationsNumber="2"
+					  navButtonPressed="handleBackButtonPressed"
+                      class="sapThemeBrand-asBackgroundColor"
+			/>
+
+				</headerContent>
+                  -->
+				</Page>
+			</pages>        
+		</App>
+	</Shell>
+</mvc:View>

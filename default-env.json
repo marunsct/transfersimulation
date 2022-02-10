@@ -1,0 +1,100 @@
+{
+  "destinations": [
+    {
+      "name": "srv-api",
+      "url": "http://localhost:4004",
+      "forwardAuthToken": true
+    }
+  ],
+  "VCAP_SERVICES": {
+    "sap-successfactors-extensibility": [
+      {
+        "label": "sap-successfactors-extensibility",
+        "provider": null,
+        "plan": "api-access",
+        "name": "TransferSimulation-sf-api",
+        "tags": ["sap-successfactors-extensibility"],
+        "instance_guid": "67eed07e-3299-434e-b388-bc700b46a67d",
+        "instance_name": "TransferSimulation-sf-api",
+        "binding_guid": "639fdb60-f6d6-4750-8c02-985a4f7c7a0c",
+        "binding_name": null,
+        "credentials": {
+          "KeyStorePassword": "Xg42ja+ISm)7E%00g-F2ja&!W@59!f$Y3xLHv#N5",
+          "audience": "www.successfactors.com",
+          "authnContextClassRef": "urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession",
+          "apiKey": "Y2E2NDMzNDMzYmEyMjkxMThlYTJkZDZjYjU0Mg",
+          "tokenServiceURL": "https://api44.sapsf.com:443/oauth/token",
+          "KeyStore": "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",
+          "URL": "https://api44.sapsf.com:443",
+          "companyId": "nipponshinD",
+          "clientKey": "Y2E2NDMzNDMzYmEyMjkxMThlYTJkZDZjYjU0Mg",
+          "KeyStoreLocation": "TransferSimulation-sf-api.p12",
+          "Authentication": "OAuth2SAMLBearerAssertion",
+          "nameIdFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
+        },
+        "syslog_drain_url": null,
+        "volume_mounts": []
+      }
+    ],
+    "destination": [
+      {
+        "label": "destination",
+        "provider": null,
+        "plan": "lite",
+        "name": "TransferSimulation-dest-srv",
+        "tags": ["destination", "conn", "connsvc"],
+        "instance_guid": "a9cd90be-4f98-4610-b570-aa5106d3f7dd",
+        "instance_name": "TransferSimulation-dest-srv",
+        "binding_guid": "2016e177-18d1-45c8-9220-d8cda7d2c904",
+        "binding_name": null,
+        "credentials": {
+          "uaadomain": "authentication.jp10.hana.ondemand.com",
+          "tenantmode": "dedicated",
+          "clientid": "sb-clonea9cd90be4f984610b570aa5106d3f7dd!b975|destination-xsappname!b5",
+          "instanceid": "a9cd90be-4f98-4610-b570-aa5106d3f7dd",
+          "verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtxX2lTr4g9sdFWyCkxveD62pqirY35LP37lTrfDmwcATJo+bNsLTX1kLugK3qBhga9iuqpI3eI+CBcujYnzVMVSyRKeJMC0rtvNX7YU5R3MYfSQ2qfW4QrRx/RU80vi53Uv9Wfd24uH9YyeoN5V0Rm2n80r2OT623wIsUjSGEYhlnwddqwvRn0vykaohx9alRQVL0LOLVqgbs225nl5hsTCNbv59q2nPk2OH+j/75+slw1pqHS2UJ6mdepBhFSdI1b63detLIKjIFiEYHQupjtr38le82xbJrTz9M5YqM5nztA/tQQSU6z+ncOxwX6jfaHCsGjtQ3BlrpHBd0vn93wIDAQAB-----END PUBLIC KEY-----",
+          "xsappname": "clonea9cd90be4f984610b570aa5106d3f7dd!b975|destination-xsappname!b5",
+          "identityzone": "dev-50okhz4b",
+          "clientsecret": "2016e177-18d1-45c8-9220-d8cda7d2c904$x2QI46k8e2JARRBYmSsdUbctEceT1Ro09M27EuT25Y4=",
+          "tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
+          "uri": "https://destination-configuration.cfapps.jp10.hana.ondemand.com",
+          "url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com"
+        },
+        "syslog_drain_url": null,
+        "volume_mounts": []
+      }
+    ],
+    "xsuaa": [
+      {
+        "label": "xsuaa",
+        "provider": null,
+        "plan": "application",
+        "name": "TransferSimulation-xsuaa-service",
+        "tags": ["xsuaa"],
+        "instance_guid": "3ba43e04-f905-4b76-a7ab-5feeca64c7a1",
+        "instance_name": "TransferSimulation-xsuaa-service",
+        "binding_guid": "333b2f00-7703-4d8c-8ee9-ef2d1925d841",
+        "binding_name": null,
+        "credentials": {
+          "tenantmode": "dedicated",
+          "sburl": "https://internal-xsuaa.authentication.jp10.hana.ondemand.com",
+          "subaccountid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
+          "credential-type": "instance-secret",
+          "clientid": "sb-transfersimulation!t975",
+          "xsappname": "transfersimulation!t975",
+          "clientsecret": "+IwIeqwVFs49gR9AdxFsQnqPQZs=",
+          "url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
+          "uaadomain": "authentication.jp10.hana.ondemand.com",
+          "verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtxX2lTr4g9sdFWyCkxveD62pqirY35LP37lTrfDmwcATJo+bNsLTX1kLugK3qBhga9iuqpI3eI+CBcujYnzVMVSyRKeJMC0rtvNX7YU5R3MYfSQ2qfW4QrRx/RU80vi53Uv9Wfd24uH9YyeoN5V0Rm2n80r2OT623wIsUjSGEYhlnwddqwvRn0vykaohx9alRQVL0LOLVqgbs225nl5hsTCNbv59q2nPk2OH+j/75+slw1pqHS2UJ6mdepBhFSdI1b63detLIKjIFiEYHQupjtr38le82xbJrTz9M5YqM5nztA/tQQSU6z+ncOxwX6jfaHCsGjtQ3BlrpHBd0vn93wIDAQAB-----END PUBLIC KEY-----",
+          "apiurl": "https://api.authentication.jp10.hana.ondemand.com",
+          "identityzone": "dev-50okhz4b",
+          "identityzoneid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
+          "tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
+          "zoneid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
+        },
+        "syslog_drain_url": null,
+        "volume_mounts": []
+      }
+    ]
+  }
+}

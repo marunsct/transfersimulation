@@ -1,0 +1,100 @@
+{
+    "name": "mta-project",
+    "version": "0.0.1",
+    "description": "Build and deployment scripts",
+    "scripts": {
+        "clean": "rimraf resources mta_archives mta-op*",
+        "build": "rimraf resources mta_archives && mbt build --mtar archive",
+        "deploy": "cf deploy mta_archives/archive.mtar",
+        "undeploy": "cf undeploy transfersimulation --delete-services --delete-service-keys",
+        "start": "NODE_ENV=production cds run"
+    },
+    "devDependencies": {
+        "@sap/ux-specification": "^1.90.10",
+        "mbt": "^1.0.15",
+        "rimraf": "3.0.0",
+        "sqlite3": "^5"
+    },
+    "dependencies": {
+        "@sap/audit-logging": "^5.1.0",
+        "@sap/cds": "^5.4.6",
+        "@sap/cds-odata-v2-adapter-proxy": "^1.7.11",
+        "@sap/xsenv": "^3.1.1",
+        "@sap/xssec": "^3.2.7",
+        "cf-nodejs-logging-support": "^6.10.0",
+        "debug": "^4.3.2",
+        "express": "^4.17.1",
+        "passport": "^0.5.0"
+    },
+    "engines": {
+        "node": ">=14"
+    },
+    "eslintConfig": {
+        "extends": "eslint:recommended",
+        "env": {
+            "es2020": true,
+            "node": true,
+            "jest": true,
+            "mocha": true
+        },
+        "globals": {
+            "SELECT": true,
+            "INSERT": true,
+            "UPDATE": true,
+            "DELETE": true,
+            "CREATE": true,
+            "DROP": true,
+            "CDL": true,
+            "CQL": true,
+            "CXL": true,
+            "cds": true
+        },
+        "rules": {
+            "no-console": "off",
+            "require-atomic-updates": "off"
+        }
+    },
+    "cds": {
+        "odata": {
+            "flavor": "x4"
+        },
+        "requires": {
+            "uaa": {
+                "kind": "xsuaa"
+            },
+            "CPI_API": {
+                "kind": "rest",
+                "impl": "srv/external/CPI_API.js",
+                "credentials": {
+                    "destination": "CPI_API"
+                }
+            },
+            "ECPositionManagement": {
+                "kind": "odata-v2",
+                "model": "srv/external/ECPositionManagement",
+                "credentials": {
+                    "destination": "TransferSimulation-sf-api",
+                    "path": "odata/v2"
+                }
+            },
+            "ECEmploymentInformation": {
+                "kind": "odata",
+                "model": "srv/external/ECEmploymentInformation",
+                "credentials": {
+                    "destination": "TransferSimulation-sf-api",
+                    "path": "odata/v2"
+                }
+            }
+        },
+        "auth": {
+            "passport": {
+                "strategy": "JWT"
+            }
+        }
+    },
+    "sapux": [
+        "app/transferinitiation",
+        "app/transferapproval",
+        "app/initiator"
+    ]
+}
