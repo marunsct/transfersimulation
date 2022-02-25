@@ -52,10 +52,7 @@ modules:
   build-parameters:
     build-result: resources
     requires:
-    - artifacts:
-      - transferinitiation.zip
-      name: transferinitiation
-      target-path: resources/
+
     - artifacts:
       - transferapproval.zip
       name: transferapproval
@@ -64,20 +61,7 @@ modules:
       - initiator.zip
       name: initiator
       target-path: resources/
-    - artifacts:
-      - project1.zip
-      name: project1
-      target-path: resources/
-- name: transferinitiation
-  type: html5
-  path: app/transferinitiation
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
+
 - name: transferapproval
   type: html5
   path: app/transferapproval
@@ -91,16 +75,6 @@ modules:
 - name: initiator
   type: html5
   path: app/initiator
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: project1
-  type: html5
-  path: project1
   build-parameters:
     build-result: dist
     builder: custom
