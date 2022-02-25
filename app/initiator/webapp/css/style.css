@@ -66,3 +66,15 @@
     background-color:  #ABE2AB !important;
     
 }
+.sapMBtn.navigationButton .sapMBtnIcon{
+  
+    font-size: 50px;
+    padding: 1px;
+    
+}
+.profileHeader{
+    padding: 5px !important;
+}
+.employeeHeader{
+    background-color: #EFF4F9 !important;
+}

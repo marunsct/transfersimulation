@@ -33,7 +33,7 @@ service CPI_API {
 
     @readonly
     entity FODepartment    as projection on ECPositionManagement.FODepartment {
-        externalCode, startDate, name, name_defaultValue, name_en_DEBUG, name_en_US, name_ja_JP, name_localized, parent, status
+        externalCode,  name, name_defaultValue, name_en_DEBUG, name_en_US, name_ja_JP, name_localized, parent, status
     };
 
     @readonly

@@ -7,295 +7,273 @@
     xmlns:fb="sap.ui.comp.filterbar"
     xmlns:dnd="sap.ui.core.dnd" controllerName="initiator.controller.OpenPositions" id="OpenPositions" displayBlock="false">
 
-    <!-- commnt scroll 	
-								<ScrollContainer id="sc1" height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
-                                    <f:DynamicPage id="dynamicPageId" headerExpanded="{headerExpanded}" showFooter="false">
-
-                            <f:title>
-                                <f:DynamicPageTitle>
-
-                                    <f:heading></f:heading>
-                                    <f:navigationActions>
-                                        <Button xmlns="sap.m" id="button0_1628578882484" press="_onPageNavButtonPress" icon="sap-icon://nav-back" />
-                                    </f:navigationActions>
-                                    <f:content>
-                                        <Title text="{i18n>openListTitle}" textAlign="Center" id="titleee" level="H1" />
-
-                                    </f:content>
-                                </f:DynamicPageTitle>
-                            </f:title>
-                    
-                            <f:header>
-                                <f:DynamicPageHeader pinnable="false">
-                                    <f:content>
-                                    
-                                    </f:content>
-                                </f:DynamicPageHeader>
-                            </f:header>
-                    
-                            <f:content>
-                                    </f:content>
-                        
-                            <f:footer />
-                        </f:DynamicPage>
-			-->
 
     <VBox fitContainer="true" justifyContent="Center" alignContent="Center">
         <items>
-
-            <HBox width="100%" id="hbox0" alignItems="Center" class="employeDetails" alignContent="Inherit">
-
+            <HBox class="employeeHeader" alignItems="Center">
                 <items>
-
                     <Button xmlns="sap.m" id="button0_1643608506867" type="Up" width="3rem" press="_onPageNavButtonPress"/>
 
 
 
                     <f:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg" displaySize="L" showBorder="true" id="avatar1"/>
+                    
+                    <FlexBox wrap="Wrap" fitContainer="true" alignItems="Center" class="employeeHeader">
 
-                    <VBox width="100%" direction="Column" id="vbox2" class="sapUiSmallMarginBeginEnd">
 
-                        <items>
+                        <VBox direction="Column" id="vbox2" class="sapUiMediumMarginBeginEnd sapUiSmallMarginBottom">
 
-                            <Title xmlns="sap.m" text="Employee Name ( 00000856 )" id="title6" titleStyle="H3" class="sapUiSmallMarginTop"/>
+                            <items>
 
-                            <HBox width="100%" id="hbox0_1643611770017" class="sapUiSmallMarginTopBottom" alignItems="Center">
+                                <Title xmlns="sap.m" text="Employee Name ( 00000856 )" id="title6" titleStyle="H3" class="sapUiSmallMarginTop"/>
 
-                                <items>
+                                <HBox id="hbox0_1643611770017" class="sapUiSmallMarginTopBottom" alignItems="Center">
 
-                                    <Text xmlns="sap.m" text="Software Developer" id="text9"/>
+                                    <items>
 
-                                    <Text xmlns="sap.m" text="|" id="text10" class="sapUiSmallMarginBeginEnd"/>
+                                        <Text xmlns="sap.m" text="Software Developer" id="text9"/>
 
-                                    <Link xmlns="sap.m" text="View profile" id="link0"/>
+                                        <Text xmlns="sap.m" text="|" id="text10" class="sapUiSmallMarginBeginEnd"/>
 
-                                </items>
+                                        <Link xmlns="sap.m" text="View profile" id="link0" press="onViewProfile"/>
 
+                                    </items>
 
 
-                            </HBox>
 
-                        </items>
+                                </HBox>
 
+                            </items>
 
 
-                    </VBox>
 
-                    <HBox width="100%" id="hbox0_1643951932490" class="sapUiSmallMarginBeginEnd">
+                        </VBox>
 
-                        <items>
+                        <HBox id="hbox0_1643951932490" class="sapUiMediumMarginBeginEnd sapUiSmallMarginTopBottom">
 
-                            <VBox width="auto" id="hbox0_16" wrap="Wrap" alignItems="Start" class="sapUiSmallMarginTop sapUiSmallMarginEnd">
+                            <items>
 
-                                <items>
+                                <VBox width="auto" id="hbox0_16" wrap="Wrap" alignItems="Start" class="sapUiSmallMarginTop sapUiSmallMarginEnd">
 
-                                    <Label text="Department :" width="100%" id="label0_1643626362769"/>
+                                    <items>
 
-                                    <Label text="Location :" width="100%" id="label1_1643626384196" class="sapUiSmallMarginTopBottom"/>
+                                        <Label text="Department :" width="100%" id="label0_1643626362769"/>
 
-                                    <Label text="Supervisor :" width="100%" id="label0_1643626362769_copy"/>
+                                        <Label text="Location :" width="100%" id="label1_1643626384196" class="sapUiSmallMarginTopBottom"/>
 
-                                </items>
+                                        <Label text="Supervisor :" width="100%" id="label0_1643626362769_copy"/>
 
+                                    </items>
 
 
-                            </VBox>
 
-                            <VBox width="auto" id="vbox3" class="sapUiSmallMarginTop sapUiSmallMarginEnd" alignItems="Start" wrap="Wrap">
+                                </VBox>
 
-                                <items>
+                                <VBox width="auto" id="vbox3" class="sapUiSmallMarginTop sapUiSmallMarginEnd" alignItems="Start" wrap="Wrap">
 
-                                    <Text text="Description " id="text15"/>
+                                    <items>
 
-                                    <Text text="Location 1" id="text16" class="sapUiSmallMarginTopBottom"/>
+                                        <Text text="Description " id="text15"/>
 
-                                    <Text text="Description" id="text15_copy"/>
+                                        <Text text="Location 1" id="text16" class="sapUiSmallMarginTopBottom"/>
 
-                                </items>
+                                        <Text text="Description" id="text15_copy"/>
 
-                            </VBox>
+                                    </items>
 
-                        </items>
+                                </VBox>
 
-                    </HBox>
+                            </items>
 
-                    <HBox width="100%" direction="Row" id="vbox2_1643626264149_copy3" class="sapUiSmallMarginTopBottom sapUiSmallMarginBeginEnd">
+                        </HBox>
 
-                        <items>
+                        <HBox direction="Row" id="vbox2_1643626264149_copy3" class="sapUiSmallMarginTopBottom sapUiMediumMarginBeginEnd">
 
-                            <VBox width="auto" id="hbox0_16_copy4" alignContent="Inherit" wrap="Wrap" alignItems="Start" class="sapUiSmallMarginEnd">
+                            <items>
 
-                                <items>
+                                <VBox width="auto" id="hbox0_16_copy4" alignContent="Inherit" wrap="Wrap" alignItems="Start" class="sapUiSmallMarginEnd">
 
-                                    <Label text="Last Transfer : " width="100%" id="label1_1643626384196_copy"/>
+                                    <items>
 
-                                    <Label text="Eligibility : " width="100%" id="label1_1643626384196_copy2" class="sapUiSmallMarginTopBottom"/>
+                                        <Label text="Last Transfer : " width="100%" id="label1_1643626384196_copy"/>
 
-                                </items>
+                                        <Label text="Eligibility : " width="100%" id="label1_1643626384196_copy2" class="sapUiSmallMarginTopBottom"/>
 
-                            </VBox>
+                                    </items>
 
-                            <VBox width="100%" id="hbox0_16_copy" alignContent="Start" wrap="Wrap">
+                                </VBox>
 
-                                <items>
+                                <VBox id="hbox0_16_copy" alignContent="Start" wrap="Wrap">
 
-                                    <Text text="Location 1" id="text16_copy"/>
+                                    <items>
 
-                                    <ObjectStatus state="Success" id="status0" icon="sap-icon://status-positive" class="sapUiSmallMarginTop"/>
+                                        <Text text="Location 1" id="text16_copy"/>
 
-                                    <Text text="Eligibility Description" id="text16_copy2"/>
+                                        <ObjectStatus state="Success" id="status0" icon="sap-icon://status-positive" class="sapUiSmallMarginTop"/>
 
-                                </items>
+                                        <Text text="Eligibility Description" id="text16_copy2"/>
 
-                            </VBox>
+                                    </items>
 
-                        </items>
+                                </VBox>
 
+                            </items>
 
 
-                    </HBox>
-                    <VBox width="100%" id="hbox0_16_copy3" class="sapUiSmallMarginBeginEND" alignItems="Start" alignContent="Start" wrap="Wrap">
-                        <items>
-                            <Label text="Performance after previous Transfer : " width="100%" id="label0_1643626362769_copy3"/>
-                            <HBox width="100%" direction="Row" id="vbox2_1643626264149_copy6" class="sapUiSmallMarginTop" alignItems="Start" alignContent="Start">
 
-                                <items>
+                        </HBox>
+                        <VBox id="hbox0_16_copy3" class="sapUiMediumMarginBeginEnd sapUiSmallMarginTopBottom" alignItems="Start" alignContent="Start" wrap="Wrap">
+                            <items>
+                                <Label text="Performance after previous Transfer : " width="100%" id="label0_1643626362769_copy3"/>
+                                <HBox direction="Row" id="vbox2_1643626264149_copy6" class="sapUiSmallMarginTop" alignItems="Start" alignContent="Start">
 
-                                    <VBox width="100%" direction="Column" id="vbox2_1643951732334" alignItems="Center">
+                                    <items>
 
-                                        <items>
+                                        <VBox direction="Column" id="vbox2_1643951732334" alignItems="Center" class="sapUiSmallMarginBeginEnd">
 
-                                            <HBox width="30px" id="hp4" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+                                            <items>
 
-                                                <items>
+                                                <HBox width="30px" id="hp4" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
 
-                                                    <Text text="A" id="p3_copy"/>
+                                                    <items>
 
+                                                        <Text text="A" id="p3_copy"/>
 
 
-                                                </items>
 
+                                                    </items>
 
 
-                                            </HBox>
 
-                                            <Text text="2018" id="text15_1643951750049"/>
+                                                </HBox>
 
-                                        </items>
+                                                <Text text="2018" id="text15_1643951750049"/>
 
-                                    </VBox>
+                                            </items>
 
-                                    <VBox width="100%" direction="Column" id="vbox2_1643951732334_copy" alignItems="Center" alignContent="Center" justifyContent="Center">
+                                        </VBox>
 
-                                        <items>
+                                        <VBox direction="Column" id="vbox2_1643951732334_copy" alignItems="Center" alignContent="Center" justifyContent="Center" class="sapUiSmallMarginBeginEnd">
 
-                                            <HBox width="30px" id="hp3" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+                                            <items>
 
-                                                <items>
+                                                <HBox width="30px" id="hp3" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
 
-                                                    <Text text="B" id="p3"/>
+                                                    <items>
 
+                                                        <Text text="B" id="p3"/>
 
 
-                                                </items>
 
+                                                    </items>
 
 
-                                            </HBox>
 
+                                                </HBox>
 
-                                            <Text text="2019" id="text15_1643951750049_copy"/>
 
-                                        </items>
+                                                <Text text="2019" id="text15_1643951750049_copy"/>
 
+                                            </items>
 
 
-                                    </VBox>
 
-                                    <VBox width="100%" direction="Column" id="vbox2_1643951732334_copy2" alignItems="Center">
+                                        </VBox>
 
-                                        <items>
+                                        <VBox class="sapUiSmallMarginBeginEnd" direction="Column" id="vbox2_1643951732334_copy2" alignItems="Center">
 
-                                            <HBox width="30px" id="hp2" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+                                            <items>
 
-                                                <items>
+                                                <HBox width="30px" id="hp2" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
 
-                                                    <Text text="C" id="p3_copy2"/>
+                                                    <items>
 
+                                                        <Text text="C" id="p3_copy2"/>
 
 
-                                                </items>
 
+                                                    </items>
 
 
-                                            </HBox>
 
-                                            <Text text="2020" id="text15_1643951750049_copy2"/>
+                                                </HBox>
 
-                                        </items>
+                                                <Text text="2020" id="text15_1643951750049_copy2"/>
 
+                                            </items>
 
 
-                                    </VBox>
 
-                                    <VBox width="100%" direction="Column" id="vbox2_1643951732334_copy3" alignItems="Center">
+                                        </VBox>
 
-                                        <items>
+                                        <VBox class="sapUiSmallMarginBeginEnd" direction="Column" id="vbox2_1643951732334_copy3" alignItems="Center">
 
-                                            <HBox width="30px" id="hp1" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+                                            <items>
 
-                                                <items>
+                                                <HBox width="30px" id="hp1" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
 
-                                                    <Text text="B" id="p3_copy3"/>
+                                                    <items>
 
+                                                        <Text text="B" id="p3_copy3"/>
 
 
-                                                </items>
 
+                                                    </items>
 
 
-                                            </HBox>
 
-                                            <Text text="2021" id="text15_1643951750049_copy3"/>
+                                                </HBox>
 
-                                        </items>
+                                                <Text text="2021" id="text15_1643951750049_copy3"/>
 
+                                            </items>
 
 
-                                    </VBox>
 
-                                    <VBox width="100%" direction="Column" id="vbox2_1643951732334_copy4" alignItems="Center">
+                                        </VBox>
 
-                                        <items>
+                                        <VBox class="sapUiSmallMarginBeginEnd" direction="Column" id="vbox2_1643951732334_copy4" alignItems="Center">
 
-                                            <HBox width="30px" id="hp0" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+                                            <items>
 
-                                                <items>
+                                                <HBox width="30px" id="hp0" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
 
-                                                    <Text text="D" id="p3_copy4"/>
+                                                    <items>
 
+                                                        <Text text="D" id="p3_copy4"/>
 
 
-                                                </items>
 
+                                                    </items>
 
 
-                                            </HBox>
 
-                                            <Text text="2022" id="text15_1643951750049_copy4"/>
+                                                </HBox>
 
-                                        </items>
+                                                <Text text="2022" id="text15_1643951750049_copy4"/>
 
+                                            </items>
 
 
-                                    </VBox>
 
-                                </items>
+                                        </VBox>
 
-                            </HBox>
-                        </items>
+                                    </items>
 
-                    </VBox>
+                                </HBox>
+                            </items>
+
+                        </VBox>
+                    </FlexBox>
+
+                </items>
+            </HBox>
+
+            <HBox id="hbox0" alignItems="Center" class="employeDetails" alignContent="Inherit">
+
+                <items>
+
+
 
 
                 </items>
@@ -424,7 +402,7 @@
                     <Text text="20 Open positions" id="text3_1644219675795" class="sapUiMediumMarginBegin sapThemeLightText footerText"/>
                     <ToolbarSpacer id="spacer1"/>
                     <Button press="_onPageNavButtonPress" text="Back" id="button0_1644211420374" class="sapUiSmallMarginEnd" icon="sap-icon://navigation-left-arrow"/>
-                    <Button  text="Initiate Transfer" id="button1" class="sapUiMediumMarginEnd" icon="sap-icon://employee-approvals" type="Emphasized"/>
+                    <Button text="Initiate Transfer" id="button1" class="sapUiMediumMarginEnd" icon="sap-icon://employee-approvals" type="Emphasized"/>
                 </content>
             </OverflowToolbar>
         </items>

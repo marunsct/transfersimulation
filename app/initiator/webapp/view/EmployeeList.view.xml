@@ -5,17 +5,23 @@
     xmlns:layout="sap.ui.layout"
     xmlns:f="sap.f"
     xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:cust = "initiator.control"
     xmlns:dnd="sap.ui.core.dnd" controllerName="initiator.controller.EmployeeList" id="EmployeeList" displayBlock="false">
 
 
 
     <VBox id="vbox1">
         <items>
-            <fb:FilterBar id="filterbar0" search=".onSearch" clear="onClear" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="false" class="filterBackground">
+            <!--cust:NewInput validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'filter>/filter/department1', type: 'sap.ui.model.type.String' }" showSuggestion="true" id="fDepartment" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
+                <suggestionItems>
+                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
+                </suggestionItems >
+            </cust:NewInput-->
+            <fb:FilterBar id="filterbar0" search=".onSearch" clear=".onClear" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="false" class="filterBackground">
                 <fb:filterGroupItems>
                     <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="{i18n>department}" visibleInFilterBar="true" labelTooltip="{i18n>department}">
                         <fb:control>
-                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'filter>/filter/department1', type: 'sap.ui.model.type.String' }" showSuggestion="true" id="fDepartment" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
+                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'filter>/filter/department', type: 'sap.ui.model.type.String' }" showSuggestion="true" id="fDepartment" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
                                 <suggestionItems>
                                     <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
                                 </suggestionItems>
@@ -66,7 +72,7 @@
             </fb:FilterBar>
             <VBox width="100%" id="vbox0" justifyContent="Center" class="container">
                 <items>
-                    <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="true" includeItemInSelection="false" growingThreshold="15" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" itemPress="_onTableItemPress" alternateRowColors="false" width="auto" class="sapUiForceWidthAuto sapUiMediumMarginBeginEnd">
+                    <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="true" includeItemInSelection="false" growingThreshold="15" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" itemPress="" alternateRowColors="false" width="auto" class="sapUiForceWidthAuto sapUiMediumMarginBeginEnd">
                         <dragDropConfig>
                             <dnd:DragInfo xmlns:dnd="sap.ui.core.dnd" groupName="available2selected" sourceAggregation="items" id="info2"/>
 
@@ -94,7 +100,7 @@
                                     <Text text="{OP>position}" id="text9_copy_table0_0" wrapping="true"/>
                                     <Text text="{OP>positionNew}" id="text10_copy_table0_0" wrapping="true"/>
                                     <Text text="{OP>status}" id="text11_copy_table0_0" wrapping="true"/>
-                                    <Button xmlns="sap.m" id="button1_1642137136968_copy_table0_0" icon="sap-icon://feeder-arrow" type="Transparent"/>
+                                    <Button xmlns="sap.m" id="button1_1642137136968_copy_table0_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress"/>
                                 </cells>
 
                             </ColumnListItem>
@@ -104,7 +110,7 @@
 
                             <Column id="column1" minScreenWidth="Phone" hAlign="Center">
                                 <header>
-                                    <Label text="{i18n>employee}" id="label1" wrapping="true" class="columnHeader"/>
+                                    <Label text="{i18n>employee}" id="label1" wrapping="true" class="columnHeader titleText"/>
 
                                 </header>
 

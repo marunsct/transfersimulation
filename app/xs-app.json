@@ -2,6 +2,20 @@
     "authenticationMethod": "route",
     "routes": [
         {
+            "source": "^/V3/(.*)$",
+            "target": "/V3/$1",
+            "destination": "NorthWind",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
+            "source": "^/SFSF/(.*)$",
+            "target": "/$1",
+            "destination": "SFSF",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+          }, 
+        {
             "source": "/v2/(.*)",
             "target": "/v2/$1",
             "destination": "srv-api",
@@ -22,6 +36,7 @@
             "csrfProtection": false,
             "authenticationType": "xsuaa"
         },
+       
         {
             "source": "^/user-api(.*)",
             "target": "$1",

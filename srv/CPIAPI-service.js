@@ -58,19 +58,32 @@ module.exports = cds.service.impl(async function () {
         }
     });
     this.on("READ", FODepartment, async (req) => {
+        console.log("in");
         const sfecei = await cds.connect.to("ECPositionManagement");
         try {
             const tx = sfecei.transaction(req);
-            //  const result =  await tx.get(req.req.url)
 
+            /*
+                    console.log( "printing query :" ,req.query ,"URL : ", req.req.originalUrl.split("/cpi-api"), "end");
+                    let url = "";
+                if(req.req.originalUrl.split("test=")[1]){
+                        url = "/FODepartment?$top=20&$select=externalCode,name,name_defaultValue,name_en_DEBUG,name_en_US,name_ja_JP,name_localized,parent,status&$filter=" + req.req.originalUrl.split("test=")[1];
+                }else{
+                        url = "/FODepartment?$top=20&$select=externalCode,name,name_defaultValue,name_en_DEBUG,name_en_US,name_ja_JP,name_localized,parent,status";
+
+                }
+                    const result =  await tx.get(url)
+             */
+            //(req.req.originalUrl.split("/cpi-api")[1])
+            console.log(req.query)
             const result = await tx.send({
                 query: req.query,
                 headers: {
                     // "Application-Interface-Key": process.env.ApplicationInterfaceKey,
                     // APIKey: process.env.APIKeyHubSandbox,
                 },
-            });
-          //  console.log(result);
+            }); 
+            console.log(result);
             return result;
 
         } catch (err) {
@@ -104,7 +117,7 @@ module.exports = cds.service.impl(async function () {
         try {
             const tx = sfecei.transaction(req);
             const result =
-                await tx.get("/FOLocation?$select=externalCode,startDate,name,description,status,nameTranslationNav/externalCode,nameTranslationNav/foField,nameTranslationNav/value_defaultValue,nameTranslationNav/value_ja_JP,nameTranslationNav/value_en_US,nameTranslationNav/value_localized&$expand=nameTranslationNav&$top=1000")
+                await tx.get("/FOLocation?$select=externalCode,startDate,name,description,status,nameTranslationNav/externalCode,nameTranslationNav/foField,nameTranslationNav/value_defaultValue,nameTranslationNav/value_ja_JP,nameTranslationNav/value_en_US,nameTranslationNav/value_localized&$expand=nameTranslationNav&$top=1000&$filter=status eq 'A'")
             /*
              await tx.send({
                query: req.query,

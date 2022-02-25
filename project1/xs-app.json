@@ -3,11 +3,11 @@
   "authenticationMethod": "route",
   "routes": [
     {
-        "source": "^/V3/(.*)$",
-        "target": "/V3/$1",
-        "destination": "NorthWind",
-        "authenticationType": "xsuaa",
-        "csrfProtection": false
+      "source": "^/V2/(.*)$",
+      "target": "/V2/$1",
+      "destination": "NorthWind",
+      "authenticationType": "none",
+      "csrfProtection": false
     },
     {
       "source": "^/resources/(.*)$",

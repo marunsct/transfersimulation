@@ -33,6 +33,26 @@
                     "useBatch": false,
                     "defaultCountMode": "None" 
                 }
+            },
+            "NorthWind":{
+                "uri" : "/V3/Northwind/Northwind.svc",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml",
+                    "useBatch": false,
+                    "defaultCountMode": "None" 
+                }
+            },
+            "SFSF": {
+                "uri": "/SFSF/odata/v2/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml",
+                    "useBatch": false,
+                    "defaultCountMode": "None" 
+                }
             }
         },
         "crossNavigation": {
@@ -114,6 +134,17 @@
                     "operationMode": "Server",
                     "groupId": "$direct",
                     "synchronizationMode": "None",
+                    "autoExpandSelect": true,
+                    "useBatch" : false
+                }
+            },
+            "SFSF": {
+                "dataSource": "SFSF",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
                     "autoExpandSelect": true
                 }
             },
@@ -154,6 +185,14 @@
                         "OpenPositions"
                     ]
                    
+                },
+                {
+                    "pattern": "EmployeeProfile/{ID}",
+                    "name": "EmployeeProfile",
+                    "target": [
+                        "EmployeeProfile"
+                    ]
+                   
                 },                
                 {
                     "name": "RouteApp",
@@ -168,14 +207,21 @@
                     "controlAggregation": "content",
                     "viewName": "EmployeeList",
                     "viewId": "EmployeeList",
-                    "viewLevel": 3,
+                    "viewLevel": 1,
                     "transition": "slide"
                 },
                 "OpenPositions": {
                     "controlAggregation": "content",
                     "viewName": "OpenPositions",
                     "viewId": "OpenPositions",
-                    "viewLevel": 4,
+                    "viewLevel": 2,
+                    "transition": "slide"
+                },
+                "EmployeeProfile": {
+                    "controlAggregation": "content",
+                    "viewName": "EmployeeProfile",
+                    "viewId": "EmployeeProfile",
+                    "viewLevel": 3,
                     "transition": "slide"
                 },                
                 "TargetApp": {

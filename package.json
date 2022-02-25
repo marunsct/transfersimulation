@@ -55,7 +55,6 @@
         }
     },
     "cds": {
-        
         "requires": {
             "uaa": {
                 "kind": "xsuaa"

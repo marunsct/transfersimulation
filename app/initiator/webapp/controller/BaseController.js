@@ -73,7 +73,12 @@ sap.ui.define([
             this.getModel("applicationModel").setProperty("/",oData);
         },
         getCustProperty: function(oProperty){
-           return this.getModel("applicationModel").getProperty("/"+oProperty); 
+           
+           if (this.getModel("applicationModel")){
+            return this.getModel("applicationModel").getProperty("/"+oProperty); 
+        } else {
+            return "";
+        }
         },
         resetCustProperty:function(){
             this.getModel("applicationModel").setData({});

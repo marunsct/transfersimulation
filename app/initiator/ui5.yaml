@@ -20,6 +20,12 @@ server:
       backend:
       - path: /cpi-api
         url: http://localhost:4004
+      - path: /SFSF
+        url: https://api44.sapsf.com
+        destination: SFSF 
+      - path : /V3
+        url: https://services.odata.org
+        destination: NorthWind   
       ui5:
         path: 
         - /resources

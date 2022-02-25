@@ -178,6 +178,15 @@ sap.ui.define([
             });
 
         },
+        onViewProfile: function (){
+            this.oRouter.navTo("EmployeeProfile", {
+                ID: this._employeeId
+                //context: oBindingContext, 
+                // beginContext: sBeginContext,
+                // midContext: sMidContext,
+                // layout: sNextLayout
+            }, false);
+        },
         _onTableItemPress: function (oEvent) {
 
             //console.log(oEvent);
@@ -358,7 +367,7 @@ sap.ui.define([
                     "hText": "Result ",
                     "hNumbers": "(0)"
                 },
-                height : (Math.round(Device.resize.height * 0.68 )) + 'px'
+                height : (Math.round(Device.resize.height * 0.66 )) + 'px'
             };
             this.oView.setModel(new sap.ui.model.json.JSONModel(this._vData), 'OP');
             this.oFclModel.setProperty('/headerExpanded', false);
