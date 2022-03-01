@@ -68,6 +68,24 @@ sap.ui.define([
                 }
             },
 
+            onLogout: function(){
+/*
+                $.ajax({
+                    url: "/my/logout",
+                    success: function (result) {
+                        console.log('Call answered by server'); //Second text in console
+                        //resolve(result);
+                    },
+                    error: function (request, status, errorThrown) {
+                        console.log(status);
+                        //reject({ data: 'Example 6 returns an error' });
+                    }
+                });
+                */
+               window.location.href = "/my/logout";
+
+            },
+
             _updateUIState: function (sNewLayout) {
                 var oUIState = this.getOwnerComponent().getSemanticHelper().getCurrentUIState();
                 this.oFclModel.setProperty('/uiState', oUIState);

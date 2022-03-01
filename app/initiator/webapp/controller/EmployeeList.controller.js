@@ -192,7 +192,7 @@ sap.ui.define([
             // or just do it for the whole view
             oMessageManager.registerObject(this.oView, true);
 
-           // this.byId("table0").setBusy(true);
+            this.byId("table0").setBusy(true);
 
 
         },
@@ -277,7 +277,7 @@ sap.ui.define([
                 fData.currentPage = 0;
                 fModel.setData(fData);
             }
-            //this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
+            this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
         },
         onExit: function () {
 

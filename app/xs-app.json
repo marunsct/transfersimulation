@@ -49,5 +49,9 @@
             "cacheControl": "no-cache, no-store, must-revalidate"
         }
     ],
+    "logout": {
+        "logoutEndpoint": "/my/logout",
+        "logoutPage": "/loggedout.html"
+    },
     "welcomeFile": "/initiator/webapp/index.html"
 }
