@@ -28,45 +28,6 @@ sap.ui.define([
             this.currentRouteName = oParams.name;
             var sContext;
             this._avatarPress = false;
-            if (oParams.arguments.beginContext) {
-                sContext = oParams.arguments.beginContext;
-            } else {
-                if (this.getOwnerComponent().getComponentData()) {
-                    var patternConvert = function (oParam) {
-                        if (Object.keys(oParam).length !== 0) {
-                            for (var prop in oParam) {
-                                if (prop !== "sourcePrototype") {
-                                    return prop + "(" + oParam[prop][0] + ")";
-                                }
-                            }
-                        }
-                    };
-
-                    sContext = patternConvert(this.getOwnerComponent().getComponentData().startupParameters);
-                }
-            }
-            var sContextModelProperty = "/beginContext";
-
-            if (sContext) {
-
-                var oPath = {
-                    path: "/" + sContext,
-                    parameters: {}
-                };
-
-                this.getView().bindObject(oPath);
-                this.oFclModel.setProperty(sContextModelProperty, sContext);
-            }
-
-            this.oView.getModel('fclButton').setProperty('/visible', false);
-
-            if (oEvent.mParameters.arguments.layout && oEvent.mParameters.arguments.layout.includes('FullScreen')) {
-                this.oFclModel.setProperty('/expandIcon/img', 'sap-icon://exit-full-screen');
-                this.oFclModel.setProperty('/expandIcon/tooltip', 'Exit Full Screen Mode');
-            } else {
-                this.oFclModel.setProperty('/expandIcon/img', 'sap-icon://full-screen');
-                this.oFclModel.setProperty('/expandIcon/tooltip', 'Enter Full Screen Mode');
-            }
 
             // this.oFclModel.setProperty('/headerExpanded', true);
 
@@ -93,8 +54,7 @@ sap.ui.define([
                         // midContext: sMidContext,
                         // layout: sNextLayout
                     }, false);
-                    this.oFclModel.setProperty('/headerExpanded', false);
-                    this.oFclModel.setProperty('/footerVisible', false);
+
                 }.bind(this)).catch(function (err) {
                     if (err !== undefined) {
                         MessageBox.error(err.message);
@@ -103,21 +63,6 @@ sap.ui.define([
 
 
             }
-        },
-
-        _onRowPress: function (oEvent) {
-
-            var oBindingContext = oEvent.getSource().getBindingContext();
-
-            return new Promise(function (fnResolve) {
-
-                this.doNavigate("Page7", oBindingContext, fnResolve, "", 1);
-            }.bind(this)).catch(function (err) {
-                if (err !== undefined) {
-                    MessageBox.error(err.message);
-                }
-            });
-
         },
         avatarInitialsFormatter: function (sFirst, sLast, sBoolean) {
             if (!sBoolean) {
@@ -140,84 +85,7 @@ sap.ui.define([
         pageText: function (sCurrent, sLast) {
             return 'Page ' + sCurrent + ' of ' + sLast;
         },
-        _onAvatarPress: function (oEvent) {
 
-            var oBindingContext = oEvent.getSource().getBindingContext();
-
-            return new Promise(function (fnResolve) {
-
-                this.doNavigate("Page8", oBindingContext, fnResolve, "", 0);
-            }.bind(this)).catch(function (err) {
-                if (err !== undefined) {
-                    MessageBox.error(err.message);
-                }
-            });
-
-        },
-        _onExpandButtonPress: function () {
-            var endColumn = this.getOwnerComponent().getSemanticHelper().getCurrentUIState().columnsVisibility.endColumn;
-            var isFullScreen = this.getOwnerComponent().getSemanticHelper().getCurrentUIState().isFullScreen;
-            var nextLayout;
-            var actionsButtonsInfo = this.getOwnerComponent().getSemanticHelper().getCurrentUIState().actionButtonsInfo;
-            if (endColumn && isFullScreen) {
-                nextLayout = actionsButtonsInfo.endColumn.exitFullScreen;
-                nextLayout = nextLayout ? nextLayout : this.getOwnerComponent().getSemanticHelper().getNextUIState(2).layout;
-            }
-            if (!endColumn && isFullScreen) {
-                nextLayout = actionsButtonsInfo.midColumn.exitFullScreen;
-                nextLayout = nextLayout ? nextLayout : this.getOwnerComponent().getSemanticHelper().getNextUIState(1).layout;
-            }
-            if (endColumn && !isFullScreen) {
-                nextLayout = actionsButtonsInfo.endColumn.fullScreen;
-                nextLayout = nextLayout ? nextLayout : this.getOwnerComponent().getSemanticHelper().getNextUIState(3).layout;
-            }
-            if (!endColumn && !isFullScreen) {
-                nextLayout = actionsButtonsInfo.midColumn.fullScreen;
-                nextLayout = nextLayout ? nextLayout : 'MidColumnFullScreen'
-            }
-            var pageName = this.oView.sViewName.split('.');
-            pageName = pageName[pageName.length - 1];
-            this.oRouter.navTo(pageName, {
-                layout: nextLayout
-            });
-
-        },
-        _onCloseButtonPress: function () {
-            var endColumn = this.getOwnerComponent().getSemanticHelper().getCurrentUIState().columnsVisibility.endColumn;
-            var nextPage;
-            var nextLevel = 0;
-
-            var actionsButtonsInfo = this.getOwnerComponent().getSemanticHelper().getCurrentUIState().actionButtonsInfo;
-
-            var nextLayout = actionsButtonsInfo.midColumn.closeColumn;
-            nextLayout = nextLayout ? nextLayout : this.getOwnerComponent().getSemanticHelper().getNextUIState(0).layout;
-
-            if (endColumn) {
-                nextLevel = 1;
-                nextLayout = actionsButtonsInfo.endColumn.closeColumn;
-                nextLayout = nextLayout ? nextLayout : this.getOwnerComponent().getSemanticHelper().getNextUIState(1).layout;
-            }
-
-            var pageName = this.oView.sViewName.split('.');
-            pageName = pageName[pageName.length - 1];
-            var routePattern = this.oRouter.getRoute(pageName).getPattern().split('/');
-            var contextFilter = new RegExp('^:.+:$');
-            var pagePattern = routePattern.filter(function (pattern) {
-                var contextPattern = pattern.match(contextFilter);
-                return contextPattern === null || contextPattern === undefined;
-            });
-
-            var nextPage = pagePattern[nextLevel];
-            this.oRouter.navTo(nextPage, {
-                layout: nextLayout
-            });
-
-        },
-        _onAvatarPress1: function (oEvent) {
-            console.log("HI");
-            this._avatarPress = true;
-
-        },
         onClear: function(oEvent){
             var fData = this.getModel("filter").getData();
             fData.filter = {
@@ -324,7 +192,7 @@ sap.ui.define([
             // or just do it for the whole view
             oMessageManager.registerObject(this.oView, true);
 
-            this.byId("table0").setBusy(true);
+           // this.byId("table0").setBusy(true);
 
 
         },
@@ -409,7 +277,7 @@ sap.ui.define([
                 fData.currentPage = 0;
                 fModel.setData(fData);
             }
-            this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
+            //this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
         },
         onExit: function () {
 

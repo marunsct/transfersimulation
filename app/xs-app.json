@@ -14,12 +14,13 @@
             "destination": "SFSF",
             "authenticationType": "xsuaa",
             "csrfProtection": false
-          }, 
+        },
+
         {
             "source": "/v2/(.*)",
             "target": "/v2/$1",
             "destination": "srv-api",
-            "csrfProtection": true,
+            "csrfProtection": false,
             "authenticationType": "xsuaa"
         },
         {
@@ -36,7 +37,6 @@
             "csrfProtection": false,
             "authenticationType": "xsuaa"
         },
-       
         {
             "source": "^/user-api(.*)",
             "target": "$1",

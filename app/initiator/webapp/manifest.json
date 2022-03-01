@@ -138,6 +138,17 @@
                     "useBatch" : false
                 }
             },
+            "NorthWind": {
+                "dataSource": "NorthWind",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true,
+                    "useBatch" : false
+                }
+            },            
             "SFSF": {
                 "dataSource": "SFSF",
                 "preload": true,

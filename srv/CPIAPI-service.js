@@ -16,8 +16,7 @@ module.exports = cds.service.impl(async function () {
 
     this.on("READ", EmployeeJobs, async (req) => {
         const sfecei = await cds.connect.to("ECEmploymentInformation");
-        try {
-            if (req.query.SELECT.columns[0].func !== 'count'){
+
             const tx = sfecei.transaction(req);
               const result = await tx.send({
                 query: req.query,
@@ -26,15 +25,9 @@ module.exports = cds.service.impl(async function () {
                     // APIKey: process.env.APIKeyHubSandbox,
                 },
             });
-            console.log(result.length, req.query);
+            console.log(result.length, "req.query empjob");
             return result;
-        }else{
-            return {};
-        }
-        } catch (err) {
-            console.log(err);
-            req.reject(err);
-        }
+
     });
 
     this.on("READ", Position, async (req) => {
@@ -49,7 +42,7 @@ module.exports = cds.service.impl(async function () {
                     // APIKey: process.env.APIKeyHubSandbox,
                 },
             });
-            console.log(result.length, req.query);
+            console.log(result.length, "req.query position");
             return result;
 
         } catch (err) {
@@ -83,7 +76,7 @@ module.exports = cds.service.impl(async function () {
                     // APIKey: process.env.APIKeyHubSandbox,
                 },
             }); 
-            console.log(result);
+            console.log("result FODepartment");
             return result;
 
         } catch (err) {
@@ -103,7 +96,7 @@ module.exports = cds.service.impl(async function () {
                     // APIKey: process.env.APIKeyHubSandbox,
                 },
             });
-            console.log(result);
+            console.log("result PickListValueV2");
             return result;
         } catch (err) {
             console.log(err);
