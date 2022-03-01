@@ -64,6 +64,20 @@ sap.ui.define([
 
             }
         },
+        onViewProfile: function(oEvent){
+            var oBindingContext = oEvent.getSource().getParent().oBindingContexts.OP;
+            return new Promise(function (fnResolve) {
+                
+                this.oRouter.navTo("EmployeeProfile", {
+                    ID: oBindingContext.getProperty("userId"),
+                }, false);
+
+            }.bind(this)).catch(function (err) {
+                if (err !== undefined) {
+                    MessageBox.error(err.message);
+                }
+            });
+        },
         avatarInitialsFormatter: function (sFirst, sLast, sBoolean) {
             if (!sBoolean) {
                 return (typeof sFirst === 'string' && typeof sLast === 'string') ? sLast.substr(0, 1) + sFirst.substr(0, 1) : 'NA';
@@ -97,6 +111,10 @@ sap.ui.define([
                 supervisor: ""
             };
             this.getModel("filter").setData(fData);
+            var fModel = this.getView().getModel('filter');
+                var fData = fModel.getData();
+                fData.currentPage = 0;
+                fModel.setData(fData);
             this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
         },
         onSearch: function (oEvent) {
@@ -129,6 +147,9 @@ sap.ui.define([
             }
             if (filters.EmploymentType){
                 oFilters.push(new Filter("employmentType", FilterOperator.EQ, filters.EmploymentType.split(' ')[0]))
+            }
+            if (filters.employee){
+                oFilters.push(new Filter("userId", FilterOperator.EQ, filters.employee.split(' ')[0]))
             }
             return oFilters;
         },
@@ -163,7 +184,8 @@ sap.ui.define([
                     EmploymentClass: "",
                     EmploymentType: "",
                     location: "",
-                    supervisor: ""
+                    supervisor: "",
+                    employee:""
                 },
                 position: [],
                 department: [],

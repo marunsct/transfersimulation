@@ -5,7 +5,7 @@
     xmlns:layout="sap.ui.layout"
     xmlns:f="sap.f"
     xmlns:fb="sap.ui.comp.filterbar"
-    xmlns:cust = "initiator.control"
+    xmlns:cust="initiator.control"
     xmlns:dnd="sap.ui.core.dnd" controllerName="initiator.controller.EmployeeList" id="EmployeeList" displayBlock="false">
 
 
@@ -72,11 +72,8 @@
             </fb:FilterBar>
             <VBox width="100%" id="vbox0" justifyContent="Center" class="container">
                 <items>
-                    <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="true" includeItemInSelection="false" growingThreshold="15" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" itemPress="" alternateRowColors="false" width="auto" class="sapUiForceWidthAuto sapUiMediumMarginBeginEnd">
-                        <dragDropConfig>
-                            <dnd:DragInfo xmlns:dnd="sap.ui.core.dnd" groupName="available2selected" sourceAggregation="items" id="info2"/>
+                    <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="true" includeItemInSelection="true" growingThreshold="15" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" itemPress="" alternateRowColors="false" width="auto" class="sapUiForceWidthAuto sapUiMediumMarginBeginEnd">
 
-                        </dragDropConfig>
                         <items>
                             <ColumnListItem type="Active" id="item0_copy_table0_0" vAlign="Middle">
                                 <cells>
@@ -89,8 +86,10 @@
                                             <ObjectIdentifier title="Location" text="{OP>location}" titleActive="false" visible="true"/>
                                             <ObjectIdentifier title="Manager Name" text="{OP>managerId}" titleActive="false" visible="true"/>
                                             <ObjectIdentifier title="Position Name" text="{OP>position}" titleActive="false" visible="true"/>
+                                            <Text text="" id="text04_copy_table0_0" wrapping="true"/>
                                             -->
-                                    <Text text="{OP>userId}" id="text04_copy_table0_0" wrapping="true"/>
+                                    
+                                    <Link text="{OP>userId}" id="link0" press="onViewProfile"/>
                                     <Text text="{OP>department}" id="text4_copy_table0_0" wrapping="true"/>
                                     <Text text="{OP>employeeClass}" id="text5_copy_table0_0" wrapping="true"/>
                                     <Text text="{OP>employmentType}" id="text6_copy_table0_0" wrapping="true"/>
@@ -198,7 +197,7 @@
                                     <ToolbarSpacer id="spacer2"/>
                                     <CheckBox text="Show Eligible Employees" selected="false" id="box0"/>
                                     <ToolbarSeparator id="separator0_copy"/>
-                                    <SearchField placeholder="Search for Employee’s" id="field0" width="215px"/>
+                                    <SearchField placeholder="Search for Employee’s" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch"/>
                                     <!-- <Button id="button0_1579056670196" press="onNavtoDetail" text="{i18n>tbnew}"/> -->
                                     <Button id="button0" icon="sap-icon://sort" press="handleSortButtonPressed"/>
                                     <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings"/>

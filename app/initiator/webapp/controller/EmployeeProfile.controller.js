@@ -18,9 +18,17 @@ sap.ui.define([
             this.setCustProperty("Back", true);
             var oHistory = History.getInstance();
             var sPreviousHash = oHistory.getPreviousHash();
+            var oHistory = History.getInstance();
+			var sPreviousHash = oHistory.getPreviousHash();
+
+			if (sPreviousHash !== undefined) {
+				window.history.go(-1);
+			} else {
+                this.oRouter.navTo("OpenPositions", { ID: this._employeeId }, false);
+            }
            // var oQueryParams = this.getQueryParameters(window.location);
            // var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-           this.oRouter.navTo("OpenPositions", { ID: this._employeeId }, false);
+           
         },
         onInit: function () { 
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);

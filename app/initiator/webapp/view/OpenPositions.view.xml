@@ -10,7 +10,7 @@
 
     <VBox fitContainer="true" justifyContent="Center" alignContent="Center">
         <items>
-            <HBox class="employeeHeader" alignItems="Center">
+            <HBox class="employeeHeader employeeHeaderBorder" alignItems="Center">
                 <items>
                     <Button xmlns="sap.m" id="button0_1643608506867" type="Up" width="3rem" press="_onPageNavButtonPress"/>
 
@@ -269,18 +269,7 @@
                 </items>
             </HBox>
 
-            <HBox id="hbox0" alignItems="Center" class="employeDetails" alignContent="Inherit">
-
-                <items>
-
-
-
-
-                </items>
-
-
-
-            </HBox>
+            
 
             <fb:FilterBar id="filterbar0" search=".onSearch" clear="_onTableItemPress" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="false">
                 <fb:filterGroupItems>
@@ -314,7 +303,7 @@
             <ScrollContainer id="sc1" width="100%" height="{OP>/height}" horizontal="false" vertical="true" focusable="true" class="container">
 
                 <content>
-                    <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/OpenPositions/result}" fixedLayout="true" includeItemInSelection="false" growingScrollToLoad="true" growingThreshold="25" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" growingTriggerText="..." itemPress="_onTableItemPress" mode="SingleSelectLeft" width="auto" class="sapUiForceWidthAuto sapUiMediumMarginBeginEnd" growing="true" backgroundDesign="Transparent">
+                    <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/OpenPositions/result}" fixedLayout="true" includeItemInSelection="false" growingScrollToLoad="true" growingThreshold="25" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" growingTriggerText="..." itemPress="getSelected" mode="SingleSelectLeft" width="auto" class="sapUiForceWidthAuto sapUiMediumMarginBeginEnd" growing="true" backgroundDesign="Transparent">
 
                         <items>
                             <ColumnListItem type="Active" id="item0">
@@ -384,7 +373,7 @@
                         <headerToolbar>
                             <OverflowToolbar width="100%" id="toolbar2" class="sapUiLargeMarginEnd container">
                                 <content>
-                                    <Title text="{i18n>posiitoTH}" id="text06" level="H1" class="titleText"/>
+                                    <Title text="{i18n>posiitoTH}" id="text06" level="H3" class="titleText"/>
                                     <ToolbarSpacer id="spacer2"/>
                                     <!-- <Button id="button0_1579056670196" press="onNavtoDetail" text="{i18n>tbnew}"/> -->
                                     <Button id="button0" icon="sap-icon://sort" press="handleSortButtonPressed"/>
@@ -401,8 +390,8 @@
                 <content>
                     <Text text="20 Open positions" id="text3_1644219675795" class="sapUiMediumMarginBegin sapThemeLightText footerText"/>
                     <ToolbarSpacer id="spacer1"/>
-                    <Button press="_onPageNavButtonPress" text="Back" id="button0_1644211420374" class="sapUiSmallMarginEnd" icon="sap-icon://navigation-left-arrow"/>
-                    <Button text="Initiate Transfer" id="button1" class="sapUiMediumMarginEnd" icon="sap-icon://employee-approvals" type="Emphasized"/>
+                    <Button press="_onPageNavButtonPress" text="Back" id="button0_1644211420374" class="sapUiSmallMarginEnd" icon="sap-icon://navigation-left-arrow"/> 
+                    <Button text="Initiate Transfer" id="button1" class="sapUiMediumMarginEnd" icon="sap-icon://employee-approvals" type="Emphasized" press="_onTableItemPress"/>
                 </content>
             </OverflowToolbar>
         </items>

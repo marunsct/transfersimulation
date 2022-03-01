@@ -19,7 +19,7 @@ sap.ui.define([
             this.currentRouteName = oParams.name;
             var sContext;
             this._employeeId = oParams.arguments.ID;
-
+            this.byId("table0").removeSelections();
            // var oContext = this.getCustProperty("EmployeeContext");
             this._employeeName =  "" ;//oContext.oModel !== undefined ? oContext.oModel.getProperty(oContext.sPath + "/First_Name") : "";
             //this._employeeContext = oParams.arguments.context;
@@ -56,23 +56,10 @@ sap.ui.define([
             var pageName = this.oView.sViewName.split('.');
             pageName = pageName[pageName.length - 1];
 
-            if (pageName === this.currentRouteName) {
-                this.oView.getModel('fclButton').setProperty('/visible', true);
-            } else {
-                this.oView.getModel('fclButton').setProperty('/visible', false);
-            }
-
-            if (oEvent.mParameters.arguments.layout && oEvent.mParameters.arguments.layout.includes('FullScreen')) {
-                this.oFclModel.setProperty('/expandIcon/img', 'sap-icon://exit-full-screen');
-                this.oFclModel.setProperty('/expandIcon/tooltip', 'Exit Full Screen Mode');
-            } else {
-                this.oFclModel.setProperty('/expandIcon/img', 'sap-icon://full-screen');
-                this.oFclModel.setProperty('/expandIcon/tooltip', 'Enter Full Screen Mode');
-            }
 
 
             this._openPositions = this.getCustProperty("OpenPositionsEmployee") !== undefined ? this.getCustProperty("OpenPositionsEmployee") : {};
-            this._employee = this.getCustProperty("EmployeeOpenPositions") !== undefined ? this.getCustProperty("EmployeeOpenPositions") : {};
+           // this._employee = this.getCustProperty("EmployeeOpenPositions") !== undefined ? this.getCustProperty("EmployeeOpenPositions") : {};
             if((this.getCustProperty("OpenPositionsEmployee") !== undefined || this.getCustProperty("EmployeeOpenPositions") !== undefined) && this.getModel("OP")){
                 var mData = this.getModel("OP").getData();
                 var newData =[];
@@ -187,16 +174,22 @@ sap.ui.define([
                 // layout: sNextLayout
             }, false);
         },
+        getSelected : function(oEvent){
+            this._oAssignment = {};
+            this._oAssignment = oEvent.getParameter("listItem").getBindingContext("OP");
+        },
         _onTableItemPress: function (oEvent) {
 
             //console.log(oEvent);
+            
             this._oAssignment = {};
-            this._oAssignment = oEvent.getParameter("listItem").getBindingContext("OP");
+            this._oAssignment = this.byId("table0").getSelectedItem().getBindingContext("OP");
+     
             //var employee, openPositions;
             var posId = this._oAssignment.getProperty("code");
             var posName = this._oAssignment.getProperty("externalName_defaultValue")
 
-            var aCells = oEvent.getParameter("listItem").getCells();
+         //   var aCells = oEvent.getParameter("listItem").getCells();
 
 
             this._preDialog(posId, posName, this._employeeId, this._employeeName, this._oAssignment.sPath);
@@ -217,7 +210,7 @@ sap.ui.define([
                 this._createDialog(sTitle, i18n.getResourceBundle().getText("employeeExists",
                     this._employee[employeeId].positionName), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath);
             } else {
-                this._createDialog(sTitle, i18n.getResourceBundle().getText("assignconfiration", [posName, employeeName]), sFirstButton, sSecondButton, true, posId, posName, employeeId, employeeName, sPath);
+                this._createDialog(sTitle, i18n.getResourceBundle().getText("assignconfiration", [posName, employeeId]), sFirstButton, sSecondButton, true, posId, posName, employeeId, employeeName, sPath);
 
             }
 

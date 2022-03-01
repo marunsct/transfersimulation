@@ -41,5 +41,9 @@
             "service": "html5-apps-repo-rt",
             "authenticationType": "xsuaa"
         }
-    ]
+    ],
+    "logout": {
+        "logoutEndpoint": "/my/logout",
+        "logoutPage": "/loggedout.html"
+    }
 }
