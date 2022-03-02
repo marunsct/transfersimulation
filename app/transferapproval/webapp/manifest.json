@@ -1,110 +1,162 @@
 {
-  "_version": "1.32.0",
-  "sap.app": {
-    "id": "transferapproval",
-    "type": "application",
-    "i18n": "i18n/i18n.properties",
-    "applicationVersion": {
-      "version": "1.0.0"
-    },
-    "title": "{{appTitle}}",
-    "description": "{{appDescription}}",
-    "resources": "resources.json",
-    "ach": "ach",
-    "dataSources": {
-      "mainService": {
-        "uri": "/cpi-api/",
-        "type": "OData",
-        "settings": {
-          "odataVersion": "2.0",
-          "localUri": "localService/metadata.xml"
+    "_version": "1.32.0",
+    "sap.app": {
+        "id": "transferapproval",
+        "type": "application",
+        "i18n": {
+            "bundleUrl": "i18n/i18n.properties",
+            "supportedLocales": [
+                "en",
+                "ja"
+            ],
+            "fallbackLocale": "en"
+        },
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "ach": "ach",
+        "dataSources": {
+            "mainService": {
+                "uri": "/cpi-api/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            },
+            "v2": {
+                "uri": "/v2/cpi-api/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml",
+                    "useBatch": false,
+                    "defaultCountMode": "None"
+                }
+            }
         }
-      }
-		}
-  },
-  "sap.ui": {
-    "technology": "UI5",
-    "icons": {
-      "icon": "sap-icon://task",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
     },
-    "deviceTypes": {
-      "desktop": true,
-      "tablet": true,
-      "phone": true
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://task",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "rootView": {
+            "viewName": "transferapproval.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "App"
+        },
+        "dependencies": {
+            "minUI5Version": "1.96.1",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.ui.commons": {},
+                "sap.suite.ui.commons": {},
+                "sap.m": {},
+                "sap.ui.layout": {},
+                "sap.f": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "transferapproval.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true
+            },
+            "i18n1": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "initiator.i18n.i18n"
+                }
+            },
+            "oData": {
+                "dataSource": "v2",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true,
+                    "useBatch": false
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "transferapproval.view",
+                "controlAggregation": "content",
+                "controlId": "page",
+                "clearControlAggregation": false
+            },
+            "routes": [
+                {
+                    "name": "RouteView1",
+                    "pattern": "RouteView1",
+                    "target": [
+                        "TargetView1"
+                    ]
+                },
+                {
+                    "pattern": "",
+                    "name": "TransferList",
+                    "target": [
+                        "TransferList"
+                    ]
+                }
+            ],
+            "targets": {
+                "TargetView1": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "App",
+                    "viewName": "App"
+                },
+                "TransferList": {
+                    "controlAggregation": "content",
+                    "viewName": "TransferList",
+                    "viewId": "TransferList",
+                    "viewLevel": 1,
+                    "transition": "slide"
+                }
+            }
+        }
     }
-  },
-
-  "sap.ui5": {
-    "flexEnabled": false,
-    "rootView": {
-      "viewName": "transferapproval.view.View1",
-      "type": "XML",
-      "async": true,
-      "id": "View1"
-    },
-    "dependencies": {
-			"minUI5Version": "1.94.1",
-      "libs": {
-        "sap.ui.core": {},
-        "sap.m": {},
-        "sap.ui.layout": {},
-        "sap.f": {}
-      }
-    },
-    "contentDensities": {
-      "compact": true,
-      "cozy": true
-    },
-    "models": {
-      "i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "settings": {
-          "bundleName": "transferapproval.i18n.i18n"
-        }
-      },
-			"": {
-				"dataSource": "mainService",
-				"preload": true
-			}
-    },
-    "resources": {
-      "css": [
-        {
-          "uri": "css/style.css"
-        }
-      ]
-    },
-    "routing": {
-      "config": {
-        "routerClass": "sap.m.routing.Router",
-        "viewType": "XML",
-        "async": true,
-        "viewPath": "transferapproval.view",
-        "controlAggregation": "pages",
-        "controlId": "app",
-        "clearControlAggregation": false
-      },
-      "routes": [
-        {
-          "name": "RouteView1",
-          "pattern": "RouteView1",
-          "target": ["TargetView1"]
-        }
-      ],
-      "targets": {
-        "TargetView1": {
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "View1",
-          "viewName": "View1"
-        }
-      }
-    }
-  }
 }
+

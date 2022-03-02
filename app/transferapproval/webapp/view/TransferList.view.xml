@@ -1,0 +1,68 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:cust="initiator.control" controllerName="transferapproval.controller.TransferList" id="TransferList">
+
+    <VBox id="vbox1">
+        <items>
+
+            <fb:FilterBar id="filterbar0" search=".onSearch" clear=".onClear" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="false" class="filterBackground">
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="{i18n>department}" visibleInFilterBar="true" labelTooltip="{i18n>department}">
+                        <fb:control>
+                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'filter>/filter/department', type: 'sap.ui.model.type.String' }" showSuggestion="true" id="fDepartment" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
+                                <suggestionItems>
+                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                </suggestionItems>
+                            </Input>
+
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="{i18n>class}" visibleInFilterBar="true" labelTooltip="{i18n>class}">
+                        <fb:control>
+                            <Input value="{filter>/filter/EmploymentClass}" showSuggestion="true" id="fEmploymentClass" suggest=".onSuggestClass" suggestionItems="{filter>/EmploymentClass}">
+                                <suggestionItems>
+                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                </suggestionItems>
+                            </Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="{i18n>type}" visibleInFilterBar="true" labelTooltip="{i18n>type}">
+                        <fb:control>
+
+                            <Input value="{filter>/filter/EmploymentType}" suggestionItems="{filter>/EmploymentType}" showSuggestion="true" suggest=".onSuggestType">
+                                <suggestionItems>
+                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                </suggestionItems>
+                            </Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="D" label="{i18n>location}" visibleInFilterBar="true" labelTooltip="{i18n>location}">
+                        <fb:control>
+                            <Input value="{filter>/filter/location}" suggestionItems="{filter>/location}" showSuggestion="true" suggest=".onSuggestLoc">
+                                <suggestionItems>
+                                    <core:Item text="{filter>name}" />
+                                </suggestionItems>
+                            </Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="F" visibleInFilterBar="true" label="{i18n>position}" labelTooltip="{i18n>position}">
+                        <fb:control>
+
+                            <Input value="{filter>/filter/position}" suggestionItems="{filter>/position}" showSuggestion="true" suggest=".onSuggestPosition">
+                                <suggestionItems>
+                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                </suggestionItems>
+                            </Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+
+        </items>
+    </VBox>
+
+</mvc:View>

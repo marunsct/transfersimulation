@@ -53,5 +53,5 @@
         "logoutEndpoint": "/my/logout",
         "logoutPage": "/loggedout.html"
     },
-    "welcomeFile": "/initiator/webapp/index.html"
+    "welcomeFile": "/initiator/index.html"
 }

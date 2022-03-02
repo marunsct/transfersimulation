@@ -1,1 +1,89 @@
 /* Enter your custom styles here */
+
+.titleBgColor{
+    /*   background-color:   #A9C6DE !important;  #427CAC */
+       background-color: #A9C6DE !important;
+       padding-top: 5px !important;;
+       padding-bottom: 5px !important;;    
+   }
+   .titleText {
+       font-weight: bold;
+       color: #32363a !important;
+    }
+   .tableHeader {
+       background-color: #FAFAFA !important;
+    }
+   .barBackground {
+       background-color: #FFFFFF !important;
+       padding-top: 7px;
+       padding-bottom: 7px;
+       border-collapse: separate !important;
+       box-shadow: 4px 4px 4px 4px #c1c3c5 !important;
+       
+       margin-top: 4px;
+   
+   
+   }
+   .filterBackground{
+       border-collapse: separate !important;
+       box-shadow: 1px 1px 1px 1px #89919a !important; 
+       margin-bottom: 1px;
+   }
+   .columnBackground {
+       background-color: #89919a !important ;
+   }
+   .titleHeader{
+       padding-top: 5px;
+       padding-bottom: 5px;
+   }
+   .footerText{
+       color: #89919a !important ;
+   }
+   .employeDetails{
+       padding: 5px;
+       background-color: #EFF4F9 !important;
+   }
+   .container{
+       background-color: #FFFFFF !important;
+   }
+   .columnHeader{
+       margin-top: 7px;
+       margin-bottom: 7px;
+   }
+   .performancePositive{
+       background-color: #7fc6c6 !important;
+       
+   }
+   .performanceNegative{
+       background-color: #FF8888 !important;
+       
+   }
+   .performanceNeutral{
+       background-color: #FABD64 !important;
+       
+   }
+   .performanceNeutralM{
+       background-color:  #ABE2AB !important;
+       
+   }
+   .sapMBtn.navigationButton .sapMBtnIcon{
+     
+       font-size: 50px;
+       padding: 1px;
+       
+   }
+   .profileHeader{
+       padding: 5px !important;
+   }
+   .employeeHeader{
+       background-color: #EFF4F9 !important;
+   
+   
+   }
+   .employeeHeaderBorder{
+       background-color: #EFF4F9 !important;
+       border-color: #A9C6DE !important;
+       border-radius: 1px;
+       border: 1px solid #A9C6DE;
+   
+   }
