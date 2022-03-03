@@ -115,7 +115,7 @@ sap.ui.define([
                 var fData = fModel.getData();
                 fData.currentPage = 0;
                 fModel.setData(fData);
-            this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
+            //this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
         },
         onSearch: function (oEvent) {
             //var oModel = this.getModel("oData");
@@ -219,47 +219,9 @@ sap.ui.define([
 
         },
         onAfterRendering: async function () {
-            /*
-                        this.getModel('oData').read("/FOLocation",
-                            {
-                                async: true,
-                                urlParameters: {
-                                     "$top": 20,
-                                },
-                                
-                                success: function (sData, sResult) {
-                                    var mModel = this.getView().getModel('filter');
-                                    var mData = mModel.getData();
-                                    mData.location = [];
-                                    let desc;
-                                    for (var i = 0; i < sData.results.length; i++) {
-                                        switch (this.getLocale()) {
-                                            case "JA":
-                                                desc = (sData.results[i].nameTranslationNav.value_ja_JP !== null) ? sData.results[i].nameTranslationNav.value_ja_JP : sData.results[i].nameTranslationNav.value_defaultValue;
-                                                break;
-                                            case "EN":
-                                                desc = (sData.results[i].nameTranslationNav.value_en_US !== null) ? sData.results[i].nameTranslationNav.value_en_US : sData.results[i].nameTranslationNav.value_defaultValue;
-                                                break;
-                                            default:
-                                                desc = sData.results[i].nameTranslationNav.value_defaultValue;
-                                                break;
-                                        }
-                                        mData.location.push({
-                                            "ID": sData.results[i].externalCode,
-                                            "name": sData.results[i].externalCode + ' ' +  desc
-                                        });
-                                    }
-            
-                                    mModel.setData(mData);
-            
-                                }.bind(this),
-                                error: function (sData, sResult) {
-                                    console.log(sData);
-            
-                                }
-                            });
-            */
+
             if (this.getCustProperty("Back") !== true) {
+                
                 this.setCustProperty("Back", false);
                 var location = await this.asyncAjax("/v2/cpi-api/FOLocation");
                 var mModel = this.getView().getModel('filter');

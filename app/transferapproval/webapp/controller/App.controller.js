@@ -47,6 +47,12 @@ sap.ui.define([
                window.location.href = "/my/logout";
 
             },
+            onRouteMatched: function (oEvent) {
+                var sRouteName = oEvent.getParameter("name");
+                var sLayout = oEvent.getParameters().arguments.layout;
+              //  this._updateUIState(sLayout);
+              //  this.currentRouteName = sRouteName;
+            },
             onLanguageChange: function(){
                 if(sap.ui.getCore().getConfiguration().getLanguage() === 'ja'){
                     sap.ui.getCore().getConfiguration().setLanguage('en');

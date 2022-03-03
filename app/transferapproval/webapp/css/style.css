@@ -5,34 +5,35 @@
        background-color: #A9C6DE !important;
        padding-top: 5px !important;;
        padding-bottom: 5px !important;;    
-   }
-   .titleText {
+    }
+.titleText {
        font-weight: bold;
        color: #32363a !important;
     }
-   .tableHeader {
+.tableHeader {
        background-color: #FAFAFA !important;
     }
-   .barBackground {
+.barBackground {
        background-color: #FFFFFF !important;
        padding-top: 7px;
        padding-bottom: 7px;
        border-collapse: separate !important;
-       box-shadow: 4px 4px 4px 4px #c1c3c5 !important;
-       
+       border-color: #FFFFFF !important;
+       box-shadow: 1px 1px 1px 1px #c1c3c5 !important;
        margin-top: 4px;
-   
-   
-   }
-   .filterBackground{
+    
+    }
+.filterBackground{
        border-collapse: separate !important;
        box-shadow: 1px 1px 1px 1px #89919a !important; 
-       margin-bottom: 1px;
+       margin-bottom: 0.5px;
+       margin-top: 10px;
+       
    }
-   .columnBackground {
+.columnBackground {
        background-color: #89919a !important ;
    }
-   .titleHeader{
+.titleHeader{
        padding-top: 5px;
        padding-bottom: 5px;
    }
@@ -75,15 +76,100 @@
    .profileHeader{
        padding: 5px !important;
    }
-   .employeeHeader{
+.employeeHeader{
        background-color: #EFF4F9 !important;
    
    
    }
-   .employeeHeaderBorder{
+.employeeHeaderBorder{
        background-color: #EFF4F9 !important;
        border-color: #A9C6DE !important;
        border-radius: 1px;
        border: 1px solid #A9C6DE;
    
    }
+
+.sapMITBAll .sapMITBTab {
+     margin-bottom: 0rem; 
+
+}
+.sapMITBAll .sapMITBText {
+     display: flex;
+
+}
+.sapMITBTab {
+    width: auto;
+    
+}
+.sapMITBFilter .sapMITBText {
+    width: auto;
+}
+.iconPositive{
+        margin-right: 2rem;
+        margin-left: 2rem;   
+}
+.sapMITBFilter .sapMITBFilterWrapper {
+  /*  margin-right: 1rem;
+    margin-left: 1rem; */
+    min-width: 7rem;  
+}
+.sapMITBFilterCritical {
+    border-color: #eff4f9;
+}
+.sapMITBSelected .sapMITBFilterCritical {
+    color: #eff4f9;
+}
+.sapMITBSelected .sapMITBFilterPositive {
+    color: #eff4f9;
+}
+.sapMITBFilterPositive {
+    border-color: #eff4f9;
+}
+.sapMITBSelected .sapMITBFilterNegative {
+    color: #eff4f9;
+}
+.sapMITBFilterNegative {
+    border-color: #eff4f9;
+}
+.sapMITBSepLine {
+    height: 4rem;
+    width: 2px;
+    border: 1px solid #c0bbbb;
+}
+.sapMITBAll .sapMITBText {
+    font-size: 15px;
+   /* margin-top: 6px */
+}
+.sapMITBAll .sapMITBCount {
+    font-size: 2rem;
+}
+.sapMITBContent {
+     border-bottom: 0rem solid #d1e0ee; 
+     padding-top: 0rem;
+}
+.sapUiSizeCompact .sapMListTblRow {
+    height: 3rem;
+}
+.sapMListTbl {
+    border: 0.5px solid #e1dfdf;
+}
+.tableInput{
+    height: 3rem
+}
+.sapUiBody ::-webkit-scrollbar {
+
+    width: 2px !important;
+    
+    height: 2px !important;
+    
+    border: 1px solid transparent;
+    
+    background-color: transparent;
+    
+}
+.sapMLIB.sapMLIBSelected {
+    background: #ccab7b29;
+}
+.sapUiView {
+    display: inherit;
+}

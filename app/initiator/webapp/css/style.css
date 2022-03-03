@@ -19,7 +19,7 @@
     padding-bottom: 7px;
     border-collapse: separate !important;
     box-shadow: 4px 4px 4px 4px #c1c3c5 !important;
-    
+    border-color: #FFFFFF !important;
     margin-top: 4px;
 
 
@@ -86,4 +86,7 @@
     border-radius: 1px;
     border: 1px solid #A9C6DE;
 
+}
+.sapMListTbl {
+    border: 0.5px solid #e1dfdf;
 }
