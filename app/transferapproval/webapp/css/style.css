@@ -173,3 +173,206 @@
 .sapUiView {
     display: inherit;
 }
+.performanceContainer{
+    width: -webkit-fill-available;
+}
+.sapMLnk {
+
+    margin-top: 7px;
+}
+.textLable {
+
+    font-size: .875rem;
+    font-family: "72","72full",Arial,Helvetica,sans-serif;
+    font-weight: normal;
+    display: inline-block;
+    white-space: nowrap;
+    cursor: text;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.naviButton{
+
+    max-height: 3.5rem;
+    height: 3rem;
+    font-size: 2rem;
+}
+.tableButton{
+    background-image: none;
+    background-color: transparent;
+    border-color: transparent;
+    color: #346187;
+    margin-left: 2px;
+}
+.sapSuiteUiCommonsNetworkGraphToolbar {
+    flex-shrink: 0;
+    visibility: hidden;
+}
+.cardHeader{
+    background-color: #0854A0 !important;
+    height: auto !important;
+    border-radius: 5px;
+}
+.cardBorder{
+   border: 1px solid #0854A0;
+   border-radius: 5px;
+}
+.sapSuiteUiCommonsNetworkGraphDivInner {
+    border: none;
+}
+.sapSuiteUiCommonsNetworkGraphInnerScrollerCenter {
+
+    margin-left: 0px;
+}
+.sapSuiteUiCommonsNetworkLinePath {
+    stroke: #0854A0;
+}
+.nodeTitle{
+    color: #fff;
+}
+.sapSuiteUiCommonsNetworkGraphDivNode.sapSuiteUiCommonsNetworkElementSelected .sapSuiteUiCommonsNetworkGraphDivInner {
+    background-color: #d3dfea;
+}
+.sapSuiteUiCommonsProcessFlowNodeCustom .sapSuiteUiCommonsProcessFlowNode3ZoomLevel2 {
+    height: auto !important;
+    width: 220px;
+    padding: 0;
+    margin: 0;
+}
+.sapSuiteUiCommonsProcessFlowNodeCustom .sapSuiteUiCommonsProcessFlowNode3ZoomLevel1 {
+    height: auto !important;
+    width: 220px;
+    padding: 0;
+    margin: 0;
+}
+.sapSuiteUiCommonsProcessFlowNodeCustom .sapSuiteUiCommonsProcessFlowNode3ZoomLevel3 {
+   height: auto !important;
+    width: 220px;
+    padding: 0;
+    margin: 0;
+}
+.sapSuiteUiCommonsProcessFlowNodeDisplayStateRegular {
+
+    border: none;
+}
+table.sapSuiteUiCommonsPF {
+
+    width: 850px;
+ 
+}
+.sapSuiteUiCommonsProcessFlowNode3ZoomLevel2 .sapSuiteUiCommonsProcessFlowNode3ContentPadding {
+    height: auto !important;
+
+}
+.sapSuiteUiCommonsProcessFlowNode3ZoomLevel1 .sapSuiteUiCommonsProcessFlowNode3ContentPadding {
+   height: auto !important;
+
+}
+.sapSuiteUiCommonsProcessFlowNode3ZoomLevel3 .sapSuiteUiCommonsProcessFlowNode3ContentPadding {
+   height: auto !important;
+
+}
+.sapSuiteUiCommonsProcessFlowNode3ZoomLevel4 .sapSuiteUiCommonsProcessFlowNode3ContentPadding {
+   height: auto !important;
+
+}
+.sapSuiteUiCommonsProcessFlowNode3ZoomLevel1 {
+   height: auto !important;
+
+}
+.sapSuiteUiCommonsProcessFlowNode3ZoomLevel3 {
+   height: auto !important;
+
+}
+.sapSuiteUiCommonsProcessFlowNode3ZoomLevel4 {
+   height: auto !important;
+
+}
+.sapSuiteUiCommonsProcessFlowNode3ZoomLevel2{
+    max-width: 200px;
+}
+.sapSuiteUiCommonsProcessFlowNode3ZoomLevel1{
+    max-width: 200px;
+}
+.sapSuiteUiCommonsProcessFlowNode3ZoomLevel3{
+    max-width: 200px;
+}
+.sapSuiteUiCommonsProcessFlowNode3ZoomLevel4{
+    max-width: 200px;
+}
+.sapSuiteUiCommonsPFHeaderRow{
+    display: none;
+}
+.sapSuiteUiCommonsProcessFlowNode1ZoomLevel1, .sapSuiteUiCommonsProcessFlowNode1ZoomLevel2, .sapSuiteUiCommonsProcessFlowNode1ZoomLevel1>.sapUiIcon, .sapSuiteUiCommonsProcessFlowNode1ZoomLevel2>.sapUiIcon, .sapSuiteUiCommonsProcessFlowNode1ZoomLevel1>.sapUiIcon:before, .sapSuiteUiCommonsProcessFlowNode1ZoomLevel2>.sapUiIcon:before {
+    display: none;
+}
+.sapSuiteUiCommonsProcessFlowNode1ZoomLevel3, .sapSuiteUiCommonsProcessFlowNode1ZoomLevel4, .sapSuiteUiCommonsProcessFlowNode1ZoomLevel3>.sapUiIcon, .sapSuiteUiCommonsProcessFlowNode1ZoomLevel4>.sapUiIcon, .sapSuiteUiCommonsProcessFlowNode1ZoomLevel3>.sapUiIcon:before, .sapSuiteUiCommonsProcessFlowNode1ZoomLevel4>.sapUiIcon:before {
+    display: none;
+}
+.sapSuiteUiCommonsProcessFlowNode2ZoomLevel2 {
+
+    display: none;
+
+}
+.sapSuiteUiCommonsProcessFlowNode2ZoomLevel1 {
+
+    display: none;
+
+}
+.sapSuiteUiCommonsProcessFlowNode2ZoomLevel3 {
+
+    display: none;
+
+}
+.sapSuiteUiCommonsProcessFlowNode2ZoomLevel4 {
+
+    display: none;
+
+}
+.sapSuiteUiCommonsProcessFlowNodeHover{
+    background-color: transparent !important;
+}
+.sapSuiteUiCommonsProcessFlowNodeHover:not(.sapMBtnFocusDiv){
+    background-color: #c0e0ff79 !important;
+}
+.sapSuiteUiCommonsProcessFlowNodeActive{
+    background-color: transparent !important;
+}
+.sapSuiteUiCommonsProcessFlowNodeActive:not(.sapMBtnFocusDiv){
+    background-color: #9fcfff79 !important;
+    color: #0854A0 !important;
+  
+}
+.sapSuiteUiCommonsProcessFlowNode0ZoomLevel2 {
+    width: 200px;
+    max-width: 200px;
+}
+table.sapSuiteUiCommonsPF td, table.sapSuiteUiCommonsPF th {
+    vertical-align: middle;
+}
+.sapSuiteUiCommonsBoxTopZoom2Height {
+     height: 0rem;
+}
+.sapSuiteUiCommonsBoxTopZoom1Height {
+    height: 0rem;
+}
+.sapSuiteUiCommonsBoxTopZoom3Height {
+    height: 0rem;
+}
+.sapSuiteUiCommonsBoxTopZoom4Height {
+    height: 0rem;
+}
+.sapFDynamicPageTitleMain>.sapFDynamicPageTitleMainInner .sapFDynamicPageTitleMainHeading {
+ width: -webkit-fill-available;
+}
+.sapFDynamicPageTitleMain>.sapFDynamicPageTitleMainInner .sapFDynamicPageTitleMainHeading .sapFDynamicPageTitleMainHeadingInner {
+
+    width: -webkit-fill-available;
+}
+.sapUiSizeCompact .sapMTB.sapMTBHeader-CTX {
+    padding: 0px;
+}
+/*.sapMBtn.increaseFont .sapMBtnIcon {
+    font-size: 1.5rem;
+    color: red;
+}*/

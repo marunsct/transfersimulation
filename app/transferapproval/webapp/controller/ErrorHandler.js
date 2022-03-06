@@ -6,7 +6,7 @@ sap.ui.define([
 ], function (UI5Object, MessageBox, Filter, FilterOperator) {
 	"use strict";
 
-	return UI5Object.extend("initiator.controller.ErrorHandler", {
+	return UI5Object.extend("transferapproval.controller.ErrorHandler", {
 
 		/**
 		 * Handles application errors by automatically attaching to the model events and displaying errors when needed.

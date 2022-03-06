@@ -64,10 +64,10 @@ sap.ui.define([
 
             }
         },
-        onViewProfile: function(oEvent){
+        onViewProfile: function (oEvent) {
             var oBindingContext = oEvent.getSource().getParent().oBindingContexts.OP;
             return new Promise(function (fnResolve) {
-                
+
                 this.oRouter.navTo("EmployeeProfile", {
                     ID: oBindingContext.getProperty("userId"),
                 }, false);
@@ -100,7 +100,7 @@ sap.ui.define([
             return 'Page ' + sCurrent + ' of ' + sLast;
         },
 
-        onClear: function(oEvent){
+        onClear: function (oEvent) {
             var fData = this.getModel("filter").getData();
             fData.filter = {
                 position: "",
@@ -112,9 +112,9 @@ sap.ui.define([
             };
             this.getModel("filter").setData(fData);
             var fModel = this.getView().getModel('filter');
-                var fData = fModel.getData();
-                fData.currentPage = 0;
-                fModel.setData(fData);
+            var fData = fModel.getData();
+            fData.currentPage = 0;
+            fModel.setData(fData);
             //this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
         },
         onSearch: function (oEvent) {
@@ -122,7 +122,7 @@ sap.ui.define([
             var filters = this.getModel("filter").getData().filter;
             var oFilters = this._builFilters(filters);
             console.log(oFilters);
-            if (oFilters.length > 0){
+            if (oFilters.length > 0) {
                 var fModel = this.getView().getModel('filter');
                 var fData = fModel.getData();
                 fData.currentPage = 0;
@@ -131,24 +131,24 @@ sap.ui.define([
                 this._onOdataCall('EmployeeJobs', oFilters, this._sCount, 0);
             }
         },
-        _builFilters: function(filters){
+        _builFilters: function (filters) {
             let oFilters = [];
-            if(filters.department){
+            if (filters.department) {
                 oFilters.push(new Filter("department", FilterOperator.EQ, filters.department.split(' ')[0]))
             }
-            if (filters.location){
+            if (filters.location) {
                 oFilters.push(new Filter("location", FilterOperator.EQ, filters.location.split(' ')[0]))
             }
-            if (filters.position){
+            if (filters.position) {
                 oFilters.push(new Filter("position", FilterOperator.EQ, filters.position.split(' ')[0]))
             }
-            if (filters.EmploymentClass){
+            if (filters.EmploymentClass) {
                 oFilters.push(new Filter("employeeClass", FilterOperator.EQ, filters.EmploymentClass.split(' ')[0]))
             }
-            if (filters.EmploymentType){
+            if (filters.EmploymentType) {
                 oFilters.push(new Filter("employmentType", FilterOperator.EQ, filters.EmploymentType.split(' ')[0]))
             }
-            if (filters.employee){
+            if (filters.employee) {
                 oFilters.push(new Filter("userId", FilterOperator.EQ, filters.employee.split(' ')[0]))
             }
             return oFilters;
@@ -161,9 +161,9 @@ sap.ui.define([
                     // this._bundle = sap.ui.getCore().getLibraryResourceBundle(oChanges.language);
                     // this.byId("filterbar0").rerender();
                     //  this.rerender();
-                    let oView =  sap.ui.getCore().byId("EmployeeList");
+                    let oView = sap.ui.getCore().byId("EmployeeList");
                 }
-            }.bind(this));  
+            }.bind(this));
             this._sCount = Math.round(((Device.resize.height - 250) / 40)) - 2;
             if (!this.oView) {
                 this.oView = this.getView();
@@ -185,7 +185,7 @@ sap.ui.define([
                     EmploymentType: "",
                     location: "",
                     supervisor: "",
-                    employee:""
+                    employee: ""
                 },
                 position: [],
                 department: [],
@@ -202,7 +202,7 @@ sap.ui.define([
             this._oFilters = [];
             // this.setCustProperty("EmployeeOpenPositions", {});
             // this.setCustProperty("OpenPositionsEmployee", {});
-           // this.onSuggestLocation();
+            // this.onSuggestLocation();
             var oMessageManager, oView;
 
 
@@ -221,7 +221,7 @@ sap.ui.define([
         onAfterRendering: async function () {
 
             if (this.getCustProperty("Back") !== true) {
-                
+
                 this.setCustProperty("Back", false);
                 var location = await this.asyncAjax("/v2/cpi-api/FOLocation");
                 var mModel = this.getView().getModel('filter');
@@ -253,8 +253,8 @@ sap.ui.define([
                 jQuery.sap.delayedCall(1000, this, function () {
                     oInput.focus();
                 });
-              //  var cat = await this.asyncAjax("V3/Northwind/Northwind.svc/Categories");
-               // console.log(cat);
+                //  var cat = await this.asyncAjax("V3/Northwind/Northwind.svc/Categories");
+                // console.log(cat);
             } else {
                 var fModel = this.getView().getModel('filter');
                 var fData = fModel.getData();
@@ -417,18 +417,18 @@ sap.ui.define([
             var sTerm = oEvent.getParameter("suggestValue");
             var aFilters = [];
             if (sTerm.length > 1) {
-               // this.oGlobalBusyDialog = new sap.m.BusyDialog();
+                // this.oGlobalBusyDialog = new sap.m.BusyDialog();
                 // this.oGlobalBusyDialog.open();
                 //aFilters.push(new Filter("name", FilterOperator.Contains, sTerm));
 
                 var filter1 = new Filter({
                     filters: [
-                    new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(name_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(name_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(name,'" + sTerm + "')", FilterOperator.EQ, true)
-                   // new Filter("substringof('" + sTerm + "',externalCode)", FilterOperator.EQ, true),
-                   // new Filter("substringof('" + sTerm + "',name)", FilterOperator.EQ, true)
+                        new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
+                        new Filter("startswith(name_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true),
+                        new Filter("startswith(name_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
+                        new Filter("startswith(name,'" + sTerm + "')", FilterOperator.EQ, true)
+                        // new Filter("substringof('" + sTerm + "',externalCode)", FilterOperator.EQ, true),
+                        // new Filter("substringof('" + sTerm + "',name)", FilterOperator.EQ, true)
                     ], and: false
                 });
 
@@ -450,7 +450,7 @@ sap.ui.define([
                         async: true,
                         urlParameters: {
                             "$top": 20,
-                          //  "test": "((substringof('"+ sTerm + "',externalCode) or substringof('" + sTerm + "',name)) and status eq 'A'"
+                            //  "test": "((substringof('"+ sTerm + "',externalCode) or substringof('" + sTerm + "',name)) and status eq 'A'"
                         },
                         filters: aFilters,
                         success: function (sData, sResult) {
@@ -484,32 +484,32 @@ sap.ui.define([
                                                      });
                                                      */
                             mModel.setData(mData);
-                           // this.oGlobalBusyDialog.close();
+                            // this.oGlobalBusyDialog.close();
                         }.bind(this),
                         error: function (sData, sResult) {
                             console.log(sData);
-                           // this.oGlobalBusyDialog.close();
+                            // this.oGlobalBusyDialog.close();
                         }
                     });
 
-                    /*
-                    aFilters = [];
-                    aFilters.push(new Filter({
-                        filters: [
-                            new Filter("ID", FilterOperator.Contains, sTerm),
-                            new Filter("name", FilterOperator.Contains, sTerm)
-                            ],
-                            and: false
-                            }));
-                            
-                    var oSource = oEvent.getSource();
-                    var oBinding = oSource.getBinding('suggestionItems');
-                    oBinding.filter(aFilters);
-                    oBinding.attachEventOnce('dataReceived', function() {
-                    oSource.suggest();
-                    });
-            */
-               // oGlobalBusyDialog.close();
+                /*
+                aFilters = [];
+                aFilters.push(new Filter({
+                    filters: [
+                        new Filter("ID", FilterOperator.Contains, sTerm),
+                        new Filter("name", FilterOperator.Contains, sTerm)
+                        ],
+                        and: false
+                        }));
+                        
+                var oSource = oEvent.getSource();
+                var oBinding = oSource.getBinding('suggestionItems');
+                oBinding.filter(aFilters);
+                oBinding.attachEventOnce('dataReceived', function() {
+                oSource.suggest();
+                });
+        */
+                // oGlobalBusyDialog.close();
             }
             /*
                 var url = "/v2/cpi-api/FODepartment?$top=20&$filter=startswith(externalCode,'" + sTerm + "') eq true or startswith(name_ja_JP,'" + sTerm + "') eq true or startswith(name,'" + sTerm + "')";
@@ -598,55 +598,55 @@ sap.ui.define([
             }
         },
         onSuggestLocation: async function () {
-           // var sTerm = oEvent.getParameter("suggestValue");
+            // var sTerm = oEvent.getParameter("suggestValue");
             //var aFilters = [];
             //aFilters.push(new Filter("status", FilterOperator.EQ, 'A'));
             this.getModel('oData').read("/FOLocation",
-            {
-                async: true,
-                urlParameters: {
-                   // "$top": 20,
-                  //  "test": "((substringof('"+ sTerm + "',externalCode) or substringof('" + sTerm + "',name)) and status eq 'A'"
-                },
-                filters: aFilters,
-                success: function (sData, sResult) {
-                    var mModel = this.getView().getModel('filter');
-                    var mData = mModel.getData();
-                    mData.location = [];
-                    let desc;
-                    for (var i = 0; i < sData.results.length; i++) {
-                        switch (this.getLocale()) {
-                            case "JA":
-                                desc = (sData.results[i].name_ja_JP !== null) ? sData.results[i].name_ja_JP : sData.results[i].name;
-                                break;
-                            case "EN":
-                                desc = (sData.results[i].name_en_US !== null) ? sData.results[i].name_en_US : sData.results[i].name;
-                                break;
-                            default:
-                                desc = sData.results[i].name;
-                                break;
+                {
+                    async: true,
+                    urlParameters: {
+                        // "$top": 20,
+                        //  "test": "((substringof('"+ sTerm + "',externalCode) or substringof('" + sTerm + "',name)) and status eq 'A'"
+                    },
+                    filters: aFilters,
+                    success: function (sData, sResult) {
+                        var mModel = this.getView().getModel('filter');
+                        var mData = mModel.getData();
+                        mData.location = [];
+                        let desc;
+                        for (var i = 0; i < sData.results.length; i++) {
+                            switch (this.getLocale()) {
+                                case "JA":
+                                    desc = (sData.results[i].name_ja_JP !== null) ? sData.results[i].name_ja_JP : sData.results[i].name;
+                                    break;
+                                case "EN":
+                                    desc = (sData.results[i].name_en_US !== null) ? sData.results[i].name_en_US : sData.results[i].name;
+                                    break;
+                                default:
+                                    desc = sData.results[i].name;
+                                    break;
+                            }
+                            mData.location.push({
+                                "ID": sData.results[i].externalCode,
+                                "name": desc
+                            });
                         }
-                        mData.location.push({
-                            "ID": sData.results[i].externalCode,
-                            "name": desc
-                        });
+                        /*
+                                                 mData.department = sData.results.map(item => {
+                                                     return {
+                                                         "ID": item.externalCode,
+                                                         "name": item.name
+                                                     };
+                                                 });
+                                                 */
+                        mModel.setData(mData);
+                        // this.oGlobalBusyDialog.close();
+                    }.bind(this),
+                    error: function (sData, sResult) {
+                        console.log(sData);
+                        // this.oGlobalBusyDialog.close();
                     }
-                    /*
-                                             mData.department = sData.results.map(item => {
-                                                 return {
-                                                     "ID": item.externalCode,
-                                                     "name": item.name
-                                                 };
-                                             });
-                                             */
-                    mModel.setData(mData);
-                   // this.oGlobalBusyDialog.close();
-                }.bind(this),
-                error: function (sData, sResult) {
-                    console.log(sData);
-                   // this.oGlobalBusyDialog.close();
-                }
-            });
+                });
 
         },
         asyncAjax: async function (sUrl) {
@@ -741,13 +741,21 @@ sap.ui.define([
         onNext: function () {
             var fData = this.getView().getModel('filter').getData();
             var oFilters = this._builFilters(fData.filter);
-            this._onOdataCall('EmployeeJobs', oFilters, this._sCount, fData.currentPage * this._sCount);
+            if (fData.currentPage === fData.totalPage - 1) {
+                this.byId("bNext").setEnabled(false);
+            }
+               // console.log(fData.currentPage < fData.totalPage, fData.currentPage , fData.totalPage  );
+                this._onOdataCall('EmployeeJobs', oFilters, this._sCount, fData.currentPage * this._sCount);
+
+            
         },
         onPrevious: function () {
             var fData = this.getView().getModel('filter').getData();
             var oFilters = this._builFilters(fData.filter);
-            this._onOdataCall('EmployeeJobs', oFilters, this._sCount, (fData.currentPage - 2) * this._sCount);
-            fData.currentPage = fData.currentPage - 2;
+            if (fData.currentPage > 1) {
+                this._onOdataCall('EmployeeJobs', oFilters, this._sCount, (fData.currentPage - 2) * this._sCount);
+                fData.currentPage = fData.currentPage - 2;
+            }
         },
         //################ Private APIs ###################
 

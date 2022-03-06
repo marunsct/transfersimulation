@@ -1,6 +1,12 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:cust="initiator.control" controllerName="transferapproval.controller.TransferList" id="TransferList" width="">
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:cust="initiator.control" controllerName="transferapproval.controller.TransferList" id="TransferList" width="">
 
-    <VBox id="vbox1" >
+    <VBox id="vbox1">
         <items>
 
             <fb:FilterBar id="filterbar0" search=".onSearch" clear=".onClear" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="false" class="filterBackground">
@@ -9,7 +15,7 @@
                         <fb:control>
                             <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'filter>/filter/department', type: 'sap.ui.model.type.String' }" showSuggestion="true" id="fDepartment" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
                                 <suggestionItems>
-                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
+                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
                                 </suggestionItems>
                             </Input>
 
@@ -19,7 +25,7 @@
                         <fb:control>
                             <Input value="{filter>/filter/EmploymentClass}" showSuggestion="true" id="fEmploymentClass" suggest=".onSuggestClass" suggestionItems="{filter>/EmploymentClass}">
                                 <suggestionItems>
-                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
+                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
                                 </suggestionItems>
                             </Input>
                         </fb:control>
@@ -29,7 +35,7 @@
 
                             <Input value="{filter>/filter/EmploymentType}" suggestionItems="{filter>/EmploymentType}" showSuggestion="true" suggest=".onSuggestType">
                                 <suggestionItems>
-                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
+                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
                                 </suggestionItems>
                             </Input>
                         </fb:control>
@@ -38,7 +44,7 @@
                         <fb:control>
                             <Input value="{filter>/filter/location}" suggestionItems="{filter>/location}" showSuggestion="true" suggest=".onSuggestLoc">
                                 <suggestionItems>
-                                    <core:Item text="{filter>name}"/>
+                                    <core:Item text="{filter>name}" />
                                 </suggestionItems>
                             </Input>
                         </fb:control>
@@ -48,7 +54,7 @@
 
                             <Input value="{filter>/filter/position}" suggestionItems="{filter>/position}" showSuggestion="true" suggest=".onSuggestPosition">
                                 <suggestionItems>
-                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
+                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
                                 </suggestionItems>
                             </Input>
                         </fb:control>
@@ -57,80 +63,88 @@
             </fb:FilterBar>
             <IconTabBar id="idIconTabBar" select=".onFilterSelect" class="sapUiResponsivePadding--header sapUiResponsivePadding--content">
                 <items>
-                    <IconTabFilter showAll="true" count="14" text="Total Transfers" key="All"/>
-                    <IconTabSeparator/>
-                    <IconTabFilter class="iconPositive sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://future" iconColor="Critical" count="8" text="Pending for Approval" key="pending" iconDensityAware="false"/>
-                    <IconTabFilter class="iconPositive sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://sys-enter" iconColor="Positive" count="4" text="Approved" key="approved"/>
-                    <IconTabFilter class="iconNegative sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://sys-cancel" iconColor="Negative" count="2" text="Rejected" key="rejected"/>
+                    <IconTabFilter showAll="true" count="14" text="Total Transfers" key="All" />
+                    <IconTabSeparator />
+                    <IconTabFilter class="iconPositive sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://future" iconColor="Critical" count="8" text="Pending for Approval" key="pending" iconDensityAware="false" />
+                    <IconTabFilter class="iconPositive sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://sys-enter" iconColor="Positive" count="4" text="Approved" key="approved" />
+                    <IconTabFilter class="iconNegative sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://sys-cancel" iconColor="Negative" count="2" text="Rejected" key="rejected" />
                 </items>
                 <content>
-                    <ScrollContainer id="sc1" width="100%" height="{OP>/height}"  horizontal="false" vertical="true" focusable="true" class="container">
+                    <ScrollContainer id="sc1" width="100%" height="{OP>/height}" horizontal="false" vertical="true" focusable="true" class="container">
 
                         <content>
                             <Table id="TransferReqTable" inset="false" showSeparators="Inner" items="{data>/TransferReq}" mode="MultiSelect" sticky="HeaderToolbar,ColumnHeaders" updateFinished="onLoad" selectionChange="onSelection">
 
                                 <columns>
                                     <Column>
-                                        <Text text="Employee Id"/>
+                                        <Text text="Employee Id" />
                                     </Column>
                                     <Column minScreenWidth="Tablet" demandPopin="true">
-                                        <Text text="Name"/>
+                                        <Text text="Name" />
                                     </Column>
                                     <Column>
-                                        <Text text="Department"/>
+                                        <Text text="Department" />
                                     </Column>
                                     <Column id="column5">
                                         <header>
-                                            <Text text="Employement Type" id="text18"/>
+                                            <Text text="Employement Type" id="text18" />
                                         </header>
                                     </Column>
                                     <Column id="column6">
                                         <header>
-                                            <Text text="Supervisor" id="text19"/>
+                                            <Text text="Supervisor" id="text19" />
                                         </header>
                                     </Column>
                                     <Column id="column7" width="6rem">
-                                        <Text text="Eligibility"/>
+                                        <Text text="Eligibility" />
 
                                     </Column>
                                     <Column id="column8">
-                                        <Text text="Current Position"/>
+                                        <Text text="Current Position" />
 
                                     </Column>
                                     <Column id="column9">
-                                        <Text text="Assigned Position"/>
+                                        <Text text="Assigned Position" />
 
                                     </Column>
                                     <Column id="column10" width="15rem">
-                                        <Text text="Comments"/>
+                                        <Text text="Comments" />
 
                                     </Column>
                                     <Column id="column11" width="3rem">
-                                        <Text text=""/>
+                                        <Text text="" />
 
                                     </Column>
                                 </columns>
                                 <items>
                                     <ColumnListItem>
                                         <cells>
-                                            <Text text="{data>employeeid}"/>
-                                            <Text text="{data>name}"/>
-                                            <Text text="{data>department}" id="text12"/>
-                                            <Text text="{data>employmentType}" id="text13"/>
-                                            <Text text="{data>supervisor}" id="text14"/>
-                                            <ObjectStatus state="{=${data>eliginility} !== 'warning' ? 'Success' : 'Warning' }" id="status0" icon="{=${data>eliginility} !== 'warning' ? 'sap-icon://sys-enter' : 'sap-icon://warning' }"/>
-                                            <Text text="{data>currentpos}" id="text016"/>
-                                            <Text text="{data>newpos}" id="text16"/>
+                                            <Text text="{data>employeeid}" />
+                                            <Text text="{data>name}" />
+                                            <Text text="{data>department}" id="text12" />
+                                            <Text text="{data>employmentType}" id="text13" />
+                                            <Text text="{data>supervisor}" id="text14" />
+                                            <ObjectStatus state="{=${data>eliginility} !== 'warning' ? 'Success' : 'Warning' }" id="status0" icon="{=${data>eliginility} !== 'warning' ? 'sap-icon://sys-enter' : 'sap-icon://warning' }" />
+                                            <Text text="{data>currentpos}" id="text016" />
+                                            <Text text="{data>newpos}" id="text16" />
                                             <!--Input text="{data>comments}" id="input3" class="tableInput"/-->
-                                            <TextArea value="" id="area0" height="2.5rem" rows="4" width="14.5rem" enabled="{=${data>Status} === 'Pending'}"/>
-                                            <Button id="button1_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress"/>
+                                            <TextArea value="" id="area0" height="2.5rem" rows="4" width="14.5rem" enabled="{=${data>Status} === 'Pending'}" />
+                                            <Button id="button1_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress" />
                                         </cells>
                                     </ColumnListItem>
                                 </items>
                                 <headerToolbar>
                                     <OverflowToolbar class="container" width="100%" id="toolbar1_1646235762452">
                                         <content>
-                                            <Title text="Requests for Approval" id="title5"/>
+                                            <Title text="Requests for Approval" id="title5" />
+                                            <ToolbarSpacer id="spacer01" />
+                                            <SearchField placeholder="Search for Employee’s" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />
+                                            <Button id="button0" icon="sap-icon://sort" press="handleSortButtonPressed" />
+                                            <!-- <Button id="button0_1579056670196" press="onNavtoDetail" text="{i18n>tbnew}"/>
+                                            
+                                            <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings" />
+                                            <Button id="button3" icon="sap-icon://refresh" press="onTablePersoRefresh" />  -->
+                                            <Button id="button4" icon="sap-icon://excel-attachment" press="onExport" enabled="false" class="sapUiLargeMarginEnd" />
                                         </content>
                                     </OverflowToolbar>
                                 </headerToolbar>
@@ -140,10 +154,10 @@
                     </ScrollContainer>
                     <OverflowToolbar width="auto" id="toolbar1" class="barBackground sapThemeHighlight-asBorderColor sapUiForceWidthAuto sapUiContentPadding" height="auto" design="Solid">
                         <content>
-                            <Text text="{= ${OP>/selectedCount} + ' Requests Selected'}" id="text3_1644219675795" class="sapUiMediumMarginBegin sapThemeLightText footerText"/>
-                            <ToolbarSpacer id="spacer1"/>
-                            <Button press="_onPageNavButtonPress" text="Approve" id="button0_1644211420374" class="sapUiSmallMarginEnd" icon="sap-icon://sys-enter-2" type="Accept"/>
-                            <Button text="Reject" id="button1" class="sapUiMediumMarginEnd" icon="sap-icon://sys-cancel-2" type="Reject" press="_onTableItemPress"/>
+                            <Text text="{= ${OP>/selectedCount} + ' Requests Selected'}" id="text3_1644219675795" class="sapUiMediumMarginBegin sapThemeLightText footerText" />
+                            <ToolbarSpacer id="spacer1" />
+                            <Button press="onAccept" text="Approve" id="button0_1644211420374" class="sapUiSmallMarginEnd" icon="sap-icon://sys-enter-2" type="Accept" />
+                            <Button text="Reject" id="button1" class="sapUiMediumMarginEnd" icon="sap-icon://sys-cancel-2" type="Reject" press="onReject" />
                         </content>
                     </OverflowToolbar>
                 </content>

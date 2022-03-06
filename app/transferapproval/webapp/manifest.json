@@ -122,7 +122,7 @@
                 "viewPath": "transferapproval.view",
                 "controlAggregation": "content",
                 "controlId": "page",
-                "clearControlAggregation": false
+                "clearControlAggregation": true
             },
             "routes": [
                 {
@@ -138,7 +138,29 @@
                     "target": [
                         "TransferList"
                     ]
+                },
+                {
+                    "pattern": "TransferDetail/{ID}",
+                    "name": "TransferDetail",
+                    "target": [
+                        "TransferDetail"
+                    ]
+                },
+                {
+                    "pattern": "OpenPositions/{ID}",
+                    "name": "OpenPositions",
+                    "target": [
+                        "OpenPositions"
+                    ]
+                },
+                {
+                    "pattern": "EmployeeProfile/{ID}",
+                    "name": "EmployeeProfile",
+                    "target": [
+                        "EmployeeProfile"
+                    ]
                 }
+                
             ],
             "targets": {
                 "TargetView1": {
@@ -154,7 +176,29 @@
                     "viewId": "TransferList",
                     "viewLevel": 1,
                     "transition": "slide"
+                },
+                "TransferDetail": {
+                    "controlAggregation": "content",
+                    "viewName": "TransferDetail",
+                    "viewId": "TransferDetail",
+                    "viewLevel": 2,
+                    "transition": "slide"
+                },
+                "OpenPositions": {
+                    "controlAggregation": "content",
+                    "viewName": "OpenPositions",
+                    "viewId": "OpenPositions",
+                    "viewLevel": 3,
+                    "transition": "slide"
+                },
+                "EmployeeProfile": {
+                    "controlAggregation": "content",
+                    "viewName": "EmployeeProfile",
+                    "viewId": "EmployeeProfile",
+                    "viewLevel": 3,
+                    "transition": "slide"
                 }
+                
             }
         }
     }

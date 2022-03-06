@@ -90,3 +90,20 @@
 .sapMListTbl {
     border: 0.5px solid #e1dfdf;
 }
+.performanceContainer{
+    width: -webkit-fill-available;
+}
+
+.sapFDynamicPageTitleMain>.sapFDynamicPageTitleMainInner .sapFDynamicPageTitleMainHeading {
+    width: -webkit-fill-available;
+}
+.sapFDynamicPageTitleMain>.sapFDynamicPageTitleMainInner .sapFDynamicPageTitleMainHeading .sapFDynamicPageTitleMainHeadingInner {
+   
+    width: -webkit-fill-available;
+}
+.sapUiSizeCompact .sapMTB.sapMTBHeader-CTX {
+    padding: 0px;
+}
+.sapMIBar.sapMTB .sapMBarChild {
+    margin-left: 0;
+}

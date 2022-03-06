@@ -1,12 +1,4 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc"
-    xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns="sap.m"
-    xmlns:core="sap.ui.core"
-    xmlns:layout="sap.ui.layout"
-    xmlns:f="sap.f"
-    xmlns:fb="sap.ui.comp.filterbar"
-    xmlns:cust="initiator.control"
-    xmlns:dnd="sap.ui.core.dnd" controllerName="initiator.controller.EmployeeList" id="EmployeeList" displayBlock="false">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:cust="initiator.control" xmlns:dnd="sap.ui.core.dnd" controllerName="initiator.controller.EmployeeList" id="EmployeeList" displayBlock="false">
 
 
 
@@ -70,12 +62,12 @@
                     </fb:FilterGroupItem>
                 </fb:filterGroupItems>
             </fb:FilterBar>
-            <VBox width="100%" id="vbox0" justifyContent="Center" class="container">
+            <VBox width="100%" id="vbox0" justifyContent="SpaceAround" class="container" alignContent="SpaceAround" alignItems="Inherit">
                 <items>
                     <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="true" includeItemInSelection="true" growingThreshold="15" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" itemPress="" alternateRowColors="false" width="auto" class="sapUiForceWidthAuto sapUiMediumMarginBeginEnd">
 
                         <items>
-                            <ColumnListItem type="Active" id="item0_copy_table0_0" vAlign="Middle">
+                            <ColumnListItem type="Active" id="item0_copy_table0_0" vAlign="Middle" highlight="Error">
                                 <cells>
                                     <!--
                                             <f:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg" displaySize="S" showBorder="true" press="_onAvatarPress1" initials="{parts:[ {path: 'OP>First_Name'}, {path: 'OP>Last_Name'}, 'true' ], formatter:'.avatarInitialsFormatter'}"/>

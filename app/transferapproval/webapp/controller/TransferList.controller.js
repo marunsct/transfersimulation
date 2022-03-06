@@ -19,7 +19,8 @@ sap.ui.define([
                 try {
                     var sPath = jQuery.sap.getModulePath("transferapproval", "/controller/Data.json");
                     var oModel = new sap.ui.model.json.JSONModel(sPath);
-
+                     //var oData = oModel.getData();
+                     //oData.
                     // Load JSON in model
                     this.getView().setModel(oModel, "data");
 
@@ -139,11 +140,21 @@ sap.ui.define([
                 oData.selectedCount = oEvent.getSource().getSelectedItems().length;
                 oModel.setData(oData);
             },
+            _onTableItemPress: function(oEvent){
+                var sId = oEvent.getSource().getBindingContext("data").getProperty("employeeid");
+                this.oRouter.navTo("TransferDetail", {   
+                        ID: sId }, false);
+            },
             onAfterRendering: function () {
                 var tbl = this.getView().byId('TransferReqTable');
                 var header = tbl.$().find('thead');
                 var selectAllCb = header.find('.sapMCb');
+                var selectedKey = tbl.getParent().getParent().getSelectedKey();
+                if (selectedKey !== 'pending'){
                 sap.ui.getCore().byId(selectAllCb.attr('id')).setEnabled(false);
+            }else{
+                sap.ui.getCore().byId(selectAllCb.attr('id')).setEnabled(true);
+            }
             }
         });
     });

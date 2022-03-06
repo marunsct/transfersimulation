@@ -1,0 +1,667 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:ng="sap.suite.ui.commons.networkgraph" xmlns:nglayout="sap.suite.ui.commons.networkgraph.layout" xmlns:commons="sap.suite.ui.commons" xmlns:dnd="sap.ui.core.dnd" controllerName="transferapproval.controller.TransferDetail" id="TransferDetail" displayBlock="false">
+
+
+    <VBox fitContainer="true" justifyContent="Center" alignContent="Center">
+        <items>
+            <HBox class="employeeHeader" alignItems="Start" alignContent="SpaceBetween">
+                <items>
+                    <HBox alignItems="Center" class="sapUiSmallMarginBottom sapUiSmallMarginEnd">
+                        <items>
+                            <Button class="naviButton" id="button0_1643608506867" type="Up" width="3rem" press="_onPageNavButtonPress"/>
+
+                            <f:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg" displaySize="L" showBorder="true" id="avatar1"/>
+
+                            <VBox direction="Column" id="vbox2" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+
+                                <items>
+
+                                    <Title text="Employee Name ( 00000856 )" id="title6" titleStyle="H3" class="sapUiSmallMarginTop"/>
+
+                                    <HBox id="hbox0_1643611770017" class="sapUiSmallMarginTopBottom" alignItems="Center">
+
+                                        <items>
+
+                                            <Text text="Software Developer" id="text9"/>
+
+                                            <Text text="|" id="text10" class="sapUiSmallMarginBeginEnd"/>
+
+                                            <Link text="View profile" id="link0" press="onViewProfile"/>
+
+                                        </items>
+
+
+
+                                    </HBox>
+
+                                </items>
+
+
+
+                            </VBox>
+                        </items>
+                    </HBox>
+
+
+
+                    <HBox alignItems="Center" wrap="Wrap" class="sapUiSmallMarginTopBottom  sapUiSmallMarginEnd" justifyContent="SpaceBetween">
+                        <items>
+
+                            <HBox id="hbox0_1643951932490" class="sapUiSmallMarginTop" width="310px" justifyContent="SpaceBetween">
+
+                                <items>
+
+                                    <VBox width="auto" id="hbox0_16" wrap="Wrap" alignItems="Start" class="sapUiSmallMarginEnd">
+
+                                        <items>
+
+                                            <Label text="Department :" width="100%" id="label0_1643626362769"/>
+
+                                            <Label text="Location :" width="100%" id="label1_1643626384196" class=""/>
+
+                                            <Label text="Supervisor :" width="100%" id="label0_1643626362769_copy"/>
+                                            <Label text="Employement Type :" width="100%" class=""/>
+
+                                        </items>
+
+
+
+                                    </VBox>
+
+                                    <VBox width="auto" id="vbox3" class="sapUiSmallMarginEnd" alignItems="Start" wrap="Wrap">
+
+                                        <items>
+
+                                            <Text text="Description " id="text15" class="textLable"/>
+
+                                            <Text text="Location 1" id="text16" class="textLable"/>
+
+                                            <Text text="Description" id="text15_copy" class="textLable"/>
+                                            <Text text="Employement Type ABC" id="jk" class="textLable" maxLines="1"/>
+
+                                        </items>
+
+                                    </VBox>
+
+                                </items>
+
+                            </HBox>
+
+                            <HBox direction="Row" id="vbox2_1643626264149_copy3" width="310px" class="sapUiSmallMarginTop" justifyContent="SpaceBetween">
+
+                                <items>
+
+                                    <VBox width="auto" id="hbox0_16_copy4" alignContent="Inherit" wrap="Wrap" alignItems="Start" class="sapUiSmallMarginEnd">
+
+                                        <items>
+
+                                            <Label text="Class : " width="100%" id="label1_1643626384196_copy" wrapping="false"/>
+                                            <Label text="Hire Date : " width="100%" id="label1_1643626384196_copy2" class="" wrapping="false"/>
+                                            <Label text="Prev Department :" width="100%" class="" wrapping="false"/>
+                                            <Label text="Last Transfer :" width="100%" class="" wrapping="false"/>
+
+                                        </items>
+
+                                    </VBox>
+
+                                    <VBox id="hbox0_16_copy" alignContent="Start" wrap="Wrap" class="sapUiSmallMarginEnd">
+
+                                        <items>
+
+                                            <Text text="Employee Class" id="text16_copy" class="textLable"/>
+
+                                            <Text text="DD/MM/YYYY" class="textLable"/>
+
+                                            <Text text="Department  Name" id="text16_copy2" class="textLable"/>
+
+                                            <Text text="DD/MM/YYYY" class="textLable"/>
+
+
+                                        </items>
+
+                                    </VBox>
+
+                                </items>
+
+
+
+                            </HBox>
+                            <VBox width="310px" class="sapUiSmallMarginTop" direction="Column" id="vbox02" alignContent="Center" alignItems="Start" justifyContent="Center">
+
+                                <items>
+                                    <Text text="Contact Information :" id="text009" class="textLable"/>
+                                    <HBox class="">
+                                        <core:Icon src="sap-icon://outgoing-call" class="sapUiTinyMarginTop"/>
+                                        <Link text=" +1 234 5678" class="sapUiSmallMarginBegin"/>
+                                    </HBox>
+
+                                    <HBox>
+                                        <core:Icon src="sap-icon://email" class="sapUiTinyMarginTop"/>
+                                        <Link text="john.miller@company.com" class="sapUiSmallMarginBegin"/>
+                                    </HBox>
+
+                                </items>
+
+                            </VBox>
+                            <VBox width="310px" id="hbox0_16_copy3" alignItems="Start" alignContent="Start" wrap="Wrap" class="sapUiSmallMarginTop">
+                                <items>
+                                    <Label text="Performance after previous Transfer : " width="100%" id="label0_1643626362769_copy3" class="textLable"/>
+                                    <HBox direction="Row" id="vbox2_1643626264149_copy6" class="sapUiTinyMarginTop performanceContainer" alignItems="Start" alignContent="Start" justifyContent="SpaceBetween">
+
+                                        <items>
+
+                                            <VBox direction="Column" id="vbox2_1643951732334" alignItems="Center" class="">
+
+                                                <items>
+
+                                                    <HBox width="30px" id="hp4" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+
+                                                        <items>
+
+                                                            <Text text="A" id="p3_copy"/>
+
+
+
+                                                        </items>
+
+
+
+                                                    </HBox>
+
+                                                    <Text text="2018" id="text15_1643951750049"/>
+
+                                                </items>
+
+                                            </VBox>
+
+                                            <VBox direction="Column" id="vbox2_1643951732334_copy" alignItems="Center" alignContent="Center" justifyContent="Center" class="">
+
+                                                <items>
+
+                                                    <HBox width="30px" id="hp3" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+
+                                                        <items>
+
+                                                            <Text text="B" id="p3"/>
+
+
+
+                                                        </items>
+
+
+
+                                                    </HBox>
+
+
+                                                    <Text text="2019" id="text15_1643951750049_copy"/>
+
+                                                </items>
+
+
+
+                                            </VBox>
+
+                                            <VBox class="" direction="Column" id="vbox2_1643951732334_copy2" alignItems="Center">
+
+                                                <items>
+
+                                                    <HBox width="30px" id="hp2" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+
+                                                        <items>
+
+                                                            <Text text="C" id="p3_copy2"/>
+
+
+
+                                                        </items>
+
+
+
+                                                    </HBox>
+
+                                                    <Text text="2020" id="text15_1643951750049_copy2"/>
+
+                                                </items>
+
+
+
+                                            </VBox>
+
+                                            <VBox class="" direction="Column" id="vbox2_1643951732334_copy3" alignItems="Center">
+
+                                                <items>
+
+                                                    <HBox width="30px" id="hp1" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+
+                                                        <items>
+
+                                                            <Text text="B" id="p3_copy3"/>
+
+
+
+                                                        </items>
+
+
+
+                                                    </HBox>
+
+                                                    <Text text="2021" id="text15_1643951750049_copy3"/>
+
+                                                </items>
+
+
+
+                                            </VBox>
+
+                                            <VBox class="" direction="Column" id="vbox2_1643951732334_copy4" alignItems="Center">
+
+                                                <items>
+
+                                                    <HBox width="30px" id="hp0" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+
+                                                        <items>
+
+                                                            <Text text="D" id="p3_copy4"/>
+
+
+
+                                                        </items>
+
+
+
+                                                    </HBox>
+
+                                                    <Text text="2022" id="text15_1643951750049_copy4"/>
+
+                                                </items>
+
+
+
+                                            </VBox>
+
+                                        </items>
+
+                                    </HBox>
+                                </items>
+
+                            </VBox>
+                            <!--FlexBox wrap="Wrap" fitContainer="true" alignItems="Center" class="employeeHeader">
+                    </FlexBox -->
+                        </items>
+                    </HBox>
+                </items>
+            </HBox>
+            <IconTabBar id="idIconTabBarNoIcons" class="sapUiResponsiveContentPadding" headerMode="Inline">
+                <items>
+                    <IconTabFilter text="Request Details" key="info">
+                        <content>
+                            <Table id="table0" items="{data1>/TransferReq1}" fixedLayout="true" includeItemInSelection="false" width="auto" class="sapUiForceWidthAuto" growing="true" backgroundDesign="Transparent">
+                                <items>
+                                    <ColumnListItem type="Active" id="item0_copy_table0_0">
+                                        <cells>
+                                            <Text text="{data1>employeeid}" id="text004_copy_table0_0" wrapping="true"/>
+                                            <Text text="{data1>name}" id="text04_copy_table0_0" wrapping="true"/>
+                                            <ObjectStatus state="{=${data1>eliginility} !== 'warning' ? 'Success' : 'Warning' }" id="status0" icon="{=${data1>eliginility} !== 'warning' ? 'sap-icon://sys-enter-2' : 'sap-icon://warning-2' }"/>
+                                            <Text text="{data1>eliginility}" id="text4_copy_table0_0" wrapping="true"/>
+                                            <Text text="{data1>currentpos}" id="text5_copy_table0_0" wrapping="true"/>
+                                            <HBox alignContent="Center" alignItems="Center">
+                                                <items>
+                                                    <Text text="{data1>newpos}"/>
+                                                    <Button class="tableButton" id="button0_1646328264363" press="editPosition" icon="sap-icon://edit" iconFirst="false" type="Ghost"/>
+                                                </items>
+                                            </HBox>
+                                            <Text text="Director / HR" id="text7_copy_table0_0" wrapping="true"/>
+                                            <TextArea value="" rows="3" id="area0"/>
+                                        </cells>
+
+                                    </ColumnListItem>
+
+                                </items>
+                                <columns>
+                                    <Column id="column0" minScreenWidth="Phone" popinDisplay="Inline">
+                                        <header>
+                                            <Label id="label0" text="Employee Id" wrapping="true"/>
+
+                                        </header>
+
+                                    </Column>
+                                    <Column id="column1" minScreenWidth="Phone">
+                                        <header>
+                                            <Label text="Name" id="label1" wrapping="true" class="columnHeader"/>
+
+                                        </header>
+
+                                    </Column>
+                                    <Column id="column2" minScreenWidth="Phone" width="5rem">
+                                        <header>
+                                            <Label text="Eligibility" id="label2" wrapping="true"/>
+
+                                        </header>
+
+                                    </Column>
+                                    <Column id="column3" minScreenWidth="Tablet" popinDisplay="Inline">
+                                        <header>
+                                            <Label text="Eligibility Remarks" id="label3" wrapping="true"/>
+
+                                        </header>
+
+                                    </Column>
+                                    <Column id="column4" minScreenWidth="Tablet">
+                                        <header>
+                                            <Label text="Current Position" id="label4" wrapping="true"/>
+
+                                        </header>
+
+                                    </Column>
+                                    <Column id="column5" minScreenWidth="Tablet" popinDisplay="Inline">
+                                        <header>
+                                            <Label text="Assigned Position" id="label5" wrapping="true"/>
+
+                                        </header>
+
+                                    </Column>
+                                    <Column id="column6" minScreenWidth="Tablet">
+                                        <header>
+                                            <Label text="Initiated By" id="label6" wrapping="true"/>
+
+                                        </header>
+
+                                    </Column>
+                                    <Column id="column0_1646327507779" width="15rem">
+                                        <header>
+                                            <Text text="Comments" id="text12"/>
+                                        </header>
+                                    </Column>
+                                </columns>
+                                <headerToolbar>
+                                    <OverflowToolbar width="100%" id="toolbar2" class="sapUiLargeMarginEnd container">
+                                        <content>
+                                            <Title text="Transfer Request For Approval" id="text06" level="H3" class="titleText"/>
+                                            <ToolbarSpacer id="spacer2"/>
+                                            <!-- <Button id="button0_1579056670196" press="onNavtoDetail" text="{i18n>tbnew}"/> -->
+                                        </content>
+
+                                    </OverflowToolbar>
+
+                                </headerToolbar>
+                            </Table>
+                            <OverflowToolbar width="auto" id="toolbar1" class="barBackground sapThemeHighlight-asBorderColor sapUiForceWidthAuto sapUiSmallMarginBottom sapUiContentPadding" height="auto" design="Solid">
+                                <content>
+
+                                    <ToolbarSpacer id="spacer1"/>
+                                    <Button press="_onPageNavButtonPress" text="Back" id="button0_1644211420374" class="sapUiSmallMarginEnd" icon="sap-icon://navigation-left-arrow"/>
+                                    <Button press="onAccept" text="Approve" id="button0_16411420374" class="sapUiSmallMarginEnd" icon="sap-icon://sys-enter-2" type="Accept"/>
+                                    <Button text="Reject" id="buttonn1" class="sapUiMediumMarginEnd" icon="sap-icon://sys-cancel-2" type="Reject" press="onReject"/>
+                                </content>
+
+                            </OverflowToolbar>
+                        </content>
+                    </IconTabFilter>
+                    <IconTabFilter text="Transfermap" key="attachments">
+                        <content>
+
+                            <ng:Graph enableWheelZoom="false" orientation="LeftRight" nodes="{graph>/nodes}" lines="{graph>/lines}" layout="Layered" status="Success" id="graph">
+                                <ng:layoutAlgorithm>
+                                    <nglayout:LayeredLayout mergeEdges="true" nodePlacement="Simple" nodeSpacing="140"/>
+                                </ng:layoutAlgorithm>
+                                <ng:nodes>
+                                    <ng:Node icon="" key="{graph>id}" collapsed="{graph>collapsed}" attributes="{graph>attributes}" showActionLinksButton="false" showDetailButton="false" descriptionLineSize="0" shape="Box">
+                                        <ng:customData>
+                                            <core:CustomData key="supervisor" value="{graph>supervisor}"/>
+                                            <core:CustomData key="team" value="{graph>team}"/>
+                                            <core:CustomData key="location" value="{graph>location}"/>
+                                            <core:CustomData key="position" value="{graph>position}"/>
+                                            <core:CustomData key="team" value="{graph>team}"/>
+                                            <core:CustomData key="email" value="{graph>email}"/>
+                                            <core:CustomData key="phone" value="{graph>phone}"/>
+                                            <core:CustomData key="src" value="{graph>src}"/>
+                                        </ng:customData>
+                                        <ng:attributes>
+                                            <ng:ElementAttribute label="{graph>label}" value="{graph>value}"/>
+                                        </ng:attributes>
+                                        <!--ng:image> description="{graph>title}" title="{graph>title}" width="90"
+                                            <ng:NodeImage src="{graph>src}" width="80" height="100"/>
+
+                                        </ng:image -->
+                                        <ng:content>
+                                            <VBox direction="Column" id="vbox1" height="300px" width="200px" class="cardBorder" alignContent="SpaceBetween" justifyContent="SpaceBetween">
+                                                <items>
+                                                    <VBox direction="Column" id="vbox1_1646391389864" class="cardHeader" width="200px">
+                                                        <items>
+                                                            <Title xmlns="sap.m" text="Denis Smith" id="title0" class="sapUiSmallMarginTop sapUiTinyMarginBegin nodeTitle"/>
+                                                            <Text xmlns="sap.m" text="Employee id: 10002" id="text3" class="sapUiSmallMarginBottom sapUiTinyMarginBegin nodeTitle"/>
+                                                        </items>
+                                                    </VBox>
+                                                    <VBox direction="Column" id="vbox2_1646391516312">
+                                                        <items>
+                                                            <Text xmlns="sap.m" text="Senior Program Manager" id="text4" class="sapUiTinyMarginBegin"/>
+                                                            <Text xmlns="sap.m" text="( P10004 )" id="text5" class="sapUiTinyMarginBegin"/>
+                                                        </items>
+                                                    </VBox>
+                                                    <VBox direction="Column" id="vbox2_16463915112" alignItems="Center" class="sapUiSmallMarginBottom">
+                                                        <items>
+                                                            <Image src="{graph>src}" width="140px" height="140px" id="image0"/>
+                                                        </items>
+                                                    </VBox>
+                                                </items>
+                                            </VBox>
+                                        </ng:content>
+                                    </ng:Node>
+
+                                </ng:nodes>
+                                <ng:lines>
+                                    <ng:Line from="{graph>from}" to="{graph>to}" arrowOrientation="ParentOf" arrowPosition="End" press="linePress"/>
+                                </ng:lines>
+                            </ng:Graph>
+                        </content>
+                    </IconTabFilter>
+                    <IconTabFilter text="Transfermap Flow" key="Flow">
+                        <content>
+                            <commons:ProcessFlow id="processflow" scrollable="false" nodePress="onNodePress" nodes="{graph>/nodes}" lanes="{graph>/lanes}">
+                                <commons:nodes>
+                                    <commons:ProcessFlowNode laneId="{graph>lane}" nodeId="{graph>lid}" children="{graph>children}" focused="{graph>focused}">
+                                        <commons:zoomLevelOneContent>
+                                            <VBox direction="Column" renderType="Bare" id="vbox111" alignContent="Center" justifyContent="Center">
+                                                <items>
+                                                    <Button text="" id="button5" icon="sap-icon://open-command-field" visible="{=${graph>visible} === false }" type="Transparent"/>
+                                                    <VBox direction="Column" renderType="Bare" id="vbox11" height="300px" width="200px" class="cardBorder" alignContent="SpaceBetween" visible="{graph>visible}" justifyContent="SpaceBetween">
+                                                        <items>
+                                                            <VBox direction="Column" id="vbox1_1646389864" class="cardHeader" width="100%">
+                                                                <items>
+                                                                    <Title xmlns="sap.m" text="Denis Smith" id="title110" class="sapUiSmallMarginTop sapUiTinyMarginBegin nodeTitle"/>
+                                                                    <Text xmlns="sap.m" text="Employee id: 10002" id="text31" class="sapUiSmallMarginBottom sapUiTinyMarginBegin nodeTitle"/>
+                                                                </items>
+                                                            </VBox>
+                                                            <VBox direction="Column" id="vbox2_1642">
+                                                                <items>
+                                                                    <Text xmlns="sap.m" text="Senior Program Manager" id="text41" class="sapUiTinyMarginBegin"/>
+                                                                    <Text xmlns="sap.m" text="( P10004 )" id="text51" class="sapUiTinyMarginBegin"/>
+                                                                </items>
+                                                            </VBox>
+                                                            <VBox direction="Column" id="vbox2_16463912" alignItems="Center" class="sapUiSmallMarginBottom">
+                                                                <items>
+                                                                    <Image src="{graph>src}" width="140px" height="140px" id="image10"/>
+                                                                </items>
+                                                            </VBox>
+
+                                                        </items>
+                                                    </VBox>
+                                                </items>
+                                            </VBox>
+                                        </commons:zoomLevelOneContent>
+                                        <commons:zoomLevelThreeContent>
+                                            <VBox direction="Column" renderType="Bare" id="vbox111_copy2" alignContent="Center" justifyContent="Center">
+
+                                                <items>
+
+                                                    <Button text="" id="button5_copy2" icon="sap-icon://open-command-field" visible="{=${graph>visible} === false }" type="Transparent"/>
+
+                                                    <VBox direction="Column" renderType="Bare" id="vbox11_copy5" height="300px" width="200px" class="cardBorder" visible="{graph>visible}" alignContent="SpaceBetween" justifyContent="SpaceBetween">
+
+                                                        <items>
+
+                                                            <VBox direction="Column" id="vbox1_1646389864_copy5" class="cardHeader" width="100%">
+
+                                                                <items>
+
+                                                                    <Title xmlns="sap.m" text="Denis Smith" id="title110_copy5" class="sapUiSmallMarginTop sapUiTinyMarginBegin nodeTitle"/>
+
+                                                                    <Text xmlns="sap.m" text="Employee id: 10002" id="text31_copy5" class="sapUiSmallMarginBottom sapUiTinyMarginBegin nodeTitle"/>
+
+                                                                </items>
+
+
+
+                                                            </VBox>
+
+                                                            <VBox direction="Column" id="vbox2_1642_copy5">
+
+                                                                <items>
+
+                                                                    <Text xmlns="sap.m" text="Senior Program Manager" id="text41_copy5" class="sapUiTinyMarginBegin"/>
+
+                                                                    <Text xmlns="sap.m" text="( P10004 )" id="text51_copy5" class="sapUiTinyMarginBegin"/>
+
+                                                                </items>
+
+
+
+                                                            </VBox>
+
+                                                            <VBox direction="Column" id="vbox2_16463912_copy5" alignItems="Center" class="sapUiSmallMarginBottom">
+
+                                                                <items>
+
+                                                                    <Image src="{graph>src}" width="140px" height="140px" id="image10_copy5"/>
+
+
+
+                                                                </items>
+
+
+
+                                                            </VBox>
+
+                                                        </items>
+
+
+
+                                                    </VBox>
+
+                                                </items>
+
+
+
+                                            </VBox>
+                                        </commons:zoomLevelThreeContent>
+                                        <commons:zoomLevelFourContent>
+                                                    <VBox direction="Column" renderType="Bare" id="vbox111_copy3" alignContent="Center" justifyContent="Center">
+
+                                                        <items>
+
+                                                            <Button text="" id="button5_copy3" icon="sap-icon://open-command-field" visible="{=${graph>visible} === false }" type="Transparent"/>
+
+                                                            <VBox direction="Column" renderType="Bare" id="vbox11_copy6" height="300px" visible="{graph>visible}" width="200px" class="cardBorder" alignContent="SpaceBetween" justifyContent="SpaceBetween">
+
+                                                                <items>
+
+                                                                    <VBox direction="Column" id="vbox1_1646389864_copy6" class="cardHeader" width="100%">
+
+                                                                        <items>
+
+                                                                            <Title xmlns="sap.m" text="Denis Smith" id="title110_copy6" class="sapUiSmallMarginTop sapUiTinyMarginBegin nodeTitle"/>
+
+                                                                            <Text xmlns="sap.m" text="Employee id: 10002" id="text31_copy6" class="sapUiSmallMarginBottom sapUiTinyMarginBegin nodeTitle"/>
+
+                                                                        </items>
+
+
+
+                                                                    </VBox>
+
+                                                                    <VBox direction="Column" id="vbox2_1642_copy6">
+
+                                                                        <items>
+
+                                                                            <Text xmlns="sap.m" text="Senior Program Manager" id="text41_copy6" class="sapUiTinyMarginBegin"/>
+
+                                                                            <Text xmlns="sap.m" text="( P10004 )" id="text51_copy6" class="sapUiTinyMarginBegin"/>
+
+                                                                        </items>
+
+
+
+                                                                    </VBox>
+
+                                                                    <VBox direction="Column" id="vbox2_16463912_copy6" alignItems="Center" class="sapUiSmallMarginBottom">
+
+                                                                        <items>
+
+                                                                            <Image src="{graph>src}" width="140px" height="140px" id="image10_copy6"/>
+
+
+
+                                                                        </items>
+
+
+
+                                                                    </VBox>
+
+                                                                </items>
+
+
+
+                                                            </VBox>
+
+                                                        </items>
+
+
+
+                                                    </VBox>
+                                        </commons:zoomLevelFourContent>
+                                        <commons:zoomLevelTwoContent>
+                                                    <VBox direction="Column" renderType="Bare" id="vbox111_copy" alignContent="Center" justifyContent="Center">
+                                                        <items>
+                                                            <Button text="" id="button5_copy" icon="sap-icon://open-command-field" visible="{=${graph>visible} === false }" type="Transparent"/>
+                                                            <VBox direction="Column" renderType="Bare" id="vbox11_copy4" height="300px" width="200px" class="cardBorder" alignContent="SpaceBetween" justifyContent="SpaceBetween" visible="{graph>visible}">
+                                                                <items>
+                                                                    <VBox direction="Column" id="vbox1_1646389864_copy4" class="cardHeader" width="100%">
+                                                                        <items>
+                                                                            <Title xmlns="sap.m" text="Denis Smith" id="title110_copy4" class="sapUiSmallMarginTop sapUiTinyMarginBegin nodeTitle"/>
+                                                                            <Text xmlns="sap.m" text="Employee id: 10002" id="text31_copy4" class="sapUiSmallMarginBottom sapUiTinyMarginBegin nodeTitle"/>
+                                                                        </items>
+
+                                                                    </VBox>
+                                                                    <VBox direction="Column" id="vbox2_1642_copy4">
+                                                                        <items>
+                                                                            <Text xmlns="sap.m" text="Senior Program Manager" id="text41_copy4" class="sapUiTinyMarginBegin"/>
+                                                                            <Text xmlns="sap.m" text="( P10004 )" id="text51_copy4" class="sapUiTinyMarginBegin"/>
+                                                                        </items>
+
+                                                                    </VBox>
+                                                                    <VBox direction="Column" id="vbox2_16463912_copy4" alignItems="Center" class="sapUiSmallMarginBottom">
+                                                                        <items>
+                                                                            <Image src="{graph>src}" width="140px" height="140px" id="image10_copy4"/>
+
+                                                                        </items>
+
+                                                                    </VBox>
+                                                                </items>
+
+                                                            </VBox>
+                                                        </items>
+
+                                                    </VBox>
+                                        </commons:zoomLevelTwoContent>
+                                    </commons:ProcessFlowNode>
+                                </commons:nodes>
+                                <commons:lanes>
+                                    <commons:ProcessFlowLaneHeader laneId="{graph>id}" iconSrc="" position="{graph>position}" text=""/>
+                                </commons:lanes>
+                            </commons:ProcessFlow>
+                        </content>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </items>
+    </VBox>
+</mvc:View>

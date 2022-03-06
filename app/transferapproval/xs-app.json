@@ -9,7 +9,7 @@
       "destination": "ui5"
     },
     {
-      "source": "^/test-resources/(.*)$",
+      "source": "^/ttest-resources/(.*)$",
       "target": "/test-resources/$1",
       "authenticationType": "none",
       "destination": "ui5"
