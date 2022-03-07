@@ -1,16 +1,17 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "./BaseController",
     "sap/ui/Device",
-    "sap/ui/model/Filter"
+    "sap/ui/model/Filter",
+    "sap/ui/export/Spreadsheet"
 
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (Controller, Device, Filter) {
+    function (BaseController, Device, Filter, Spreadsheet) {
         "use strict";
 
-        return Controller.extend("transferapproval.controller.TransferList", {
+        return BaseController.extend("transferapproval.controller.TransferList", {
 
             onInit: function () {
                 this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -51,7 +52,7 @@ sap.ui.define([
 
                         },
                         selectedCount: 0,
-                        height: (Math.round(Device.resize.height * 0.695)) + 'px',
+                        height: (Math.round(Device.resize.height * 0.67)) + 'px',
                         height1: (Math.round(Device.resize.height * 0.7)) + 'px'
 
                     };
@@ -283,6 +284,123 @@ sap.ui.define([
                     }
                 }
 
+            },
+            onClear: function (oEvent) {
+                var oItems = this.oFilterBar.getAllFilterItems(true);
+                for (var i = 0; i < oItems.length; i++) {
+                    var oControl = this.oFilterBar.determineControlByFilterItem(oItems[i]);
+                    if (oControl) {
+                        oControl.setValue("");
+                    }
+                }
+            },
+            onAccept: function (oEvent) {
+                var tbl = this.getView().byId('TransferReqTable');
+                var i18n = this.oView.getModel("i18n");
+                var sTitle = i18n.getResourceBundle().getText("confirm");
+
+                var sFirstButton = i18n.getResourceBundle().getText("yes");
+                var sSecondButton = i18n.getResourceBundle().getText("cancel");
+                if (tbl.getSelectedItems().length > 0) {
+                    let sText = i18n.getResourceBundle().getText("approve");
+                    this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this.callBackFunc, this.callBackFunc, this);
+                } else {
+                    let sFirstButton = i18n.getResourceBundle().getText("ok");
+                    let sText = i18n.getResourceBundle().getText("selectTransfer");
+                    this._createDialog(sTitle, sText, sFirstButton, undefined, this.callBackFunc, this.callBackFunc, this);
+                }
+            },
+            onReject: function (oEvent) {
+                var tbl = this.getView().byId('TransferReqTable');
+                var i18n = this.oView.getModel("i18n");
+                let sTitle = i18n.getResourceBundle().getText("confirm");
+                // var sText = i18n.getResourceBundle().getText("reject");
+                let sFirstButton = i18n.getResourceBundle().getText("yes");
+                let sSecondButton = i18n.getResourceBundle().getText("cancel");
+
+                if (tbl.getSelectedItems().length > 0) {
+                    let sText = i18n.getResourceBundle().getText("reject");
+
+                    this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this.callBackFunc, this.callBackFunc, this);
+                } else {
+                    let sFirstButton = i18n.getResourceBundle().getText("ok");
+                    let sText = i18n.getResourceBundle().getText("selectTransfer");
+                    sTitle = i18n.getResourceBundle().getText("warning");
+                    this._createDialog(sTitle, sText, sFirstButton, undefined, this.callBackFunc, this.callBackFunc, this);
+                }
+            },
+            callBackFunc: function () {
+                console.log("Dialog Method");
+            },
+            onExcelDownload: function () {
+                var aColumns = [];
+                aColumns.push({
+                    label: "Name",
+                    property: "employeeid"
+                });
+                aColumns.push({
+                    label: "Salary",
+                    property: "name",
+
+                });
+                aColumns.push({
+                    label: "Name",
+                    property: "department"
+                });
+                aColumns.push({
+                    label: "Salary",
+                    property: "employmentType",
+
+                });
+
+                aColumns.push({
+                    label: "Name",
+                    property: "supervisor"
+                });
+                aColumns.push({
+                    label: "Salary",
+                    property: "eliginility",
+
+                });
+                aColumns.push({
+                    label: "Name",
+                    property: "currentpos"
+                });
+                aColumns.push({
+                    label: "Salary",
+                    property: "newpos",
+
+                });
+                aColumns.push({
+                    label: "Name",
+                    property: "comments"
+                });
+
+
+
+                var mSettings = {
+                    workbook: {
+                        columns: aColumns,
+                        context: {
+                            application: 'Transfer Plan Approval',
+                            version: '1.98.0',
+                            title: 'Transfer Plan Approval',
+                            modifiedBy: 'Logged in User',
+                            sheetName: 'Transfer Plan Approval'
+                        },
+                        hierarchyLevel: 'level'
+                    },
+                    dataSource: this.getModel("data").getData().TransferReq,
+                    fileName: "Trafer List.xlsx"
+                };
+                var oSpreadsheet = new Spreadsheet(mSettings);
+                oSpreadsheet.onprogress = function (iValue) {
+                    ("Export: %" + iValue + " completed");
+                };
+                oSpreadsheet.build()
+                    .then(function () {  ("Export is finished"); })
+                    .catch(function (sMessage) {  ("Export error: " + sMessage); });
             }
+
         });
     });

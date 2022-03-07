@@ -71,7 +71,8 @@
                 "sap.suite.ui.commons": {},
                 "sap.m": {},
                 "sap.ui.layout": {},
-                "sap.f": {}
+                "sap.f": {},
+                "sap.ui.export" : {}
             }
         },
         "contentDensities": {

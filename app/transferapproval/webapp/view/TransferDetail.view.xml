@@ -5,7 +5,7 @@
         <items>
             <HBox class="employeeHeader" alignItems="Start" alignContent="SpaceBetween">
                 <items>
-                    <HBox alignItems="Center" class="sapUiSmallMarginBottom sapUiSmallMarginEnd">
+                    <HBox alignItems="Center" class="sapUiSmallMarginBottom">
                         <items>
                             <Button class="naviButton" id="button0_1643608506867" type="Up" width="3rem" press="_onPageNavButtonPress"/>
 
@@ -43,7 +43,7 @@
 
 
 
-                    <HBox alignItems="Center" wrap="Wrap" class="sapUiSmallMarginTopBottom  sapUiSmallMarginEnd" justifyContent="SpaceBetween">
+                    <HBox alignItems="Center" wrap="Wrap" class="sapUiSmallMarginTopBottom " justifyContent="SpaceAround">
                         <items>
 
                             <HBox id="hbox0_1643951932490" class="sapUiSmallMarginTop" width="310px" justifyContent="SpaceBetween">
@@ -306,11 +306,11 @@
                                             <HBox alignContent="Center" alignItems="Center">
                                                 <items>
                                                     <Text text="{data1>newpos}"/>
-                                                    <Button class="tableButton" id="button0_1646328264363" press="editPosition" icon="sap-icon://edit" iconFirst="false" type="Transparent"/>
+                                                    <Button class="tableButton" enabled="{=${data1>Status} === 'Pending'}" id="button0_1646328264363" press="editPosition" icon="sap-icon://edit" iconFirst="false" type="Transparent"/>
                                                 </items>
                                             </HBox>
                                             <Text text="Director / HR" id="text7_copy_table0_0" wrapping="true"/>
-                                            <TextArea value="" rows="3" id="area0"/>
+                                            <TextArea value="{data1>comments}" enabled="{=${data1>Status} === 'Pending'}" rows="4" id="area0"/>
                                         </cells>
 
                                     </ColumnListItem>
@@ -389,8 +389,8 @@
 
                                     <ToolbarSpacer id="spacer1"/>
                                     <Button press="_onPageNavButtonPress" text="Back" id="button0_1644211420374" class="sapUiSmallMarginEnd" icon="sap-icon://navigation-left-arrow"/>
-                                    <Button press="onAccept" text="Approve" id="button0_16411420374" class="sapUiSmallMarginEnd" icon="sap-icon://sys-enter-2" type="Accept"/>
-                                    <Button text="Reject" id="buttonn1" class="sapUiMediumMarginEnd" icon="sap-icon://sys-cancel-2" type="Reject" press="onReject"/>
+                                    <Button press="onAccept" enabled="{data1>/enabled}" text="Approve" id="button0_16411420374" class="sapUiSmallMarginEnd" icon="sap-icon://sys-enter-2" type="Accept"/>
+                                    <Button text="Reject" enabled="{data1>/enabled}" id="buttonn1" class="sapUiMediumMarginEnd" icon="sap-icon://sys-cancel-2" type="Reject" press="onReject"/>
                                 </content>
 
                             </OverflowToolbar>
@@ -456,13 +456,13 @@
                     </IconTabFilter>
                     <IconTabFilter text="Transfermap Flow" key="Flow">
                         <content>
-                            <commons:ProcessFlow id="processflow" scrollable="false" nodePress="onNodePress" nodes="{graph>/nodes}" lanes="{graph>/lanes}">
+                            <commons:ProcessFlow id="processflow" scrollable="false" nodePress="onNodePress" nodes="{graph>/nodes}" lanes="{graph>/lanes}" class="sapUiMediumMarginTop">
                                 <commons:nodes>
                                     <commons:ProcessFlowNode laneId="{graph>lane}" nodeId="{graph>lid}" children="{graph>children}" focused="{graph>focused}">
                                         <commons:zoomLevelOneContent>
-                                            <VBox direction="Column" renderType="Bare" id="vbox111" alignContent="Center" justifyContent="Center">
+                                            <VBox   direction="Column" renderType="Bare" id="vbox111" alignContent="Center" justifyContent="Center">
                                                 <items>
-                                                    <Button text="" id="button5" icon="sap-icon://open-command-field" visible="{=${graph>visible} === false }" type="Transparent"/>
+                                                    <Button text="" id="button5" icon="sap-icon://open-command-field" visible="{=${graph>visible} === false }" class="pfButton" type="Transparent"/>
                                                     <VBox direction="Column" renderType="Bare" id="vbox11" height="300px" width="200px" class="cardBorder" alignContent="SpaceBetween" visible="{graph>visible}" justifyContent="SpaceBetween">
                                                         <items>
                                                             <VBox direction="Column" id="vbox1_1646389864" class="cardHeader" width="100%">
@@ -489,11 +489,11 @@
                                             </VBox>
                                         </commons:zoomLevelOneContent>
                                         <commons:zoomLevelThreeContent>
-                                            <VBox direction="Column" renderType="Bare" id="vbox111_copy2" alignContent="Center" justifyContent="Center">
+                                            <VBox class="" direction="Column" renderType="Bare" id="vbox111_copy2" alignContent="Center" justifyContent="Center">
 
                                                 <items>
 
-                                                    <Button text="" id="button5_copy2" icon="sap-icon://open-command-field" visible="{=${graph>visible} === false }" type="Transparent"/>
+                                                    <Button text="" id="button5_copy2" icon="sap-icon://open-command-field" visible="{=${graph>visible} === false }" class="pfButton" type="Transparent"/>
 
                                                     <VBox direction="Column" renderType="Bare" id="vbox11_copy5" height="300px" width="200px" class="cardBorder" visible="{graph>visible}" alignContent="SpaceBetween" justifyContent="SpaceBetween">
 
@@ -554,11 +554,11 @@
                                             </VBox>
                                         </commons:zoomLevelThreeContent>
                                         <commons:zoomLevelFourContent>
-                                                    <VBox direction="Column" renderType="Bare" id="vbox111_copy3" alignContent="Center" justifyContent="Center">
+                                                    <VBox class="" direction="Column" renderType="Bare" id="vbox111_copy3" alignContent="Center" justifyContent="Center">
 
                                                         <items>
 
-                                                            <Button text="" id="button5_copy3" icon="sap-icon://open-command-field" visible="{=${graph>visible} === false }" type="Transparent"/>
+                                                            <Button text="" id="button5_copy3" icon="sap-icon://open-command-field" visible="{=${graph>visible} === false }" class="pfButton" type="Transparent"/>
 
                                                             <VBox direction="Column" renderType="Bare" id="vbox11_copy6" height="300px" visible="{graph>visible}" width="200px" class="cardBorder" alignContent="SpaceBetween" justifyContent="SpaceBetween">
 
@@ -619,9 +619,9 @@
                                                     </VBox>
                                         </commons:zoomLevelFourContent>
                                         <commons:zoomLevelTwoContent>
-                                                    <VBox direction="Column" renderType="Bare" id="vbox111_copy" alignContent="Center" justifyContent="Center">
+                                                    <VBox class="" direction="Column" renderType="Bare" id="vbox111_copy" alignContent="Center" justifyContent="Center">
                                                         <items>
-                                                            <Button text="" id="button5_copy" icon="sap-icon://open-command-field" visible="{=${graph>visible} === false }" type="Transparent"/>
+                                                            <Button text="" id="button5_copy" icon="sap-icon://open-command-field" visible="{=${graph>visible} === false }" class="pfButton" type="Transparent"/>
                                                             <VBox direction="Column" renderType="Bare" id="vbox11_copy4" height="300px" width="200px" class="cardBorder" alignContent="SpaceBetween" justifyContent="SpaceBetween" visible="{graph>visible}">
                                                                 <items>
                                                                     <VBox direction="Column" id="vbox1_1646389864_copy4" class="cardHeader" width="100%">

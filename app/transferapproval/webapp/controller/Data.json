@@ -9,7 +9,8 @@
             "eliginility": "eligible",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Pending"
+            "Status": "Pending",
+            "comments": ""
         },
         {
             "employeeid": "1002",
@@ -20,7 +21,8 @@
             "eliginility": "warning",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Approved"
+            "Status": "Approved",
+            "comments": "The transfer request for this employees is approved"
         },
         {
             "employeeid": "1003",
@@ -31,7 +33,8 @@
             "eliginility": "eligble",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Pending"
+            "Status": "Pending",
+            "comments": ""
         },
         {
             "employeeid": "1004",
@@ -42,7 +45,8 @@
             "eliginility": "eligble",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Pending"
+            "Status": "Pending",
+            "comments": ""
         },
         {
             "employeeid": "1005",
@@ -53,7 +57,8 @@
             "eliginility": "warning",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Pending"
+            "Status": "Pending",
+            "comments": ""
         },
         {
             "employeeid": "1006",
@@ -64,7 +69,8 @@
             "eliginility": "eligble",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Approved"
+            "Status": "Approved",
+            "comments": "The transfer request for this employees is approved"
         },
         {
             "employeeid": "1007",
@@ -75,7 +81,8 @@
             "eliginility": "eligble",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Pending"
+            "Status": "Pending",
+            "comments": ""
         },
         {
             "employeeid": "1008",
@@ -86,7 +93,8 @@
             "eliginility": "warning",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Approved"
+            "Status": "Approved",
+            "comments": "The transfer request for this employees is approved"
         },
         {
             "employeeid": "1009",
@@ -97,7 +105,8 @@
             "eliginility": "eligble",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Rejected"
+            "Status": "Rejected",
+            "comments": "The transfer request for this employees is approved"
         },
         {
             "employeeid": "1010",
@@ -108,7 +117,8 @@
             "eliginility": "eligble",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Pending"
+            "Status": "Pending",
+            "comments": ""
         },
         {
             "employeeid": "1011",
@@ -119,7 +129,8 @@
             "eliginility": "warning",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Pending"
+            "Status": "Pending",
+            "comments": ""
         },
         {
             "employeeid": "1012",
@@ -130,7 +141,8 @@
             "eliginility": "eligble",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Approved"
+            "Status": "Approved",
+            "comments": "The transfer request for this employees is approved"
         },
         {
             "employeeid": "1013",
@@ -141,7 +153,8 @@
             "eliginility": "eligble",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Pending"
+            "Status": "Pending",
+            "comments": ""
         },
         {
             "employeeid": "1014",
@@ -152,7 +165,8 @@
             "eliginility": "warning",
             "currentpos": "Current Position",
             "newpos": "New Position",
-            "Status": "Rejected"
+            "Status": "Rejected",
+            "comments": "The transfer request for this employees is rejected"
         }
     ]
 }

@@ -75,7 +75,7 @@
                 <items>
                     <IconTabFilter showAll="true" count="14" text="Total Transfers" key="All" />
                     <IconTabSeparator />
-                    <IconTabFilter class="iconPositive sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://future" iconColor="Critical" count="8" text="Pending for Approval" key="pending" iconDensityAware="false" />
+                    <IconTabFilter class="iconPositive sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://pending" iconColor="Critical" count="8" text="Pending for Approval" key="pending" iconDensityAware="false" />
                     <IconTabFilter class="iconPositive sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://sys-enter" iconColor="Positive" count="4" text="Approved" key="approved" />
                     <IconTabFilter class="iconNegative sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://sys-cancel" iconColor="Negative" count="2" text="Rejected" key="rejected" />
                 </items>
@@ -138,7 +138,7 @@
                                             <Text text="{data>currentpos}" id="text016" />
                                             <Text text="{data>newpos}" id="text16" />
                                             <!--Input text="{data>comments}" id="input3" class="tableInput"/-->
-                                            <TextArea value="" id="area0" height="2.5rem" rows="4" width="14.5rem" enabled="{=${data>Status} === 'Pending'}" />
+                                            <TextArea value="{data>comments}" id="area0" height="2.5rem" rows="4" width="14.5rem" enabled="{=${data>Status} === 'Pending'}" />
                                             <Button id="button1_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress" />
                                         </cells>
                                     </ColumnListItem>
@@ -154,7 +154,7 @@
                                             
                                             <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings" />
                                             <Button id="button3" icon="sap-icon://refresh" press="onTablePersoRefresh" />  -->
-                                            <Button id="button4" icon="sap-icon://excel-attachment" press="onExport" enabled="false" class="sapUiLargeMarginEnd" />
+                                            <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiLargeMarginEnd" />
                                         </content>
                                     </OverflowToolbar>
                                 </headerToolbar>

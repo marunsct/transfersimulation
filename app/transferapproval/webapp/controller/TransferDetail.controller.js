@@ -1,5 +1,5 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "./BaseController",
     "sap/ui/Device",
     "sap/ui/model/Filter",
     "sap/ui/core/routing/History",
@@ -17,6 +17,178 @@ sap.ui.define([
     function (Controller, Device, Filter, History, LayeredLayout, ForceBasedLayout, ActionButton, Node, Fragment, JSONModel) {
         "use strict";
         var STARTING_PROFILE = "Dinter";
+        var TransferRequests= {
+            "TransferReq": [
+                {
+                    "employeeid": "1001",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "eligible",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Pending",
+                    "comments": ""
+                },
+                {
+                    "employeeid": "1002",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "warning",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Approved",
+                    "comments": "The transfer request for this employees is approved"
+                },
+                {
+                    "employeeid": "1003",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "eligble",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Pending",
+                    "comments": ""
+                },
+                {
+                    "employeeid": "1004",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "eligble",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Pending",
+                    "comments": ""
+                },
+                {
+                    "employeeid": "1005",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "warning",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Pending",
+                    "comments": ""
+                },
+                {
+                    "employeeid": "1006",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "eligble",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Approved",
+                    "comments": "The transfer request for this employees is approved"
+                },
+                {
+                    "employeeid": "1007",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "eligble",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Pending",
+                    "comments": ""
+                },
+                {
+                    "employeeid": "1008",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "warning",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Approved",
+                    "comments": "The transfer request for this employees is approved"
+                },
+                {
+                    "employeeid": "1009",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "eligble",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Rejected",
+                    "comments": "The transfer request for this employees is approved"
+                },
+                {
+                    "employeeid": "1010",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "eligble",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Pending",
+                    "comments": ""
+                },
+                {
+                    "employeeid": "1011",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "warning",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Pending",
+                    "comments": ""
+                },
+                {
+                    "employeeid": "1012",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "eligble",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Approved",
+                    "comments": "The transfer request for this employees is approved"
+                },
+                {
+                    "employeeid": "1013",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "eligble",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Pending",
+                    "comments": ""
+                },
+                {
+                    "employeeid": "1014",
+                    "name": "Employee Name",
+                    "department": "Department A",
+                    "employmentType": "Employment Type",
+                    "supervisor": "Supervisor Name",
+                    "eliginility": "warning",
+                    "currentpos": "Current Position",
+                    "newpos": "New Position",
+                    "Status": "Rejected",
+                    "comments": "The transfer request for this employees is rejected"
+                }
+            ]
+        };
         return Controller.extend("transferapproval.controller.TransferDetail", {
 
             onInit: function () {
@@ -69,6 +241,7 @@ sap.ui.define([
 
                         },
                         selectedCount: 0,
+                        enabled: false,
                         height: (Math.round(Device.resize.height * 0.695)) + 'px',
                         height1: (Math.round(Device.resize.height * 0.7)) + 'px'
 
@@ -87,10 +260,10 @@ sap.ui.define([
                     "nodes": [
                         {
                             "id": "Dinter",
-                            "lid" : 1,
+                            "lid": 1,
                             "lane": 0,
                             "title": "Sophie Dinter",
-                            "visible" : true,
+                            "visible": true,
                             "children": [2],
                             "src": "https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg",
                             "attributes": [
@@ -107,10 +280,10 @@ sap.ui.define([
                         },
                         {
                             "id": "Ninsei",
-                            "lid" : 2,
+                            "lid": 2,
                             "lane": 1,
                             "children": [3],
-                            "visible" : true,
+                            "visible": true,
                             "title": "Yamasaki Ninsei",
                             "src": "https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/male_GordonR.jpg",
                             "attributes": [
@@ -128,10 +301,10 @@ sap.ui.define([
                         },
                         {
                             "id": "Mills",
-                            "lid" : 3,
+                            "lid": 3,
                             "lane": 2,
                             "children": [],
-                            "visible" : false,
+                            "visible": false,
                             "title": "Henry Mills",
                             "src": "https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/male_MillerM.jpg",
                             "attributes": [
@@ -146,8 +319,8 @@ sap.ui.define([
                             "position": "Sales Manager",
                             "email": "henry.mills@example.com",
                             "phone": "+000 423 232 003"
-                
-                            }    ],
+
+                        }],
                     "lines": [
                         {
                             "from": "Dinter",
@@ -162,17 +335,17 @@ sap.ui.define([
                         {
                             "id": "0",
                             "position": 0,
-                            
+
                         },
                         {
                             "id": "1",
                             "position": 1,
-                            
+
                         },
                         {
                             "id": "2",
                             "position": 2,
-                            
+
                         }
                     ]
                 });
@@ -257,24 +430,40 @@ sap.ui.define([
                     this._graph.preventInvalidation(false);
                 }.bind(this));
             },
-            _getCustomDataValue : function (oNode, sName) {
+            _getCustomDataValue: function (oNode, sName) {
                 var aItems = oNode.getCustomData().filter(function (oData) {
                     return oData.getKey() === sName;
                 });
-    
+
                 return aItems.length > 0 && aItems[0].getValue();
             },
-            onNodePress: function(oEvent){
+            onNodePress: function (oEvent) {
                 console.log(oEvent);
                 var oNode = oEvent.getParameters();
-                if (oNode.getBindingContext("graph").getProperty("visible")){
-                    
-                if (!this._oQuickView) {
-                    Fragment.load({
-                        name: "transferapproval.view.TooltipFragment",
-                        type: "XML"
-                    }).then(function(oFragment) {
-                        this._oQuickView = oFragment;
+                if (oNode.getBindingContext("graph").getProperty("visible")) {
+
+                    if (!this._oQuickView) {
+                        Fragment.load({
+                            name: "transferapproval.view.TooltipFragment",
+                            type: "XML"
+                        }).then(function (oFragment) {
+                            this._oQuickView = oFragment;
+                            this._oQuickView.setModel(new JSONModel({
+                                icon: oNode.getBindingContext("graph").getProperty("src"),
+                                title: oNode.getBindingContext("graph").getProperty("title"),
+                                description: oNode.getBindingContext("graph").getProperty("position"),
+                                location: oNode.getBindingContext("graph").getProperty("location"),
+                                showTeam: !!oNode.getBindingContext("graph").getProperty("team"),
+                                teamSize: oNode.getBindingContext("graph").getProperty("team"),
+                                email: oNode.getBindingContext("graph").getProperty("email"),
+                                phone: oNode.getBindingContext("graph").getProperty("phone")
+                            }));
+
+                            setTimeout(function () {
+                                this._oQuickView.openBy(oNode);
+                            }.bind(this), 0);
+                        }.bind(this));
+                    } else {
                         this._oQuickView.setModel(new JSONModel({
                             icon: oNode.getBindingContext("graph").getProperty("src"),
                             title: oNode.getBindingContext("graph").getProperty("title"),
@@ -285,41 +474,25 @@ sap.ui.define([
                             email: oNode.getBindingContext("graph").getProperty("email"),
                             phone: oNode.getBindingContext("graph").getProperty("phone")
                         }));
-    
+
                         setTimeout(function () {
                             this._oQuickView.openBy(oNode);
                         }.bind(this), 0);
-                    }.bind(this));
+                    }
                 } else {
-                    this._oQuickView.setModel(new JSONModel({
-                        icon: oNode.getBindingContext("graph").getProperty("src"),
-                        title: oNode.getBindingContext("graph").getProperty("title"),
-                        description: oNode.getBindingContext("graph").getProperty("position"),
-                        location: oNode.getBindingContext("graph").getProperty("location"),
-                        showTeam: !!oNode.getBindingContext("graph").getProperty("team"),
-                        teamSize: oNode.getBindingContext("graph").getProperty("team"),
-                        email: oNode.getBindingContext("graph").getProperty("email"),
-                        phone: oNode.getBindingContext("graph").getProperty("phone")
-                    }));
-    
-                    setTimeout(function () {
-                        this._oQuickView.openBy(oNode);
-                    }.bind(this), 0);
+                    //oNode.getBindingContext("graph").setProperty("visible", true);
+                    let sPath = oNode.getBindingContext("graph").sPath + "/visible";
+                    this.getView().getModel("graph").setProperty(sPath, true)
                 }
-            }else {
-                //oNode.getBindingContext("graph").setProperty("visible", true);
-                let sPath = oNode.getBindingContext("graph").sPath + "/visible" ;
-                this.getView().getModel("graph").setProperty(sPath, true)
-            }
             },
-            _openDetail : function (oNode, oButton) {
+            _openDetail: function (oNode, oButton) {
                 var sTeamSize = this._getCustomDataValue(oNode, "team");
-    
+
                 if (!this._oQuickView) {
                     Fragment.load({
                         name: "transferapproval.view.TooltipFragment",
                         type: "XML"
-                    }).then(function(oFragment) {
+                    }).then(function (oFragment) {
                         this._oQuickView = oFragment;
                         this._oQuickView.setModel(new JSONModel({
                             icon: this._getCustomDataValue(oNode, "src"),
@@ -331,7 +504,7 @@ sap.ui.define([
                             email: this._getCustomDataValue(oNode, "email"),
                             phone: this._getCustomDataValue(oNode, "phone")
                         }));
-    
+
                         setTimeout(function () {
                             this._oQuickView.openBy(oButton);
                         }.bind(this), 0);
@@ -347,37 +520,37 @@ sap.ui.define([
                         email: this._getCustomDataValue(oNode, "email"),
                         phone: this._getCustomDataValue(oNode, "phone")
                     }));
-    
+
                     setTimeout(function () {
                         this._oQuickView.openBy(oButton);
                     }.bind(this), 0);
                 }
             },
-            search : function (oEvent) {
+            search: function (oEvent) {
                 var sKey = oEvent.getParameter("key");
-    
+
                 if (sKey) {
                     this._mExplored = [sKey];
                     this._sTopSupervisor = sKey;
                     this._graph.destroyAllElements();
                     this._setFilter();
-    
+
                     oEvent.bPreventDefault = true;
                 }
             },
-            suggest : function (oEvent) {
+            suggest: function (oEvent) {
                 var aSuggestionItems = [],
                     aItems = this._oModel.getData().nodes,
                     aFilteredItems = [],
                     sTerm = oEvent.getParameter("term");
-    
+
                 sTerm = sTerm ? sTerm : "";
-    
+
                 aFilteredItems = aItems.filter(function (oItem) {
                     var sTitle = oItem.title ? oItem.title : "";
                     return sTitle.toLowerCase().indexOf(sTerm.toLowerCase()) !== -1;
                 });
-    
+
                 aFilteredItems.sort(function (oItem1, oItem2) {
                     var sTitle = oItem1.title ? oItem1.title : "";
                     return sTitle.localeCompare(oItem2.title);
@@ -387,11 +560,11 @@ sap.ui.define([
                         text: oItem.title
                     }));
                 });
-    
+
                 this._graph.setSearchSuggestionItems(aSuggestionItems);
                 oEvent.bPreventDefault = true;
             },
-            _setFilter : function () {
+            _setFilter: function () {
                 var aNodesCond = [],
                     aLinesCond = [];
                 var fnAddBossCondition = function (sBoss) {
@@ -400,14 +573,14 @@ sap.ui.define([
                         operator: sap.ui.model.FilterOperator.EQ,
                         value1: sBoss
                     }));
-    
+
                     aNodesCond.push(new sap.ui.model.Filter({
                         path: 'supervisor',
                         operator: sap.ui.model.FilterOperator.EQ,
                         value1: sBoss
                     }));
                 };
-    
+
                 var fnAddLineCondition = function (sLine) {
                     aLinesCond.push(new sap.ui.model.Filter({
                         path: "from",
@@ -415,29 +588,29 @@ sap.ui.define([
                         value1: sLine
                     }));
                 };
-    
+
                 this._mExplored.forEach(function (oItem) {
                     fnAddBossCondition(oItem);
                     fnAddLineCondition(oItem);
                 });
-    
+
                 this._graph.getBinding("nodes").filter(new sap.ui.model.Filter({
                     filters: aNodesCond,
                     and: false
                 }));
-    
+
                 this._graph.getBinding("lines").filter(new sap.ui.model.Filter({
                     filters: aLinesCond,
                     and: false
                 }));
             },
-            _loadMore : function (sName) {
+            _loadMore: function (sName) {
                 this._graph.deselect();
                 this._mExplored.push(sName);
                 this._graph.destroyAllElements();
                 this._setFilter();
             },
-            linePress : function (oEvent) {
+            linePress: function (oEvent) {
                 oEvent.bPreventDefault = true;
             },
             handleRouteMatched: function (oEvent) {
@@ -507,6 +680,43 @@ sap.ui.define([
                 sp1ID.addStyleClass(this.performanceColor('B'));
                 sp0ID.addStyleClass(this.performanceColor('D'));
 
+                var oData =  this.getModel("data1").getData();
+                oData.TransferReq1 = [];
+                TransferRequests.TransferReq.forEach( item => {
+                    if (item.employeeid == this._employeeId ){
+                        oData.TransferReq1.push(item);
+                    }
+                })
+                oData.enabled = oData.TransferReq1[0].Status === 'Pending' ? true : false;
+                this.getModel("data1").setData(oData);
+
+            },
+            onAccept: function (oEvent) {
+                // var tbl = this.getView().byId('TransferReqTable');
+                var i18n = this.oView.getModel("i18n");
+                let sTitle = i18n.getResourceBundle().getText("confirm");
+                // var sText = i18n.getResourceBundle().getText("reject");
+                let sFirstButton = i18n.getResourceBundle().getText("yes");
+                let sSecondButton = i18n.getResourceBundle().getText("cancel");
+                let sText = i18n.getResourceBundle().getText("approve");
+
+                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.callBackFunc, this);
+            },
+            onReject: function (oEvent) {
+                // var tbl = this.getView().byId('TransferReqTable');
+                var i18n = this.oView.getModel("i18n");
+                let sTitle = i18n.getResourceBundle().getText("confirm");
+                // var sText = i18n.getResourceBundle().getText("reject");
+                let sFirstButton = i18n.getResourceBundle().getText("yes");
+                let sSecondButton = i18n.getResourceBundle().getText("cancel");
+                let sText = i18n.getResourceBundle().getText("reject");
+
+                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.callBackFunc, this);
+
+            },
+            callBackFunc: function () {
+                console.log("Dialog Method");
+               // this._onPageNavButtonPress();
             }
         });
     });

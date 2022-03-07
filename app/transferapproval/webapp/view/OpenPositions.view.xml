@@ -8,7 +8,7 @@
                 <items>
                     <HBox alignItems="Center" class="sapUiSmallMarginTopBottom sapUiSmallMarginEnd">
                         <items>
-                            <Button id="button0_1643608506867" type="Up" width="3rem" press="_onPageNavButtonPress"/>
+                            <Button id="button0_1643608506867" type="Up" width="3rem" press="onBackCallBack"/>
 
                             <f:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg" displaySize="L" showBorder="true" id="avatar1"/>
 
@@ -409,8 +409,8 @@
                 <content>
                     <Text text="20 Open positions" id="text3_1644219675795" class="sapUiMediumMarginBegin sapThemeLightText footerText"/>
                     <ToolbarSpacer id="spacer1"/>
-                    <Button press="_onPageNavButtonPress" text="Back" id="button0_1644211420374" class="sapUiSmallMarginEnd" icon="sap-icon://navigation-left-arrow"/>
-                    <Button text="Update" id="button1" class="sapUiMediumMarginEnd" icon="sap-icon://write-new-document" type="Emphasized" press="_onTableItemPress"/>
+                    <Button press="onBackCallBack" text="Back" id="button0_1644211420374" class="sapUiSmallMarginEnd" icon="sap-icon://navigation-left-arrow"/>
+                    <Button text="Update" id="button1" class="sapUiMediumMarginEnd" icon="sap-icon://write-new-document" type="Emphasized" press="onUpdate"/>
                 </content>
             </OverflowToolbar>
         </items>

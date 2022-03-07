@@ -49,6 +49,7 @@ sap.ui.define([
             }
         },
         _onPageNavButtonPress: function () {
+            
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             var oHistory = History.getInstance();
             var sPreviousHash = oHistory.getPreviousHash();
@@ -64,8 +65,48 @@ sap.ui.define([
                 oRouter.navTo("TransferDetail", {   
                     ID: this._employeeId }, false);
             }
-        },
 
+        },
+        onBackCallBack: function(){
+            if(this.byId("table0").getSelectedItems().length > 0){
+                this.onReject();
+            }else{
+                this._onPageNavButtonPress()
+            }
+        },
+        onUpdate: function (oEvent) {
+            
+            // var tbl = this.getView().byId('TransferReqTable');
+            var i18n = this.oView.getModel("i18n");
+            let sTitle = i18n.getResourceBundle().getText("confirm");
+            // var sText = i18n.getResourceBundle().getText("reject");
+            let sFirstButton = i18n.getResourceBundle().getText("yes");
+            let sSecondButton = i18n.getResourceBundle().getText("cancel");
+            let sText = i18n.getResourceBundle().getText("update");
+            if(this.byId("table0").getSelectedItems().length > 0){
+            this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.callBackFunc, this);
+        }else{
+            let sTitle = i18n.getResourceBundle().getText("warning");
+            let sText = i18n.getResourceBundle().getText("updateWarning");
+            this._createDialog(sTitle, sText, sFirstButton, undefined, this.callBackFunc, this.callBackFunc, this);
+        }
+        },
+        onReject: function (oEvent) {
+            // var tbl = this.getView().byId('TransferReqTable');
+            var i18n = this.oView.getModel("i18n");
+            let sTitle = i18n.getResourceBundle().getText("warning");
+            // var sText = i18n.getResourceBundle().getText("reject");
+            let sFirstButton = i18n.getResourceBundle().getText("yes");
+            let sSecondButton = i18n.getResourceBundle().getText("cancel");
+            let sText = i18n.getResourceBundle().getText("updateCancel");
+
+            this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.callBackFunc, this);
+
+        },
+        callBackFunc: function () {
+            console.log("Dialog Method");
+         //   this._onPageNavButtonPress();
+        },
         avatarInitialsFormatter: function (sTextValue) {
             return typeof sTextValue === 'string' ? sTextValue.substr(0, 2) : undefined;
 
@@ -106,18 +147,18 @@ sap.ui.define([
             var sSecondButton = i18n.getResourceBundle().getText("cancel");
             if (this._openPositions[posId] !== undefined) {
 
-                this._createDialog(sTitle, i18n.getResourceBundle().getText("positionExists", this._openPositions[posId].employeeId), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath);
+                this.createDialog(sTitle, i18n.getResourceBundle().getText("positionExists", this._openPositions[posId].employeeId), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath);
 
             } else if (this._employee[employeeId] !== undefined) { //   || this._employee[this._employeeId].positionId !== undefined) {
-                this._createDialog(sTitle, i18n.getResourceBundle().getText("employeeExists",
+                this.createDialog(sTitle, i18n.getResourceBundle().getText("employeeExists",
                     this._employee[employeeId].positionName), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath);
             } else {
-                this._createDialog(sTitle, i18n.getResourceBundle().getText("assignconfiration", [posName, employeeId]), sFirstButton, sSecondButton, true, posId, posName, employeeId, employeeName, sPath);
+                this.createDialog(sTitle, i18n.getResourceBundle().getText("assignconfiration", [posName, employeeId]), sFirstButton, sSecondButton, true, posId, posName, employeeId, employeeName, sPath);
 
             }
 
         },
-        _createDialog: function (sTitle, sText, sFirstButton, sSecondButton, sNew, posId, posName, employeeId, employeeName, sPath) {
+        createDialog: function (sTitle, sText, sFirstButton, sSecondButton, sNew, posId, posName, employeeId, employeeName, sPath) {
             var dialog = new Dialog({
                 title: sTitle,
                 type: 'Message',
@@ -262,7 +303,7 @@ sap.ui.define([
                     "hText": "Result ",
                     "hNumbers": "(0)"
                 },
-                height : (Math.round(Device.resize.height * 0.59 )) + 'px'
+                height : (Math.round(Device.resize.height * 0.58 )) + 'px'
             };
             this.oView.setModel(new sap.ui.model.json.JSONModel(this._vData), 'OP');
            // this.oFclModel.setProperty('/headerExpanded', false);

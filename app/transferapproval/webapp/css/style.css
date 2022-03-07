@@ -52,7 +52,7 @@
        margin-bottom: 7px;
    }
    .performancePositive{
-       background-color: #7fc6c6 !important;
+       background-color: #8fe0f8 !important;
        
    }
    .performanceNegative{
@@ -372,7 +372,28 @@ table.sapSuiteUiCommonsPF td, table.sapSuiteUiCommonsPF th {
 .sapUiSizeCompact .sapMTB.sapMTBHeader-CTX {
     padding: 0px;
 }
-/*.sapMBtn.increaseFont .sapMBtnIcon {
+/*
+.pfButton{
+    width: min-content;
+   /* border-radius: 2.5rem;
+   border-radius: 1.5rem;
+    font-size: 1.5rem;
+    display: inline-flex;
+    height: 3rem!important;
+    overflow: visible;
+    width: 3rem!important;
+
+}
+
+.pfButton.sapUiSizeCompact .sapMBtnInner.sapMBtnText, .sapUiSizeCompact .sapMBtnInner.sapMBtnIconFirst {
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    width: 3rem!important;
+    height: 3rem !important;
+}
+.sapMBtn.increaseFont .sapMBtnIcon {
     font-size: 1.5rem;
     color: red;
-}*/
+}
+*/

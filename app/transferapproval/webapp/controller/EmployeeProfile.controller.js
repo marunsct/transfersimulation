@@ -49,13 +49,13 @@ sap.ui.define([
         },
         performanceColor: function(sGrade){
             switch (sGrade){
-                case "A":
-                    return "performanceNegative";
-                case "B":
-                    return "performanceNeutral";
-                case "C":
-                    return "performanceNeutralM";
                 case "D":
+                    return "performanceNegative";
+                case "C":
+                    return "performanceNeutral";
+                case "B":
+                    return "performanceNeutralM";
+                case "A":
                     return "performancePositive";
                 default:
                     return "performanceNeutral";            
