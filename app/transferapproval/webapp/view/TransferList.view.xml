@@ -87,38 +87,38 @@
 
                                 <columns>
                                     <Column>
-                                        <Text text="Employee Id" />
+                                        <Text text="{i18n>employeeId}" />
                                     </Column>
                                     <Column minScreenWidth="Tablet" demandPopin="true">
-                                        <Text text="Name" />
+                                        <Text text="{i18n>name}" />
                                     </Column>
                                     <Column>
-                                        <Text text="Department" />
+                                        <Text text="{i18n>department}" />
                                     </Column>
                                     <Column id="column5">
                                         <header>
-                                            <Text text="Employement Type" id="text18" />
+                                            <Text text="{i18n>type}" id="text18" />
                                         </header>
                                     </Column>
                                     <Column id="column6">
                                         <header>
-                                            <Text text="Supervisor" id="text19" />
+                                            <Text text="{i18n>supervisor}" id="text19" />
                                         </header>
                                     </Column>
                                     <Column id="column7" width="6rem">
-                                        <Text text="Eligibility" />
+                                        <Text text="{i18n>criteria}" />
 
                                     </Column>
                                     <Column id="column8">
-                                        <Text text="Current Position" />
+                                        <Text text="{i18n>cposition}" />
 
                                     </Column>
                                     <Column id="column9">
-                                        <Text text="Assigned Position" />
+                                        <Text text="{i18n>nposition}" />
 
                                     </Column>
                                     <Column id="column10" width="15rem">
-                                        <Text text="Comments" />
+                                        <Text text="{i18n>comments}" />
 
                                     </Column>
                                     <Column id="column11" width="3rem">
@@ -127,7 +127,8 @@
                                     </Column>
                                 </columns>
                                 <items>
-                                    <ColumnListItem>
+                                    <ColumnListItem highlight="{=${data>Status} === 'Pending' ? 'Warning' :
+                                            ${data>Status} === 'Approved' ? 'Success' : 'Error'}">
                                         <cells>
                                             <Text text="{data>employeeid}" />
                                             <Text text="{data>name}" />

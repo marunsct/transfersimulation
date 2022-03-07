@@ -52,7 +52,7 @@ sap.ui.define([
 
                         },
                         selectedCount: 0,
-                        height: (Math.round(Device.resize.height * 0.67)) + 'px',
+                        height: (Math.round(Device.resize.height * 0.665)) + 'px',
                         height1: (Math.round(Device.resize.height * 0.7)) + 'px'
 
                     };
@@ -333,46 +333,47 @@ sap.ui.define([
                 console.log("Dialog Method");
             },
             onExcelDownload: function () {
+                var i18n = this.oView.getModel("i18n");
                 var aColumns = [];
                 aColumns.push({
-                    label: "Name",
+                    label: i18n.getResourceBundle().getText("employeeId"),
                     property: "employeeid"
                 });
                 aColumns.push({
-                    label: "Salary",
+                    label: i18n.getResourceBundle().getText("name"),
                     property: "name",
 
                 });
                 aColumns.push({
-                    label: "Name",
+                    label: i18n.getResourceBundle().getText("department"),
                     property: "department"
                 });
                 aColumns.push({
-                    label: "Salary",
+                    label: i18n.getResourceBundle().getText("type"),
                     property: "employmentType",
 
                 });
 
                 aColumns.push({
-                    label: "Name",
+                    label: i18n.getResourceBundle().getText("supervisor"),
                     property: "supervisor"
                 });
                 aColumns.push({
-                    label: "Salary",
+                    label: i18n.getResourceBundle().getText("criteria"),
                     property: "eliginility",
 
                 });
                 aColumns.push({
-                    label: "Name",
+                    label: i18n.getResourceBundle().getText("cposition"),
                     property: "currentpos"
                 });
                 aColumns.push({
-                    label: "Salary",
+                    label: i18n.getResourceBundle().getText("nposition"),
                     property: "newpos",
 
                 });
                 aColumns.push({
-                    label: "Name",
+                    label: i18n.getResourceBundle().getText("comments"),
                     property: "comments"
                 });
 
