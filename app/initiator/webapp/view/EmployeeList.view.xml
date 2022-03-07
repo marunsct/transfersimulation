@@ -9,7 +9,7 @@
                     <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
                 </suggestionItems >
             </cust:NewInput-->
-            <fb:FilterBar id="filterbar0" search=".onSearch" clear=".onClear" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="false" class="filterBackground">
+            <fb:FilterBar id="filterbar0" search=".onSearch" clear=".onClear" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="true" class="filterBackground">
                 <fb:filterGroupItems>
                     <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="{i18n>department}" visibleInFilterBar="true" labelTooltip="{i18n>department}">
                         <fb:control>
@@ -87,7 +87,7 @@
                                     <Text text="{OP>employmentType}" id="text6_copy_table0_0" wrapping="true"/>
                                     <Text text="{OP>location}" id="text7_copy_table0_0" wrapping="true"/>
                                     <Text text="{OP>managerId}" id="text8_copy_table0_0" wrapping="true"/>
-                                    <ObjectStatus xmlns="sap.m" text="{oData>Transfer_Criteria}" state="{=${OP>Transfer_Criteria} === 'Eligible' ? 'Success' : 'Error' }" id="status0_copy_table0_0" icon="{=${OP>Transfer_Criteria} === 'Eligible' ? 'sap-icon://status-positive' : 'sap-icon://status-negative' }" tooltip="Transfer for the Employee is not possible as the Retirement Date is Near"/>
+                                    <ObjectStatus xmlns="sap.m" text="{oData>Transfer_Criteria}" state="{=${OP>Transfer_Criteria} === 'Eligible' ? 'Success' : 'Error' }" id="status0_copy_table0_0" icon="{=${OP>Transfer_Criteria} === 'Eligible' ? 'sap-icon://sys-enter-2' : 'sap-icon://status-negative' }" tooltip="Transfer for the Employee is not possible as the Retirement Date is Near"/>
                                     <Text text="{OP>position}" id="text9_copy_table0_0" wrapping="true"/>
                                     <Text text="{OP>positionNew}" id="text10_copy_table0_0" wrapping="true"/>
                                     <Text text="{OP>status}" id="text11_copy_table0_0" wrapping="true"/>
@@ -181,8 +181,8 @@
                             <OverflowToolbar width="100%" id="toolbar2" class="sapUiLargeMarginEnd container">
                                 <content>
                                     <Title text="{parts : [{path : 'i18n>employeeTH'}, {path : 'OP>/Count'}, {path: 'filter>/currentPage'}, {path: 'filter>/top'}],formatter:'.productCount'}" id="text06" level="H1" class="titleText"/>
-                                    <ObjectStatus state="Success" id="status0_1642135399627" icon="sap-icon://status-positive" text="Eligible" class="sapUiSmallMarginBeginEnd"/>
-                                    <ObjectStatus state="Warning" id="status0_1642135399627_copy" icon="sap-icon://status-inactive" text="Eligible with Warning"/>
+                                    <ObjectStatus state="Success" id="status0_1642135399627" icon="sap-icon://sys-enter-2" text="Eligible" class="sapUiSmallMarginBeginEnd"/>
+                                    <ObjectStatus state="Warning" id="status0_1642135399627_copy" icon="sap-icon://warning" text="Eligible with Warning"/>
                                     <ObjectStatus state="Error" id="status0_1642135399627_copy2" icon="sap-icon://status-negative" text="Not Eligible" class="sapUiSmallMarginBeginEnd"/>
                                     <!-- "{i18n>employeeTH}"     -->
 

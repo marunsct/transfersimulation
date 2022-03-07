@@ -306,7 +306,7 @@
                                             <HBox alignContent="Center" alignItems="Center">
                                                 <items>
                                                     <Text text="{data1>newpos}"/>
-                                                    <Button class="tableButton" id="button0_1646328264363" press="editPosition" icon="sap-icon://edit" iconFirst="false" type="Ghost"/>
+                                                    <Button class="tableButton" id="button0_1646328264363" press="editPosition" icon="sap-icon://edit" iconFirst="false" type="Transparent"/>
                                                 </items>
                                             </HBox>
                                             <Text text="Director / HR" id="text7_copy_table0_0" wrapping="true"/>

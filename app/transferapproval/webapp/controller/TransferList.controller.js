@@ -19,8 +19,8 @@ sap.ui.define([
                 try {
                     var sPath = jQuery.sap.getModulePath("transferapproval", "/controller/Data.json");
                     var oModel = new sap.ui.model.json.JSONModel(sPath);
-                     //var oData = oModel.getData();
-                     //oData.
+                    //var oData = oModel.getData();
+                    //oData.
                     // Load JSON in model
                     this.getView().setModel(oModel, "data");
 
@@ -62,6 +62,17 @@ sap.ui.define([
                 } catch (error) {
                     console.log(error);
                 }
+
+                this.oFilterBar = this.byId("filterbar0");
+
+                this.oFilterBar.registerFetchData(this.fFetchData);
+                this.oFilterBar.registerApplyData(this.fApplyData);
+                this.oFilterBar.registerGetFiltersWithValues(this.fGetFiltersWithValues);
+
+                this.fVariantStub();
+                //this.onToggleSearchField();
+                this.oFilterBar.fireInitialise();
+                this._sHeader = this.oFilterBar.getHeader();
             },
             handleRouteMatched: function (oEvent) {
                 var oParams = oEvent.getParameters();
@@ -134,27 +145,144 @@ sap.ui.define([
                 oBinding.filter(aFilters);
             },
             onSelection: function (oEvent) {
-               // var tbl = this.getView().byId('TransferReqTable');
+                // var tbl = this.getView().byId('TransferReqTable');
                 var oModel = this.getView().getModel('OP');
                 var oData = oModel.getData();
                 oData.selectedCount = oEvent.getSource().getSelectedItems().length;
                 oModel.setData(oData);
             },
-            _onTableItemPress: function(oEvent){
+            _onTableItemPress: function (oEvent) {
                 var sId = oEvent.getSource().getBindingContext("data").getProperty("employeeid");
-                this.oRouter.navTo("TransferDetail", {   
-                        ID: sId }, false);
+                this.oRouter.navTo("TransferDetail", {
+                    ID: sId
+                }, false);
             },
             onAfterRendering: function () {
                 var tbl = this.getView().byId('TransferReqTable');
                 var header = tbl.$().find('thead');
                 var selectAllCb = header.find('.sapMCb');
                 var selectedKey = tbl.getParent().getParent().getSelectedKey();
-                if (selectedKey !== 'pending'){
-                sap.ui.getCore().byId(selectAllCb.attr('id')).setEnabled(false);
-            }else{
-                sap.ui.getCore().byId(selectAllCb.attr('id')).setEnabled(true);
-            }
+                if (selectedKey !== 'pending') {
+                    sap.ui.getCore().byId(selectAllCb.attr('id')).setEnabled(false);
+                } else {
+                    sap.ui.getCore().byId(selectAllCb.attr('id')).setEnabled(true);
+                }
+            },
+            fFetchData: function () {
+                var oJsonParam;
+                var oJsonData = [];
+                var sGroupName;
+                var oItems = this.getAllFilterItems(true);
+
+                for (var i = 0; i < oItems.length; i++) {
+                    oJsonParam = {};
+                    sGroupName = null;
+                    if (oItems[i].getGroupName) {
+                        sGroupName = oItems[i].getGroupName();
+                        oJsonParam.groupName = sGroupName;
+                    }
+
+                    oJsonParam.name = oItems[i].getName();
+
+                    var oControl = this.determineControlByFilterItem(oItems[i]);
+                    if (oControl) {
+                        oJsonParam.value = oControl.getValue();
+                        oJsonData.push(oJsonParam);
+                    }
+                }
+
+                return oJsonData;
+            },
+
+            fApplyData: function (oJsonData) {
+
+                var sGroupName;
+
+                for (var i = 0; i < oJsonData.length; i++) {
+
+                    sGroupName = null;
+
+                    if (oJsonData[i].groupName) {
+                        sGroupName = oJsonData[i].groupName;
+                    }
+
+                    var oControl = this.determineControlByName(oJsonData[i].name, sGroupName);
+                    if (oControl) {
+                        oControl.setValue(oJsonData[i].value);
+                    }
+                }
+            },
+
+            fGetFiltersWithValues: function () {
+                var i;
+                var oControl;
+                var aFilters = this.getFilterGroupItems();
+
+                var aFiltersWithValue = [];
+
+                for (i = 0; i < aFilters.length; i++) {
+                    oControl = this.determineControlByFilterItem(aFilters[i]);
+                    if (oControl && oControl.getValue && oControl.getValue()) {
+                        aFiltersWithValue.push(aFilters[i]);
+                    }
+                }
+
+                return aFiltersWithValue;
+            },
+
+            fVariantStub: function () {
+                var oVM = this.oFilterBar._oVariantManagement;
+                oVM.initialise = function () {
+                    this.fireEvent("initialise");
+                    this._setStandardVariant();
+
+                    this._setSelectedVariant();
+                };
+
+                var nKey = 0;
+                var mMap = {};
+                var sCurrentVariantKey = null;
+                oVM._oVariantSet = {
+
+                    getVariant: function (sKey) {
+                        return mMap[sKey];
+                    },
+                    addVariant: function (sName) {
+                        var sKey = "" + nKey++;
+
+                        var oVariant = {
+                            key: sKey,
+                            name: sName,
+                            getItemValue: function (s) {
+                                return this[s];
+                            },
+                            setItemValue: function (s, oObj) {
+                                this[s] = oObj;
+                            },
+                            getVariantKey: function () {
+                                return this.key;
+                            }
+                        };
+                        mMap[sKey] = oVariant;
+
+                        return oVariant;
+                    },
+
+                    setCurrentVariantKey: function (sKey) {
+                        sCurrentVariantKey = sKey;
+                    },
+
+                    getCurrentVariantKey: function () {
+                        return sCurrentVariantKey;
+                    },
+
+                    delVariant: function (sKey) {
+                        if (mMap[sKey]) {
+                            delete mMap[sKey];
+                        }
+                    }
+                }
+
             }
         });
     });
