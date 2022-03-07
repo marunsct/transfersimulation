@@ -260,6 +260,7 @@ sap.ui.define([
                     "nodes": [
                         {
                             "id": "Dinter",
+                            "empId": 1001,
                             "lid": 1,
                             "lane": 0,
                             "title": "Sophie Dinter",
@@ -280,6 +281,7 @@ sap.ui.define([
                         },
                         {
                             "id": "Ninsei",
+                            "empId": 1002,
                             "lid": 2,
                             "lane": 1,
                             "children": [3],
@@ -301,6 +303,7 @@ sap.ui.define([
                         },
                         {
                             "id": "Mills",
+                            "empId": 1003,
                             "lid": 3,
                             "lane": 2,
                             "children": [],
@@ -448,6 +451,8 @@ sap.ui.define([
                             type: "XML"
                         }).then(function (oFragment) {
                             this._oQuickView = oFragment;
+                            this.getView().addDependent(this._oQuickView);
+                            this._oQuickView.attachAfterOpen(this.onNavigate,  this);
                             this._oQuickView.setModel(new JSONModel({
                                 icon: oNode.getBindingContext("graph").getProperty("src"),
                                 title: oNode.getBindingContext("graph").getProperty("title"),
@@ -456,7 +461,8 @@ sap.ui.define([
                                 showTeam: !!oNode.getBindingContext("graph").getProperty("team"),
                                 teamSize: oNode.getBindingContext("graph").getProperty("team"),
                                 email: oNode.getBindingContext("graph").getProperty("email"),
-                                phone: oNode.getBindingContext("graph").getProperty("phone")
+                                phone: oNode.getBindingContext("graph").getProperty("phone"),
+                                empId: oNode.getBindingContext("graph").getProperty("empId")
                             }));
 
                             setTimeout(function () {
@@ -464,6 +470,7 @@ sap.ui.define([
                             }.bind(this), 0);
                         }.bind(this));
                     } else {
+                        this._oQuickView.close();
                         this._oQuickView.setModel(new JSONModel({
                             icon: oNode.getBindingContext("graph").getProperty("src"),
                             title: oNode.getBindingContext("graph").getProperty("title"),
@@ -472,7 +479,8 @@ sap.ui.define([
                             showTeam: !!oNode.getBindingContext("graph").getProperty("team"),
                             teamSize: oNode.getBindingContext("graph").getProperty("team"),
                             email: oNode.getBindingContext("graph").getProperty("email"),
-                            phone: oNode.getBindingContext("graph").getProperty("phone")
+                            phone: oNode.getBindingContext("graph").getProperty("phone"),
+                            empId: oNode.getBindingContext("graph").getProperty("empId")
                         }));
 
                         setTimeout(function () {
@@ -494,6 +502,8 @@ sap.ui.define([
                         type: "XML"
                     }).then(function (oFragment) {
                         this._oQuickView = oFragment;
+                        this.getView().addDependent(this._oQuickView);
+                        this._oQuickView.attachAfterOpen(this.onNavigate,  this);
                         this._oQuickView.setModel(new JSONModel({
                             icon: this._getCustomDataValue(oNode, "src"),
                             title: oNode.getDescription(),
@@ -502,7 +512,8 @@ sap.ui.define([
                             showTeam: !!sTeamSize,
                             teamSize: sTeamSize,
                             email: this._getCustomDataValue(oNode, "email"),
-                            phone: this._getCustomDataValue(oNode, "phone")
+                            phone: this._getCustomDataValue(oNode, "phone"),
+                            empId: oNode.getBindingContext("graph").getProperty("empId")
                         }));
 
                         setTimeout(function () {
@@ -510,6 +521,7 @@ sap.ui.define([
                         }.bind(this), 0);
                     }.bind(this));
                 } else {
+                    this._oQuickView.close();
                     this._oQuickView.setModel(new JSONModel({
                         icon: this._getCustomDataValue(oNode, "src"),
                         title: oNode.getDescription(),
@@ -518,7 +530,8 @@ sap.ui.define([
                         showTeam: !!sTeamSize,
                         teamSize: sTeamSize,
                         email: this._getCustomDataValue(oNode, "email"),
-                        phone: this._getCustomDataValue(oNode, "phone")
+                        phone: this._getCustomDataValue(oNode, "phone"),
+                        empId: oNode.getBindingContext("graph").getProperty("empId")
                     }));
 
                     setTimeout(function () {
@@ -717,6 +730,9 @@ sap.ui.define([
             callBackFunc: function () {
                 console.log("Dialog Method");
                // this._onPageNavButtonPress();
+            },
+            onNavigate: function(){
+                console.log("hiiiii");
             }
         });
     });

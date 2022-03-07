@@ -1,29 +1,22 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<QuickView id="quickView">
-		<QuickViewPage
-				header="Employee Information"
-				icon="{/icon}"
-				title="{/title}"
-				description="{/description}">
-			<QuickViewGroup heading="Contact detail">
-				<QuickViewGroupElement
-						label="Location"
-						value="{/location}"/>
-				<QuickViewGroupElement
-						label="Mobile"
-						value="{/phone}"
-						type="mobile"/>
-				<QuickViewGroupElement
-						label="Email"
-						value="{/email}"
-						emailSubject="Subject"
-						type="email"/>
-			</QuickViewGroup>
-			<QuickViewGroup visible="{/showTeam}" heading="Team">
-				<QuickViewGroupElement
-						label="Size"
-						value="{/teamSize}" />
-			</QuickViewGroup>
-		</QuickViewPage>
-	</QuickView>
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <QuickView id="quickView">
+        <QuickViewPage id="quickViewPage" header="Employee Information" title="{/title}" description="{/description}" titleUrl="{='index.html#/EmployeeProfile/' + ${/empId} }" >
+            <avatar>
+                <Avatar src="{/icon}" displayShape="Square" press="" badgeIcon="business-card"/>
+            </avatar>
+            <QuickViewGroup heading="Contact Information">
+                <QuickViewGroupElement label="Mobile1" value="{/phone}" type="mobile" />
+                <QuickViewGroupElement label="Email" value="{/email}" emailSubject="Subject" type="email" />
+            </QuickViewGroup>
+            <QuickViewGroup heading="Department">
+                <QuickViewGroupElement label="" value="Department - A" />
+            </QuickViewGroup>
+            <QuickViewGroup heading="Current Postition">
+                <QuickViewGroupElement label="" value="{/description}" />
+                <QuickViewGroupElement label="" value="1 Nomination" class="quickView"/>
+
+            </QuickViewGroup>
+        </QuickViewPage>
+    </QuickView>
 </core:FragmentDefinition>

@@ -372,6 +372,16 @@ table.sapSuiteUiCommonsPF td, table.sapSuiteUiCommonsPF th {
 .sapUiSizeCompact .sapMTB.sapMTBHeader-CTX {
     padding: 0px;
 }
+.quickView{
+
+        margin-top: 1px solid #fafafa !important;
+
+}
+
+.quickViewH{
+    width: 100%;
+    justify-content: start !important;
+}
 /*
 .pfButton{
     width: min-content;
@@ -396,4 +406,5 @@ table.sapSuiteUiCommonsPF td, table.sapSuiteUiCommonsPF th {
     font-size: 1.5rem;
     color: red;
 }
+
 */
