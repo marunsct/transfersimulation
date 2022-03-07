@@ -264,7 +264,7 @@
                 </items>
             </HBox>
 
-            <fb:FilterBar id="filterbar0" search=".onSearch" clear="_onTableItemPress" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="true">
+            <fb:FilterBar id="filterbar0" search=".onSearch" clear="_onTableItemPress" useToolbar="true" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="true">
                 <fb:filterGroupItems>
                     <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" visibleInFilterBar="true" label="{i18n>positionId}">
                         <fb:control>

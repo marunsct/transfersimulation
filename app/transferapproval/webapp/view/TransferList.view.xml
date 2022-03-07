@@ -9,7 +9,7 @@
     <VBox id="vbox1">
         <items>
 
-            <fb:FilterBar id="filterbar0" search=".onSearch" clear=".onClear" useToolbar="false" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="true" class="filterBackground" showRestoreButton="true" showClearButton="true" showCancelButton="true"> 
+            <fb:FilterBar id="filterbar0" search=".onSearch" clear=".onClear" useToolbar="true" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="true" class="filterBackground" showRestoreButton="true" showClearButton="true" showCancelButton="true"> 
                 <fb:filterGroupItems>
                     <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="{i18n>department}" visibleInFilterBar="true" labelTooltip="{i18n>department}" partOfCurrentVariant="true">
                         <fb:control>
