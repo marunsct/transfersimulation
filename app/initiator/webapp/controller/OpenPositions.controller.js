@@ -360,7 +360,7 @@ sap.ui.define([
                     "hText": "Result ",
                     "hNumbers": "(0)"
                 },
-                height : (Math.round(Device.resize.height * 0.66 )) + 'px'
+                height : (Math.round(Device.resize.height * 0.62 )) + 'px'
             };
             this.oView.setModel(new sap.ui.model.json.JSONModel(this._vData), 'OP');
             this.oFclModel.setProperty('/headerExpanded', false);
@@ -413,13 +413,13 @@ sap.ui.define([
         },
         performanceColor: function(sGrade){
             switch (sGrade){
-                case "A":
-                    return "performanceNegative";
-                case "B":
-                    return "performanceNeutral";
-                case "C":
-                    return "performanceNeutralM";
                 case "D":
+                    return "performanceNegative";
+                case "C":
+                    return "performanceNeutral";
+                case "B":
+                    return "performanceNeutralM";
+                case "A":
                     return "performancePositive";
                 default:
                     return "performanceNeutral";            

@@ -148,7 +148,7 @@
                                             
                                             <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings" />
                                             <Button id="button3" icon="sap-icon://refresh" press="onTablePersoRefresh" />  -->
-                                            <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiLargeMarginEnd" tooltip="Download as Excel"/>
+                                            <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiTinyMarginEnd" tooltip="Download as Excel"/>
                                         </content>
                                     </OverflowToolbar>
                                 </headerToolbar>

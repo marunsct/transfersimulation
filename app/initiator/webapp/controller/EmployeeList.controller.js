@@ -13,9 +13,10 @@ sap.ui.define([
     "sap/ui/core/message/Message",
     "sap/ui/core/library",
     "sap/ui/core/Fragment",
-    "sap/ui/Device"
+    "sap/ui/Device",
+    "sap/ui/export/Spreadsheet"
 
-], function (BaseController, MessageBox, History, Filter, FilterOperator, Button, Dialog, ButtonType, Text, JSONModel, BindingMode, cMessage, library, Fragment, Device) {
+], function (BaseController, MessageBox, History, Filter, FilterOperator, Button, Dialog, ButtonType, Text, JSONModel, BindingMode, cMessage, library, Fragment, Device, Spreadsheet) {
     "use strict";
 
     // shortcut for sap.ui.core.MessageType
@@ -92,7 +93,7 @@ sap.ui.define([
             if (sCurrentPage !== sLast) {
                 return sText + ' ( ' + ((sTop * (sCurrent - 1)) + 1) + ' - ' + (sTop * sCurrent) + ' ) : ';
             } else {
-                return sText + ' ( ' + ((sTop * (sCurrent - 1)) + 1) + ' - ' + sCount + ' ) : ';
+                return sText + ' ( ' + ((sTop * (sCurrent - 1)) + 1) + ' - ' + sCount + ' ): ';
             }
 
         },
@@ -100,7 +101,7 @@ sap.ui.define([
             return 'Page ' + sCurrent + ' of ' + sLast;
         },
 
-        onClear: function (oEvent) {
+        _onClear: function (oEvent) {
             var fData = this.getModel("filter").getData();
             fData.filter = {
                 position: "",
@@ -116,6 +117,94 @@ sap.ui.define([
             fData.currentPage = 0;
             fModel.setData(fData);
             //this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
+        },
+        onClear: function (oEvent) {
+            //this.oFilterBar = this.byId("filterbar0"); 
+            var oItems = this.oFilterBar.getAllFilterItems(true);
+            for (var i = 0; i < oItems.length; i++) {
+                var oControl = this.oFilterBar.determineControlByFilterItem(oItems[i]);
+                if (oControl) {
+                    oControl.setValue("");
+                }
+            }
+        },
+        onExcelDownload: function () {
+            var i18n = this.oView.getModel("i18n");
+            var aColumns = [];
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("employee"),
+                property: "userId"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("employeeName"),
+                property: "",
+
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("department"),
+                property: "department"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("class"),
+                property: "employeeClass",
+
+            });
+
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("type"),
+                property: "employmentType"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("location"),
+                property: "location",
+
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("supervisor"),
+                property: "managerId"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("criteria"),
+                property: ""
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("position"),
+                property: "position"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("newPosition"),
+                property: ""
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("status"),
+                property: "status"
+            });
+
+
+
+
+            var mSettings = {
+                workbook: {
+                    columns: aColumns,
+                    context: {
+                        application: 'Transfer Plan Open',
+                        version: '1.98.0',
+                        title: 'Transfer Plan Initiation',
+                        modifiedBy: 'Logged in User',
+                        sheetName: 'Employee Information'
+                    },
+                    hierarchyLevel: 'level'
+                },
+                dataSource: this.getModel("OP").getData().EmployeeJobs,
+                fileName: "Employee Information.xlsx"
+            };
+            var oSpreadsheet = new Spreadsheet(mSettings);
+            oSpreadsheet.onprogress = function (iValue) {
+                ("Export: %" + iValue + " completed");
+            };
+            oSpreadsheet.build()
+                .then(function () { ("Export is finished"); })
+                .catch(function (sMessage) { ("Export error: " + sMessage); });
         },
         onSearch: function (oEvent) {
             //var oModel = this.getModel("oData");
@@ -164,7 +253,7 @@ sap.ui.define([
                     let oView = sap.ui.getCore().byId("EmployeeList");
                 }
             }.bind(this));
-            this._sCount = Math.round(((Device.resize.height - 250) / 40)) - 2;
+            this._sCount = Math.round(((Device.resize.height - 285) / 40)) - 2;
             if (!this.oView) {
                 this.oView = this.getView();
             }
@@ -195,7 +284,7 @@ sap.ui.define([
                 totalPage: 0,
                 currentPage: 0,
                 pageText: '',
-                top: (Math.round(((Device.resize.height - 250) / 40)) - 2)
+                top: (Math.round(((Device.resize.height - 300) / 40)) - 2)
             }), 'filter');
             this.oView.setModel(new JSONModel({ Count: 100, EmployeeJobs: [] }), 'OP');
             this.onEmployeeInit();
@@ -213,7 +302,7 @@ sap.ui.define([
 
             // or just do it for the whole view
             oMessageManager.registerObject(this.oView, true);
-
+            this.oFilterBar = this.byId("filterbar0"); 
             this.byId("table0").setBusy(true);
 
 
@@ -255,13 +344,17 @@ sap.ui.define([
                 });
                 //  var cat = await this.asyncAjax("V3/Northwind/Northwind.svc/Categories");
                 // console.log(cat);
+                this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
             } else {
-                var fModel = this.getView().getModel('filter');
+                var fModel = this.getView().getModel('OP');
                 var fData = fModel.getData();
-                fData.currentPage = 0;
+               // fData.currentPage = 0;
                 fModel.setData(fData);
+                if(fData.EmployeeJobs.length === 0){
+                    this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
+                }
             }
-            this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
+           
         },
         onExit: function () {
 
@@ -741,13 +834,20 @@ sap.ui.define([
         onNext: function () {
             var fData = this.getView().getModel('filter').getData();
             var oFilters = this._builFilters(fData.filter);
-            if (fData.currentPage === fData.totalPage - 1) {
-                this.byId("bNext").setEnabled(false);
-            }
-               // console.log(fData.currentPage < fData.totalPage, fData.currentPage , fData.totalPage  );
-                this._onOdataCall('EmployeeJobs', oFilters, this._sCount, fData.currentPage * this._sCount);
+            this.byId("bNext").setEnabled(false);
 
-            
+            // console.log(fData.currentPage < fData.totalPage, fData.currentPage , fData.totalPage  );
+            this._onOdataCall('EmployeeJobs', oFilters, this._sCount, fData.currentPage * this._sCount)
+                .then(() => {
+                    if (fData.currentPage !== fData.totalPage) {
+                        this.byId("bNext").setEnabled(true);
+                    }
+                }
+                )
+                .catch(error => { console.log(error) });
+
+
+
         },
         onPrevious: function () {
             var fData = this.getView().getModel('filter').getData();

@@ -277,7 +277,7 @@
 
                             <f:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg" displaySize="L" showBorder="true" id="avatar1" />
 
-                            <VBox direction="Column" id="vbox2" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+                            <VBox direction="Column" id="vbox2" class="sapUiTinyMarginBeginEnd sapUiSmallMarginTopBottom">
 
                                 <items>
 
@@ -289,7 +289,7 @@
 
                                             <Text xmlns="sap.m" text="Software Developer" id="text9" />
 
-                                            <Text xmlns="sap.m" text="|" id="text10" class="sapUiSmallMarginBeginEnd" />
+                                            <Text xmlns="sap.m" text="|" id="text10" class="sapUiTinyMarginBeginEnd" />
 
                                             <Link xmlns="sap.m" text="View profile" id="link0" press="onViewProfile" />
 
@@ -311,7 +311,7 @@
                     <HBox alignItems="Center" class="performanceContainer" justifyContent="SpaceAround">
                         <items>
 
-                            <HBox id="hbox0_1643951932490" class=" sapUiMediumMarginTopBottom sapUiSmallMarginEnd">
+                            <HBox id="hbox0_1643951932490" class=" sapUiMediumMarginTopBottom ">
 
                                 <items>
 
@@ -321,7 +321,7 @@
 
                                             <Label text="Department :" width="100%" id="label0_1643626362769" />
 
-                                            <Label text="Location :" width="100%" id="label1_1643626384196" class="sapUiSmallMarginTopBottom" />
+                                            <Label text="Location :" width="100%" id="label1_1643626384196" class="" />
 
                                             <Label text="Supervisor :" width="100%" id="label0_1643626362769_copy" />
 
@@ -335,11 +335,11 @@
 
                                         <items>
 
-                                            <Text text="Description " id="text15" />
+                                            <Text text="Description " id="text15" class="textLable"/>
 
-                                            <Text text="Location 1" id="text16" class="sapUiSmallMarginTopBottom" />
+                                            <Text text="Location 1" id="text16" class="textLable" />
 
-                                            <Text text="Description" id="text15_copy" />
+                                            <Text text="Description" id="text15_copy" class="textLable"/>
 
                                         </items>
 
@@ -349,7 +349,7 @@
 
                             </HBox>
 
-                            <HBox direction="Row" id="vbox2_1643626264149_copy3" class="sapUiMediumMarginTopBottom sapUiSmallMarginEnd">
+                            <HBox direction="Row" id="vbox2_1643626264149_copy3" class="sapUiMediumMarginTopBottom ">
 
                                 <items>
 
@@ -359,7 +359,7 @@
 
                                             <Label text="Last Transfer : " width="100%" id="label1_1643626384196_copy" />
 
-                                            <Label text="Eligibility : " width="100%" id="label1_1643626384196_copy2" class="sapUiSmallMarginTopBottom" />
+                                            <Label text="Eligibility : " width="100%" id="label1_1643626384196_copy2" class="" />
 
                                         </items>
 
@@ -369,11 +369,11 @@
 
                                         <items>
 
-                                            <Text text="Location 1" id="text16_copy" />
+                                            <Text text="Location 1" id="text16_copy"  class="textLable"/>
 
-                                            <ObjectStatus state="Success" id="status0" icon="sap-icon://status-positive" class="sapUiSmallMarginTop" />
+                                            <ObjectStatus state="Success" id="status0" icon="sap-icon://sys-enter-2" class="" />
 
-                                            <Text text="Eligibility Description" id="text16_copy2" />
+                                            <Text text="Eligibility Description" id="text16_copy2" class="textLable"/>
 
                                         </items>
 
@@ -384,10 +384,10 @@
 
 
                             </HBox>
-                            <VBox id="hbox0_16_copy3" class="sapUiMediumMarginTopBottom sapUiSmallMarginEnd " alignItems="Start" alignContent="Start" wrap="Wrap">
+                            <VBox id="hbox0_16_copy3" class="sapUiMediumMarginTopBottom " alignItems="Start" alignContent="Start" wrap="Wrap">
                                 <items>
                                     <Label text="Performance after previous Transfer : " width="100%" id="label0_1643626362769_copy3" />
-                                    <HBox direction="Row" id="vbox2_1643626264149_copy6" class="sapUiSmallMarginTop performanceContainer" alignItems="Start" alignContent="Start" justifyContent="SpaceBetween">
+                                    <HBox direction="Row" id="vbox2_1643626264149_copy6" class=" performanceContainer" alignItems="Start" alignContent="Start" justifyContent="SpaceBetween">
 
                                         <items>
 

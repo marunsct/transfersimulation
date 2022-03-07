@@ -52,21 +52,25 @@
        margin-bottom: 7px;
    }
    .performancePositive{
-       background-color: #8fe0f8 !important;
-       
-   }
-   .performanceNegative{
-       background-color: #FF8888 !important;
-       
-   }
-   .performanceNeutral{
-       background-color: #FABD64 !important;
-       
-   }
-   .performanceNeutralM{
-       background-color:  #ABE2AB !important;
-       
-   }
+    background-color: #8fe0f8 !important;
+    border: 0.5px solid;
+    
+}
+.performanceNegative{
+    background-color: #ffd2d2 !important;
+    border: 0.5px solid;
+    
+}
+.performanceNeutral{
+    background-color: #fffec5 !important;
+    border: 0.5px solid;
+    
+}
+.performanceNeutralM{
+    background-color:  #c6ffc6 !important;
+    border: 0.5px solid;
+    
+}
    .sapMBtn.navigationButton .sapMBtnIcon{
      
        font-size: 50px;
@@ -384,6 +388,11 @@ table.sapSuiteUiCommonsPF td, table.sapSuiteUiCommonsPF th {
 }
 .detailList{
     background-color: #b3d9ff48 !important;
+}
+.performanceRound{
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 10px;
 }
 /*
 .pfButton{

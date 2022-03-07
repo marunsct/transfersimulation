@@ -12,7 +12,7 @@
         <App id="app">
             <pages>
                 <Page id="page"
-                    enableScrolling="false">
+                    enableScrolling="false" class="container">
                     <customHeader>
                         <Bar xmlns:mvc="sap.ui.core.mvc"
                             xmlns:f="sap.f"
