@@ -395,9 +395,8 @@
                                     <Title text="{i18n>posiitoTH}" id="text06" level="H3" class="titleText"/>
                                     <ToolbarSpacer id="spacer2"/>
                                     <!-- <Button id="button0_1579056670196" press="onNavtoDetail" text="{i18n>tbnew}"/> -->
-                                    <Button id="button0" icon="sap-icon://sort" press="handleSortButtonPressed"/>
-                                    <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings"/>
-                                    <Button id="button4" icon="sap-icon://excel-attachment" press="onExport" enabled="false" class="sapUiLargeMarginEnd"/>
+                                    <Button id="button0" icon="sap-icon://sort" press="handleSortButtonPressed" enabled="false" tooltip="Sort"/>
+                                    <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiLargeMarginEnd" tooltip="Download as Excel"/>
                                 </content>
                             </OverflowToolbar>
                         </headerToolbar>

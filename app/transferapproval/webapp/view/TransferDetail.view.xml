@@ -296,7 +296,7 @@
                         <content>
                             <Table id="table0" items="{data1>/TransferReq1}" fixedLayout="true" includeItemInSelection="false" width="auto" class="sapUiForceWidthAuto" growing="true" backgroundDesign="Transparent">
                                 <items>
-                                    <ColumnListItem type="Active" id="item0_copy_table0_0">
+                                    <ColumnListItem type="Active" id="item0_copy_table0_0" class="detailList">
                                         <cells>
                                             <Text text="{data1>employeeid}" id="text004_copy_table0_0" wrapping="true"/>
                                             <Text text="{data1>name}" id="text04_copy_table0_0" wrapping="true"/>
@@ -306,7 +306,7 @@
                                             <HBox alignContent="Center" alignItems="Center">
                                                 <items>
                                                     <Text text="{data1>newpos}"/>
-                                                    <Button class="tableButton" enabled="{=${data1>Status} === 'Pending'}" id="button0_1646328264363" press="editPosition" icon="sap-icon://edit" iconFirst="false" type="Transparent"/>
+                                                    <Button tooltip="Edit Assigned Position" class="tableButton" enabled="{=${data1>Status} === 'Pending'}" id="button0_1646328264363" press="editPosition" icon="sap-icon://edit" iconFirst="false" type="Transparent"/>
                                                 </items>
                                             </HBox>
                                             <Text text="Director / HR" id="text7_copy_table0_0" wrapping="true"/>

@@ -7,39 +7,6 @@
         }
     ],
 	"VCAP_SERVICES": {
-		"destination": [
-			{
-				"label": "destination",
-				"provider": null,
-				"plan": "lite",
-				"name": "TransferSimulation-dest-srv",
-				"tags": [
-					"destination",
-					"conn",
-					"connsvc"
-				],
-				"instance_guid": "eb72732a-bbc4-4d93-9987-819b45fcaac9",
-				"instance_name": "TransferSimulation-dest-srv",
-				"binding_guid": "ace8ab05-d88b-4fef-b1b8-17a66765d2c6",
-				"binding_name": null,
-				"credentials": {
-					"tenantmode": "dedicated",
-					"clientid": "sb-cloneeb72732abbc44d939987819b45fcaac9!b975|destination-xsappname!b5",
-					"credential-type": "binding-secret",
-					"xsappname": "cloneeb72732abbc44d939987819b45fcaac9!b975|destination-xsappname!b5",
-					"clientsecret": "ace8ab05-d88b-4fef-b1b8-17a66765d2c6$pKDzVi1vvfzJUwr3tjSqVs0uaJ2DfEiakiIMiLh4V_c=",
-					"uri": "https://destination-configuration.cfapps.jp10.hana.ondemand.com",
-					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
-					"uaadomain": "authentication.jp10.hana.ondemand.com",
-					"instanceid": "eb72732a-bbc4-4d93-9987-819b45fcaac9",
-					"verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtxX2lTr4g9sdFWyCkxveD62pqirY35LP37lTrfDmwcATJo+bNsLTX1kLugK3qBhga9iuqpI3eI+CBcujYnzVMVSyRKeJMC0rtvNX7YU5R3MYfSQ2qfW4QrRx/RU80vi53Uv9Wfd24uH9YyeoN5V0Rm2n80r2OT623wIsUjSGEYhlnwddqwvRn0vykaohx9alRQVL0LOLVqgbs225nl5hsTCNbv59q2nPk2OH+j/75+slw1pqHS2UJ6mdepBhFSdI1b63detLIKjIFiEYHQupjtr38le82xbJrTz9M5YqM5nztA/tQQSU6z+ncOxwX6jfaHCsGjtQ3BlrpHBd0vn93wIDAQAB-----END PUBLIC KEY-----",
-					"identityzone": "dev-50okhz4b",
-					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
-				},
-				"syslog_drain_url": null,
-				"volume_mounts": []
-			}
-		],
 		"xsuaa": [
 			{
 				"label": "xsuaa",
@@ -51,7 +18,7 @@
 				],
 				"instance_guid": "1f6acc41-48ad-46a4-b63d-2f88917e1013",
 				"instance_name": "TransferSimulation-xsuaa-service",
-				"binding_guid": "250505d0-37d6-46d7-b367-ab4282f59f92",
+				"binding_guid": "15ba08c4-fa07-4a02-b41a-8ce571b5846b",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",
@@ -69,6 +36,39 @@
 					"identityzoneid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
 					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
 					"zoneid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
+				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		],
+		"destination": [
+			{
+				"label": "destination",
+				"provider": null,
+				"plan": "lite",
+				"name": "TransferSimulation-dest-srv",
+				"tags": [
+					"destination",
+					"conn",
+					"connsvc"
+				],
+				"instance_guid": "eb72732a-bbc4-4d93-9987-819b45fcaac9",
+				"instance_name": "TransferSimulation-dest-srv",
+				"binding_guid": "98a38840-dd22-417a-901c-55d50aaf3671",
+				"binding_name": null,
+				"credentials": {
+					"tenantmode": "dedicated",
+					"clientid": "sb-cloneeb72732abbc44d939987819b45fcaac9!b975|destination-xsappname!b5",
+					"credential-type": "binding-secret",
+					"xsappname": "cloneeb72732abbc44d939987819b45fcaac9!b975|destination-xsappname!b5",
+					"clientsecret": "98a38840-dd22-417a-901c-55d50aaf3671$pHGd1EG9u2wsJKBGEsiaUo2jB-IkYhVHPPJNKzbJsHw=",
+					"uri": "https://destination-configuration.cfapps.jp10.hana.ondemand.com",
+					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
+					"uaadomain": "authentication.jp10.hana.ondemand.com",
+					"instanceid": "eb72732a-bbc4-4d93-9987-819b45fcaac9",
+					"verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtxX2lTr4g9sdFWyCkxveD62pqirY35LP37lTrfDmwcATJo+bNsLTX1kLugK3qBhga9iuqpI3eI+CBcujYnzVMVSyRKeJMC0rtvNX7YU5R3MYfSQ2qfW4QrRx/RU80vi53Uv9Wfd24uH9YyeoN5V0Rm2n80r2OT623wIsUjSGEYhlnwddqwvRn0vykaohx9alRQVL0LOLVqgbs225nl5hsTCNbv59q2nPk2OH+j/75+slw1pqHS2UJ6mdepBhFSdI1b63detLIKjIFiEYHQupjtr38le82xbJrTz9M5YqM5nztA/tQQSU6z+ncOxwX6jfaHCsGjtQ3BlrpHBd0vn93wIDAQAB-----END PUBLIC KEY-----",
+					"identityzone": "dev-50okhz4b",
+					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
 				},
 				"syslog_drain_url": null,
 				"volume_mounts": []

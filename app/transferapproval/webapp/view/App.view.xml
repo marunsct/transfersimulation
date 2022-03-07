@@ -4,7 +4,7 @@
     <Shell id="shell" appWidthLimited="false" class="sapMBrandingBar-CTX">
         <App id="app">
             <pages>
-                <Page id="page" enableScrolling="false">
+                <Page id="page" enableScrolling="false" class="container">
                     <customHeader>
                         <Bar xmlns:mvc="sap.ui.core.mvc"
                             xmlns:f="sap.f"

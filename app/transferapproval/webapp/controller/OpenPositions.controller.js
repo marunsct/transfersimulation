@@ -8,8 +8,9 @@ sap.ui.define([
     'sap/m/Text',
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    "sap/ui/Device"
-], function (BaseController, MessageBox, History, Button, Dialog, ButtonType, Text, Filter, FilterOperator, Device) {
+    "sap/ui/Device",
+    "sap/ui/export/Spreadsheet"
+], function (BaseController, MessageBox, History, Button, Dialog, ButtonType, Text, Filter, FilterOperator, Device, Spreadsheet) {
     "use strict";
 
     return BaseController.extend("transferapproval.controller.OpenPositions", {
@@ -307,27 +308,86 @@ sap.ui.define([
             };
             this.oView.setModel(new sap.ui.model.json.JSONModel(this._vData), 'OP');
            // this.oFclModel.setProperty('/headerExpanded', false);
-            this.byId("table0").setBusy(true);
+           this.oFilterBar = this.byId("filterbar0"); 
+           this.byId("table0").setBusy(true);
 
         },
         onAfterRendering: function () {
 
             this.onOdataCall([new Filter("vacant", FilterOperator.EQ, true)]);
-/*
-            var sp4ID = this.byId('hp4');
-            var sp3ID = this.byId('hp3');
-            var sp2ID = this.byId('hp2');
-            var sp1ID = this.byId('hp1');
-            var sp0ID = this.byId('hp0');
-
-            sp4ID.addStyleClass(this.performanceColor('A'));
-            sp3ID.addStyleClass(this.performanceColor('B'));
-            sp2ID.addStyleClass(this.performanceColor('C'));
-            sp1ID.addStyleClass(this.performanceColor('B'));
-            sp0ID.addStyleClass(this.performanceColor('D'));
-            */
         },
+        onClear: function (oEvent) {
+            //this.oFilterBar = this.byId("filterbar0"); 
+            var oItems = this.oFilterBar.getAllFilterItems(true);
+            for (var i = 0; i < oItems.length; i++) {
+                var oControl = this.oFilterBar.determineControlByFilterItem(oItems[i]);
+                if (oControl) {
+                    oControl.setValue("");
+                }
+            }
+        },
+        onExcelDownload: function () {
+            var i18n = this.oView.getModel("i18n");
+            var aColumns = [];
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("position"),
+                property: "code"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("position"),
+                property: "externalName_defaultValue",
 
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("positionClass"),
+                property: "employeeClass"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("positionType"),
+                property: "cust_employmentType",
+
+            });
+
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("positionDepartment"),
+                property: "department"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("positionLocation"),
+                property: "location",
+
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("standardHours"),
+                property: "standardHours"
+            });
+
+
+
+
+            var mSettings = {
+                workbook: {
+                    columns: aColumns,
+                    context: {
+                        application: 'Transfer Plan Open',
+                        version: '1.98.0',
+                        title: 'Transfer Plan Approval',
+                        modifiedBy: 'Logged in User',
+                        sheetName: 'Available Positions'
+                    },
+                    hierarchyLevel: 'level'
+                },
+                dataSource: this.getModel("OP").getData().OpenPositions.result,
+                fileName: "Available Positions.xlsx"
+            };
+            var oSpreadsheet = new Spreadsheet(mSettings);
+            oSpreadsheet.onprogress = function (iValue) {
+                ("Export: %" + iValue + " completed");
+            };
+            oSpreadsheet.build()
+                .then(function () {  ("Export is finished"); })
+                .catch(function (sMessage) {  ("Export error: " + sMessage); });
+        },
         onOdataCall: function (oFilters) {
             this.byId("table0").setBusy(true);
             var oViewModel = this.getView().getModel('OP');

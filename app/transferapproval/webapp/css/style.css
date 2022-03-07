@@ -382,6 +382,9 @@ table.sapSuiteUiCommonsPF td, table.sapSuiteUiCommonsPF th {
     width: 100%;
     justify-content: start !important;
 }
+.detailList{
+    background-color: #b3d9ff48 !important;
+}
 /*
 .pfButton{
     width: min-content;
