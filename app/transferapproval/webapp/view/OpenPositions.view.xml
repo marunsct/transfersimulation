@@ -18,7 +18,7 @@
 
                                     <Title text="Edit Assigned Position for Employee Name ( 00000856 )" id="title6" titleStyle="H3" class="sapUiSmallMarginTop"/>
 
-                                    <HBox id="hbox0_1643611770017" class="" alignItems="Center">
+                                    <HBox id="hbox0_1643611770017" class="" alignItems="Start" alignContent="Center" justifyContent="Center">
 
                                         <items>
 
@@ -26,7 +26,7 @@
 
                                             <Text text="|" id="text10" class="sapUiSmallMarginBeginEnd"/>
 
-                                            <Link text="View profile" id="link0" press="onViewProfile"/>
+                                            <Link text="View profile" id="link0" press="onViewProfile" textAlign="End"/>
 
                                         </items>
 

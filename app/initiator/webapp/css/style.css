@@ -133,3 +133,14 @@ span.sapMBtnInner.sapMBtnEmphasized {
     overflow: hidden;
     box-sizing: border-box;
 }
+.sapFAvatarCircle .sapFAvatarBadgeIconActiveArea {
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    right: 0;
+}
+
+.sapFAvatarBadgeIconActiveArea {
+    position: absolute;
+    pointer-events: all;
+}

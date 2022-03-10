@@ -83,15 +83,15 @@
                                     
                                     <Link text="{OP>userId}" id="link0" press="onViewProfile" tooltip="View Profile"/>
                                     <Text text="" id="te0" wrapping="true"/>
-                                    <Text text="{OP>department}" id="text4_copy_table0_0" wrapping="true"/>
-                                    <Text text="{OP>employeeClass}" id="text5_copy_table0_0" wrapping="true"/>
-                                    <Text text="{OP>employmentType}" id="text6_copy_table0_0" wrapping="true"/>
-                                    <Text text="{OP>location}" id="text7_copy_table0_0" wrapping="true"/>
-                                    <Text text="{OP>managerId}" id="text8_copy_table0_0" wrapping="true"/>
+                                    <Text text="{OP>department}" id="text4_copy_table0_0" wrapping="false"/>
+                                    <Text text="{OP>employeeClass}" id="text5_copy_table0_0" wrapping="false"/>
+                                    <Text text="{OP>employmentType}" id="text6_copy_table0_0" wrapping="false"/>
+                                    <Text text="{OP>location}" id="text7_copy_table0_0" wrapping="false"/>
+                                    <Text text="{OP>managerId}" id="text8_copy_table0_0" wrapping="false"/>
                                     <ObjectStatus text="{oData>Transfer_Criteria}" state="{=${OP>Transfer_Criteria} === 'Eligible' ? 'Success' : 'Error' }" id="status0_copy_table0_0" icon="{=${OP>Transfer_Criteria} === 'Eligible' ? 'sap-icon://sys-enter-2' : 'sap-icon://status-negative' }" tooltip="Transfer for the Employee is not possible as the Retirement Date is Near"/>
-                                    <Text text="{OP>position}" id="text9_copy_table0_0" wrapping="true"/>
-                                    <Text text="{OP>positionNew}" id="text10_copy_table0_0" wrapping="true"/>
-                                    <Text text="{OP>status}" id="text11_copy_table0_0" wrapping="true"/>
+                                    <Text text="{OP>position}" id="text9_copy_table0_0" wrapping="false"/>
+                                    <Text text="{OP>positionNew}" id="text10_copy_table0_0" wrapping="false"/>
+                                    <Text text="{OP>status}" id="text11_copy_table0_0" wrapping="false"/>
                                     <Button tooltip="Assign Position" id="butt_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress"/>
                                 </cells>
 
@@ -156,7 +156,7 @@
                                 </header>
 
                             </Column>
-                            <Column id="column7" minScreenWidth="Desktop" hAlign="Center">
+                            <Column id="column7"  hAlign="Center">
                                 <header>
                                     <Label text="{i18n>position}" id="label7" wrapping="true"/>
 

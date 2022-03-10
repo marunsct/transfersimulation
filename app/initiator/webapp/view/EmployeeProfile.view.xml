@@ -23,7 +23,7 @@
                                 <m:items>
                                     <m:Button id="button0_1643608506867" width="50px" press="_onPageNavButtonPress" class="navigationButton1" type="Back" />
 
-                                    <f:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg" displaySize="L" showBorder="true" id="avatar1" />
+                                     <m:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg"  displaySize="L" displayShape="Circle" press="onPress" badgeIcon="sap-icon://edit" badgeTooltip= "Julie Armstrong" id="avatar1" />
                                     <m:VBox direction="Column" id="vbox2" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin">
 
                                         <m:items>

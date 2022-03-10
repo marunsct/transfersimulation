@@ -382,6 +382,8 @@ sap.ui.define([
             sp2ID.addStyleClass(this.performanceColor('C'));
             sp1ID.addStyleClass(this.performanceColor('B'));
             sp0ID.addStyleClass(this.performanceColor('D'));
+
+            this._vData.height = (Device.resize.height - (135 + this.getView().byId("filterbar0").$().height() + this.getView().byId("hHeader").$().height())) + 'px'
         },
 
         onOdataCall: function (oFilters) {

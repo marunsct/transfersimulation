@@ -284,7 +284,7 @@ sap.ui.define([
                 totalPage: 0,
                 currentPage: 0,
                 pageText: '',
-                top: (Math.round(((Device.resize.height - 300) / 40)) - 2)
+                top: (Math.round(((Device.resize.height - 285) / 40)) - 2)
             }), 'filter');
             this.oView.setModel(new JSONModel({ Count: 100, EmployeeJobs: [] }), 'OP');
             this.onEmployeeInit();
@@ -308,7 +308,7 @@ sap.ui.define([
 
         },
         onAfterRendering: async function () {
-
+            this._sCount = Math.round(((Device.resize.height - (212 + this.getView().byId("filterbar0").$().height()) )/ 40)) - 2;
             if (this.getCustProperty("Back") !== true) {
 
                 this.setCustProperty("Back", false);
@@ -970,7 +970,7 @@ sap.ui.define([
                         mModel.setData(mData);
                         var fModel = this.getView().getModel('filter');
                         var fData = fModel.getData();
-                        fData.totalPage = Math.ceil(mData.Count / fData.top);
+                        fData.totalPage = Math.ceil(mData.Count / this._sCount);
                         fData.currentPage = fData.currentPage + 1;
                         fModel.setData(fData);
                         if (fData.currentPage > 1) {
