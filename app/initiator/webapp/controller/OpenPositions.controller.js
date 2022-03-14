@@ -20,8 +20,8 @@ sap.ui.define([
             var sContext;
             this._employeeId = oParams.arguments.ID;
             this.byId("table0").removeSelections();
-           // var oContext = this.getCustProperty("EmployeeContext");
-            this._employeeName =  "" ;//oContext.oModel !== undefined ? oContext.oModel.getProperty(oContext.sPath + "/First_Name") : "";
+            // var oContext = this.getCustProperty("EmployeeContext");
+            this._employeeName = "";//oContext.oModel !== undefined ? oContext.oModel.getProperty(oContext.sPath + "/First_Name") : "";
             //this._employeeContext = oParams.arguments.context;
             if (oParams.arguments.midContext) {
                 sContext = oParams.arguments.midContext;
@@ -59,21 +59,21 @@ sap.ui.define([
 
 
             this._openPositions = this.getCustProperty("OpenPositionsEmployee") !== undefined ? this.getCustProperty("OpenPositionsEmployee") : {};
-           // this._employee = this.getCustProperty("EmployeeOpenPositions") !== undefined ? this.getCustProperty("EmployeeOpenPositions") : {};
-            if((this.getCustProperty("OpenPositionsEmployee") !== undefined || this.getCustProperty("EmployeeOpenPositions") !== undefined) && this.getModel("OP")){
+            // this._employee = this.getCustProperty("EmployeeOpenPositions") !== undefined ? this.getCustProperty("EmployeeOpenPositions") : {};
+            if ((this.getCustProperty("OpenPositionsEmployee") !== undefined || this.getCustProperty("EmployeeOpenPositions") !== undefined) && this.getModel("OP")) {
                 var mData = this.getModel("OP").getData();
-                var newData =[];
+                var newData = [];
                 mData.OpenPositions.result.forEach((currentValue) => {
-                  
-                        currentValue.ID1 = "";
-                        currentValue.Name1 = "";
-                
+
+                    currentValue.ID1 = "";
+                    currentValue.Name1 = "";
+
                     newData.push(currentValue);
                 });
                 mData.OpenPositions.result = newData;
                 this.getModel("OP").setData(mData);
             }
-            if(!this.byId("table0").getModel("OP").getData().OpenPositions.result.length){
+            if (!this.byId("table0").getModel("OP").getData().OpenPositions.result.length) {
                 this.byId("table0").setBusy(true);
             }
         },
@@ -81,25 +81,25 @@ sap.ui.define([
             this.setCustProperty("Back", true);
             var oHistory = History.getInstance();
             var sPreviousHash = oHistory.getPreviousHash();
-           // var oQueryParams = this.getQueryParameters(window.location);
+            // var oQueryParams = this.getQueryParameters(window.location);
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.navTo("EmployeeList", true);
 
-/*
-            this.oFclModel.setProperty('/headerExpanded', true);
-            if (Object.keys(this._openPositions).length !== 0) {
-                this.oFclModel.setProperty('/footerVisible', true);
-            } else {
-                this.oFclModel.setProperty('/footerVisible', false);
-            }
-            
-        if (sPreviousHash !== undefined || oQueryParams.navBackToLaunchpad) {
-            window.history.go(-1);
-        } else {
-            var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-            oRouter.navTo("EmployeeList", true);
-        }
-*/
+            /*
+                        this.oFclModel.setProperty('/headerExpanded', true);
+                        if (Object.keys(this._openPositions).length !== 0) {
+                            this.oFclModel.setProperty('/footerVisible', true);
+                        } else {
+                            this.oFclModel.setProperty('/footerVisible', false);
+                        }
+                        
+                    if (sPreviousHash !== undefined || oQueryParams.navBackToLaunchpad) {
+                        window.history.go(-1);
+                    } else {
+                        var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                        oRouter.navTo("EmployeeList", true);
+                    }
+            */
         },
 
         avatarInitialsFormatter: function (sTextValue) {
@@ -165,7 +165,7 @@ sap.ui.define([
             });
 
         },
-        onViewProfile: function (){
+        onViewProfile: function () {
             this.oRouter.navTo("EmployeeProfile", {
                 ID: this._employeeId
                 //context: oBindingContext, 
@@ -174,28 +174,52 @@ sap.ui.define([
                 // layout: sNextLayout
             }, false);
         },
-        getSelected : function(oEvent){
+        getSelected: function (oEvent) {
             this._oAssignment = {};
             this._oAssignment = oEvent.getParameter("listItem").getBindingContext("OP");
+            //oEvent.getParameter('listItem').setHighlight('Information')
+            this._onTableItemPress();
         },
         _onTableItemPress: function (oEvent) {
 
             //console.log(oEvent);
-            
+
             this._oAssignment = {};
             this._oAssignment = this.byId("table0").getSelectedItem().getBindingContext("OP");
-     
+
             //var employee, openPositions;
             var posId = this._oAssignment.getProperty("code");
             var posName = this._oAssignment.getProperty("externalName_defaultValue")
 
-         //   var aCells = oEvent.getParameter("listItem").getCells();
+            //   var aCells = oEvent.getParameter("listItem").getCells();
 
 
             this._preDialog(posId, posName, this._employeeId, this._employeeName, this._oAssignment.sPath);
 
         },
-
+        onItemPress: function (oEvent) {
+            console.log(oEvent);
+        },
+        onInitiateTransfer: function (oEvent) {
+            // var tbl = this.getView().byId('TransferReqTable');
+            var i18n = this.oView.getModel("i18n");
+            let sTitle = i18n.getResourceBundle().getText("confirm");
+            // var sText = i18n.getResourceBundle().getText("reject");
+            let sFirstButton = i18n.getResourceBundle().getText("yes");
+            let sSecondButton = i18n.getResourceBundle().getText("cancel");
+            let sText = i18n.getResourceBundle().getText("initiate", [this._employeeId, '1234']);
+            if (this.byId("table0").getSelectedItems().length > 0) {
+                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.callBackFunc, this);
+            } else {
+                let sTitle = i18n.getResourceBundle().getText("warning");
+                let sText = i18n.getResourceBundle().getText("initiateWarning");
+                this._createDialog(sTitle, sText, sFirstButton, undefined, this.callBackFunc, this.callBackFunc, this);
+            }
+        },
+        callBackFunc: function () {
+            console.log("Dialog Method");
+            //   this._onPageNavButtonPress();
+        },
         _preDialog: function (posId, posName, employeeId, employeeName, sPath) {
 
             var i18n = this.oView.getModel("i18n");
@@ -204,18 +228,18 @@ sap.ui.define([
             var sSecondButton = i18n.getResourceBundle().getText("cancel");
             if (this._openPositions[posId] !== undefined) {
 
-                this._createDialog(sTitle, i18n.getResourceBundle().getText("positionExists", this._openPositions[posId].employeeId), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath);
+                this.createDialog(sTitle, i18n.getResourceBundle().getText("positionExists", this._openPositions[posId].employeeId), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath);
 
             } else if (this._employee[employeeId] !== undefined) { //   || this._employee[this._employeeId].positionId !== undefined) {
-                this._createDialog(sTitle, i18n.getResourceBundle().getText("employeeExists",
+                this.createDialog(sTitle, i18n.getResourceBundle().getText("employeeExists",
                     this._employee[employeeId].positionName), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath);
             } else {
-                this._createDialog(sTitle, i18n.getResourceBundle().getText("assignconfiration", [posName, employeeId]), sFirstButton, sSecondButton, true, posId, posName, employeeId, employeeName, sPath);
+                this.createDialog(sTitle, i18n.getResourceBundle().getText("assignconfiration", [posName, employeeId]), sFirstButton, sSecondButton, true, posId, posName, employeeId, employeeName, sPath);
 
             }
 
         },
-        _createDialog: function (sTitle, sText, sFirstButton, sSecondButton, sNew, posId, posName, employeeId, employeeName, sPath) {
+        createDialog: function (sTitle, sText, sFirstButton, sSecondButton, sNew, posId, posName, employeeId, employeeName, sPath) {
             var dialog = new Dialog({
                 title: sTitle,
                 type: 'Message',
@@ -360,7 +384,7 @@ sap.ui.define([
                     "hText": "Result ",
                     "hNumbers": "(0)"
                 },
-                height : (Math.round(Device.resize.height * 0.62 )) + 'px'
+                height: (Math.round(Device.resize.height * 0.62)) + 'px'
             };
             this.oView.setModel(new sap.ui.model.json.JSONModel(this._vData), 'OP');
             this.oFclModel.setProperty('/headerExpanded', false);
@@ -383,7 +407,7 @@ sap.ui.define([
             sp1ID.addStyleClass(this.performanceColor('B'));
             sp0ID.addStyleClass(this.performanceColor('D'));
 
-            this._vData.height = (Device.resize.height - (135 + this.getView().byId("filterbar0").$().height() + this.getView().byId("hHeader").$().height())) + 'px'
+            this._vData.height = (Device.resize.height - (140 + this.getView().byId("filterbar0").$().height() + this.getView().byId("hHeader").$().height())) + 'px'
         },
 
         onOdataCall: function (oFilters) {
@@ -413,8 +437,8 @@ sap.ui.define([
                     }
                 })
         },
-        performanceColor: function(sGrade){
-            switch (sGrade){
+        performanceColor: function (sGrade) {
+            switch (sGrade) {
                 case "D":
                     return "performanceNegative";
                 case "C":
@@ -424,7 +448,7 @@ sap.ui.define([
                 case "A":
                     return "performancePositive";
                 default:
-                    return "performanceNeutral";            
+                    return "performanceNeutral";
 
             }
         },

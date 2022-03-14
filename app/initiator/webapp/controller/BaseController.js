@@ -1,8 +1,12 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent",
-	"sap/m/library"
-], function (Controller, UIComponent, mobileLibrary) {
+	"sap/m/library",
+    'sap/m/Button',
+    'sap/m/Dialog',
+    'sap/m/ButtonType',
+    'sap/m/Text'
+], function (Controller, UIComponent, mobileLibrary, Button, Dialog, ButtonType, Text) {
 	"use strict";
 
 	// shortcut for sap.m.URLHelper
@@ -97,6 +101,57 @@ sap.ui.define([
         _onMessageClose: function(sThat){
             sThat._oPopover.close();
         },
+
+        _createDialog: function (sTitle, sText, sFirstButton, sSecondButton, pressCallback, endCallback, sThat ) {
+            
+            var dialog;
+            if(sSecondButton !== undefined){
+            dialog = new Dialog({
+                title: sTitle,
+                type: 'Message',
+                content: new Text({ text: sText }),
+                beginButton: new Button({
+                    type: ButtonType.Emphasized,
+                    text: sFirstButton,
+                    press: function(){
+                        pressCallback.bind(sThat)();
+                        dialog.destroy();
+                    }
+
+                }),
+                endButton: new Button({
+                    text: sSecondButton,
+                    press: function () {
+                        endCallback.bind(sThat)();
+                        dialog.destroy();
+                    }
+                }),
+                afterClose: function () {
+                    dialog.destroy();
+                }
+            });
+        } else{
+            dialog = new Dialog({
+                title: sTitle,
+                type: 'Message',
+                content: new Text({ text: sText }),
+                beginButton: new Button({
+                    type: ButtonType.Emphasized,
+                    text: sFirstButton,
+                    press: function(){
+                        pressCallback.bind(sThat)();
+                        dialog.destroy();
+                    }
+
+                }),
+                afterClose: function () {
+                    dialog.destroy();
+                }
+            });
+        }
+            dialog.open();
+        },  
+
         onInit: function () {
             this._TransferList={};
             

@@ -1,32 +1,39 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:dnd="sap.ui.core.dnd" controllerName="transferapproval.controller.OpenPositions" id="OpenPositions" displayBlock="false">
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:dnd="sap.ui.core.dnd" controllerName="transferapproval.controller.OpenPositions" id="OpenPositions" displayBlock="false">
 
 
     <VBox fitContainer="true" justifyContent="Center" alignContent="Center" class="container">
         <items>
 
-            <HBox class="employeeHeader employeeHeaderBorder" alignItems="Start" alignContent="SpaceBetween" justifyContent="SpaceBetween">
+            <HBox id="hBoxHead" class="employeeHeader employeeHeaderBorder" alignItems="Start" alignContent="SpaceBetween" justifyContent="SpaceBetween">
                 <items>
                     <HBox alignItems="Center" class="sapUiSmallMarginTopBottom sapUiSmallMarginEnd">
                         <items>
-                            <Button id="button0_1643608506867" type="Up" width="3rem" press="onBackCallBack"/>
+                            <Button id="button0_1643608506867" type="Up" width="3rem" press="onBackCallBack" />
 
-                            <f:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg" displaySize="L" showBorder="true" id="avatar1"/>
+                            <f:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg" displaySize="L" showBorder="true" id="avatar1" />
 
                             <VBox direction="Column" id="vbox2" class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" alignItems="Start" alignContent="Center" justifyContent="Center">
 
                                 <items>
 
-                                    <Title text="Edit Assigned Position for Employee Name ( 00000856 )" id="title6" titleStyle="H3" class="sapUiSmallMarginTop"/>
+                                    <Title text="Edit Assigned Position for Employee Name ( 00000856 )" id="title6" titleStyle="H3" class="sapUiSmallMarginTop" />
 
                                     <HBox id="hbox0_1643611770017" class="" alignItems="Start" alignContent="Center" justifyContent="Center">
 
                                         <items>
 
-                                            <Text text="Software Developer" id="text9"/>
+                                            <Text text="Software Developer" id="text9" />
 
-                                            <Text text="|" id="text10" class="sapUiSmallMarginBeginEnd"/>
+                                            <Text text="|" id="text10" class="sapUiSmallMarginBeginEnd" />
 
-                                            <Link text="View profile" id="link0" press="onViewProfile" textAlign="End"/>
+                                            <Link text="View profile" id="link0" press="onViewProfile" textAlign="End" />
 
                                         </items>
 
@@ -268,50 +275,50 @@
                 <fb:filterGroupItems>
                     <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" visibleInFilterBar="true" label="{i18n>positionId}">
                         <fb:control>
-                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'suppInvoiceNo', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}"/>
+                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'suppInvoiceNo', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}" />
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="{i18n>positionTitle}" visibleInFilterBar="true" labelTooltip="{i18n>positionTitle}">
                         <fb:control>
-                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'suppInvoiceNo', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}"/>
+                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'suppInvoiceNo', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}" />
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="{i18n>positionClass}" visibleInFilterBar="true" labelTooltip="{i18n>positionClass}">
                         <fb:control>
-                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'suppInvoiceNo', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}"/>
+                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'suppInvoiceNo', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}" />
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem groupName="__$INTERNAL$" name="D" label="{i18n>positionType}" visibleInFilterBar="true" labelTooltip="{i18n>positionType}">
                         <fb:control>
-                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'costCenterGrp', type: 'sap.ui.model.type.String'}"/>
+                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'costCenterGrp', type: 'sap.ui.model.type.String'}" />
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem groupName="__$INTERNAL$" name="F" visibleInFilterBar="true" label="{i18n>positionLocation}" labelTooltip="{i18n>positionLocation}">
                         <fb:control>
-                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'wbsElement', type: 'sap.ui.model.type.String'}"/>
+                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'wbsElement', type: 'sap.ui.model.type.String'}" />
                         </fb:control>
                     </fb:FilterGroupItem>
                 </fb:filterGroupItems>
             </fb:FilterBar>
-            <HBox alignContent="Center" alignItems="End" class="sapUiMediumMarginBeginEnd sapUiSmallMarginTopBottom container">
+            <HBox alignContent="Center" alignItems="End" class="sapUiMediumMarginBeginEnd sapUiSmallMarginTopBottom container" id="hBoxPos">
                 <items>
                     <VBox width="auto" direction="Column" id="vbox1" class="sapUiMediumMarginEnd">
                         <items>
-                            <Text text="Curent Position:" id="text3_1646336507248"/>
-                            <Input value="Value" id="input5" editable="false" width="240px"/>
+                            <Text text="Curent Position:" id="text3_1646336507248" />
+                            <Input value="Value" id="input5" editable="false" width="240px" />
                         </items>
                     </VBox>
-                    <VBox width="auto" direction="Column" id="vbox1_copy" class="sapUiMediumMarginEnd">
+                    <VBox width="auto" direction="Column" id="vbox1_copy" class="sapUiSmallMarginEnd">
                         <items>
-                            <Text text="Assigned Position" id="text3_1646336507248_copy"/>
-                            <Input value="Value" id="input5_copy" editable="false" width="240px"/>
+                            <Text text="Assigned Position" id="text3_1646336507248_copy" />
+                            <Input value="Value" id="input5_copy" editable="false" width="240px" />
                         </items>
                     </VBox>
-                    <Button id="button0_1646336573045" type="Transparent" enabled="false" icon="sap-icon://open-command-field" class="sapUiMediumMarginEnd"/>
+                    <Button id="button0_1646336573045" type="Transparent" enabled="false" icon="sap-icon://open-command-field" class="sapUiSmallMarginEnd" />
                     <VBox width="auto" direction="Column" id="vbox1_copy2" class="sapUiMediumMarginEnd">
                         <items>
-                            <Text text="New Assigned Position" id="text3_1646336507248_copy2"/>
-                            <Input value="Value" id="input5_copy2" editable="false" width="240px"/>
+                            <Text text="New Assigned Position" id="text3_1646336507248_copy2" />
+                            <Input value="Value" id="input5_copy2" editable="false" width="240px" />
                         </items>
                     </VBox>
 
@@ -327,12 +334,12 @@
                         <items>
                             <ColumnListItem type="Active" id="item0">
                                 <cells>
-                                    <Text text="{OP>code}" id="text004" wrapping="true"/>
-                                    <Text text="{OP>externalName_defaultValue}" id="text04" wrapping="true"/>
-                                    <Text text="{OP>employeeClass}" id="text3" wrapping="true"/>
-                                    <Text text="{OP>cust_employmentType}" id="text4" wrapping="true"/>
-                                    <Text text="{OP>department}" id="text5" wrapping="true"/>
-                                    <Text text="{OP>location}" id="text6" wrapping="true"/>
+                                    <Text text="{OP>code}" id="text004" wrapping="true" />
+                                    <Text text="{OP>externalName_defaultValue}" id="text04" wrapping="true" />
+                                    <Text text="{OP>employeeClass}" id="text3" wrapping="true" />
+                                    <Text text="{OP>cust_employmentType}" id="text4" wrapping="true" />
+                                    <Text text="{OP>department}" id="text5" wrapping="true" />
+                                    <Text text="{OP>location}" id="text6" wrapping="true" />
                                     <!--ObjectIdentifier title="{ (= ${OP>positionTitle}!== null || OP>positionTitle}!=='' ) ? ${OP>positionTitle} : ${externalName_defaultValue} }" text="{OP>code}" titleActive="false" visible="true" / -->
                                     <!--
                                         <ObjectIdentifier title="{OP>Name1}" text="{OP>ID1}" titleActive="false" visible="true"/>
@@ -348,55 +355,55 @@
                                         </header>
                                     </Column>
                                     -->
-                                    <Text text="{OP>standardHours}" id="text7" wrapping="true"/>
+                                    <Text text="{OP>standardHours}" id="text7" wrapping="true" />
                                 </cells>
                             </ColumnListItem>
                         </items>
                         <columns>
                             <Column id="column0" minScreenWidth="Phone" popinDisplay="Inline">
                                 <header>
-                                    <Label id="label0" text="{i18n>position}" wrapping="true"/>
+                                    <Label id="label0" text="{i18n>positionId}" wrapping="true" />
                                 </header>
                             </Column>
                             <Column id="column1" minScreenWidth="Phone">
                                 <header>
-                                    <Label text="{i18n>position}" id="label1" wrapping="true" class="columnHeader"/>
+                                    <Label text="{i18n>position}" id="label1" wrapping="true" class="columnHeader" />
                                 </header>
                             </Column>
                             <Column id="column2" minScreenWidth="Phone">
                                 <header>
-                                    <Label text="{i18n>positionDepartment}" id="label2" wrapping="true"/>
+                                    <Label text="{i18n>positionDepartment}" id="label2" wrapping="true" />
                                 </header>
                             </Column>
                             <Column id="column3" minScreenWidth="Tablet" popinDisplay="Inline">
                                 <header>
-                                    <Label text="{i18n>positionClass}" id="label3" wrapping="true"/>
+                                    <Label text="{i18n>positionClass}" id="label3" wrapping="true" />
                                 </header>
                             </Column>
                             <Column id="column4" minScreenWidth="Tablet">
                                 <header>
-                                    <Label text="{i18n>positionType}" id="label4" wrapping="true"/>
+                                    <Label text="{i18n>positionType}" id="label4" wrapping="true" />
                                 </header>
                             </Column>
                             <Column id="column5" minScreenWidth="Tablet" popinDisplay="Inline">
                                 <header>
-                                    <Label text="{i18n>positionLocation}" id="label5" wrapping="true"/>
+                                    <Label text="{i18n>positionLocation}" id="label5" wrapping="true" />
                                 </header>
                             </Column>
                             <Column id="column6" minScreenWidth="Tablet">
                                 <header>
-                                    <Label text="{i18n>standardHours}" id="label6" wrapping="true"/>
+                                    <Label text="{i18n>standardHours}" id="label6" wrapping="true" />
                                 </header>
                             </Column>
                         </columns>
                         <headerToolbar>
                             <OverflowToolbar width="100%" id="toolbar2" class="sapUiLargeMarginEnd container">
                                 <content>
-                                    <Title text="{i18n>posiitoTH}" id="text06" level="H3" class="titleText"/>
-                                    <ToolbarSpacer id="spacer2"/>
+                                    <Title text="{i18n>posiitoTH}" id="text06" level="H3" class="titleText" />
+                                    <ToolbarSpacer id="spacer2" />
                                     <!-- <Button id="button0_1579056670196" press="onNavtoDetail" text="{i18n>tbnew}"/> -->
-                                    <Button id="button0" icon="sap-icon://sort" press="handleSortButtonPressed" enabled="false" tooltip="Sort"/>
-                                    <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiTinyMarginEnd" tooltip="Download as Excel"/>
+                                    <Button id="button0" icon="sap-icon://sort" press="handleSortButtonPressed" enabled="false" tooltip="Sort" />
+                                    <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiTinyMarginEnd" tooltip="Download as Excel" />
                                 </content>
                             </OverflowToolbar>
                         </headerToolbar>
@@ -406,10 +413,10 @@
             </ScrollContainer>
             <OverflowToolbar width="auto" id="toolbar1" class="barBackground sapThemeHighlight-asBorderColor sapUiForceWidthAuto sapUiMediumMarginBeginEnd sapUiSmallMarginBottom sapUiContentPadding" height="auto" design="Solid">
                 <content>
-                    <Text text="20 Open positions" id="text3_1644219675795" class="sapUiMediumMarginBegin sapThemeLightText footerText"/>
-                    <ToolbarSpacer id="spacer1"/>
-                    <Button press="onBackCallBack" text="Back" id="button0_1644211420374" class="sapUiSmallMarginEnd" icon="sap-icon://navigation-left-arrow"/>
-                    <Button text="Update" id="button1" class="sapUiMediumMarginEnd" icon="sap-icon://write-new-document" type="Emphasized" press="onUpdate"/>
+                    <Text text="20 Open positions" id="text3_1644219675795" class="sapUiMediumMarginBegin sapThemeLightText footerText" />
+                    <ToolbarSpacer id="spacer1" />
+                    <Button press="onBackCallBack" text="Back" id="button0_1644211420374" class="sapUiSmallMarginEnd" icon="sap-icon://navigation-left-arrow" />
+                    <Button text="Update" id="button1" class="sapUiSmallMarginEnd" icon="sap-icon://write-new-document" type="Emphasized" press="onUpdate" />
                 </content>
             </OverflowToolbar>
         </items>

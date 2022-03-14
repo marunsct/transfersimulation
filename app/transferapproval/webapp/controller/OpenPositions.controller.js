@@ -21,8 +21,8 @@ sap.ui.define([
             var sContext;
             this._employeeId = oParams.arguments.ID;
             this.byId("table0").removeSelections();
-           // var oContext = this.getCustProperty("EmployeeContext");
-            this._employeeName =  "" ;//oContext.oModel !== undefined ? oContext.oModel.getProperty(oContext.sPath + "/First_Name") : "";
+            // var oContext = this.getCustProperty("EmployeeContext");
+            this._employeeName = "";//oContext.oModel !== undefined ? oContext.oModel.getProperty(oContext.sPath + "/First_Name") : "";
             //this._employeeContext = oParams.arguments.context;
 
             var pageName = this.oView.sViewName.split('.');
@@ -31,26 +31,26 @@ sap.ui.define([
 
 
             this._openPositions = this.getCustProperty("OpenPositionsEmployee") !== undefined ? this.getCustProperty("OpenPositionsEmployee") : {};
-           // this._employee = this.getCustProperty("EmployeeOpenPositions") !== undefined ? this.getCustProperty("EmployeeOpenPositions") : {};
-            if((this.getCustProperty("OpenPositionsEmployee") !== undefined || this.getCustProperty("EmployeeOpenPositions") !== undefined) && this.getModel("OP")){
+            // this._employee = this.getCustProperty("EmployeeOpenPositions") !== undefined ? this.getCustProperty("EmployeeOpenPositions") : {};
+            if ((this.getCustProperty("OpenPositionsEmployee") !== undefined || this.getCustProperty("EmployeeOpenPositions") !== undefined) && this.getModel("OP")) {
                 var mData = this.getModel("OP").getData();
-                var newData =[];
+                var newData = [];
                 mData.OpenPositions.result.forEach((currentValue) => {
-                  
-                        currentValue.ID1 = "";
-                        currentValue.Name1 = "";
-                
+
+                    currentValue.ID1 = "";
+                    currentValue.Name1 = "";
+
                     newData.push(currentValue);
                 });
                 mData.OpenPositions.result = newData;
                 this.getModel("OP").setData(mData);
             }
-            if(!this.byId("table0").getModel("OP").getData().OpenPositions.result.length){
+            if (!this.byId("table0").getModel("OP").getData().OpenPositions.result.length) {
                 this.byId("table0").setBusy(true);
             }
         },
         _onPageNavButtonPress: function () {
-            
+
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             var oHistory = History.getInstance();
             var sPreviousHash = oHistory.getPreviousHash();
@@ -58,39 +58,41 @@ sap.ui.define([
             var sPreviousHash = oHistory.getPreviousHash();
 
             if (sPreviousHash !== undefined) {
-               // window.history.go(-1);
-                oRouter.navTo("TransferDetail", {   
-                    ID: this._employeeId }, false);
-            
+                // window.history.go(-1);
+                oRouter.navTo("TransferDetail", {
+                    ID: this._employeeId
+                }, false);
+
             } else {
-                oRouter.navTo("TransferDetail", {   
-                    ID: this._employeeId }, false);
+                oRouter.navTo("TransferDetail", {
+                    ID: this._employeeId
+                }, false);
             }
 
         },
-        onBackCallBack: function(){
-            if(this.byId("table0").getSelectedItems().length > 0){
+        onBackCallBack: function () {
+            if (this.byId("table0").getSelectedItems().length > 0) {
                 this.onReject();
-            }else{
+            } else {
                 this._onPageNavButtonPress()
             }
         },
         onUpdate: function (oEvent) {
-            
+
             // var tbl = this.getView().byId('TransferReqTable');
             var i18n = this.oView.getModel("i18n");
             let sTitle = i18n.getResourceBundle().getText("confirm");
             // var sText = i18n.getResourceBundle().getText("reject");
             let sFirstButton = i18n.getResourceBundle().getText("yes");
             let sSecondButton = i18n.getResourceBundle().getText("cancel");
-            let sText = i18n.getResourceBundle().getText("update");
-            if(this.byId("table0").getSelectedItems().length > 0){
-            this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.callBackFunc, this);
-        }else{
-            let sTitle = i18n.getResourceBundle().getText("warning");
-            let sText = i18n.getResourceBundle().getText("updateWarning");
-            this._createDialog(sTitle, sText, sFirstButton, undefined, this.callBackFunc, this.callBackFunc, this);
-        }
+            let sText = i18n.getResourceBundle().getText("update", [this._employeeId, '1234', '5678']);
+            if (this.byId("table0").getSelectedItems().length > 0) {
+                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.callBackFunc, this);
+            } else {
+                let sTitle = i18n.getResourceBundle().getText("warning");
+                let sText = i18n.getResourceBundle().getText("updateWarning");
+                this._createDialog(sTitle, sText, sFirstButton, undefined, this.callBackFunc, this.callBackFunc, this);
+            }
         },
         onReject: function (oEvent) {
             // var tbl = this.getView().byId('TransferReqTable');
@@ -106,34 +108,34 @@ sap.ui.define([
         },
         callBackFunc: function () {
             console.log("Dialog Method");
-         //   this._onPageNavButtonPress();
+            //   this._onPageNavButtonPress();
         },
         avatarInitialsFormatter: function (sTextValue) {
             return typeof sTextValue === 'string' ? sTextValue.substr(0, 2) : undefined;
 
         },
 
-        onViewProfile: function (){
+        onViewProfile: function () {
             this.oRouter.navTo("EmployeeProfile", {
                 ID: this._employeeId
             }, false);
         },
-        getSelected : function(oEvent){
+        getSelected: function (oEvent) {
             this._oAssignment = {};
             this._oAssignment = oEvent.getParameter("listItem").getBindingContext("OP");
         },
         _onTableItemPress: function (oEvent) {
 
             //console.log(oEvent);
-            
+
             this._oAssignment = {};
             this._oAssignment = this.byId("table0").getSelectedItem().getBindingContext("OP");
-     
+
             //var employee, openPositions;
             var posId = this._oAssignment.getProperty("code");
             var posName = this._oAssignment.getProperty("externalName_defaultValue")
 
-         //   var aCells = oEvent.getParameter("listItem").getCells();
+            //   var aCells = oEvent.getParameter("listItem").getCells();
 
 
             this._preDialog(posId, posName, this._employeeId, this._employeeName, this._oAssignment.sPath);
@@ -283,9 +285,9 @@ sap.ui.define([
 
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             this.oRouter.attachRouteMatched(this.handleRouteMatched, this);
-           // this.oFclModel = this.getOwnerComponent().getModel("FclRouter");
-           // this.oFclModel.setProperty('/targetAggregation', 'midColumnPages');
-           // this.oFclModel.setProperty('/expandIcon', {});
+            // this.oFclModel = this.getOwnerComponent().getModel("FclRouter");
+            // this.oFclModel.setProperty('/targetAggregation', 'midColumnPages');
+            // this.oFclModel.setProperty('/expandIcon', {});
             this.oView.setModel(new sap.ui.model.json.JSONModel({}), 'fclButton');
             this._openPositions = {};
             this._employee = {};
@@ -304,16 +306,16 @@ sap.ui.define([
                     "hText": "Result ",
                     "hNumbers": "(0)"
                 },
-                height : (Math.round(Device.resize.height * 0.58 )) + 'px'
+                height: (Math.round(Device.resize.height * 0.58)) + 'px'
             };
             this.oView.setModel(new sap.ui.model.json.JSONModel(this._vData), 'OP');
-           // this.oFclModel.setProperty('/headerExpanded', false);
-           this.oFilterBar = this.byId("filterbar0"); 
-           this.byId("table0").setBusy(true);
+            // this.oFclModel.setProperty('/headerExpanded', false);
+            this.oFilterBar = this.byId("filterbar0");
+            this.byId("table0").setBusy(true);
 
         },
         onAfterRendering: function () {
-
+            this._vData.height = Math.round(Device.resize.height - (165 + this.getView().byId("filterbar0").$().height() + this.getView().byId("hBoxPos").$().height() + this.getView().byId("hBoxHead").$().height())) + 'px'
             this.onOdataCall([new Filter("vacant", FilterOperator.EQ, true)]);
         },
         onClear: function (oEvent) {
@@ -385,8 +387,8 @@ sap.ui.define([
                 ("Export: %" + iValue + " completed");
             };
             oSpreadsheet.build()
-                .then(function () {  ("Export is finished"); })
-                .catch(function (sMessage) {  ("Export error: " + sMessage); });
+                .then(function () { ("Export is finished"); })
+                .catch(function (sMessage) { ("Export error: " + sMessage); });
         },
         onOdataCall: function (oFilters) {
             this.byId("table0").setBusy(true);
@@ -415,8 +417,8 @@ sap.ui.define([
                     }
                 })
         },
-        performanceColor: function(sGrade){
-            switch (sGrade){
+        performanceColor: function (sGrade) {
+            switch (sGrade) {
                 case "A":
                     return "performanceNegative";
                 case "B":
@@ -426,7 +428,7 @@ sap.ui.define([
                 case "D":
                     return "performancePositive";
                 default:
-                    return "performanceNeutral";            
+                    return "performanceNeutral";
 
             }
         },

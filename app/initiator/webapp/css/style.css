@@ -44,14 +44,14 @@
     background-color: #EFF4F9 !important;
 }
 .container{
-    background-color: #FFFFFF !important;
+    background-color: #f7f7f7 !important;
 }
 .columnHeader{
     margin-top: 7px;
     margin-bottom: 7px;
 }
 .performancePositive{
-    background-color: #8fe0f8 !important;
+    background-color: #bbf1ff !important;
     border: 0.5px solid;
     
 }
@@ -61,12 +61,12 @@
     
 }
 .performanceNeutral{
-    background-color: #fffec5 !important;
+    background-color: #f8f9dd !important;
     border: 0.5px solid;
     
 }
 .performanceNeutralM{
-    background-color:  #c6ffc6 !important;
+    background-color:  #e6f9dd !important;
     border: 0.5px solid;
     
 }
@@ -98,8 +98,8 @@ span.sapMBtnInner.sapMBtnEmphasized {
 .employeeHeaderBorder{
     background-color: #EFF4F9 !important;
     border-color: #aac6de !important;
-    border-radius: 1px;
-    border: 1px solid #aac6de;
+  /*  border-radius: 1px; */
+    border: 0.5px solid #aac6de;
 
 }
 .sapMListTbl {
@@ -143,4 +143,29 @@ span.sapMBtnInner.sapMBtnEmphasized {
 .sapFAvatarBadgeIconActiveArea {
     position: absolute;
     pointer-events: all;
+}
+
+/* Check box alignment in Filter Dialog */
+.sapUiMDCListView tbody .sapMListTblSelCol {
+    vertical-align: middle !important;
+}
+/* Table Header Background Color */
+.sapMTableTH {
+    background: #e6e6e6;
+
+}
+
+tr[data-status="00000528"]{	
+    background:   #f8f6eb!important;
+}
+tr[data-status="00000676"]{	
+    background:   #f8f6eb!important;
+}
+tr[data-status="00000820"]{	
+    background:   #f8f6eb!important;
+}
+
+.sapMLnk {
+
+    margin-top: 7px;
 }

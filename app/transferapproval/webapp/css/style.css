@@ -2,7 +2,7 @@
 
 .titleBgColor{
     /*   background-color:   #A9C6DE !important;  #427CAC */
-       background-color: #A9C6DE !important;
+       background-color: #aac6de !important;
        padding-top: 5px !important;;
        padding-bottom: 5px !important;;    
     }
@@ -11,8 +11,12 @@
        color: #32363a !important;
     }
 .tableHeader {
-       background-color: #FAFAFA !important;
-    }
+       background-color: #e6e6e6 !important;
+}
+.sapMTableTH {
+        background: #e6e6e6;
+
+}    
 .barBackground {
        background-color: #FFFFFF !important;
        padding-top: 7px;
@@ -22,7 +26,7 @@
        box-shadow: 1px 1px 1px 1px #c1c3c5 !important;
        margin-top: 4px;
     
-    }
+}
 .filterBackground{
        border-collapse: separate !important;
        box-shadow: 1px 1px 1px 1px #89919a !important; 
@@ -45,14 +49,14 @@
        background-color: #EFF4F9 !important;
    }
    .container{
-       background-color: #FFFFFF !important;
+       background-color: #f7f7f7 !important;
    }
    .columnHeader{
        margin-top: 7px;
        margin-bottom: 7px;
    }
-   .performancePositive{
-    background-color: #8fe0f8 !important;
+.performancePositive{
+    background-color: #bbf1ff !important;
     border: 0.5px solid;
     
 }
@@ -62,12 +66,12 @@
     
 }
 .performanceNeutral{
-    background-color: #fffec5 !important;
+    background-color: #f8f9dd !important;
     border: 0.5px solid;
     
 }
 .performanceNeutralM{
-    background-color:  #c6ffc6 !important;
+    background-color:  #e6f9dd !important;
     border: 0.5px solid;
     
 }
@@ -85,13 +89,13 @@
    
    
    }
-.employeeHeaderBorder{
-       background-color: #EFF4F9 !important;
-       border-color: #A9C6DE !important;
-       border-radius: 1px;
-       border: 1px solid #A9C6DE;
-   
-   }
+   .employeeHeaderBorder{
+    background-color: #EFF4F9 !important;
+    border-color: #aac6de !important;
+  /*  border-radius: 1px; */
+    border: 0.5px solid #aac6de;
+
+}
 
 .sapMITBAll .sapMITBTab {
      margin-bottom: 0rem; 
@@ -139,6 +143,8 @@
     height: 4rem;
     width: 2px;
     border: 1px solid #c0bbbb;
+    margin-right: 16px;
+
 }
 .sapMITBAll .sapMITBText {
     font-size: 15px;
@@ -148,6 +154,7 @@
     font-size: 2rem;
 }
 .sapMITBContent {
+     background-color: #f7f7f7;
      border-bottom: 0rem solid #d1e0ee; 
      padding-top: 0rem;
 }
@@ -172,7 +179,7 @@
     
 }
 .sapMLIB.sapMLIBSelected {
-    background: #ccab7b29;
+    background: #f8f6eb;
 }
 .sapUiView {
     display: inherit;
@@ -394,6 +401,39 @@ table.sapSuiteUiCommonsPF td, table.sapSuiteUiCommonsPF th {
     height: 20px !important;
     border-radius: 10px;
 }
+/* Check box alignment in Filter Dialog */
+.sapUiMDCListView tbody .sapMListTblSelCol {
+    vertical-align: middle !important;
+}
+
+.sapUiSizeCompact .sapMBtnIconn  {
+
+    color: #0854A0 !important;
+}
+
+.sapUiFormM:not(.sapUiFormEdit) .sapUiFormResGridCont {
+    /* margin-top: -0.25rem; */
+    padding-bottom: 20px;
+}
+
+.sapUiSizeCompact .sapUiFormM:not(.sapUiFormEdit) .sapUiFormContainerTitle>.sapUiRGLContainerCont>.sapUiRespGridMedia-Std-Phone.sapUiFormResGridCont>div:first-child.sapUiFormElementLbl.sapUiRespGridSpanS12, .sapUiSizeCompact .sapUiFormM:not(.sapUiFormEdit) .sapUiFormContainerTitle>.sapUiRGLContainerCont>.sapUiRespGridMedia-Std-Tablet.sapUiFormResGridCont>div:first-child.sapUiFormElementLbl.sapUiRespGridSpanM12, .sapUiSizeCompact .sapUiFormM:not(.sapUiFormEdit) .sapUiFormContainerTitle>.sapUiRGLContainerCont>.sapUiRespGridMedia-Std-Desktop.sapUiFormResGridCont>div:first-child.sapUiFormElementLbl.sapUiRespGridSpanL12, .sapUiSizeCompact .sapUiFormM:not(.sapUiFormEdit) .sapUiFormContainerTitle>.sapUiRGLContainerCont>.sapUiRespGridMedia-Std-LargeDesktop.sapUiFormResGridCont>div:first-child.sapUiFormElementLbl.sapUiRespGridSpanXL12, .sapUiSizeCompact .sapUiFormM:not(.sapUiFormEdit) .sapUiFormContainerToolbar>.sapUiRGLContainerCont>.sapUiRespGridMedia-Std-Phone.sapUiFormResGridCont>div:first-child.sapUiFormElementLbl.sapUiRespGridSpanS12, .sapUiSizeCompact .sapUiFormM:not(.sapUiFormEdit) .sapUiFormContainerToolbar>.sapUiRGLContainerCont>.sapUiRespGridMedia-Std-Tablet.sapUiFormResGridCont>div:first-child.sapUiFormElementLbl.sapUiRespGridSpanM12, .sapUiSizeCompact .sapUiFormM:not(.sapUiFormEdit) .sapUiFormContainerToolbar>.sapUiRGLContainerCont>.sapUiRespGridMedia-Std-Desktop.sapUiFormResGridCont>div:first-child.sapUiFormElementLbl.sapUiRespGridSpanL12, .sapUiSizeCompact .sapUiFormM:not(.sapUiFormEdit) .sapUiFormContainerToolbar>.sapUiRGLContainerCont>.sapUiRespGridMedia-Std-LargeDesktop.sapUiFormResGridCont>div:first-child.sapUiFormElementLbl.sapUiRespGridSpanXL12 {
+    padding-top: 5px;
+}
+.sapUiFormM:not(.sapUiFormEdit) .sapUiRespGridMedia-Std-Phone.sapUiFormResGridCont>.sapUiFormElementLbl.sapUiRespGridSpanS12, .sapUiFormM:not(.sapUiFormEdit) .sapUiRespGridMedia-Std-Tablet.sapUiFormResGridCont>.sapUiFormElementLbl.sapUiRespGridSpanM12, .sapUiFormM:not(.sapUiFormEdit) .sapUiRespGridMedia-Std-Desktop.sapUiFormResGridCont>.sapUiFormElementLbl.sapUiRespGridSpanL12, .sapUiFormM:not(.sapUiFormEdit) .sapUiRespGridMedia-Std-LargeDesktop.sapUiFormResGridCont>.sapUiFormElementLbl.sapUiRespGridSpanXL12 {
+    padding-top: 0rem; 
+    padding-bottom: 0;
+}
+.sapUiSizeCompact .sapUiFormContainerTitle>.sapUiFormTitle {
+    height: 1.2rem;
+}
+.quickPageLink{
+    margin-top: 4px;
+}
+.sapMInputBaseReadonly .sapMInputBaseContentWrapper {
+
+    background: #e6e6e6 !important;
+}
+
 /*
 .pfButton{
     width: min-content;

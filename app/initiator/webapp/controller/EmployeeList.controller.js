@@ -37,7 +37,7 @@ sap.ui.define([
             console.log(1);
             if (!this._avatarPress) {
 
-                var oBindingContext = oEvent.getSource().getParent().oBindingContexts.OP;
+                var oBindingContext = oEvent.getSource().getParent().oBindingContexts.OP ? oEvent.getSource().getParent().oBindingContexts.OP : oEvent.getParameter('listItem').getBindingContext('OP');
                 //oEvent.getParameter("listItem").getBindingContext("OP");
                 this.setCustProperty("EmployeeContext", oBindingContext);
                 this._employeeContext = oBindingContext;

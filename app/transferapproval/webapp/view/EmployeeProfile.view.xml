@@ -1,16 +1,4 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc"
-    xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns="sap.uxap"
-    xmlns:layout="sap.ui.layout"
-    xmlns:m="sap.m"
-    xmlns:goals="sap.uxap.sample.SharedBlocks.goals"
-    xmlns:personal="sap.uxap.sample.SharedBlocks.personal"
-    xmlns:employment="sap.uxap.sample.SharedBlocks.employment"
-    xmlns:forms="sap.ui.layout.form"
-    xmlns:core="sap.ui.core"
-    xmlns:f="sap.f"
-    xmlns:l="sap.ui.layout"
-    xmlns:dnd="sap.ui.core.dnd" controllerName="transferapproval.controller.EmployeeProfile" id="EmployeeProfile" displayBlock="false">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.uxap" xmlns:layout="sap.ui.layout" xmlns:m="sap.m" xmlns:goals="sap.uxap.sample.SharedBlocks.goals" xmlns:personal="sap.uxap.sample.SharedBlocks.personal" xmlns:employment="sap.uxap.sample.SharedBlocks.employment" xmlns:forms="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:f="sap.f" xmlns:l="sap.ui.layout" xmlns:dnd="sap.ui.core.dnd" controllerName="transferapproval.controller.EmployeeProfile" id="EmployeeProfile" displayBlock="false">
 
     <ObjectPageLayout id="ObjectPageLayout" preserveHeaderStateOnScroll="true" upperCaseAnchorBar="false">
         <headerTitle>
@@ -21,17 +9,17 @@
                      </m:FlexBox-->
                     <m:HBox class="employeeHeader" alignItems="Start" alignContent="SpaceBetween" fitContainer="true">
                         <m:items>
-                            <m:HBox alignItems="Center" class="sapUiSmallMarginBottom sapUiSmallMarginEnd">
+                            <m:HBox alignItems="Center" class="sapUiSmallMarginBottom sapUiMediumMarginEnd">
                                 <m:items>
-                                    <m:Button id="button0_1643608506867" width="50px" press="_onPageNavButtonPress" class="navigationButton1" type="Back" />
+                                    <m:Button id="button0_1643608506867" width="50px" press="_onPageNavButtonPress" class="navigationButton1" type="Back"/>
 
-                                    <f:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg" displaySize="L" showBorder="true" id="avatar1" />
+                                    <f:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg" displaySize="L" showBorder="true" id="avatar1"/>
                                     <m:VBox direction="Column" id="vbox2" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin">
 
                                         <m:items>
 
-                                            <m:Title text="Employee Name ( 00000856 )" id="title6" titleStyle="H3" class="sapUiSmallMarginTop" />
-                                            <m:Text text="Software Developer" id="text9" class="sapUiSmallMarginTopBottom" />
+                                            <m:Title text="Employee Name ( 00000856 )" id="title6" titleStyle="H3" class="sapUiSmallMarginTop"/>
+                                            <m:Text text="Software Developer" id="text9" class="sapUiSmallMarginTopBottom"/>
 
                                         </m:items>
 
@@ -39,13 +27,13 @@
                                 </m:items>
 
                             </m:HBox>
-                            <m:HBox alignItems="Start" width="100%" class="sapUiSmallMarginTopBottom  sapUiSmallMarginBeginEnd" justifyContent="SpaceAround">
+                            <m:HBox alignItems="Start" width="100%" wrap="Wrap" class="sapUiSmallMarginTopBottom  sapUiSmallMarginBegin" fitContainer="true" justifyContent="Start">
                                 <m:items>
 
 
 
 
-                                    <m:HBox width="auto" direction="Row" id="vbox2_1643626264149_copy3" class="sapUiSmallMarginTop" height="100%" alignContent="Start" alignItems="Start">
+                                    <m:HBox width="250px" direction="Row" id="vbox2_1643626264149_copy3" class="sapUiSmallMarginTop sapUiMediumMarginEnd" height="100%" alignContent="Start" alignItems="Start">
 
                                         <m:items>
 
@@ -55,7 +43,7 @@
 
 
 
-                                                    <m:Label text="Eligibility : " width="100%" id="label1_1643626384196_copy2" />
+                                                    <m:Label text="Eligibility : " width="100%" id="label1_1643626384196_copy2"/>
 
                                                 </m:items>
 
@@ -67,9 +55,9 @@
 
 
 
-                                                    <m:ObjectStatus state="Success" id="status0" icon="sap-icon://sys-enter-2" />
+                                                    <m:ObjectStatus state="Success" id="status0" icon="sap-icon://sys-enter-2"/>
 
-                                                    <m:Text text="Eligibility Description" id="text16_copy2" />
+                                                    <m:Text text="Eligibility Description" id="text16_copy2"/>
 
                                                 </m:items>
 
@@ -80,27 +68,27 @@
 
 
                                     </m:HBox>
-                                    <m:VBox width="auto" direction="Column" id="vbox02" class="sapUiSmallMarginTop" alignContent="Start" alignItems="Start">
+                                    <m:VBox width="250px" direction="Column" id="vbox02" class="sapUiSmallMarginTop sapUiMediumMarginEnd" alignContent="Start" alignItems="Start">
 
                                         <m:items>
-                                            <m:Label text="Contact Information :" id="text009" class="" />
+                                            <m:Label text="Contact Information :" id="text009" class=""/>
                                             <m:HBox class="">
-                                                <core:Icon src="sap-icon://outgoing-call" class="sapUiTinyMarginTop" />
-                                                <m:Link text=" +1 234 5678" class="sapUiSmallMarginBegin" />
+                                                <core:Icon src="sap-icon://outgoing-call" class="sapUiTinyMarginTop"/>
+                                                <m:Link text=" +1 234 5678" class="sapUiSmallMarginBegin"/>
                                             </m:HBox>
 
                                             <m:HBox>
-                                                <core:Icon src="sap-icon://email" class="sapUiTinyMarginTop" />
-                                                <m:Link text="john.miller@company.com" class="sapUiSmallMarginBegin" />
+                                                <core:Icon src="sap-icon://email" class="sapUiTinyMarginTop"/>
+                                                <m:Link text="john.miller@company.com" class="sapUiSmallMarginBegin"/>
                                             </m:HBox>
 
                                         </m:items>
 
                                     </m:VBox>
-                                    <m:VBox id="hbox0_16_copy3" class="sapUiSmallMarginTopBottom" alignItems="Start" alignContent="Start" wrap="Wrap">
+                                    <m:VBox id="hbox0_16_copy3" class="sapUiSmallMarginTopBottom sapUiMediumMarginEnd" alignItems="Start" alignContent="Start" wrap="Wrap">
                                         <m:items>
-                                            <m:Label text="Performance after previous Transfer : " width="100%" id="label0_1643626362769_copy3" />
-                                            <m:HBox width="100%" direction="Row" id="vbox2_1643626264149_copy6" class="sapUiSmallMarginTop performanceContainer" alignItems="Start" alignContent="Start" justifyContent="SpaceAround">
+                                            <m:Label text="Performance after previous Transfer : " width="100%" id="label0_1643626362769_copy3"/>
+                                            <m:HBox width="100%" direction="Row" id="vbox2_1643626264149_copy6" class="sapUiTinyMarginTop performanceContainer" alignItems="Start" alignContent="Start" justifyContent="SpaceBetween">
 
                                                 <m:items>
 
@@ -108,11 +96,11 @@
 
                                                         <m:items>
 
-                                                            <m:HBox width="30px" id="hp4" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+                                                            <m:HBox width="40px" id="hp4" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
 
                                                                 <m:items>
 
-                                                                    <m:Text text="A" id="p3_copy" />
+                                                                    <m:Text text="A" id="p3_copy"/>
 
 
 
@@ -122,21 +110,21 @@
 
                                                             </m:HBox>
 
-                                                            <m:Text text="2018" id="text15_1643951750049" />
+                                                            <m:Text text="2018" id="text15_1643951750049"/>
 
                                                         </m:items>
 
                                                     </m:VBox>
 
-                                                    <m:VBox width="100%" direction="Column" id="vbox2_1643951732334_copy" alignItems="Center" class="">
+                                                    <m:VBox width="100%" direction="Column" id="vbox2_1643951732334_copy" alignItems="Center" class="sapUiTinyMarginBeginEnd">
 
                                                         <m:items>
 
-                                                            <m:HBox width="30px" id="hp3" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+                                                            <m:HBox width="40px" id="hp3" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
 
                                                                 <m:items>
 
-                                                                    <m:Text text="B" id="p3" />
+                                                                    <m:Text text="B" id="p3"/>
 
 
 
@@ -147,7 +135,7 @@
                                                             </m:HBox>
 
 
-                                                            <m:Text text="2019" id="text15_1643951750049_copy" />
+                                                            <m:Text text="2019" id="text15_1643951750049_copy"/>
 
                                                         </m:items>
 
@@ -159,11 +147,11 @@
 
                                                         <m:items>
 
-                                                            <m:HBox width="30px" id="hp2" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+                                                            <m:HBox width="40px" id="hp2" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
 
                                                                 <m:items>
 
-                                                                    <m:Text text="C" id="p3_copy2" />
+                                                                    <m:Text text="C" id="p3_copy2"/>
 
 
 
@@ -173,7 +161,7 @@
 
                                                             </m:HBox>
 
-                                                            <m:Text text="2020" id="text15_1643951750049_copy2" />
+                                                            <m:Text text="2020" id="text15_1643951750049_copy2"/>
 
                                                         </m:items>
 
@@ -181,15 +169,15 @@
 
                                                     </m:VBox>
 
-                                                    <m:VBox class="" width="100%" direction="Column" id="vbox2_1643951732334_copy3" alignItems="Center">
+                                                    <m:VBox class="sapUiTinyMarginBeginEnd" width="100%" direction="Column" id="vbox2_1643951732334_copy3" alignItems="Center">
 
                                                         <m:items>
 
-                                                            <m:HBox width="30px" id="hp1" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+                                                            <m:HBox width="40px" id="hp1" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
 
                                                                 <m:items>
 
-                                                                    <m:Text text="B" id="p3_copy3" />
+                                                                    <m:Text text="B" id="p3_copy3"/>
 
 
 
@@ -199,7 +187,7 @@
 
                                                             </m:HBox>
 
-                                                            <m:Text text="2021" id="text15_1643951750049_copy3" />
+                                                            <m:Text text="2021" id="text15_1643951750049_copy3"/>
 
                                                         </m:items>
 
@@ -211,11 +199,11 @@
 
                                                         <m:items>
 
-                                                            <m:HBox width="30px" id="hp0" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+                                                            <m:HBox width="40px" id="hp0" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
 
                                                                 <m:items>
 
-                                                                    <m:Text text="D" id="p3_copy4" />
+                                                                    <m:Text text="D" id="p3_copy4"/>
 
 
 
@@ -225,7 +213,7 @@
 
                                                             </m:HBox>
 
-                                                            <m:Text text="2022" id="text15_1643951750049_copy4" />
+                                                            <m:Text text="2022" id="text15_1643951750049_copy4"/>
 
                                                         </m:items>
 
@@ -278,43 +266,43 @@
                                 <m:items>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy5" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Employee Id:" width="100%" id="label11_copy5" />
-                                            <m:Text text="Text" id="text13_copy5" />
+                                            <m:Label text="Employee Id:" width="100%" id="label11_copy5"/>
+                                            <m:Text text="Text" id="text13_copy5"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy6" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="First Name:" width="100%" id="label11_copy6" />
-                                            <m:Text text="Arun" id="text13_copy6" />
+                                            <m:Label text="First Name:" width="100%" id="label11_copy6"/>
+                                            <m:Text text="Arun" id="text13_copy6"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy7" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Last name:" width="100%" id="label11_copy7" />
-                                            <m:Text text="Muthukumarasamy" id="text13_copy7" />
+                                            <m:Label text="Last name:" width="100%" id="label11_copy7"/>
+                                            <m:Text text="Muthukumarasamy" id="text13_copy7"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy8" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Date of reaching age 60:" width="100%" id="label11_copy8" />
-                                            <m:Text text="Text" id="text13_copy8" />
+                                            <m:Label text="Date of reaching age 60:" width="100%" id="label11_copy8"/>
+                                            <m:Text text="Text" id="text13_copy8"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy9" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Gender:" width="100%" id="label11_copy9" />
-                                            <m:Text text="Text" id="text13_copy9" />
+                                            <m:Label text="Gender:" width="100%" id="label11_copy9"/>
+                                            <m:Text text="Text" id="text13_copy9"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy10" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Academic Background:" width="100%" id="label11_copy10" />
-                                            <m:Text text="Text" id="text13_copy10" />
+                                            <m:Label text="Academic Background:" width="100%" id="label11_copy10"/>
+                                            <m:Text text="Text" id="text13_copy10"/>
                                         </m:items>
 
                                     </m:VBox>
@@ -334,63 +322,63 @@
                                 <m:items>
                                     <m:VBox width="200px" direction="Column" id="vbox0" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Department:" width="100%" id="label11" />
-                                            <m:Text text="Text" id="text13" />
+                                            <m:Label text="Department:" width="100%" id="label11"/>
+                                            <m:Text text="Text" id="text13"/>
                                         </m:items>
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Position:" width="100%" id="label11_copy" />
-                                            <m:Text text="Senior Program Manager" id="text13_copy" />
+                                            <m:Label text="Position:" width="100%" id="label11_copy"/>
+                                            <m:Text text="Senior Program Manager" id="text13_copy"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy2" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Location:" width="100%" id="label11_copy2" />
-                                            <m:Text text="Text" id="text13_copy2" />
+                                            <m:Label text="Location:" width="100%" id="label11_copy2"/>
+                                            <m:Text text="Text" id="text13_copy2"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy3" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Class:" width="100%" id="label11_copy3" />
-                                            <m:Text text="Text" id="text13_copy3" />
+                                            <m:Label text="Class:" width="100%" id="label11_copy3"/>
+                                            <m:Text text="Text" id="text13_copy3"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy4" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Employment Type:" width="100%" id="label11_copy4" />
-                                            <m:Text text="Text" id="text13_copy4" />
+                                            <m:Label text="Employment Type:" width="100%" id="label11_copy4"/>
+                                            <m:Text text="Text" id="text13_copy4"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy11" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Supervisor:" width="100%" id="label11_copy11" />
-                                            <m:Text text="Text" id="text13_copy11" />
+                                            <m:Label text="Supervisor:" width="100%" id="label11_copy11"/>
+                                            <m:Text text="Text" id="text13_copy11"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy12" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Hire Date:" width="100%" id="label11_copy12" />
-                                            <m:Text text="Text" id="text13_copy12" />
+                                            <m:Label text="Hire Date:" width="100%" id="label11_copy12"/>
+                                            <m:Text text="Text" id="text13_copy12"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy13" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Previous Department:" width="100%" id="label11_copy13" />
-                                            <m:Text text="Text" id="text13_copy13" />
+                                            <m:Label text="Previous Department:" width="100%" id="label11_copy13"/>
+                                            <m:Text text="Text" id="text13_copy13"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy14" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Last Transfer:" width="100%" id="label11_copy14" />
-                                            <m:Text text="Text" id="text13_copy14" />
+                                            <m:Label text="Last Transfer:" width="100%" id="label11_copy14"/>
+                                            <m:Text text="Text" id="text13_copy14"/>
                                         </m:items>
 
                                     </m:VBox>
@@ -408,29 +396,29 @@
                                 <m:items>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy24" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Nominee Id:" width="100%" id="label11_copy24" />
-                                            <m:Text text="Text" id="text13_copy24" />
+                                            <m:Label text="Nominee Id:" width="100%" id="label11_copy24"/>
+                                            <m:Text text="Text" id="text13_copy24"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy25" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Nominee Rank:" width="100%" id="label11_copy25" />
-                                            <m:Text text="Text" id="text13_copy25" />
+                                            <m:Label text="Nominee Rank:" width="100%" id="label11_copy25"/>
+                                            <m:Text text="Text" id="text13_copy25"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy26" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Readiness:" width="100%" id="label11_copy26" />
-                                            <m:Text text="Text" id="text13_copy26" />
+                                            <m:Label text="Readiness:" width="100%" id="label11_copy26"/>
+                                            <m:Text text="Text" id="text13_copy26"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy27" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Managers Note:" width="100%" id="label11_copy27" />
-                                            <m:Text text="Text" id="text13_copy27" />
+                                            <m:Label text="Managers Note:" width="100%" id="label11_copy27"/>
+                                            <m:Text text="Text" id="text13_copy27"/>
                                         </m:items>
 
                                     </m:VBox>
@@ -449,20 +437,20 @@
                                 <m:items>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy30" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Grade:" width="100%" id="label11_copy30" />
-                                            <m:Text text="Text" id="text13_copy30" />
+                                            <m:Label text="Grade:" width="100%" id="label11_copy30"/>
+                                            <m:Text text="Text" id="text13_copy30"/>
                                         </m:items>
 
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy31" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Performance Rating N1:" width="100%" id="label11_copy31" />
+                                            <m:Label text="Performance Rating N1:" width="100%" id="label11_copy31"/>
                                             <m:HBox width="100%" id="ox2" alignContent="Start" alignItems="Center">
                                                 <m:items>
-                                                    <m:Text text="Rating N1" id="text13_cpy31"  class="sapUiSmallMarginEnd"/>
-                                                    <m:HBox width="30px" class="performanceNeutralM" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+                                                    <m:Text text="Rating N1" id="text13_cpy31" class="sapUiSmallMarginEnd"/>
+                                                    <m:HBox width="40px" class="performanceNeutralM" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
                                                         <m:items>
-                                                            <m:Text text="B" id="p003" />
+                                                            <m:Text text="B" id="p003"/>
                                                         </m:items>
                                                     </m:HBox>
                                                 </m:items>
@@ -472,13 +460,13 @@
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy32" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Performance Rating N2:" width="100%"  id="label11_copy32" />
+                                            <m:Label text="Performance Rating N2:" width="100%" id="label11_copy32"/>
                                             <m:HBox width="100%" id="ox21" alignContent="Start" alignItems="Center">
                                                 <m:items>
-                                                    <m:Text text="Rating N2" id="tex13_cpy31"  class="sapUiSmallMarginEnd"/>
-                                                    <m:HBox width="30px" class="performanceNeutral" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+                                                    <m:Text text="Rating N2" id="tex13_cpy31" class="sapUiSmallMarginEnd"/>
+                                                    <m:HBox width="40px" class="performanceNeutral" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
                                                         <m:items>
-                                                            <m:Text text="C" id="textc003" />
+                                                            <m:Text text="C" id="textc003"/>
                                                         </m:items>
                                                     </m:HBox>
                                                 </m:items>
@@ -488,13 +476,13 @@
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy33" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Performance Rating N3:" width="100%" id="label11_copy33" />
+                                            <m:Label text="Performance Rating N3:" width="100%" id="label11_copy33"/>
                                             <m:HBox width="100%" id="hox2" alignContent="Start" alignItems="Center">
                                                 <m:items>
-                                                    <m:Text text="Rating N3" id="tt13_cpy31"  class="sapUiSmallMarginEnd"/>
-                                                    <m:HBox width="30px" class="performanceNegative" alignItems="Center" alignContent="Center" justifyContent="Center" height="30px">
+                                                    <m:Text text="Rating N3" id="tt13_cpy31" class="sapUiSmallMarginEnd"/>
+                                                    <m:HBox width="40px" class="performanceNegative" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
                                                         <m:items>
-                                                            <m:Text text="D" id="part003" />
+                                                            <m:Text text="D" id="part003"/>
                                                         </m:items>
                                                     </m:HBox>
                                                 </m:items>
@@ -518,7 +506,7 @@
                                 <m:items>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy36" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Employee Development:" width="100%" id="label11_copy36" />
+                                            <m:Label text="Employee Development:" width="100%" id="label11_copy36"/>
                                             <m:HBox alignItems="Center">
                                             <m:items>
                                             <m:HBox class="performanceNeutralM performanceRound">
@@ -533,7 +521,7 @@
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy37" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Leadership:" width="100%" id="label11_copy37" />
+                                            <m:Label text="Leadership:" width="100%" id="label11_copy37"/>
                                              <m:HBox alignItems="Center">
                                             <m:items>
                                             <m:HBox class="performanceNeutralM performanceRound">
@@ -548,7 +536,7 @@
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy38" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Performance Contribution:" width="100%" id="label11_copy38" />
+                                            <m:Label text="Performance Contribution:" width="100%" id="label11_copy38"/>
                                              <m:HBox alignItems="Center">
                                             <m:items>
                                             <m:HBox class="performancePositive performanceRound">
@@ -563,7 +551,7 @@
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy39" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Bird's Eye View:" width="100%" id="label11_copy39" />
+                                            <m:Label text="Bird's Eye View:" width="100%" id="label11_copy39"/>
                                             <m:HBox alignItems="Center">
                                             <m:items>
                                             <m:HBox class="performancePositive performanceRound">
@@ -578,8 +566,8 @@
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy40" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="Current Responsibilities:" width="100%" id="label11_copy40" />
-                                            <m:Text text="Text" id="text13_copy40" />
+                                            <m:Label text="Current Responsibilities:" width="100%" id="label11_copy40"/>
+                                            <m:Text text="Text" id="text13_copy40"/>
                                         </m:items>
 
                                     </m:VBox>

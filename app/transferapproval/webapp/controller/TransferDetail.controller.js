@@ -711,7 +711,7 @@ sap.ui.define([
                 // var sText = i18n.getResourceBundle().getText("reject");
                 let sFirstButton = i18n.getResourceBundle().getText("yes");
                 let sSecondButton = i18n.getResourceBundle().getText("cancel");
-                let sText = i18n.getResourceBundle().getText("approve");
+                let sText = i18n.getResourceBundle().getText("approveParam",[this._employeeId,'1234','5678']);
 
                 this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.callBackFunc, this);
             },
@@ -722,7 +722,7 @@ sap.ui.define([
                 // var sText = i18n.getResourceBundle().getText("reject");
                 let sFirstButton = i18n.getResourceBundle().getText("yes");
                 let sSecondButton = i18n.getResourceBundle().getText("cancel");
-                let sText = i18n.getResourceBundle().getText("reject");
+                let sText = i18n.getResourceBundle().getText("rejectParam",[this._employeeId,'1234','5678']);
 
                 this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.callBackFunc, this);
 

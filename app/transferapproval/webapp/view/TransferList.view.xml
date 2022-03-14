@@ -68,7 +68,7 @@
             <IconTabBar id="idIconTabBar" select=".onFilterSelect" class="sapUiResponsivePadding--header sapUiResponsivePadding--content">
                 <items>
                     <IconTabFilter showAll="true" count="14" text="Total Transfers" key="All"/>
-                    <IconTabSeparator/>
+                    <IconTabSeparator class="sapUiMediumMarginEnd "/>
                     <IconTabFilter class="iconPositive sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://pending" iconColor="Critical" count="8" text="Pending for Approval" key="pending" iconDensityAware="false"/>
                     <IconTabFilter class="iconPositive sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://sys-enter" iconColor="Positive" count="4" text="Approved" key="approved"/>
                     <IconTabFilter class="iconNegative sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://sys-cancel" iconColor="Negative" count="2" text="Rejected" key="rejected"/>
@@ -77,9 +77,11 @@
                     <ScrollContainer id="sc1" width="100%" height="{OP>/height}" horizontal="false" vertical="true" focusable="true" class="container">
 
                         <content>
-                            <Table id="TransferReqTable" inset="false" showSeparators="Inner" items="{data>/TransferReq}" mode="MultiSelect" sticky="HeaderToolbar,ColumnHeaders" updateFinished="onLoad" selectionChange="onSelection">
+                            <Table id="TransferReqTable" showSeparators="Inner" items="{data>/TransferReq}" mode="MultiSelect" 
+                                sticky="HeaderToolbar,ColumnHeaders" updateFinished="onLoad" selectionChange="onSelection" growing="true" 
+                                growingScrollToLoad="true" includeItemInSelection="false" showUnread="false" itemPress="onItemPress" rememberSelections='true'>
 
-                                <columns>
+                                <columns class="tableHeader">
                                     <Column>
                                         <Text text="{i18n>employeeId}"/>
                                     </Column>
@@ -99,7 +101,7 @@
                                             <Text text="{i18n>supervisor}" id="text19"/>
                                         </header>
                                     </Column>
-                                    <Column id="column7" width="6rem">
+                                    <Column id="column7" hAlign="Center">
                                         <Text text="{i18n>criteria}"/>
 
                                     </Column>
@@ -121,9 +123,10 @@
                                     </Column>
                                 </columns>
                                 <items>
-                                    <ColumnListItem highlight="{=${data>Status} === 'Pending' ? 'Warning' :                                             ${data>Status} === 'Approved' ? 'Success' : 'Error'}">
+                                    <ColumnListItem highlight="{=${data>Status} === 'Pending' ? 'Warning' : ${data>Status} === 'Approved' ? 'Success' : 'Error'}"
+                                     type="Active">
                                         <cells>
-                                            <Text text="{data>employeeid}"/>
+                                            <Link text="{data>employeeid}" id="link0" press="onViewProfile" tooltip="View Profile"/>
                                             <Text text="{data>name}"/>
                                             <Text text="{data>department}" id="text12"/>
                                             <Text text="{data>employmentType}" id="text13"/>
@@ -161,7 +164,7 @@
                             <Text text="{= ${OP>/selectedCount} + ' Requests Selected'}" id="text3_1644219675795" class="sapUiMediumMarginBegin sapThemeLightText footerText"/>
                             <ToolbarSpacer id="spacer1"/>
                             <Button press="onAccept" text="Approve" id="button0_1644211420374" class="sapUiSmallMarginEnd" icon="sap-icon://sys-enter-2" type="Accept"/>
-                            <Button text="Reject" id="button1" class="sapUiMediumMarginEnd" icon="sap-icon://sys-cancel-2" type="Reject" press="onReject"/>
+                            <Button text="Reject" id="button1" class="sapUiSmallMarginEnd" icon="sap-icon://sys-cancel-2" type="Reject" press="onReject"/>
                         </content>
                     </OverflowToolbar>
                 </content>

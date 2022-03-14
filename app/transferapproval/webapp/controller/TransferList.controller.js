@@ -2,13 +2,14 @@ sap.ui.define([
     "./BaseController",
     "sap/ui/Device",
     "sap/ui/model/Filter",
-    "sap/ui/export/Spreadsheet"
+    "sap/ui/export/Spreadsheet",
+    "sap/m/MessageBox"
 
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, Device, Filter, Spreadsheet) {
+    function (BaseController, Device, Filter, Spreadsheet, MessageBox) {
         "use strict";
 
         return BaseController.extend("transferapproval.controller.TransferList", {
@@ -103,6 +104,7 @@ sap.ui.define([
                     var oCb = sap.ui.getCore().byId(cb.attr('id'));
                     if (oStatus !== "Pending") {
                         oCb.setEnabled(false);
+                        oCb.setSelected(false)
                     } else {
                         oCb.setEnabled(true);
                     }
@@ -147,10 +149,22 @@ sap.ui.define([
             },
             onSelection: function (oEvent) {
                 // var tbl = this.getView().byId('TransferReqTable');
-                var oModel = this.getView().getModel('OP');
-                var oData = oModel.getData();
-                oData.selectedCount = oEvent.getSource().getSelectedItems().length;
-                oModel.setData(oData);
+                var sStatus = oEvent.getParameter('listItem').getBindingContext('data').getProperty('Status');
+                if (sStatus === 'Pending') {
+                    var oModel = this.getView().getModel('OP');
+                    var oData = oModel.getData();
+                    oData.selectedCount = oEvent.getSource().getSelectedItems().length;
+                    oModel.setData(oData);
+                } else {
+                    oEvent.getParameter('listItem').setProperty('selected', false);
+                }
+            },
+            onItemPress: function(oEvent){
+                oEvent.getParameter('listItem').setProperty('selected', false);
+                var sId = oEvent.getParameter('listItem').getBindingContext('data').getProperty("employeeid");
+                this.oRouter.navTo("TransferDetail", {
+                    ID: sId
+                }, false);
             },
             _onTableItemPress: function (oEvent) {
                 var sId = oEvent.getSource().getBindingContext("data").getProperty("employeeid");
@@ -399,8 +413,22 @@ sap.ui.define([
                     ("Export: %" + iValue + " completed");
                 };
                 oSpreadsheet.build()
-                    .then(function () {  ("Export is finished"); })
-                    .catch(function (sMessage) {  ("Export error: " + sMessage); });
+                    .then(function () { ("Export is finished"); })
+                    .catch(function (sMessage) { ("Export error: " + sMessage); });
+            },
+            onViewProfile: function (oEvent) {
+                var oBindingContext = oEvent.getSource().getParent().oBindingContexts.data;
+                return new Promise(function (fnResolve) {
+
+                    this.oRouter.navTo("EmployeeProfile", {
+                        ID: oBindingContext.getProperty("employeeid"),
+                    }, false);
+
+                }.bind(this)).catch(function (err) {
+                    if (err !== undefined) {
+                        MessageBox.error(err.message);
+                    }
+                });
             }
 
         });
