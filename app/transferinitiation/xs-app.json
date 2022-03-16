@@ -1,21 +1,7 @@
 {
+    "welcomeFile": "/index.html",
     "authenticationMethod": "route",
     "routes": [
-        {
-            "source": "^/V3/(.*)$",
-            "target": "/V3/$1",
-            "destination": "NorthWind",
-            "authenticationType": "xsuaa",
-            "csrfProtection": false
-        },
-        {
-            "source": "^/SFSF/(.*)$",
-            "target": "/$1",
-            "destination": "SFSF",
-            "authenticationType": "xsuaa",
-            "csrfProtection": false
-        },
-
         {
             "source": "/v2/(.*)",
             "target": "/v2/$1",
@@ -38,20 +24,26 @@
             "authenticationType": "xsuaa"
         },
         {
-            "source": "^/user-api(.*)",
-            "target": "$1",
-            "service": "sap-approuter-userapi"
+            "source": "^/resources/(.*)$",
+            "target": "/resources/$1",
+            "authenticationType": "none",
+            "destination": "ui5"
         },
         {
-            "source": "/(.*)",
-            "localDir": ".",
-            "authenticationType": "xsuaa",
-            "cacheControl": "no-cache, no-store, must-revalidate"
+            "source": "^/test-resources/(.*)$",
+            "target": "/test-resources/$1",
+            "authenticationType": "none",
+            "destination": "ui5"
+        },
+        {
+            "source": "^(.*)$",
+            "target": "$1",
+            "service": "html5-apps-repo-rt",
+            "authenticationType": "xsuaa"
         }
     ],
     "logout": {
         "logoutEndpoint": "/my/logout",
         "logoutPage": "/loggedout.html"
-    },
-    "welcomeFile": "/transferinitiation/webapp/index.html"
+    }
 }
