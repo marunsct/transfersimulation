@@ -4,12 +4,14 @@
         <f:title>
             <f:DynamicPageTitle>
 
-                <f:heading></f:heading>
+                <f:heading>
+                <Title text="{i18n>openListTitle}" textAlign="Center" id="titleee" level="H1" />
+                </f:heading>
                 <f:navigationActions>
                     <Button xmlns="sap.m" id="button0_1628578882484" press="_onPageNavButtonPress" icon="sap-icon://nav-back" />
                 </f:navigationActions>
                 <f:content>
-                    <Title text="{i18n>openListTitle}" textAlign="Center" id="titleee" level="H1" />
+                    
 
                 </f:content>
             </f:DynamicPageTitle>
