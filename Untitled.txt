@@ -11,3 +11,5 @@ http://localhost:5000
 
 
 cf undeploy cpapp --delete-service-keys --delete-services
+
+cf push transfersimulation -u port -t 180

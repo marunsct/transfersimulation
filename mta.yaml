@@ -19,8 +19,8 @@ modules:
       srv-url: ${default-url}
   parameters:
     buildpack: nodejs_buildpack
-    disk-quota: 1024M
-    memory: 512M
+    disk-quota: 2048M
+    memory: 1024M
 - name: transfersimulation-approuter
   type: approuter.nodejs
   path: app
