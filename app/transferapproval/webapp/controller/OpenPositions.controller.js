@@ -280,7 +280,19 @@ sap.ui.define([
             this._preDialog(posId, posName, employeeId, employeeName, oDroppedItemContext);
 
         },
-
+        onClearFilter: function(){
+            let filter = this.getModel("filter").getData();
+            filter.filter = {
+                position: "",
+                department: "",
+                EmploymentClass: "",
+                EmploymentType: "",
+                location: "",
+                supervisor: "",
+                employee: ""
+            };
+            this.getModel("filter").setData(filter);
+        },
         onInit: function () {
 
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -312,7 +324,23 @@ sap.ui.define([
             // this.oFclModel.setProperty('/headerExpanded', false);
             this.oFilterBar = this.byId("filterbar0");
             this.byId("table0").setBusy(true);
-
+            this.filter = {
+                filter: {
+                    position: "",
+                    department: "",
+                    EmploymentClass: "",
+                    EmploymentType: "",
+                    location: "",
+                    supervisor: "",
+                    employee: ""
+                },
+                position: [],
+                department: [],
+                EmploymentClass: [],
+                EmploymentType: [],
+                location: []
+            };
+            this.oView.setModel(new sap.ui.model.json.JSONModel(this.filter), 'filter');
         },
         onAfterRendering: function () {
             this._vData.height = Math.round(Device.resize.height - (165 + this.getView().byId("filterbar0").$().height() + this.getView().byId("hBoxPos").$().height() + this.getView().byId("hBoxHead").$().height())) + 'px'

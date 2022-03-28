@@ -100,15 +100,28 @@ sap.ui.define([
 
             }
         },
-        onUpdateStarted: function(oEvent){
-            console.log("hi");
+        onUpdateStarted: function (oEvent) {
+            if (oEvent.getParameter("reason") === "Growing") {
+                var filters = this.getModel("filter").getData().filter;
+                var oFilters = this._builFilters(filters);
+                var mModel = this.getView().getModel('OP');
+                var mData = mModel.getData();
+                this._onOdataCall('EmployeeJobs', oFilters, (this._sCount + 2), mData.EmployeeJobs.length);
+            }
+
         },
         onViewProfile: function (oEvent) {
             var oBindingContext = oEvent.getSource().getParent().oBindingContexts.OP;
             return new Promise(function (fnResolve) {
-
+                var sBeginContext = this.oFclModel.getProperty("/beginContext");
+                var sMidContext = oEvent.getSource().getBindingContext("OP").getPath();
+                var oNextUIState = this.getOwnerComponent().getSemanticHelper().getNextUIState(1);
+                var sNextLayout = oNextUIState.layout;
                 this.oRouter.navTo("EmployeeProfile", {
                     ID: oBindingContext.getProperty("userId"),
+                    beginContext: sBeginContext,
+                    midContext: sMidContext,
+                    layout: sNextLayout
                 }, false);
 
             }.bind(this)).catch(function (err) {
@@ -271,6 +284,109 @@ sap.ui.define([
             });
 
         },
+        doNavigate: function (sRouteName, oBindingContext, fnPromiseResolve, sViaRelation, iNextLevel) {
+            var sPath = (oBindingContext) ? oBindingContext.getPath() : null;
+            var oModel = (oBindingContext) ? oBindingContext.getModel() : null;
+
+            var routePattern = this.oRouter.getRoute(sRouteName).getPattern().split('/');
+            var contextFilter = new RegExp('^:.+:$');
+            var pagePattern = routePattern.filter(function (pattern) {
+                var contextPattern = pattern.match(contextFilter);
+                return contextPattern === null || contextPattern === undefined;
+            });
+            iNextLevel = iNextLevel !== undefined ? iNextLevel : pagePattern ? pagePattern.length - 1 : 0;
+            this.oFclModel = this.oFclModel ? this.oFclModel : this.getOwnerComponent().getModel("FclRouter");
+
+            var sEntityNameSet;
+            var oNextUIState = this.getOwnerComponent().getSemanticHelper().getNextUIState(iNextLevel);
+            var sBeginContext, sMidContext, sEndContext;
+            if (iNextLevel === 0) {
+                sBeginContext = sPath;
+            }
+
+            if (iNextLevel === 1) {
+                sBeginContext = this.oFclModel.getProperty("/beginContext");
+                sMidContext = sPath;
+            }
+
+            if (iNextLevel === 2) {
+                sBeginContext = this.oFclModel.getProperty("/beginContext");
+                sMidContext = this.oFclModel.getProperty("/midContext");
+                sEndContext = sPath;
+            }
+
+            var sNextLayout = oNextUIState.layout;
+
+            if (sPath !== null && sPath !== "") {
+                if (sPath.substring(0, 1) === "/") {
+                    sPath = sPath.substring(1);
+                    if (iNextLevel === 0) {
+                        sBeginContext = sPath;
+                    } else if (iNextLevel === 1) {
+                        sMidContext = sPath;
+                    } else {
+                        sEndContext = sPath;
+                    }
+                }
+                sEntityNameSet = sPath.split("(")[0];
+            }
+            var sNavigationPropertyName;
+            if (sEntityNameSet !== null) {
+                sNavigationPropertyName = sViaRelation || this.getOwnerComponent().getNavigationPropertyForNavigationWithContext(sEntityNameSet, sRouteName);
+            }
+            if (sNavigationPropertyName !== null && sNavigationPropertyName !== undefined) {
+                if (sNavigationPropertyName === "") {
+                    this.oRouter.navTo(sRouteName, {
+                        beginContext: sBeginContext,
+                        midContext: sMidContext,
+                        endContext: sEndContext,
+                        layout: sNextLayout
+                    }, false);
+                } else {
+                    oModel.createBindingContext(sNavigationPropertyName, oBindingContext, null, function (bindingContext) {
+                        if (bindingContext) {
+                            sPath = bindingContext.getPath();
+                            if (sPath.substring(0, 1) === "/") {
+                                sPath = sPath.substring(1);
+                            }
+                        } else {
+                            sPath = "undefined";
+                        }
+                        if (iNextLevel === 0) {
+                            sBeginContext = sPath;
+                        } else if (iNextLevel === 1) {
+                            sMidContext = sPath;
+                        } else {
+                            sEndContext = sPath;
+                        }
+
+                        // If the navigation is a 1-n, sPath would be "undefined" as this is not supported in Build
+                        if (sPath === "undefined") {
+                            this.oRouter.navTo(sRouteName, {
+                                layout: sNextLayout
+                            });
+                        } else {
+                            this.oRouter.navTo(sRouteName, {
+                                beginContext: sBeginContext,
+                                midContext: sMidContext,
+                                endContext: sEndContext,
+                                layout: sNextLayout
+                            }, false);
+                        }
+                    }.bind(this));
+                }
+            } else {
+                this.oRouter.navTo(sRouteName, {
+                    layout: sNextLayout
+                });
+            }
+
+            if (typeof fnPromiseResolve === "function") {
+
+                fnPromiseResolve();
+            }
+
+        },
         _onExpandButtonPress: function () {
             var endColumn = this.getOwnerComponent().getSemanticHelper().getCurrentUIState().columnsVisibility.endColumn;
             var isFullScreen = this.getOwnerComponent().getSemanticHelper().getCurrentUIState().isFullScreen;
@@ -394,9 +510,7 @@ sap.ui.define([
             this.oFclModel.setProperty('/expandIcon', {});
             this.oFclModel.setProperty('/headerExpanded', true);
             this.oFclModel.setProperty('/footerVisible', false);
-
-            this.oView.setModel(new sap.ui.model.json.JSONModel({}), 'fclButton');
-            this.oView.setModel(new JSONModel({
+            this.mData = {
                 filter: {
                     position: "",
                     department: "",
@@ -414,8 +528,10 @@ sap.ui.define([
                 totalPage: 0,
                 currentPage: 0,
                 pageText: '',
-                top: (Math.round(((Device.resize.height - 285) / 40)) - 1)
-            }), 'filter');
+                top: (Math.round(((Device.resize.height - 285) / 40)) - 2)
+            };
+            this.oView.setModel(new sap.ui.model.json.JSONModel({}), 'fclButton');
+            this.oView.setModel(new JSONModel(this.mData), 'filter');
             this.oView.setModel(new JSONModel({ Count: 100, EmployeeJobs: [] }), 'OP');
             this.onEmployeeInit();
             this._oFilters = [];
@@ -432,11 +548,12 @@ sap.ui.define([
 
             // or just do it for the whole view
             oMessageManager.registerObject(this.oView, true);
-            this.oFilterBar = this.byId("filterbar0"); 
+            this.oFilterBar = this.byId("filterbar0");
             this.byId("table0").setBusy(true);
         },
         onAfterRendering: async function () {
-            this._sCount = Math.round(((Device.resize.height - (162 + this.getView().byId("filterbar0").$().height()) )/ 40)) - 1;
+            this._sCount = Math.round(((Device.resize.height - (225 + this.getView().byId("filterbar0").$().height())) / 40)) - 2;
+            this.getView().byId("table0").setGrowingThreshold(this._sCount);
             if (this.getCustProperty("Back") !== true) {
 
                 this.setCustProperty("Back", false);
@@ -472,15 +589,15 @@ sap.ui.define([
                 });
                 //  var cat = await this.asyncAjax("V3/Northwind/Northwind.svc/Categories");
                 // console.log(cat);
-               // this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
+                // this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
                 this._onOdataCall('EmployeeJobs', [], (this._sCount + 2), 0);
             } else {
                 var fModel = this.getView().getModel('OP');
                 var fData = fModel.getData();
-               // fData.currentPage = 0;
+                // fData.currentPage = 0;
                 fModel.setData(fData);
-                if(fData.EmployeeJobs.length === 0){
-                   // this._onOdataCall('EmployeeJobs', [], this._sCount , 0);
+                if (fData.EmployeeJobs.length === 0) {
+                    // this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
                     this._onOdataCall('EmployeeJobs', [], (this._sCount + 2), 0);
                 }
             }
@@ -1092,6 +1209,7 @@ sap.ui.define([
             this.byId("table0").setBusy(true);
             var oViewModel = this.getView().getModel('OP');
             var oDataModel = this.getView().getModel("oData");
+            this._oSkip = oSkip;
             oDataModel.read("/" + oUrl,
                 {
                     async: true,
@@ -1105,7 +1223,12 @@ sap.ui.define([
                         var mData = mModel.getData();
                         // console.log(args);
                         //this.getView().getModel('OP').setData({ "OpenPositions": sData.results });
-                        mData.EmployeeJobs = sData.results;
+                        if (this._oSkip === 0) {
+                            mData.EmployeeJobs = sData.results;
+                        } else {
+                            mData.EmployeeJobs.push.apply(mData.EmployeeJobs, sData.results);;
+                        }
+
                         mModel.setData(mData);
                         var fModel = this.getView().getModel('filter');
                         var fData = fModel.getData();
@@ -1131,6 +1254,6 @@ sap.ui.define([
                     }
                 })
         }
-        
+
     });
 });

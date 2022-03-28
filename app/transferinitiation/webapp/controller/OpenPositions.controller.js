@@ -6,7 +6,10 @@ sap.ui.define([
     'sap/m/Dialog',
     'sap/m/ButtonType',
     'sap/m/Text',
-], function (BaseController, MessageBox, History, Button, Dialog, ButtonType, Text) {
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "sap/ui/Device"
+], function (BaseController, MessageBox, History, Button, Dialog, ButtonType, Text, Filter, FilterOperator, Device) {
     "use strict";
 
     return BaseController.extend("transferinitiation.controller.OpenPositions", {
@@ -18,7 +21,7 @@ sap.ui.define([
             this._employeeId = oParams.arguments.ID;
 
             var oContext = this.getCustProperty("EmployeeContext");
-            this._employeeName = oContext.oModel !== undefined ? oContext.oModel.getProperty(oContext.sPath + "/First_Name") : "";
+            this._employeeName = (oContext !== undefined && oContext.oModel !== undefined )? oContext.oModel.getProperty(oContext.sPath + "/First_Name") : "";
             //this._employeeContext = oParams.arguments.context;
             if (oParams.arguments.midContext) {
                 sContext = oParams.arguments.midContext;
@@ -174,11 +177,11 @@ sap.ui.define([
             this._oAssignment = {};
             this._oAssignment = oEvent.getParameter("listItem").getBindingContext("OP");
             //var employee, openPositions;
-            var posId = this._oAssignment.getProperty("Position_ID");
-            var posName = this._oAssignment.getProperty("Position_Title")
+            var posId = this._oAssignment.getProperty("code");
+            var posName = this._oAssignment.getProperty("externalName_defaultValue")
 
             var aCells = oEvent.getParameter("listItem").getCells();
-
+            this._employeeName = this._employeeName ? this._employeeName : this._employeeId;
 
             this._preDialog(posId, posName, this._employeeId, this._employeeName, this._oAssignment.sPath);
 
@@ -191,19 +194,21 @@ sap.ui.define([
             var sFirstButton = i18n.getResourceBundle().getText("yes");
             var sSecondButton = i18n.getResourceBundle().getText("cancel");
             if (this._openPositions[posId] !== undefined) {
-
-                this._createDialog(sTitle, i18n.getResourceBundle().getText("positionExists", this._openPositions[posId].employeeId), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath);
+                if(this._openPositions[posId].employeeId === employeeId) {
+                    return;
+                }
+                this.createDialog(sTitle, i18n.getResourceBundle().getText("positionExists", this._openPositions[posId].employeeId), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath);
 
             } else if (this._employee[employeeId] !== undefined) { //   || this._employee[this._employeeId].positionId !== undefined) {
-                this._createDialog(sTitle, i18n.getResourceBundle().getText("employeeExists",
+                this.createDialog(sTitle, i18n.getResourceBundle().getText("employeeExists",
                     this._employee[employeeId].positionName), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath);
             } else {
-                this._createDialog(sTitle, i18n.getResourceBundle().getText("assignconfiration", [posName, employeeName]), sFirstButton, sSecondButton, true, posId, posName, employeeId, employeeName, sPath);
+                this.createDialog(sTitle, i18n.getResourceBundle().getText("assignconfiration", [posName, employeeName]), sFirstButton, sSecondButton, true, posId, posName, employeeId, employeeName, sPath);
 
             }
 
         },
-        _createDialog: function (sTitle, sText, sFirstButton, sSecondButton, sNew, posId, posName, employeeId, employeeName, sPath) {
+        createDialog: function (sTitle, sText, sFirstButton, sSecondButton, sNew, posId, posName, employeeId, employeeName, sPath) {
             var dialog = new Dialog({
                 title: sTitle,
                 type: 'Message',
@@ -239,6 +244,8 @@ sap.ui.define([
                 // sThat._oAssignment.setProperty("ID1", this._employeeId);
                 sThat.getModel("OP").setProperty(sPath + "/ID1", employeeId);
                 sThat.getModel("OP").setProperty(sPath + "/Name1", employeeName);
+                sThat.getModel("OP").setProperty(sPath + "/status", "assigned");
+                sThat.getModel("OP").setProperty(sPath + "/icon", 'sap-icon://private');
                 sThat._employee[employeeId] = {};
                 sThat._openPositions[posId] = {};
                 sThat._openPositions[posId].employeeId = employeeId;
@@ -247,6 +254,9 @@ sap.ui.define([
                 sThat._employee[employeeId].positionName = posName;
                 sThat.setCustProperty("EmployeeOpenPositions", sThat._employee);
                 sThat.setCustProperty("OpenPositionsEmployee", sThat._openPositions);
+                let selected = sThat.getModel("OP").getData().selected + 1;
+                sThat.getModel("OP").setProperty("/selected", selected);
+                
             } else {
                 var mData = sThat.getModel("OP").getData();
                 let newData = [];
@@ -258,9 +268,11 @@ sap.ui.define([
                         if (sThat._employee[employeeId] !== undefined) {
                             if (sThat._employee[employeeId].positionId !== posId) {
                                 mData.OpenPositions.result.forEach((currentValue) => {
-                                    if (currentValue.Position_ID === sThat._employee[employeeId].positionId) {
+                                    if (currentValue.code === sThat._employee[employeeId].positionId) {
                                         currentValue.ID1 = "";
                                         currentValue.Name1 = "";
+                                        currentValue.status = "";
+                                        currentValue.icon = "";
                                     }
                                     newData.push(currentValue);
                                 }, sThat);
@@ -278,15 +290,20 @@ sap.ui.define([
                         sThat._employee[employeeId].positionName = posName;
                         sThat.getModel("OP").setProperty(sPath + "/ID1", employeeId);
                         sThat.getModel("OP").setProperty(sPath + "/Name1", employeeName);
+                        sThat.getModel("OP").setProperty(sPath + "/status", "assigned");
+                        sThat.getModel("OP").setProperty(sPath + "/icon", 'sap-icon://private');
                         sThat.setCustProperty("EmployeeOpenPositions", sThat._employee);
                         sThat.setCustProperty("OpenPositionsEmployee", sThat._openPositions);
+                        
                     }
                 } else if (sThat._employee[employeeId] !== undefined) {
                     if (sThat._employee[employeeId].positionId !== posId) {
                         mData.OpenPositions.result.forEach((currentValue) => {
-                            if (currentValue.Position_ID === sThat._employee[employeeId].positionId) {
+                            if (currentValue.code === sThat._employee[employeeId].positionId) {
                                 currentValue.ID1 = "";
                                 currentValue.Name1 = "";
+                                currentValue.status = "";
+                                currentValue.icon = "";
                             }
                             newData.push(currentValue);
                         }, sThat);
@@ -302,6 +319,8 @@ sap.ui.define([
                         sThat.getModel("OP").setData(mData);
                         sThat.getModel("OP").setProperty(sPath + "/ID1", employeeId);
                         sThat.getModel("OP").setProperty(sPath + "/Name1", employeeName);
+                        sThat.getModel("OP").setProperty(sPath + "/status", "assigned");
+                        sThat.getModel("OP").setProperty(sPath + "/icon", 'sap-icon://private');
                         sThat.setCustProperty("EmployeeOpenPositions", sThat._employee);
                         sThat.setCustProperty("OpenPositionsEmployee", sThat._openPositions);
                     }
@@ -313,16 +332,74 @@ sap.ui.define([
             var oDraggedItemContext = oDraggedItem.getBindingContextPath();
             var oDroppedItem = oEvent.getParameter("droppedControl");
             var oDroppedItemContext = oDroppedItem.getBindingContextPath();
-            var posId = this.getModel("OP").getProperty(oDroppedItemContext + "/Position_ID");
-            var posName = this.getModel("OP").getProperty(oDroppedItemContext + "/Position_Title");
-            var employeeId = this.getModel("oData").getProperty(oDraggedItemContext + "/Employee_ID");
-            var employeeName = this.getModel("oData").getProperty(oDraggedItemContext + "/First_Name");
+            var posId = this.getModel("OP").getProperty(oDroppedItemContext + "/code");
+            var posName = this.getModel("OP").getProperty(oDroppedItemContext + "/externalName_defaultValue");
+            var employeeId = oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext + "/userId");
+            var employeeName = oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext + "/userId")  ;
 
 
             this._preDialog(posId, posName, employeeId, employeeName, oDroppedItemContext);
 
         },
-
+        onReset: function(){
+            var i18n = this.oView.getModel("i18n");
+            let sFirstButton = i18n.getResourceBundle().getText("yes");
+            let sSecondButton = i18n.getResourceBundle().getText("cancel");
+            let sTitle = i18n.getResourceBundle().getText("warning");
+            let sText = i18n.getResourceBundle().getText("initiateWarning", [this._vData.selected]);
+            this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this.resetAssignments, this.callBackFunc, this);
+            
+        },
+        resetAssignments: function(){
+            var mData = this.getModel("OP").getData();
+            let newData = [];
+            mData.OpenPositions.result.forEach((currentValue) => {
+                if (currentValue.ID1) {
+                    currentValue.ID1 = "";
+                    currentValue.Name1 = "";
+                    currentValue.status = "";
+                    currentValue.icon = "";
+                }
+                newData.push(currentValue);
+            }, this);
+            mData.OpenPositions.result = newData;
+            mData.selected = 0;
+            this.getModel("OP").setData(mData);
+            this._openPositions = {};
+            this._employee = {};
+        },
+        intiateTransfer: function(){
+            this.resetAssignments();
+            this._onPageNavButtonPress();
+        },
+        onInitiateTransfer: function (oEvent) {
+            // var tbl = this.getView().byId('TransferReqTable');
+            var i18n = this.oView.getModel("i18n");
+            let sTitle = i18n.getResourceBundle().getText("confirm");
+            // var sText = i18n.getResourceBundle().getText("reject");
+            let sFirstButton = i18n.getResourceBundle().getText("yes");
+            let sSecondButton = i18n.getResourceBundle().getText("cancel");
+            let sText = i18n.getResourceBundle().getText("initiate", [this._vData.selected]);
+            
+                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this.intiateTransfer, this.callBackFunc, this);
+        },
+        callBackFunc: function () {
+            console.log("Dialog Method");
+            //   this._onPageNavButtonPress();
+        },
+        onClearFilter: function(){
+            let filter = this.getModel("filter").getData();
+            filter.filter = {
+                position: "",
+                department: "",
+                EmploymentClass: "",
+                EmploymentType: "",
+                location: "",
+                supervisor: "",
+                employee: ""
+            };
+            this.getModel("filter").setData(filter);
+        },
         onInit: function () {
 
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -347,22 +424,46 @@ sap.ui.define([
                     "result": [],
                     "hText": "Result ",
                     "hNumbers": "(0)"
-                }
+                },
+                selected : 0
             };
             this.oView.setModel(new sap.ui.model.json.JSONModel(this._vData), 'OP');
+            this.filter = {
+                filter: {
+                    position: "",
+                    department: "",
+                    EmploymentClass: "",
+                    EmploymentType: "",
+                    location: "",
+                    supervisor: "",
+                    employee: ""
+                },
+                position: [],
+                department: [],
+                EmploymentClass: [],
+                EmploymentType: [],
+                location: []
+            };
+            this.oView.setModel(new sap.ui.model.json.JSONModel(this.filter), 'filter');
             this.oFclModel.setProperty('/headerExpanded', false);
 
         },
         onAfterRendering: function () {
-            this.onOdataCall();
+            this.onOdataCall([new Filter("vacant", FilterOperator.EQ, true)]);
 
         },
 
-        onOdataCall: function () {
+        onOdataCall: function (oFilters) {
+            this.byId("table0").setBusy(true);
             var oViewModel = this.getView().getModel('OP');
             var oDataModel = this.getView().getModel("oData");
-            oDataModel.read("/OpenPositions",
+            oDataModel.read("/Position",
                 {
+                    async: true,
+                    urlParameters: {
+                        "$top": 100,
+                    },
+                    filters: oFilters,
                     success: function (sData, sResult) {
                         var mModel = this.getView().getModel('OP');
                         var mData = mModel.getData();
@@ -370,7 +471,13 @@ sap.ui.define([
                         //this.getView().getModel('OP').setData({ "OpenPositions": sData.results });
                         mData.OpenPositions.result = sData.results;
                         mModel.setData(mData);
-                    }.bind(this)
+                        this.byId("table0").setBusy(false);
+                    }.bind(this),
+                    error: function (sData, sResult) {
+                        console.log(sData);
+                        this.oGlobalBusyDialog.close();
+                        this.byId("table0").setBusy(false);
+                    }
                 })
         },
 

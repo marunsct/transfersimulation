@@ -105,17 +105,22 @@
         },
         "routing": {
             "config": {
-                "routerClass": "sap.m.routing.Router",
+                "routerClass": "sap.f.routing.Router",
                 "viewType": "XML",
                 "async": true,
                 "viewPath": "transferinitiation.view",
                 "controlAggregation": "beginColumnPages",
-                "controlId": "idAppControl",    
-                "clearControlAggregation": false
+                "controlId": "idAppControl",   
+                "clearTarget": false, 
+                "bypassed": {
+					"target": [
+						"EmployeeList"
+					]
+				}
             },
             "routes": [
                 {
-                    "pattern": ":layout:",
+                    "pattern": "EmployeeList/:layout:",
                     "name": "EmployeeList",
                     "target": [
                         "EmployeeList"
@@ -130,21 +135,37 @@
                         "OpenPositions"
                     ],
                     "layout": "TwoColumnsMidExpanded"
-                },                
+                }, 
                 {
-                    "name": "RouteApp",
-                    "pattern": "RouteApp",
+                    "pattern": "EmployeeProfile/{ID}",
+                    "name": "EmployeeProfile",
                     "target": [
-                        "TargetApp"
-                    ]
-                }
+                        "EmployeeProfile"
+                    ],
+                    "layout": "OneColumn"
+                },
+				{
+					"pattern": ""  ,
+					"name": "default",
+					"target": [
+						"EmployeeList"
+					],
+					"layout": "OneColumn"
+				}
             ],
             "targets": {
                 "EmployeeList": {
                     "controlAggregation": "beginColumnPages",
                     "viewName": "EmployeeList",
                     "viewId": "EmployeeList",
-                    "viewLevel": 3,
+                    "viewLevel": 3  ,
+                    "transition": "slide"
+                },
+                "EmployeeProfile": {
+                    "controlAggregation": "beginColumnPages",
+                    "viewName": "EmployeeProfile",
+                    "viewId": "EmployeeProfile",
+                    "viewLevel": 1,
                     "transition": "slide"
                 },
                 "OpenPositions": {

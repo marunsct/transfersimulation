@@ -271,31 +271,53 @@
                 </items>
             </HBox>
 
-            <fb:FilterBar id="filterbar0" search=".onSearch" clear="_onTableItemPress" useToolbar="true" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="true">
+            <fb:FilterBar id="filterbar0" search=".onSearch" clear="onClearFilter" useToolbar="true" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="true">
                 <fb:filterGroupItems>
                     <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" visibleInFilterBar="true" label="{i18n>positionId}">
                         <fb:control>
-                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'suppInvoiceNo', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}" />
+                            <Input value="{filter>/filter/position}" suggestionItems="{filter>/position}" showSuggestion="true" suggest=".onSuggestPosition">
+                                <suggestionItems>
+                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                </suggestionItems>
+                            </Input>
                         </fb:control>
                     </fb:FilterGroupItem>
-                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="{i18n>positionTitle}" visibleInFilterBar="true" labelTooltip="{i18n>positionTitle}">
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="{i18n>positionDepartment}" visibleInFilterBar="true" labelTooltip="{i18n>department}">
                         <fb:control>
-                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'suppInvoiceNo', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}" />
+                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'filter>/filter/department', type: 'sap.ui.model.type.String' }" showSuggestion="true" id="fDepartment" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
+                                <suggestionItems>
+                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                </suggestionItems>
+                            </Input>
                         </fb:control>
                     </fb:FilterGroupItem>
-                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="{i18n>positionClass}" visibleInFilterBar="true" labelTooltip="{i18n>positionClass}">
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="{i18n>positionClass}" visibleInFilterBar="false" labelTooltip="{i18n>positionClass}">
                         <fb:control>
-                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'suppInvoiceNo', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}" />
+                            <Input value="{filter>/filter/EmploymentClass}" showSuggestion="true" id="fEmploymentClass" suggest=".onSuggestClass" suggestionItems="{filter>/EmploymentClass}">
+                                <suggestionItems>
+                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                </suggestionItems>
+                            </Input>
                         </fb:control>
                     </fb:FilterGroupItem>
-                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="D" label="{i18n>positionType}" visibleInFilterBar="true" labelTooltip="{i18n>positionType}">
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="D" label="{i18n>positionType}" visibleInFilterBar="false" labelTooltip="{i18n>positionType}">
                         <fb:control>
-                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'costCenterGrp', type: 'sap.ui.model.type.String'}" />
+                            <!--Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'suppInvoiceNo', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}"/  constraints: { search: '^[0-9,*,a-z,A-Z]*$' }   -->
+                            <Input value="{filter>/filter/EmploymentType}" suggestionItems="{filter>/EmploymentType}" showSuggestion="true" suggest=".onSuggestType">
+                                <suggestionItems>
+                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                </suggestionItems>
+                            </Input>
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem groupName="__$INTERNAL$" name="F" visibleInFilterBar="true" label="{i18n>positionLocation}" labelTooltip="{i18n>positionLocation}">
                         <fb:control>
-                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'wbsElement', type: 'sap.ui.model.type.String'}" />
+                            <Input value="{filter>/filter/location}" suggestionItems="{filter>/location}" showSuggestion="true" suggest=".onSuggestLoc">
+                                <suggestionItems>
+                                    <!--  <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/> -->
+                                    <core:Item text="{filter>name}" />
+                                </suggestionItems>
+                            </Input>
                         </fb:control>
                     </fb:FilterGroupItem>
                 </fb:filterGroupItems>

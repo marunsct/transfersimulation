@@ -7,12 +7,12 @@
     xmlns:fb="sap.ui.comp.filterbar"
     xmlns:cust="initiator.control"
     xmlns:dnd="sap.ui.core.dnd" controllerName="transferinitiation.controller.EmployeeList" id="EmployeeList" displayBlock="false">
-    <f:DynamicPage id="dynamicPageId" showFooter="{FclRouter>/footerVisible}" headerExpanded="{FclRouter>/headerExpanded}">
+    <f:DynamicPage id="dynamicPageId" showFooter="{FclRouter>/footerVisible1}" headerExpanded="{FclRouter>/headerExpanded1}">
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title xmlns="sap.m" text="Employee List" id="textH" class="sapUiSmallMarginTop" />
+                    <Title xmlns="sap.m" text="Employee List" id="textH" class="sapUiSmallMarginTop sapUiLargeMarginBegin" />
                 </f:heading>
                 <f:content />
                 <f:actions />
@@ -91,8 +91,8 @@
             <ScrollContainer id="sc1" height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
 
                 <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="true" 
-                       includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" 
-                       updateStarted="onUpdateStarted" growingTriggerText="..." itemPress="_onTableItemPress">
+                       includeItemInSelection="false" growingScrollToLoad="false" growing="true" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" 
+                       updateStarted="onUpdateStarted" growingTriggerText="More" itemPress="_onTableItemPress">
                     <dragDropConfig>
                         <dnd:DragInfo groupName="available2selected" sourceAggregation="items" />
                     </dragDropConfig>
@@ -154,21 +154,21 @@
                             </header>
 
                         </Column>
-                        <Column id="column3" minScreenWidth="Desktop" hAlign="Center">
+                        <Column id="column3" minScreenWidth="Desktop" hAlign="Center" popinDisplay="Inline" demandPopin="true">
                             <header>
                                 <Label id="label3" text="{i18n>class}" wrapping="true" />
 
                             </header>
 
                         </Column>
-                        <Column id="column4" minScreenWidth="Desktop" hAlign="Center">
+                        <Column id="column4" minScreenWidth="Desktop" hAlign="Center" popinDisplay="Inline" demandPopin="true">
                             <header>
                                 <Label text="{i18n>type}" id="label4" wrapping="true" />
 
                             </header>
 
                         </Column>
-                        <Column id="column5" minScreenWidth="Desktop" hAlign="Center">
+                        <Column id="column5" minScreenWidth="Desktop" hAlign="Center" popinDisplay="Inline" demandPopin="true">
                             <header>
                                 <Label text="{i18n>location}" id="label5" wrapping="true" />
 
@@ -189,7 +189,7 @@
                             </header>
 
                         </Column>
-                        <Column id="column7" hAlign="Center" minScreenWidth="Desktop" popinDisplay="Inline">
+                        <Column id="column7" hAlign="Center" minScreenWidth="Desktop" popinDisplay="Inline" demandPopin="true">
                             <header>
                                 <Label text="{i18n>position}" id="label7" wrapping="true" />
 

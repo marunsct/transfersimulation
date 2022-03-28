@@ -85,6 +85,11 @@
        border-color: #1360a1; 
        border: none;
    }
+   .sapContrast span.sapMBtnInner.sapMBtnEmphasized {
+    background-color: #1360a1;
+    border-color: #1360a1; 
+    border: none;
+}
    .sapMBtn.navigationButton .sapMBtnIcon{
      
        font-size: 50px;
@@ -168,12 +173,24 @@
    tr[data-status="00000820"]{	
        background:   #f8f6eb!important;
    }
+   tr[data-assign="assigned"]{	
+    background:   #eefae2!important;
+}
    
-   .sapMLnk {
+.sapMLnk {
    
        margin-top: 7px;
    }
 
    .sapFDynamicPageHeader.sapFDynamicPageHeaderWithContent {
     padding: 0rem 3rem 1rem 3rem;
+}
+.sapFDynamicPage-Std-Tablet .sapFDynamicPageTitle {
+    padding: 0.5px 1px 0.5px 2px !important;
+}
+.sapFDynamicPageTitle {
+    padding: 0.5px 1px 0.5px 2px !important;
+}
+.sapUiSizeCompact .sapMGrowingListDescription {
+    display: none !important;
 }
