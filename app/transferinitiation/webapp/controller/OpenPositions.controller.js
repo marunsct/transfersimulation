@@ -8,8 +8,9 @@ sap.ui.define([
     'sap/m/Text',
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    "sap/ui/Device"
-], function (BaseController, MessageBox, History, Button, Dialog, ButtonType, Text, Filter, FilterOperator, Device) {
+    "sap/ui/Device",
+    "sap/ui/export/Spreadsheet"
+], function (BaseController, MessageBox, History, Button, Dialog, ButtonType, Text, Filter, FilterOperator, Device, Spreadsheet) {
     "use strict";
 
     return BaseController.extend("transferinitiation.controller.OpenPositions", {
@@ -21,7 +22,7 @@ sap.ui.define([
             this._employeeId = oParams.arguments.ID;
 
             var oContext = this.getCustProperty("EmployeeContext");
-            this._employeeName = (oContext !== undefined && oContext.oModel !== undefined )? oContext.oModel.getProperty(oContext.sPath + "/First_Name") : "";
+            this._employeeName = (oContext !== undefined && oContext.oModel !== undefined) ? oContext.oModel.getProperty(oContext.sPath + "/First_Name") : "";
             //this._employeeContext = oParams.arguments.context;
             if (oParams.arguments.midContext) {
                 sContext = oParams.arguments.midContext;
@@ -70,8 +71,8 @@ sap.ui.define([
                 this.oFclModel.setProperty('/expandIcon/tooltip', 'Enter Full Screen Mode');
             }
 
-            
-            this._openPositions = this.getCustProperty("OpenPositionsEmployee") !== undefined ? this.getCustProperty("OpenPositionsEmployee"): {} ;
+
+            this._openPositions = this.getCustProperty("OpenPositionsEmployee") !== undefined ? this.getCustProperty("OpenPositionsEmployee") : {};
             this._employee = this.getCustProperty("EmployeeOpenPositions") !== undefined ? this.getCustProperty("EmployeeOpenPositions") : {};
 
         },
@@ -194,7 +195,7 @@ sap.ui.define([
             var sFirstButton = i18n.getResourceBundle().getText("yes");
             var sSecondButton = i18n.getResourceBundle().getText("cancel");
             if (this._openPositions[posId] !== undefined) {
-                if(this._openPositions[posId].employeeId === employeeId) {
+                if (this._openPositions[posId].employeeId === employeeId) {
                     return;
                 }
                 this.createDialog(sTitle, i18n.getResourceBundle().getText("positionExists", this._openPositions[posId].employeeId), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath);
@@ -256,7 +257,7 @@ sap.ui.define([
                 sThat.setCustProperty("OpenPositionsEmployee", sThat._openPositions);
                 let selected = sThat.getModel("OP").getData().selected + 1;
                 sThat.getModel("OP").setProperty("/selected", selected);
-                
+
             } else {
                 var mData = sThat.getModel("OP").getData();
                 let newData = [];
@@ -294,7 +295,7 @@ sap.ui.define([
                         sThat.getModel("OP").setProperty(sPath + "/icon", 'sap-icon://private');
                         sThat.setCustProperty("EmployeeOpenPositions", sThat._employee);
                         sThat.setCustProperty("OpenPositionsEmployee", sThat._openPositions);
-                        
+
                     }
                 } else if (sThat._employee[employeeId] !== undefined) {
                     if (sThat._employee[employeeId].positionId !== posId) {
@@ -335,22 +336,22 @@ sap.ui.define([
             var posId = this.getModel("OP").getProperty(oDroppedItemContext + "/code");
             var posName = this.getModel("OP").getProperty(oDroppedItemContext + "/externalName_defaultValue");
             var employeeId = oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext + "/userId");
-            var employeeName = oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext + "/userId")  ;
+            var employeeName = oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext + "/userId");
 
 
             this._preDialog(posId, posName, employeeId, employeeName, oDroppedItemContext);
 
         },
-        onReset: function(){
+        onReset: function () {
             var i18n = this.oView.getModel("i18n");
             let sFirstButton = i18n.getResourceBundle().getText("yes");
             let sSecondButton = i18n.getResourceBundle().getText("cancel");
             let sTitle = i18n.getResourceBundle().getText("warning");
             let sText = i18n.getResourceBundle().getText("initiateWarning", [this._vData.selected]);
             this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this.resetAssignments, this.callBackFunc, this);
-            
+
         },
-        resetAssignments: function(){
+        resetAssignments: function () {
             var mData = this.getModel("OP").getData();
             let newData = [];
             mData.OpenPositions.result.forEach((currentValue) => {
@@ -368,7 +369,7 @@ sap.ui.define([
             this._openPositions = {};
             this._employee = {};
         },
-        intiateTransfer: function(){
+        intiateTransfer: function () {
             this.resetAssignments();
             this._onPageNavButtonPress();
         },
@@ -380,14 +381,14 @@ sap.ui.define([
             let sFirstButton = i18n.getResourceBundle().getText("yes");
             let sSecondButton = i18n.getResourceBundle().getText("cancel");
             let sText = i18n.getResourceBundle().getText("initiate", [this._vData.selected]);
-            
-                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this.intiateTransfer, this.callBackFunc, this);
+
+            this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this.intiateTransfer, this.callBackFunc, this);
         },
         callBackFunc: function () {
             console.log("Dialog Method");
             //   this._onPageNavButtonPress();
         },
-        onClearFilter: function(){
+        onClearFilter: function () {
             let filter = this.getModel("filter").getData();
             filter.filter = {
                 position: "",
@@ -425,7 +426,7 @@ sap.ui.define([
                     "hText": "Result ",
                     "hNumbers": "(0)"
                 },
-                selected : 0
+                selected: 0
             };
             this.oView.setModel(new sap.ui.model.json.JSONModel(this._vData), 'OP');
             this.filter = {
@@ -448,8 +449,48 @@ sap.ui.define([
             this.oFclModel.setProperty('/headerExpanded', false);
 
         },
-        onAfterRendering: function () {
+        onAfterRendering: async function () {
+
             this.onOdataCall([new Filter("vacant", FilterOperator.EQ, true)]);
+
+            var oInput = this.getView().byId("fposition");
+            jQuery.sap.delayedCall(1000, this, function () {
+                oInput.focus();
+            });
+            try {
+
+                var location = await this.asyncAjax("/v2/cpi-api/FOLocation");
+                var mModel = this.getView().getModel('filter');
+                var mData = mModel.getData();
+                mData.location = [];
+                let desc;
+                let sData = location.d;
+                for (var i = 0; i < sData.results.length; i++) {
+                    switch (this.getLocale()) {
+                        case "JA":
+                            desc = (sData.results[i].nameTranslationNav.value_ja_JP !== null) ? sData.results[i].nameTranslationNav.value_ja_JP : sData.results[i].nameTranslationNav.value_defaultValue;
+                            break;
+                        case "EN":
+                            desc = (sData.results[i].nameTranslationNav.value_en_US !== null) ? sData.results[i].nameTranslationNav.value_en_US : sData.results[i].nameTranslationNav.value_defaultValue;
+                            break;
+                        default:
+                            desc = sData.results[i].nameTranslationNav.value_defaultValue;
+                            break;
+                    }
+                    mData.location.push({
+                        "ID": sData.results[i].externalCode,
+                        "name": sData.results[i].externalCode + ' ' + desc
+                    });
+                };
+
+                mModel.setData(mData);
+
+
+            } catch (error) {
+                console.log("Error while fecting location data");
+                console.log(error);
+            }
+
 
         },
 
@@ -467,9 +508,25 @@ sap.ui.define([
                     success: function (sData, sResult) {
                         var mModel = this.getView().getModel('OP');
                         var mData = mModel.getData();
-                        // console.log(args);
-                        //this.getView().getModel('OP').setData({ "OpenPositions": sData.results });
                         mData.OpenPositions.result = sData.results;
+                        if (Object.keys(this._openPositions).length) {
+                            let newData=[];
+                            mData.OpenPositions.result.forEach((currentValue) => {
+                                if (this._openPositions[currentValue.code]) {
+                                    currentValue.ID1 = this._openPositions[currentValue.code].employeeId;
+                                    currentValue.Name1 = this._openPositions[currentValue.code].employeeName;
+                                    currentValue.status = "assigned";
+                                    currentValue.icon = "sap-icon://private";
+                                }else{
+                                    currentValue.ID1 = "";
+                                    currentValue.Name1 = "";
+                                    currentValue.status = "";
+                                    currentValue.icon = "";
+                                }
+                                newData.push(currentValue);
+                            }, this);
+                            mData.OpenPositions.result = newData;
+                        }
                         mModel.setData(mData);
                         this.byId("table0").setBusy(false);
                     }.bind(this),
@@ -504,6 +561,385 @@ sap.ui.define([
                 }
             }
 */
+        },
+        onExcelDownload: function () {
+            var i18n = this.oView.getModel("i18n");
+            var aColumns = [];
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("position"),
+                property: "code"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("positionTitle"),
+                property: "externalName_defaultValue",
+
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("positionDepartment"),
+                property: "department"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("positionClass"),
+                property: "employeeClass",
+
+            });
+
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("positionType"),
+                property: "cust_employmentType"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("positionLocation"),
+                property: "location",
+
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("standardHours"),
+                property: "standardHours"
+            });
+
+
+
+
+            var mSettings = {
+                workbook: {
+                    columns: aColumns,
+                    context: {
+                        application: 'Initate transfers',
+                        version: '1.98.0',
+                        title: 'Open Positions List',
+                        modifiedBy: 'Logged in User',
+                        sheetName: 'Open Positions'
+                    },
+                    hierarchyLevel: 'level'
+                },
+                dataSource: this.getModel("OP").getData().OpenPositions.result,
+                fileName: "Open Positions.xlsx"
+            };
+            var oSpreadsheet = new Spreadsheet(mSettings);
+            oSpreadsheet.onprogress = function (iValue) {
+                ("Export: %" + iValue + " completed");
+            };
+            oSpreadsheet.build()
+                .then(function () { ("Export is finished"); })
+                .catch(function (sMessage) { ("Export error: " + sMessage); });
+        },
+
+        onSuggest: function (oEvent) {
+            var sTerm = oEvent.getParameter("suggestValue");
+            var aFilters = [];
+            if (sTerm) {
+                aFilters.push(new Filter("name", FilterOperator.Contains, sTerm));
+            }
+
+            oEvent.getSource().getBinding("suggestionItems").filter(aFilters);
+        },
+
+        onSuggestClass: async function (oEvent) {
+            var sTerm = oEvent.getParameter("suggestValue");
+            var aFilters = [];
+            var filter1 = new Filter({
+                filters: [new Filter("PickListV2_id", FilterOperator.EQ, 'EMPLOYEECLASS'),
+                new Filter("status", FilterOperator.EQ, 'A')], and: true
+            });
+            var filter2 = new Filter({
+                filters: [
+                    new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
+                    new Filter("startswith(label_defaultValue,'" + sTerm + "')", FilterOperator.EQ, true),
+                    new Filter("startswith(label_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
+                    new Filter("startswith(label_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true)
+                ], and: false
+            });
+            aFilters.push(
+                new Filter({
+                    filters: [
+                        filter1,
+                        filter2
+                    ], and: true
+                })
+            );
+            try {
+                var pClass = await this.onAsyncoDatacall("/PickListValueV2", aFilters , 25, 0, this);
+
+                var mModel = this.getView().getModel('filter');
+                var mData = mModel.getData();
+                mData.EmploymentClass = [];
+                let desc;
+                let sData = pClass;
+                for (var i = 0; i < sData.results.length; i++) {
+                    switch (this.getLocale()) {
+                        case "JA":
+                            desc = (sData.results[i].label_ja_JP !== null) ? sData.results[i].label_ja_JP : sData.results[i].label_defaultValue;
+                            break;
+                        case "EN":
+                            desc = (sData.results[i].label_en_US !== null) ? sData.results[i].label_en_US : sData.results[i].label_defaultValue;
+                            break;
+                        default:
+                            desc = sData.results[i].label_defaultValue;
+                            break;
+                    }
+                    mData.EmploymentClass.push({
+                        "ID": sData.results[i].externalCode,
+                        "name": desc
+                    });
+                }
+
+                mModel.setData(mData);
+
+
+            } catch (error) {
+                console.log("Error while fecting Class data");
+                console.log(error);
+            }
+
+        },
+        onSuggestType: async function (oEvent) {
+            var sTerm = oEvent.getParameter("suggestValue");
+            var aFilters = [];
+            var filter1 = new Filter({
+                filters: [new Filter("PickListV2_id", FilterOperator.EQ, 'employmentType'),
+                new Filter("status", FilterOperator.EQ, 'A')], and: true
+            });
+            var filter2 = new Filter({
+                filters: [
+                    new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
+                    new Filter("startswith(label_defaultValue,'" + sTerm + "')", FilterOperator.EQ, true),
+                    new Filter("startswith(label_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
+                    new Filter("startswith(label_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true)
+                ], and: false
+            });
+            aFilters.push(
+                new Filter({
+                    filters: [
+                        filter1,
+                        filter2
+                    ], and: true
+                })
+            );
+            
+            try {
+                var pType = await this.onAsyncoDatacall("/PickListValueV2", aFilters , 25, 0, this);
+
+                var mModel = this.getView().getModel('filter');
+                var mData = mModel.getData();
+                mData.EmploymentType = [];
+                let desc;
+                let sData = pType;
+                for (var i = 0; i < sData.results.length; i++) {
+                    switch (this.getLocale()) {
+                        case "JA":
+                            desc = (sData.results[i].label_ja_JP !== null) ? sData.results[i].label_ja_JP : sData.results[i].label_defaultValue;
+                            break;
+                        case "EN":
+                            desc = (sData.results[i].label_en_US !== null) ? sData.results[i].label_en_US : sData.results[i].label_defaultValue;
+                            break;
+                        default:
+                            desc = sData.results[i].label_defaultValue;
+                            break;
+                    }
+                    mData.EmploymentType.push({
+                        "ID": sData.results[i].externalCode,
+                        "name": desc
+                    });
+                }
+
+                mModel.setData(mData);
+
+
+            } catch (error) {
+                console.log("Error while fecting Typr data");
+                console.log(error);
+            }
+
+        },
+        onSuggestDepart: async function (oEvent) {
+            var sTerm = oEvent.getParameter("suggestValue");
+            var aFilters = [];
+            if (sTerm.length > 1) {
+
+                var filter1 = new Filter({
+                    filters: [
+                        new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
+                        new Filter("startswith(name_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true),
+                        new Filter("startswith(name_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
+                        new Filter("startswith(name,'" + sTerm + "')", FilterOperator.EQ, true)
+                    ], and: false
+                });
+
+                aFilters.push(
+                    new Filter({
+                        filters: [
+                            new Filter("status", FilterOperator.EQ, 'A'),
+                            filter1
+                        ], and: true
+                    })
+                );
+                try {
+                    var depart = await this.onAsyncoDatacall("/FODepartment", aFilters , 25, 0, this);
+
+                    var mModel = this.getView().getModel('filter');
+                    var mData = mModel.getData();
+                    mData.department = [];
+                    let desc;
+                    let sData = depart;
+                    for (var i = 0; i < sData.results.length; i++) {
+                        switch (this.getLocale()) {
+                            case "JA":
+                                desc = (sData.results[i].name_ja_JP !== null) ? sData.results[i].name_ja_JP : sData.results[i].name;
+                                break;
+                            case "EN":
+                                desc = (sData.results[i].name_en_US !== null) ? sData.results[i].name_en_US : sData.results[i].name;
+                                break;
+                            default:
+                                desc = sData.results[i].name;
+                                break;
+                        }
+                        mData.department.push({
+                            "ID": sData.results[i].externalCode,
+                            "name": desc
+                        });
+                    }
+
+                    mModel.setData(mData);
+    
+    
+                } catch (error) {
+                    console.log("Error while fecting Department data");
+                    console.log(error);
+                }
+ 
+            }
+
+        },
+        onSuggestPosition: async function (oEvent) {
+            var sTerm = oEvent.getParameter("suggestValue");
+            var aFilters = [];
+            if (sTerm.length > 1) {
+                this.oGlobalBusyDialog = new sap.m.BusyDialog();
+                // this.oGlobalBusyDialog.open();
+                //aFilters.push(new Filter("name", FilterOperator.Contains, sTerm));
+
+                var filter1 = new Filter({
+                    filters: [new Filter("startswith(code,'" + sTerm + "')", FilterOperator.EQ, true),
+                    new Filter("startswith(externalName_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true),
+                    new Filter("startswith(externalName_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
+                    new Filter("startswith(externalName_defaultValue,'" + sTerm + "')", FilterOperator.EQ, true)
+                    ], and: false
+                });
+
+                aFilters.push(
+                    new Filter({
+                        filters: [
+                            new Filter("vacant", FilterOperator.EQ, true),
+                            filter1
+                        ], and: true
+                    })
+                );
+
+                try {
+                    var position = await this.onAsyncoDatacall("/Position", aFilters , 30, 0, this);
+
+                    var mModel = this.getView().getModel('filter');
+                    var mData = mModel.getData();
+                    mData.position = [];
+                    let desc;
+                    let sData = position;
+                    for (var i = 0; i < sData.results.length; i++) {
+                        switch (this.getLocale()) {
+                            case "JA":
+                                desc = (sData.results[i].externalName_ja_JP !== null) ? sData.results[i].externalName_ja_JP : sData.results[i].externalName_defaultValue;
+                                break;
+                            case "EN":
+                                desc = (sData.results[i].externalName_en_US !== null) ? sData.results[i].externalName_en_US : sData.results[i].externalName_defaultValue;
+                                break;
+                            default:
+                                desc = sData.results[i].externalName_defaultValue;
+                                break;
+                        }
+                        mData.position.push({
+                            "ID": sData.results[i].code,
+                            "name": desc
+                        });
+                    }
+
+                    mModel.setData(mData);
+    
+    
+                } catch (error) {
+                    console.log("Error while fecting position data");
+                    console.log(error);
+                }
+
+                //oGlobalBusyDialog.close();
+            }
+        },
+        asyncAjax: async function (sUrl) {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    url: sUrl,
+                    success: function (result) {
+                        console.log('Call answered by server'); //Second text in console
+                        resolve(result);
+                    },
+                    error: function (request, status, errorThrown) {
+                        console.log(status);
+                        reject({ data: 'Example 6 returns an error' });
+                    }
+                });
+            });
+        },
+        _builFilters: function (filters) {
+            let oFilters = [];
+            if (filters.department) {
+                oFilters.push(new Filter("department", FilterOperator.EQ, filters.department.split(' ')[0]))
+            }
+            if (filters.location) {
+                oFilters.push(new Filter("location", FilterOperator.EQ, filters.location.split(' ')[0]))
+            }
+            if (filters.position) {
+                oFilters.push(new Filter("code", FilterOperator.EQ, filters.position.split(' ')[0]))
+            }
+            if (filters.EmploymentClass) {
+                oFilters.push(new Filter("employeeClass", FilterOperator.EQ, filters.EmploymentClass.split(' ')[0]))
+            }
+            if (filters.EmploymentType) {
+                oFilters.push(new Filter("cust_employmentType", FilterOperator.EQ, filters.EmploymentType.split(' ')[0]))
+            }
+
+            return oFilters;
+        },
+        onSearch: function (oEvent) {
+            //var oModel = this.getModel("oData");
+            var filters = this.getModel("filter").getData().filter;
+            var oFilters = this._builFilters(filters);
+            console.log(oFilters);
+            if (oFilters.length > 0) {
+                this._oFilters = oFilters;
+                this.onOdataCall(this._oFilters);
+
+            }else{
+                this.onOdataCall([new Filter("vacant", FilterOperator.EQ, true)]);
+            }
+        },        
+        onAsyncoDatacall: async function (sUrl, sFilters, sTop, sSkip, sThat) {
+            return new Promise(function (resolve, reject) {
+                sThat.getView().getModel('oData').read(sUrl,
+                    {
+                        async: true,
+                        urlParameters: {
+                            "$top": sTop,
+                            "$skip": sSkip
+                        },
+                        filters: sFilters,
+                        success: function (sData, sResult) {
+                            resolve(sData);
+                        }.bind(sThat),
+                        error: function (sData, sResult) {
+                            console.log(sData);
+                            reject(sData);
+                        }.bind(sThat)
+                    });
+            });
         }
     });
 });

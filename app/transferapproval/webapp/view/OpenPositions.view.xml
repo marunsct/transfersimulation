@@ -273,7 +273,7 @@
 
             <fb:FilterBar id="filterbar0" search=".onSearch" clear="onClearFilter" useToolbar="true" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="true">
                 <fb:filterGroupItems>
-                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" visibleInFilterBar="true" label="{i18n>positionId}">
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" visibleInFilterBar="true" label="{i18n>position}">
                         <fb:control>
                             <Input value="{filter>/filter/position}" suggestionItems="{filter>/position}" showSuggestion="true" suggest=".onSuggestPosition">
                                 <suggestionItems>
@@ -358,25 +358,10 @@
                                 <cells>
                                     <Text text="{OP>code}" id="text004" wrapping="true" />
                                     <Text text="{OP>externalName_defaultValue}" id="text04" wrapping="true" />
+                                    <Text text="{OP>department}" id="text5" wrapping="true" />
                                     <Text text="{OP>employeeClass}" id="text3" wrapping="true" />
                                     <Text text="{OP>cust_employmentType}" id="text4" wrapping="true" />
-                                    <Text text="{OP>department}" id="text5" wrapping="true" />
                                     <Text text="{OP>location}" id="text6" wrapping="true" />
-                                    <!--ObjectIdentifier title="{ (= ${OP>positionTitle}!== null || OP>positionTitle}!=='' ) ? ${OP>positionTitle} : ${externalName_defaultValue} }" text="{OP>code}" titleActive="false" visible="true" / -->
-                                    <!--
-                                        <ObjectIdentifier title="{OP>Name1}" text="{OP>ID1}" titleActive="false" visible="true"/>
-                                   
-                                    <ObjectIdentifier title="{OP>externalName_defaultValue}" text="{OP>code}" titleActive="false" visible="true"/>
-                                         <ObjectIdentifier title="Employment Class" text="{OP>employeeClass}" titleActive="false" visible="true"/>
-                                    <ObjectIdentifier title="Employment Type" text="{OP>cust_employmentType}" titleActive="false" visible="true"/>
-                                    <ObjectIdentifier title="Department Name" text="{OP>department}" titleActive="false" visible="true"/>
-                                    <ObjectIdentifier title="Location" text="{OP>location}" titleActive="false" visible="true"/>
-                                    <Column id="column0" minScreenWidth="Phone" popinDisplay="Inline">
-                                    <header>
-                                        <Label id="label0" text="{i18n>employee}" wrapping="true"/>
-                                        </header>
-                                    </Column>
-                                    -->
                                     <Text text="{OP>standardHours}" id="text7" wrapping="true" />
                                 </cells>
                             </ColumnListItem>

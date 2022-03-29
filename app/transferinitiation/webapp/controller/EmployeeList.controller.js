@@ -557,6 +557,8 @@ sap.ui.define([
             if (this.getCustProperty("Back") !== true) {
 
                 this.setCustProperty("Back", false);
+                // this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
+                this._onOdataCall('EmployeeJobs', [], (this._sCount + 2), 0);
                 var location = await this.asyncAjax("/v2/cpi-api/FOLocation");
                 var mModel = this.getView().getModel('filter');
                 var mData = mModel.getData();
@@ -589,8 +591,7 @@ sap.ui.define([
                 });
                 //  var cat = await this.asyncAjax("V3/Northwind/Northwind.svc/Categories");
                 // console.log(cat);
-                // this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
-                this._onOdataCall('EmployeeJobs', [], (this._sCount + 2), 0);
+
             } else {
                 var fModel = this.getView().getModel('OP');
                 var fData = fModel.getData();
