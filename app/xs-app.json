@@ -53,5 +53,5 @@
         "logoutEndpoint": "/my/logout",
         "logoutPage": "/loggedout.html"
     },
-    "welcomeFile": "/transferinitiation/webapp/index.html"
+    "welcomeFile": "/transferinitiation/index.html"
 }
