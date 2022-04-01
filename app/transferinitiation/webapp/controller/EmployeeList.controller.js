@@ -601,7 +601,7 @@ sap.ui.define([
                     oInput.focus();
                 });
                 //  var cat = await this.asyncAjax("V3/Northwind/Northwind.svc/Categories");
-                // console.log(cat);
+                console.log("cat");
 
             } else {
                 var fModel = this.getView().getModel('OP');

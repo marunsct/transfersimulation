@@ -492,7 +492,7 @@ sap.ui.define([
                 console.log("Error while fecting location data");
                 console.log(error);
             }
-
+            console.log("new cat");
 
         },
 

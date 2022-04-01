@@ -47,7 +47,7 @@ sap.ui.define([
                 this.currentRouteName = sRouteName;
             },
             onResize:function(oEvent){
-                console.log(oEvent);
+                console.log("resize event triggered");
               if ( oEvent.getParameter('beginColumn') &&  this.oFclModel.getProperty('/uiSelected')){
                 this.oFclModel.getProperty('/uiSelected').scrollIntoView({block: "center"});
               }

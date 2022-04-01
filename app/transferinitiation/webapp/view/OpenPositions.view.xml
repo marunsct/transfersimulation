@@ -173,8 +173,7 @@
 
             </ScrollContainer>
             <!-- commnt scroll
-							<content/> <Text text="{i18n>theader} {/reply/hNumbers}" id="text06"/>
-						
+							<content/> <Text text="{i18n>theader} {/reply/hNumbers}" id="text06"/>	
 						-->
         </f:content>
         <!-- DynamicPage Footer -->

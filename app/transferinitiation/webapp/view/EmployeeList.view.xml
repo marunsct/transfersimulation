@@ -256,8 +256,6 @@
 						-->
         </f:content>
         <!-- DynamicPage Footer -->
-        <f:footer>
-
-        </f:footer>
+        <f:footer/>
     </f:DynamicPage>
 </mvc:View>
