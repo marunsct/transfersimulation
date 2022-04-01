@@ -61,10 +61,6 @@ modules:
       - initiator.zip
       name: initiator
       target-path: resources/
-    - artifacts:
-      - transferinitiation.zip
-      name: transferinitiation
-      target-path: resources/      
 
 - name: transferapproval
   type: html5
@@ -86,16 +82,7 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-- name: transferinitiation
-  type: html5
-  path: app/transferinitiation
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []    
+    
 resources:
 - name: TransferSimulation_html_repo_runtime
   type: org.cloudfoundry.managed-service
