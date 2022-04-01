@@ -121,6 +121,7 @@ sap.ui.define([
                     }),
                     endButton: new Button({
                         text: sSecondButton,
+                        type: ButtonType.Ghost,
                         press: function () {
                             endCallback.bind(sThat)();
                             dialog.destroy();

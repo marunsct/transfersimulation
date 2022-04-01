@@ -75,6 +75,11 @@ sap.ui.define([
                 var oBindingContext = oEvent.getParameter("listItem").getBindingContext("OP");
                 this.setCustProperty("EmployeeContext", oBindingContext);
                 this._employeeContext = oBindingContext;
+                this.oFclModel = this.getOwnerComponent().getModel("FclRouter");
+                this.oFclModel.setProperty('/uiSelected', oEvent.getParameter("listItem").getDomRef());
+                var oSettingsModel = this.getView().getModel('settings');
+                oSettingsModel.setProperty("/navigatedItem", oBindingContext.getProperty("userId"));
+
                 return new Promise(function (fnResolve) {
                     var sBeginContext = this.oFclModel.getProperty("/beginContext");
                     var sMidContext = oEvent.getParameter("listItem").getBindingContext("OP").getPath();
@@ -487,6 +492,9 @@ sap.ui.define([
             }
             return oFilters;
         },
+        isNavigated: function(sNavigatedItemId, sItemId) {
+			return sNavigatedItemId === sItemId;
+		},
         onInit: function () {
 
             sap.ui.getCore().attachLocalizationChanged(function (oEvent) {
@@ -498,13 +506,14 @@ sap.ui.define([
                     let oView = sap.ui.getCore().byId("EmployeeList");
                 }
             }.bind(this));
-            this._sCount = Math.round(((Device.resize.height - 285) / 40)) - 1;
+            this._sCount = Math.round(((Device.resize.height - 10 - 285) / 40)) - 1;
             if (!this.oView) {
                 this.oView = this.getView();
             }
 
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             this.oRouter.attachRouteMatched(this.handleRouteMatched, this);
+            this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
             this.oFclModel = this.getOwnerComponent().getModel("FclRouter");
             this.oFclModel.setProperty('/targetAggregation', 'beginColumnPages');
             this.oFclModel.setProperty('/expandIcon', {});
@@ -528,7 +537,7 @@ sap.ui.define([
                 totalPage: 0,
                 currentPage: 0,
                 pageText: '',
-                top: (Math.round(((Device.resize.height - 285) / 40)) - 2)
+                top: (Math.round(((Device.resize.height - 10 - 285) / 40)) - 2)
             };
             this.oView.setModel(new sap.ui.model.json.JSONModel({}), 'fclButton');
             this.oView.setModel(new JSONModel(this.mData), 'filter');
@@ -550,9 +559,11 @@ sap.ui.define([
             oMessageManager.registerObject(this.oView, true);
             this.oFilterBar = this.byId("filterbar0");
             this.byId("table0").setBusy(true);
+            var oSettingsModel = new JSONModel({ navigatedItem: ""});
+            this.getView().setModel(oSettingsModel, 'settings');
         },
         onAfterRendering: async function () {
-            this._sCount = Math.round(((Device.resize.height - (225 + this.getView().byId("filterbar0").$().height())) / 40)) - 2;
+            this._sCount = Math.round(((Device.resize.height - 10 - (225 + this.getView().byId("filterbar0").$().height())) / 40)) - 2;
             this.getView().byId("table0").setGrowingThreshold(this._sCount);
             if (this.getCustProperty("Back") !== true) {
 
@@ -1088,32 +1099,6 @@ sap.ui.define([
             this._oPopover = this.getView().byId("popover");
             this._onMessageClose(this);
         },
-        onNext: function () {
-            var fData = this.getView().getModel('filter').getData();
-            var oFilters = this._builFilters(fData.filter);
-            this.byId("bNext").setEnabled(false);
-
-            // console.log(fData.currentPage < fData.totalPage, fData.currentPage , fData.totalPage  );
-            this._onOdataCall('EmployeeJobs', oFilters, this._sCount, fData.currentPage * this._sCount)
-                .then(() => {
-                    if (fData.currentPage !== fData.totalPage) {
-                        this.byId("bNext").setEnabled(true);
-                    }
-                }
-                )
-                .catch(error => { console.log(error) });
-
-
-
-        },
-        onPrevious: function () {
-            var fData = this.getView().getModel('filter').getData();
-            var oFilters = this._builFilters(fData.filter);
-            if (fData.currentPage > 1) {
-                this._onOdataCall('EmployeeJobs', oFilters, this._sCount, (fData.currentPage - 2) * this._sCount);
-                fData.currentPage = fData.currentPage - 2;
-            }
-        },
         //################ Private APIs ###################
 
         _getMessagePopover: function () {
@@ -1236,16 +1221,6 @@ sap.ui.define([
                         fData.totalPage = Math.ceil(mData.Count / this._sCount);
                         fData.currentPage = fData.currentPage + 1;
                         fModel.setData(fData);
-                        if (fData.currentPage > 1) {
-                            this.byId("bPrevious").setEnabled(true);
-                        } else {
-                            this.byId("bPrevious").setEnabled(false);
-                        }
-                        if (fData.currentPage !== fData.totalPage) {
-                            this.byId("bNext").setEnabled(true);
-                        } else {
-                            this.byId("bNext").setEnabled(false);
-                        }
                         this.byId("table0").setBusy(false);
                     }.bind(this),
                     error: function (sData, sResult) {

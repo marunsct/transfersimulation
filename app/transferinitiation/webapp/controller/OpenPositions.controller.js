@@ -224,6 +224,7 @@ sap.ui.define([
 
                 }),
                 endButton: new Button({
+                    type: ButtonType.Ghost,
                     text: sSecondButton,
                     press: function () {
                         dialog.close();
@@ -447,6 +448,7 @@ sap.ui.define([
             };
             this.oView.setModel(new sap.ui.model.json.JSONModel(this.filter), 'filter');
             this.oFclModel.setProperty('/headerExpanded', false);
+            this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
 
         },
         onAfterRendering: async function () {
@@ -509,24 +511,25 @@ sap.ui.define([
                         var mModel = this.getView().getModel('OP');
                         var mData = mModel.getData();
                         mData.OpenPositions.result = sData.results;
-                        if (Object.keys(this._openPositions).length) {
-                            let newData=[];
-                            mData.OpenPositions.result.forEach((currentValue) => {
-                                if (this._openPositions[currentValue.code]) {
-                                    currentValue.ID1 = this._openPositions[currentValue.code].employeeId;
-                                    currentValue.Name1 = this._openPositions[currentValue.code].employeeName;
-                                    currentValue.status = "assigned";
-                                    currentValue.icon = "sap-icon://private";
-                                }else{
-                                    currentValue.ID1 = "";
-                                    currentValue.Name1 = "";
-                                    currentValue.status = "";
-                                    currentValue.icon = "";
-                                }
-                                newData.push(currentValue);
-                            }, this);
-                            mData.OpenPositions.result = newData;
-                        }
+
+                        let newData = [];
+
+                        mData.OpenPositions.result.forEach((currentValue) => {
+                            if (this._openPositions[currentValue.code]) {
+                                currentValue.ID1 = this._openPositions[currentValue.code].employeeId;
+                                currentValue.Name1 = this._openPositions[currentValue.code].employeeName;
+                                currentValue.status = "assigned";
+                                currentValue.icon = "sap-icon://private";
+                            } else {
+                                currentValue.ID1 = "";
+                                currentValue.Name1 = "";
+                                currentValue.status = "not assigned";
+                                currentValue.icon = "";
+                            }
+                            newData.push(currentValue);
+                        }, this);
+                        mData.OpenPositions.result = newData;
+
                         mModel.setData(mData);
                         this.byId("table0").setBusy(false);
                     }.bind(this),
@@ -659,7 +662,7 @@ sap.ui.define([
                 })
             );
             try {
-                var pClass = await this.onAsyncoDatacall("/PickListValueV2", aFilters , 25, 0, this);
+                var pClass = await this.onAsyncoDatacall("/PickListValueV2", aFilters, 25, 0, this);
 
                 var mModel = this.getView().getModel('filter');
                 var mData = mModel.getData();
@@ -716,9 +719,9 @@ sap.ui.define([
                     ], and: true
                 })
             );
-            
+
             try {
-                var pType = await this.onAsyncoDatacall("/PickListValueV2", aFilters , 25, 0, this);
+                var pType = await this.onAsyncoDatacall("/PickListValueV2", aFilters, 25, 0, this);
 
                 var mModel = this.getView().getModel('filter');
                 var mData = mModel.getData();
@@ -775,7 +778,7 @@ sap.ui.define([
                     })
                 );
                 try {
-                    var depart = await this.onAsyncoDatacall("/FODepartment", aFilters , 25, 0, this);
+                    var depart = await this.onAsyncoDatacall("/FODepartment", aFilters, 25, 0, this);
 
                     var mModel = this.getView().getModel('filter');
                     var mData = mModel.getData();
@@ -801,13 +804,13 @@ sap.ui.define([
                     }
 
                     mModel.setData(mData);
-    
-    
+
+
                 } catch (error) {
                     console.log("Error while fecting Department data");
                     console.log(error);
                 }
- 
+
             }
 
         },
@@ -837,7 +840,7 @@ sap.ui.define([
                 );
 
                 try {
-                    var position = await this.onAsyncoDatacall("/Position", aFilters , 30, 0, this);
+                    var position = await this.onAsyncoDatacall("/Position", aFilters, 30, 0, this);
 
                     var mModel = this.getView().getModel('filter');
                     var mData = mModel.getData();
@@ -863,8 +866,8 @@ sap.ui.define([
                     }
 
                     mModel.setData(mData);
-    
-    
+
+
                 } catch (error) {
                     console.log("Error while fecting position data");
                     console.log(error);
@@ -917,10 +920,10 @@ sap.ui.define([
                 this._oFilters = oFilters;
                 this.onOdataCall(this._oFilters);
 
-            }else{
+            } else {
                 this.onOdataCall([new Filter("vacant", FilterOperator.EQ, true)]);
             }
-        },        
+        },
         onAsyncoDatacall: async function (sUrl, sFilters, sTop, sSkip, sThat) {
             return new Promise(function (resolve, reject) {
                 sThat.getView().getModel('oData').read(sUrl,

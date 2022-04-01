@@ -1,11 +1,4 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc"
-    xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns="sap.m"
-    xmlns:core="sap.ui.core"
-    xmlns:layout="sap.ui.layout"
-    xmlns:f="sap.f"
-    xmlns:fb="sap.ui.comp.filterbar"
-    xmlns:dnd="sap.ui.core.dnd" controllerName="transferinitiation.controller.OpenPositions" id="OpenPositions" displayBlock="false">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:dnd="sap.ui.core.dnd" controllerName="transferinitiation.controller.OpenPositions" id="OpenPositions" displayBlock="false">
     <f:DynamicPage id="dynamicPageId" headerExpanded="{headerExpanded}" showFooter="true">
         <!-- DynamicPage Title -->
         <f:title>
@@ -17,8 +10,8 @@
                 <f:heading>
                     <HBox width="100%" id="hbox0" class="sapUiSmallMarginTop" alignItems="Center">
                         <items>
-                            <Button xmlns="sap.m" class="naviButton " id="button0_1643608506867" type="Up" width="3rem" press="_onPageNavButtonPress" />
-                            <Title text="{i18n>openListTitle}" textAlign="Center" id="titleee" level="H1" class="" />
+                            <Button xmlns="sap.m" class="naviButton " id="button0_1643608506867" type="Up" width="3rem" press="_onPageNavButtonPress"/>
+                            <Title text="{i18n>openListTitle}" textAlign="Center" id="titleee" class="titleText" level="H1"/>
                         </items>
                     </HBox>
                 </f:heading>
@@ -36,7 +29,7 @@
                                         <fb:control>
                                             <Input value="{filter>/filter/position}" suggestionItems="{filter>/position}" showSuggestion="true" suggest=".onSuggestPosition" id="fposition">
                                                 <suggestionItems>
-                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
                                                 </suggestionItems>
                                             </Input>
                                         </fb:control>
@@ -45,7 +38,7 @@
                                         <fb:control>
                                             <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'filter>/filter/department', type: 'sap.ui.model.type.String' }" showSuggestion="true" id="fDepartment" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
                                                 <suggestionItems>
-                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
                                                 </suggestionItems>
                                             </Input>
                                         </fb:control>
@@ -54,7 +47,7 @@
                                         <fb:control>
                                             <Input value="{filter>/filter/EmploymentClass}" showSuggestion="true" id="fEmploymentClass" suggest=".onSuggestClass" suggestionItems="{filter>/EmploymentClass}">
                                                 <suggestionItems>
-                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
                                                 </suggestionItems>
                                             </Input>
                                         </fb:control>
@@ -64,7 +57,7 @@
                                             <!--Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'suppInvoiceNo', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}"/  constraints: { search: '^[0-9,*,a-z,A-Z]*$' }   -->
                                             <Input value="{filter>/filter/EmploymentType}" suggestionItems="{filter>/EmploymentType}" showSuggestion="true" suggest=".onSuggestType">
                                                 <suggestionItems>
-                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
                                                 </suggestionItems>
                                             </Input>
                                         </fb:control>
@@ -74,7 +67,7 @@
                                             <Input value="{filter>/filter/location}" suggestionItems="{filter>/location}" showSuggestion="true" suggest=".onSuggestLoc">
                                                 <suggestionItems>
                                                     <!--  <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/> -->
-                                                    <core:Item text="{filter>name}" />
+                                                    <core:Item text="{filter>name}"/>
                                                 </suggestionItems>
                                             </Input>
                                         </fb:control>
@@ -95,84 +88,84 @@
 
                 <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" class="marginBoxContent" noDataText="{i18n>terror}" id="table0" items="{OP>/OpenPositions/result}" fixedLayout="true" includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="25" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" growingTriggerText="..." itemPress="_onTableItemPress">
                     <dragDropConfig>
-                        <dnd:DropInfo groupName="available2selected" targetAggregation="items" dropPosition="Between" drop="onDropSelectedEmployee" />
-                        <dnd:DragDropInfo sourceAggregation="items" targetAggregation="items" dropPosition="Between" drop="onDropSelectedEmployee" />
+                        <dnd:DropInfo groupName="available2selected" targetAggregation="items" dropPosition="Between" drop="onDropSelectedEmployee"/>
+                        <dnd:DragDropInfo sourceAggregation="items" targetAggregation="items" dropPosition="Between" drop="onDropSelectedEmployee"/>
                     </dragDropConfig>
                     <items>
                         <ColumnListItem type="Active" id="item0">
                             <customData>
-                                <core:CustomData key="assign" value="{ path:'OP>status'}" writeToDom="true" />
+                                <core:CustomData key="assign" value="{ path:'OP>status'}" writeToDom="true"/>
                             </customData>
                             <cells>
-                                <Input value="{OP>ID1}" id="input5" autocomplete="false" editable="false" />
+                                <Input value="{OP>ID1}" id="input5" autocomplete="false" editable="false" textAlign="Center"/>
                                 <HBox alignContent="Center" alignItems="Center">
                                     <items>
-                                        <core:Icon src="{=${OP>icon} ? ${OP>icon} : 'sap-icon://permission' }" size="1rem" id="icon00" class="sapUiTinyMarginEnd" />
-                                        <Text text="{OP>code}" id="text004" wrapping="true" />
+                                        <core:Icon src="{=${OP>icon} ? ${OP>icon} : 'sap-icon://permission' }" size="1rem" id="icon00" class="sapUiTinyMarginEnd"/>
+                                        <Text text="{OP>code}" id="text004" wrapping="true"/>
                                     </items>
                                 </HBox>
-                                <Text text="{OP>externalName_defaultValue}" id="text04" wrapping="true" />
-                                <Text text="{OP>department}" id="text5" wrapping="true" />
-                                 <Text text="{OP>employeeClass}" id="text3" wrapping="true" />
-                                <Text text="{OP>cust_employmentType}" id="text4" wrapping="true" />      
-                                <Text text="{OP>location}" id="text6" wrapping="true" />
-                                <Text text="{OP>standardHours}" id="text7" wrapping="true" />
+                                <Text text="{OP>externalName_defaultValue}" id="text04" wrapping="true"/>
+                                <Text text="{OP>department}" id="text5" wrapping="true"/>
+                                 <Text text="{OP>employeeClass}" id="text3" wrapping="true"/>
+                                <Text text="{OP>cust_employmentType}" id="text4" wrapping="true"/>      
+                                <Text text="{OP>location}" id="text6" wrapping="true"/>
+                                <Text text="{OP>standardHours}" id="text7" wrapping="true"/>
                             </cells>
                         </ColumnListItem>
                     </items>
                     <columns>
                         <Column id="column0" hAlign="Center">
                             <header>
-                                <Label id="label0" text="{i18n>assignTo}" />
+                                <Label id="label0" text="{i18n>assignTo}"/>
                             </header>
                         </Column>
                         <Column id="column1">
                             <header>
-                                <Label text="{i18n>position}" id="label1" />
+                                <Label text="{i18n>position}" id="label1"/>
                             </header>
                         </Column>
                         <Column id="column001">
                             <header>
-                                <Label text="{i18n>positionTitle}" id="label001" />
+                                <Label text="{i18n>positionTitle}" id="label001"/>
                             </header>
                         </Column>
                         <Column id="column2">
                             <header>
-                                <Label text="{i18n>positionDepartment}" id="label2" />
+                                <Label text="{i18n>positionDepartment}" id="label2"/>
                             </header>
                         </Column>
                         <Column id="column3">
                             <header>
-                                <Label text="{i18n>positionClass}" id="label3" />
+                                <Label text="{i18n>positionClass}" id="label3"/>
                             </header>
                         </Column>
                         <Column id="column4">
                             <header>
-                                <Label text="{i18n>positionType}" id="label4" />
+                                <Label text="{i18n>positionType}" id="label4"/>
                             </header>
                         </Column>
                         <Column id="column5">
                             <header>
-                                <Label text="{i18n>positionLocation}" id="label5" />
+                                <Label text="{i18n>positionLocation}" id="label5"/>
                             </header>
                         </Column>
                         <Column id="column6">
                             <header>
-                                <Label text="{i18n>standardHours}" id="label6" />
+                                <Label text="{i18n>standardHours}" id="label6"/>
                             </header>
                         </Column>
                     </columns>
                     <headerToolbar>
                         <OverflowToolbar width="100%" id="toolbar2" class="sapUiLargeMarginEnd">
                             <content>
-                                <core:Icon src="sap-icon://permission" size="1rem" id="icon0" />
-                                <Text text="Open Position" id="text8" />
-                                <core:Icon src="sap-icon://private" size="1rem" id="icon0_copy" class="sapUiMediumMarginBegin" />
-                                <Text text="Assigned Position" id="text8_copy" />
-                                <ToolbarSpacer id="spacer2" />
+                                <core:Icon src="sap-icon://permission" size="1rem" id="icon0"/>
+                                <Text text="Open Position" id="text8"/>
+                                <core:Icon src="sap-icon://private" size="1rem" id="icon0_copy" class="sapUiMediumMarginBegin"/>
+                                <Text text="Assigned Position" id="text8_copy"/>
+                                <ToolbarSpacer id="spacer2"/>
                                 <!-- <Button id="button0_1579056670196" press="onNavtoDetail" text="{i18n>tbnew}"/> -->
-                                <Button id="button0" icon="sap-icon://sort" press="handleSortButtonPressed" />
-                                <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" class="sapUiLargeMarginEnd" />
+                                <Button id="button0" icon="sap-icon://sort" press="handleSortButtonPressed"/>
+                                <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" class="sapUiLargeMarginEnd"/>
                             </content>
                         </OverflowToolbar>
                     </headerToolbar>
@@ -188,10 +181,10 @@
         <f:footer>
             <OverflowToolbar width="auto" id="toolbar1" class="barBackground sapThemeHighlight-asBorderColor sapUiForceWidthAuto sapUiLargeMarginBeginEnd sapUiSmallMarginTop sapUiContentPadding" height="auto" design="Solid">
                 <content>
-                    <Text text="{= ${OP>/selected} + ' of 20 Open Positions assigned'}" id="text300" class="sapUiMediumMarginBegin sapThemeLightText footerText" />
-                    <ToolbarSpacer id="spacer100" />
-                    <Button text="Reset" id="bPrevious" icon="sap-icon://refresh" type="Emphasized" class="sapUiSmallMarginEnd" enabled="{= ${OP>/selected} &gt; 0 }" press="onReset" />
-                    <Button text="{= 'Initiate Transfer (' + ${OP>/selected} + ')'}" id="bNext" icon="sap-icon://hr-approval" type="Emphasized" class="sapUiSmallMarginEnd" enabled="{= ${OP>/selected} &gt; 0 }" press="onInitiateTransfer" />
+                    <Text text="{= ${OP>/selected} + ' of 20 Open Positions assigned'}" id="text300" class="sapUiMediumMarginBegin sapThemeLightText footerText"/>
+                    <ToolbarSpacer id="spacer100"/>
+                    <Button text="Reset" id="bPrevious" icon="sap-icon://refresh" class="sapUiSmallMarginEnd secondaryButton" enabled="{= ${OP>/selected} &gt; 0 }" press="onReset" type="Transparent"/>
+                    <Button text="{= 'Initiate Transfer (' + ${OP>/selected} + ')'}" id="bNext" icon="sap-icon://hr-approval" type="Emphasized" class="sapUiSmallMarginEnd" enabled="{= ${OP>/selected} &gt; 0 }" press="onInitiateTransfer"/>
                 </content>
             </OverflowToolbar>
         </f:footer>

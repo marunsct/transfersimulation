@@ -174,7 +174,7 @@
        background:   #f8f6eb!important;
    }
    tr[data-assign="assigned"]{	
-    background:   #eefae2!important;
+    background:   #e4ece4!important;
 }
    
 .sapMLnk {
@@ -193,4 +193,47 @@
 }
 .sapUiSizeCompact .sapMGrowingListDescription {
     display: none !important;
+}
+.sapMLIBNavigated {
+    background-color: #1360a1;
+}
+.secondaryButton{
+
+    background-color: transparent !important;
+    color: #346187 !important;
+    text-shadow: none !important;
+    border-color: #1360a1 !important;
+
+}
+.sapMIBar-CTX .sapMBtnInner, .sapMBar .sapMBtnInner, .sapMHeader-CTX .sapMBtnInner, .sapMFooter-CTX .sapMBtnInner {
+    background: transparent;
+   /* border-color: #1360a1 !important; */
+}
+.sapContrast.sapMBtnInner, .sapContrast .sapMBtnInner {
+  
+    text-shadow: none !important;
+}
+.sapContrast.sapMBtnBack, .sapContrast .sapMBtnBack, .sapContrast.sapMBtnTransparent, .sapContrast .sapMBtnTransparent {
+
+    color: #1360a1;
+}
+.sapContrast :not(.sapMBtnDisabled) .sapMBtnBack>.sapMBtnIcon, .sapContrast :not(.sapMBtnDisabled) .sapMBtnTransparent>.sapMBtnIcon, .sapContrast :not(.sapMBtnDisabled) .sapMBtnGhost>.sapMBtnIcon {
+    color: #1360a1;
+}
+.sapMDialog>.sapMDialogSection {
+
+    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.sapContrast.sapMIBar-CTX .sapMBtnInner, .sapContrast .sapMIBar-CTX .sapMBtnInner, .sapContrast.sapMBar .sapMBtnInner, .sapContrast .sapMBar .sapMBtnInner, .sapContrast.sapMHeader-CTX .sapMBtnInner, .sapContrast .sapMHeader-CTX .sapMBtnInner, .sapContrast.sapMFooter-CTX .sapMBtnInner, .sapContrast .sapMFooter-CTX .sapMBtnInner {
+    border-color: #1360a1 !important;
+}
+.sapMIBar-CTX .sapMBtnInner.sapMBtnGhost, .sapMBar .sapMBtnInner.sapMBtnGhost, .sapMHeader-CTX .sapMBtnInner.sapMBtnGhost, .sapMFooter-CTX .sapMBtnInner.sapMBtnGhost {
+    border-color: #1360a1 !important;
+}
+.sapFFCLNavigationButton .sapMBtnInner:after, .sapUiSizeCompact .sapFFCLNavigationButton .sapMBtnInner:after, .sapFFCLNavigationButton .sapMBtnInner:before, .sapUiSizeCompact .sapFFCLNavigationButton .sapMBtnInner:before {
+
+    height: 300px;
+
 }

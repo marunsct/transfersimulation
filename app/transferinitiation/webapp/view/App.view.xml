@@ -24,7 +24,7 @@
                             </contentRight>
                         </Bar>
                     </customHeader>
-                    <f:FlexibleColumnLayout id="idAppControl" stateChange="onStateChanged" layout="{FclRouter>/uiState/layout}" />
+                    <f:FlexibleColumnLayout id="idAppControl" stateChange="onStateChanged" layout="{FclRouter>/uiState/layout}" columnResize="onResize"/>
                 </Page>
             </pages>
         </App>

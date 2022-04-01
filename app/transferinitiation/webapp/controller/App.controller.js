@@ -46,7 +46,12 @@ sap.ui.define([
                 this._updateUIState(sLayout);
                 this.currentRouteName = sRouteName;
             },
-
+            onResize:function(oEvent){
+                console.log(oEvent);
+              if ( oEvent.getParameter('beginColumn') &&  this.oFclModel.getProperty('/uiSelected')){
+                this.oFclModel.getProperty('/uiSelected').scrollIntoView({block: "center"});
+              }
+            },
             onStateChanged: function (oEvent) {
                 var bIsNavigationArrow = oEvent.getParameter("isNavigationArrow"),
                     sLayout = oEvent.getParameter("layout"),
@@ -61,14 +66,40 @@ sap.ui.define([
                         midContext: sMidContext,
                         endContext: sEndContext
                     };
-                    this.oRouter.navTo(this.currentRouteName, oNavProperties, true);
+                  //  this.oRouter.navTo(this.currentRouteName, oNavProperties, true);
                 }
+            },
+            onLogout: function () {
+                /*
+                                $.ajax({
+                                    url: "/my/logout",
+                                    success: function (result) {
+                                        console.log('Call answered by server'); //Second text in console
+                                        //resolve(result);
+                                    },
+                                    error: function (request, status, errorThrown) {
+                                        console.log(status);
+                                        //reject({ data: 'Example 6 returns an error' });
+                                    }
+                                });
+                                */
+                window.location.href = "/my/logout";
+
             },
 
             _updateUIState: function (sNewLayout) {
                 var oUIState = this.getOwnerComponent().getSemanticHelper().getCurrentUIState();
                 this.oFclModel.setProperty('/uiState', oUIState);
                 this.oFclModel.setProperty("/uiState/layout", sNewLayout);
+            },
+            onLanguageChange: function () {
+                if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
+                    sap.ui.getCore().getConfiguration().setLanguage('en');
+
+                } else {
+                    sap.ui.getCore().getConfiguration().setLanguage('ja');
+
+                }
             }
         });
     });
