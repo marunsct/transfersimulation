@@ -208,7 +208,7 @@
                                     <ToolbarSpacer id="spacer2" />
                                     <CheckBox text="Show Eligible Employees" selected="false" id="box0" />
                                     <ToolbarSeparator id="separator0_copy" />
-                                    <SearchField placeholder="Search for Employee’s" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />
+                                    <SearchField placeholder="Search Employee" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />
                                     <!-- <Button id="button0_1579056670196" press="onNavtoDetail" text="{i18n>tbnew}"/> -->
                                     <Button id="button0" tooltip="Sort" icon="sap-icon://sort" press="handleSortButtonPressed" />
                                     <Button id="button4" tooltip="Download as Excel" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiTinyMarginEnd" />
