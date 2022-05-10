@@ -70,12 +70,20 @@ sap.ui.define([
         onEmployeeInit: function () {
             this._employeeContext = {};
         },
+
+        /**
+         * This method will be used to pass data between the views by assigning
+         * the data to Model of the parent controll (APP)
+        **/        
         setCustProperty: function (oProperty, oContext) {
             var oData = this.getModel("applicationModel").getData();
-            //oData =　Object.keys(oData).length !== 0 ? oData : {"tmpData" :{}};
             oData[oProperty] = oContext
             this.getModel("applicationModel").setProperty("/", oData);
         },
+        /**
+         * This method will be used to pass data between the views by assigning
+         * the data to Model of the parent controll (APP)
+        **/
         getCustProperty: function (oProperty) {
 
             if (this.getModel("applicationModel")) {
@@ -87,6 +95,9 @@ sap.ui.define([
         resetCustProperty: function () {
             this.getModel("applicationModel").setData({});
         },
+        /**
+         * This method is used for fetching the current language of the application
+        **/
         getLocale: function () {
             var sCurrentLocale = sap.ui.getCore().getConfiguration().getLanguage();
             if (sCurrentLocale.includes("ja")) {
@@ -101,7 +112,9 @@ sap.ui.define([
         _onMessageClose: function (sThat) {
             sThat._oPopover.close();
         },
-
+        /**
+         * This method will be reused for creatinf Dialog box throughout the application
+        **/
         _createDialog: function (sTitle, sText, sFirstButton, sSecondButton, pressCallback, endCallback, sThat) {
 
             var dialog;

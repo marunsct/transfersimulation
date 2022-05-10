@@ -24,7 +24,8 @@ sap.ui.define([
             var oParams = oEvent.getParameters();
             this.currentRouteName = oParams.name;
             var sContext;
-            this._avatarPress = false;
+            
+            // Multiple Coulm layout related settings on navigation
             if (oParams.arguments.beginContext) {
                 sContext = oParams.arguments.beginContext;
             } else {
@@ -65,45 +66,36 @@ sap.ui.define([
                 this.oFclModel.setProperty('/expandIcon/tooltip', 'Enter Full Screen Mode');
             }
 
-            // this.oFclModel.setProperty('/headerExpanded', true);
-
         },
         _onTableItemPress: function (oEvent) {
-            console.log(1);
-            if (!this._avatarPress) {
 
-                var oBindingContext = oEvent.getParameter("listItem").getBindingContext("OP");
-                this.setCustProperty("EmployeeContext", oBindingContext);
-                this._employeeContext = oBindingContext;
-                this.oFclModel = this.getOwnerComponent().getModel("FclRouter");
-                this.oFclModel.setProperty('/uiSelected', oEvent.getParameter("listItem").getDomRef());
-                var oSettingsModel = this.getView().getModel('settings');
-                oSettingsModel.setProperty("/navigatedItem", oBindingContext.getProperty("userId"));
+            var oBindingContext = oEvent.getParameter("listItem").getBindingContext("OP");
+            this.setCustProperty("EmployeeContext", oBindingContext);
+            this._employeeContext = oBindingContext;
+            this.oFclModel = this.getOwnerComponent().getModel("FclRouter");
+            this.oFclModel.setProperty('/uiSelected', oEvent.getParameter("listItem").getDomRef());
+            var oSettingsModel = this.getView().getModel('settings');
+            oSettingsModel.setProperty("/navigatedItem", oBindingContext.getProperty("userId"));
 
-                return new Promise(function (fnResolve) {
-                    var sBeginContext = this.oFclModel.getProperty("/beginContext");
-                    var sMidContext = oEvent.getParameter("listItem").getBindingContext("OP").getPath();
-                    var oNextUIState = this.getOwnerComponent().getSemanticHelper().getNextUIState(1);
-                    var sNextLayout = oNextUIState.layout;
-                    //  this.oFclModel.setProperty('/headerExpanded', false);
-                    //this.doNavigate("Page7", oBindingContext, fnResolve, "", 1);
-                    this.oRouter.navTo("OpenPositions", {
-                        ID: oBindingContext.getProperty("userId"),
-                        //context: oBindingContext, 
-                        beginContext: sBeginContext,
-                        midContext: sMidContext,
-                        layout: sNextLayout
-                    }, false);
-                    this.oFclModel.setProperty('/headerExpanded', false);
-                    this.oFclModel.setProperty('/footerVisible', false);
-                }.bind(this)).catch(function (err) {
-                    if (err !== undefined) {
-                        MessageBox.error(err.message);
-                    }
-                });
+            return new Promise(function (fnResolve) {
+                var sBeginContext = this.oFclModel.getProperty("/beginContext");
+                var sMidContext = oEvent.getParameter("listItem").getBindingContext("OP").getPath();
+                var oNextUIState = this.getOwnerComponent().getSemanticHelper().getNextUIState(1);
+                var sNextLayout = oNextUIState.layout;
+                this.oRouter.navTo("OpenPositions", {
+                    ID: oBindingContext.getProperty("userId"), 
+                    beginContext: sBeginContext,
+                    midContext: sMidContext,
+                    layout: sNextLayout
+                }, false);
+                this.oFclModel.setProperty('/headerExpanded', false);
+                this.oFclModel.setProperty('/footerVisible', false);
+            }.bind(this)).catch(function (err) {
+                if (err !== undefined) {
+                    MessageBox.error(err.message);
+                }
+            });
 
-
-            }
         },
         onUpdateStarted: function (oEvent) {
             if (oEvent.getParameter("reason") === "Growing") {
@@ -275,20 +267,6 @@ sap.ui.define([
                 .then(function () { ("Export is finished"); })
                 .catch(function (sMessage) { ("Export error: " + sMessage); });
         },
-        _onAvatarPress: function (oEvent) {
-
-            var oBindingContext = oEvent.getSource().getBindingContext();
-
-            return new Promise(function (fnResolve) {
-
-                this.doNavigate("Page8", oBindingContext, fnResolve, "", 0);
-            }.bind(this)).catch(function (err) {
-                if (err !== undefined) {
-                    MessageBox.error(err.message);
-                }
-            });
-
-        },
         doNavigate: function (sRouteName, oBindingContext, fnPromiseResolve, sViaRelation, iNextLevel) {
             var sPath = (oBindingContext) ? oBindingContext.getPath() : null;
             var oModel = (oBindingContext) ? oBindingContext.getModel() : null;
@@ -451,13 +429,9 @@ sap.ui.define([
             });
 
         },
-        _onAvatarPress1: function (oEvent) {
-            console.log("HI");
-            this._avatarPress = true;
 
-        },
         onSearch: function (oEvent) {
-            //var oModel = this.getModel("oData");
+
             var filters = this.getModel("filter").getData().filter;
             var oFilters = this._builFilters(filters);
             console.log(oFilters);
@@ -492,9 +466,9 @@ sap.ui.define([
             }
             return oFilters;
         },
-        isNavigated: function(sNavigatedItemId, sItemId) {
-			return sNavigatedItemId === sItemId;
-		},
+        isNavigated: function (sNavigatedItemId, sItemId) {
+            return sNavigatedItemId === sItemId;
+        },
         onInit: function () {
 
             sap.ui.getCore().attachLocalizationChanged(function (oEvent) {
@@ -544,13 +518,8 @@ sap.ui.define([
             this.oView.setModel(new JSONModel({ Count: 100, EmployeeJobs: [] }), 'OP');
             this.onEmployeeInit();
             this._oFilters = [];
-            // this.setCustProperty("EmployeeOpenPositions", {});
-            // this.setCustProperty("OpenPositionsEmployee", {});
-            // this.onSuggestLocation();
-            var oMessageManager, oView;
 
-
-
+            var oMessageManager;
             // set message model
             oMessageManager = sap.ui.getCore().getMessageManager();
             this.oView.setModel(oMessageManager.getMessageModel(), "message");
@@ -559,7 +528,7 @@ sap.ui.define([
             oMessageManager.registerObject(this.oView, true);
             this.oFilterBar = this.byId("filterbar0");
             this.byId("table0").setBusy(true);
-            var oSettingsModel = new JSONModel({ navigatedItem: ""});
+            var oSettingsModel = new JSONModel({ navigatedItem: "" });
             this.getView().setModel(oSettingsModel, 'settings');
         },
         onAfterRendering: async function () {
@@ -600,7 +569,7 @@ sap.ui.define([
                 jQuery.sap.delayedCall(1000, this, function () {
                     oInput.focus();
                 });
-                //  var cat = await this.asyncAjax("V3/Northwind/Northwind.svc/Categories");
+
                 console.log("cat");
 
             } else {
@@ -778,10 +747,7 @@ sap.ui.define([
             var sTerm = oEvent.getParameter("suggestValue");
             var aFilters = [];
             if (sTerm.length > 1) {
-                // this.oGlobalBusyDialog = new sap.m.BusyDialog();
-                // this.oGlobalBusyDialog.open();
-                //aFilters.push(new Filter("name", FilterOperator.Contains, sTerm));
-
+             
                 var filter1 = new Filter({
                     filters: [
                         new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
@@ -836,14 +802,6 @@ sap.ui.define([
                                     "name": desc
                                 });
                             }
-                            /*
-                                                     mData.department = sData.results.map(item => {
-                                                         return {
-                                                             "ID": item.externalCode,
-                                                             "name": item.name
-                                                         };
-                                                     });
-                                                     */
                             mModel.setData(mData);
                             // this.oGlobalBusyDialog.close();
                         }.bind(this),
@@ -852,45 +810,8 @@ sap.ui.define([
                             // this.oGlobalBusyDialog.close();
                         }
                     });
-
-                /*
-                aFilters = [];
-                aFilters.push(new Filter({
-                    filters: [
-                        new Filter("ID", FilterOperator.Contains, sTerm),
-                        new Filter("name", FilterOperator.Contains, sTerm)
-                        ],
-                        and: false
-                        }));
-                        
-                var oSource = oEvent.getSource();
-                var oBinding = oSource.getBinding('suggestionItems');
-                oBinding.filter(aFilters);
-                oBinding.attachEventOnce('dataReceived', function() {
-                oSource.suggest();
-                });
-        */
-                // oGlobalBusyDialog.close();
             }
-            /*
-                var url = "/v2/cpi-api/FODepartment?$top=20&$filter=startswith(externalCode,'" + sTerm + "') eq true or startswith(name_ja_JP,'" + sTerm + "') eq true or startswith(name,'" + sTerm + "')";
-                var a = await this.asyncAjax(url);
-                var result = await this.asyncOdata(aFilters);
-                console.log(result);
-                if (result) {
-                    var mModel = this.getView().getModel('filter');
-                    var mData = mModel.getData();
-                    mData.department = result;
-                    mModel.setData(mData);
-                }
-                //}
-                aFilters.push(new Filter({
-                    filters: [new Filter("name", FilterOperator.Contains, sTerm),
-                    new Filter("ID", FilterOperator.Contains, sTerm)], and: false
-                }));
-    
-                oEvent.getSource().getBinding("suggestionItems").filter(aFilters);
-                */
+
         },
         onSuggestPosition: async function (oEvent) {
             var sTerm = oEvent.getParameter("suggestValue");
@@ -992,14 +913,7 @@ sap.ui.define([
                                 "name": desc
                             });
                         }
-                        /*
-                                                 mData.department = sData.results.map(item => {
-                                                     return {
-                                                         "ID": item.externalCode,
-                                                         "name": item.name
-                                                     };
-                                                 });
-                                                 */
+
                         mModel.setData(mData);
                         // this.oGlobalBusyDialog.close();
                     }.bind(this),

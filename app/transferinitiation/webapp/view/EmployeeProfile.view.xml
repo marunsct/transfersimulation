@@ -17,254 +17,123 @@
         <headerTitle>
             <ObjectPageDynamicHeaderTitle class="profileHeader">
                 <heading>
-
-                    <!--m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
-                     </m:FlexBox-->
                     <m:HBox class="employeeHeader" alignItems="Start" alignContent="SpaceBetween" fitContainer="true">
                         <m:items>
                             <m:HBox alignItems="Center" class="sapUiSmallMarginBottom sapUiMediumMarginEnd">
                                 <m:items>
                                     <m:Button id="button0_1643608506867" width="50px" press="_onPageNavButtonPress" class="navigationButton1" type="Back"/>
-
                                     <f:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg" displaySize="L" showBorder="true" id="avatar1"/>
                                     <m:VBox direction="Column" id="vbox2" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin">
-
                                         <m:items>
-
                                             <m:Title text="Employee Name ( 00000856 )" id="title6" titleStyle="H3" class="sapUiSmallMarginTop"/>
                                             <m:Text text="Software Developer" id="text9" class="sapUiSmallMarginTopBottom"/>
-
                                         </m:items>
-
                                     </m:VBox>
                                 </m:items>
-
                             </m:HBox>
                             <m:HBox alignItems="Start" width="100%" wrap="Wrap" class="sapUiSmallMarginTopBottom  sapUiSmallMarginBegin" fitContainer="true" justifyContent="Start">
                                 <m:items>
-
-
-
-
                                     <m:HBox width="250px" direction="Row" id="vbox2_1643626264149_copy3" class="sapUiSmallMarginTop sapUiMediumMarginEnd" height="100%" alignContent="Start" alignItems="Start">
-
                                         <m:items>
-
                                             <m:VBox width="auto" id="hbox0_16_copy4" wrap="Wrap" alignItems="Start" class="">
-
                                                 <m:items>
-
-
-
                                                     <m:Label text="Eligibility : " width="100%" id="label1_1643626384196_copy2"/>
-
                                                 </m:items>
-
                                             </m:VBox>
-
                                             <m:VBox width="100%" id="hbox0_16_copy" alignContent="Start" wrap="Wrap" class="sapUiSmallMarginBegin">
-
                                                 <m:items>
-
-
-
                                                     <m:ObjectStatus state="Success" id="status0" icon="sap-icon://sys-enter-2"/>
-
                                                     <m:Text text="Eligibility Description" id="text16_copy2"/>
-
                                                 </m:items>
-
                                             </m:VBox>
-
                                         </m:items>
-
-
-
                                     </m:HBox>
                                     <m:VBox width="250px" direction="Column" id="vbox02" class="sapUiSmallMarginTop sapUiMediumMarginEnd" alignContent="Start" alignItems="Start">
-
                                         <m:items>
                                             <m:Label text="Contact Information :" id="text009" class=""/>
                                             <m:HBox class="">
                                                 <core:Icon src="sap-icon://outgoing-call" class="sapUiTinyMarginTop"/>
                                                 <m:Link text=" +1 234 5678" class="sapUiSmallMarginBegin"/>
                                             </m:HBox>
-
                                             <m:HBox>
                                                 <core:Icon src="sap-icon://email" class="sapUiTinyMarginTop"/>
                                                 <m:Link text="john.miller@company.com" class="sapUiSmallMarginBegin"/>
                                             </m:HBox>
-
                                         </m:items>
-
                                     </m:VBox>
                                     <m:VBox id="hbox0_16_copy3" class="sapUiSmallMarginTopBottom sapUiMediumMarginEnd" alignItems="Start" alignContent="Start" wrap="Wrap">
                                         <m:items>
                                             <m:Label text="Performance after previous Transfer : " width="100%" id="label0_1643626362769_copy3"/>
                                             <m:HBox width="100%" direction="Row" id="vbox2_1643626264149_copy6" class="sapUiTinyMarginTop performanceContainer" alignItems="Start" alignContent="Start" justifyContent="SpaceBetween">
-
                                                 <m:items>
-
                                                     <m:VBox width="100%" class="" direction="Column" id="vbox2_1643951732334" alignItems="Center">
-
                                                         <m:items>
-
                                                             <m:HBox width="40px" id="hp4" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
-
                                                                 <m:items>
-
                                                                     <m:Text text="A" id="p3_copy"/>
-
-
-
                                                                 </m:items>
-
-
-
                                                             </m:HBox>
-
                                                             <m:Text text="2018" id="text15_1643951750049"/>
-
                                                         </m:items>
-
                                                     </m:VBox>
-
                                                     <m:VBox width="100%" direction="Column" id="vbox2_1643951732334_copy" alignItems="Center" class="sapUiTinyMarginBeginEnd">
-
                                                         <m:items>
-
                                                             <m:HBox width="40px" id="hp3" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
-
                                                                 <m:items>
-
                                                                     <m:Text text="B" id="p3"/>
-
-
-
                                                                 </m:items>
-
-
-
                                                             </m:HBox>
-
-
                                                             <m:Text text="2019" id="text15_1643951750049_copy"/>
-
                                                         </m:items>
-
-
-
                                                     </m:VBox>
-
                                                     <m:VBox width="100%" class="" direction="Column" id="vbox2_1643951732334_copy2" alignItems="Center">
-
                                                         <m:items>
-
                                                             <m:HBox width="40px" id="hp2" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
-
                                                                 <m:items>
-
                                                                     <m:Text text="C" id="p3_copy2"/>
-
-
-
                                                                 </m:items>
-
-
-
                                                             </m:HBox>
-
                                                             <m:Text text="2020" id="text15_1643951750049_copy2"/>
-
                                                         </m:items>
-
-
-
                                                     </m:VBox>
-
                                                     <m:VBox class="sapUiTinyMarginBeginEnd" width="100%" direction="Column" id="vbox2_1643951732334_copy3" alignItems="Center">
-
                                                         <m:items>
-
                                                             <m:HBox width="40px" id="hp1" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
-
                                                                 <m:items>
-
                                                                     <m:Text text="B" id="p3_copy3"/>
-
-
-
                                                                 </m:items>
-
-
-
                                                             </m:HBox>
-
                                                             <m:Text text="2021" id="text15_1643951750049_copy3"/>
-
                                                         </m:items>
-
-
-
                                                     </m:VBox>
-
                                                     <m:VBox width="100%" class="" direction="Column" id="vbox2_1643951732334_copy4" alignItems="Center">
-
                                                         <m:items>
-
                                                             <m:HBox width="40px" id="hp0" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
-
                                                                 <m:items>
-
                                                                     <m:Text text="D" id="p3_copy4"/>
-
-
-
                                                                 </m:items>
-
-
-
                                                             </m:HBox>
-
                                                             <m:Text text="2022" id="text15_1643951750049_copy4"/>
-
                                                         </m:items>
-
-
-
                                                     </m:VBox>
-
                                                 </m:items>
-
                                             </m:HBox>
                                         </m:items>
-
                                     </m:VBox>
                                 </m:items>
-
                             </m:HBox>
                         </m:items>
-
                     </m:HBox>
                 </heading>
                 <expandedHeading>
-
                 </expandedHeading>
-
                 <snappedHeading>
-
                 </snappedHeading>
-
                 <expandedContent>
-
                 </expandedContent>
-
                 <snappedTitleOnMobile>
-
                 </snappedTitleOnMobile>
-
                 <actions>
-
                 </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>

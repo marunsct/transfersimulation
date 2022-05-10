@@ -85,9 +85,6 @@
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-            <!-- commnt scroll 	
-          
-						-->
 
               <ScrollContainer id="sc1" height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
 
@@ -107,18 +104,6 @@
                                 <core:CustomData key="status" value="{ path:'OP>userId'}" writeToDom="true" />
                             </customData>
                             <cells>
-                                <!--
-                                            <f:Avatar src="https://sapui5.hana.ondemand.com/sdk/test-resources/sap/suite/ui/commons/demokit/images/people/i2.jpg" displaySize="S" showBorder="true" press="_onAvatarPress1" initials="{parts:[ {path: 'OP>First_Name'}, {path: 'OP>Last_Name'}, 'true' ], formatter:'.avatarInitialsFormatter'}"/>
-                                            <ObjectIdentifier title="LName FName" text="{OP>userId}" titleActive="false" visible="true"/>
-                                            <ObjectIdentifier title="Department Name" text="{OP>department}" titleActive="false" visible="true"/>
-                                            <ObjectIdentifier title="Class Description" text="{OP>employeeClass}" titleActive="false" visible="true"/>
-                                            <ObjectIdentifier title="Employment Type" text="{OP>employmentType}" titleActive="false" visible="true"/>
-                                            <ObjectIdentifier title="Location" text="{OP>location}" titleActive="false" visible="true"/>
-                                            <ObjectIdentifier title="Manager Name" text="{OP>managerId}" titleActive="false" visible="true"/>
-                                            <ObjectIdentifier title="Position Name" text="{OP>position}" titleActive="false" visible="true"/>
-                                            <Text text="" id="text04_copy_table0_0" wrapping="true"/>
-                                            -->
-
                                 <Link text="{OP>userId}" id="link0" press="onViewProfile" tooltip="View Profile" />
                                 <Text text="Employee Name" id="te0" wrapping="true" />
                                 <Text text="{OP>department}" id="text4_copy_table0_0" wrapping="false" />
@@ -226,34 +211,22 @@
                     <headerToolbar>
                         <OverflowToolbar width="100%" id="toolbar2" class="sapUiLargeMarginEnd tblContainer">
                             <content>
-                                <!--Title text="{parts : [{path : 'i18n>employeeTH'}, {path : 'OP>/Count'}, {path: 'filter>/currentPage'}, {path: 'filter>/top'}],formatter:'.productCount'}" id="text06" level="H1" class="titleText"/ -->
                                 <ObjectStatus state="Success" id="status0_1642135399627" icon="sap-icon://sys-enter-2" text="Eligible" class="sapUiSmallMarginBegin" />
                                 <ObjectStatus state="Warning" id="status0_1642135399627_copy" icon="sap-icon://warning" text="Eligible with Warning" />
                                 <ObjectStatus state="Error" id="status0_1642135399627_copy2" icon="sap-icon://status-negative" text="Not Eligible" class="sapUiSmallMarginBeginEnd" />
-                                <!-- "{i18n>employeeTH}"     -->
-
                                 <ToolbarSpacer id="spacer2" />
                                 <CheckBox text="Show Eligible Employees" selected="false" id="box0" />
                                 <ToolbarSeparator id="separator0_copy" />
                                 <SearchField placeholder="Search Employee" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />
-                                <!-- <Button id="button0_1579056670196" press="onNavtoDetail" text="{i18n>tbnew}"/> -->
                                 <Button id="button0" tooltip="Sort" icon="sap-icon://sort" press="handleSortButtonPressed" />
                                 <Button id="button4" tooltip="Download as Excel" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiTinyMarginEnd" />
-
                             </content>
-
                         </OverflowToolbar>
                     </headerToolbar>
                 </Table>
 
- </ScrollContainer>
+            </ScrollContainer>
 
-           
-            <!-- commnt scroll
-            
-							<content/> <Text text="{i18n>theader} {/reply/hNumbers}" id="text06"/>
-						
-						-->
         </f:content>
         <!-- DynamicPage Footer -->
         <f:footer/>

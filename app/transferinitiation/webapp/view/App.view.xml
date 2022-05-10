@@ -7,9 +7,7 @@
             <pages>
                 <Page id="page" title="{i18n>title}" enableScrolling="false" class="container">
                     <customHeader>
-                        <Bar xmlns:mvc="sap.ui.core.mvc"
-                            xmlns:f="sap.f"
-                            xmlns="sap.m" id="bar0" class="sapThemeBrand-asBackgroundColor titleBgColor">
+                        <Bar id="bar0" class="sapThemeBrand-asBackgroundColor titleBgColor">
                             <contentLeft>
                                 <Image src="https://hcm44.sapsf.com/companyLogoServlet/?companyId=nipponshinD&amp;mod=1625099370959" width="140px" height="30px" id="image0" class="sapUiSmallMarginBegin" />
 

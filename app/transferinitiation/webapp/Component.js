@@ -25,12 +25,6 @@ sap.ui.define([
 			this.setModel(models.createFLPModel(), "FLP");
 
             // set the dataSource model
-            /*
-			this.setModel(new sap.ui.model.json.JSONModel({
-				"uri": "/here/goes/your/serviceUrl/local/"
-            }), "dataSource");
-            */
-
 			// set application model
 			var oApplicationModel = new sap.ui.model.json.JSONModel({});
 			this.setModel(oApplicationModel, "applicationModel");
