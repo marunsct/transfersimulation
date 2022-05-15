@@ -5,7 +5,7 @@ const log = require("cf-nodejs-logging-support");
 log.setLoggingLevel("info");
 
 module.exports = cds.service.impl(async function () {
-    const { CurrentWeather,
+    const { CurrentWeather, Empjob,
         EmployeeJobs, Position, FODepartment, PickListValueV2, FOLocation } = this.entities;
 
     this.on("READ", CurrentWeather, async (req) => {
@@ -13,6 +13,8 @@ module.exports = cds.service.impl(async function () {
         const openWeatherApi = await cds.connect.to("CPI_API");
         return openWeatherApi.tx(req).run(req.query);
     });
+
+
 
     this.on("READ", EmployeeJobs, async (req) => {
         const sfecei = await cds.connect.to("ECEmploymentInformation");
@@ -143,4 +145,10 @@ module.exports = cds.service.impl(async function () {
         results.scopes.Admin = req.user.is("Admin");
         return results;
     });
+
+    this.on("READ", Empjob, async (req) => {
+        // console.log("Reading weather information.");
+         const openWeatherApi = await cds.connect.to("CPI_DEV");
+         return openWeatherApi.tx(req).run(req.query);
+     });
 });

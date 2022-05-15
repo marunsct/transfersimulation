@@ -10,6 +10,8 @@ service CPI_API {
 
     entity Employees       as projection on db.Employees;
 
+    entity EmpJob as projection on db.EmpJob;
+
     @readonly
     entity CurrentWeather  as projection on db.Weather;
 

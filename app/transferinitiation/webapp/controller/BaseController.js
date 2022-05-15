@@ -5,8 +5,10 @@ sap.ui.define([
     'sap/m/Button',
     'sap/m/Dialog',
     'sap/m/ButtonType',
-    'sap/m/Text'
-], function (Controller, UIComponent, mobileLibrary, Button, Dialog, ButtonType, Text) {
+    'sap/m/Text',
+    "sap/m/TablePersoController",
+    "./TablePersonalisation/TablePersoService"
+], function (Controller, UIComponent, mobileLibrary, Button, Dialog, ButtonType, Text, TablePersoController, TablePersoService) {
     "use strict";
 
     // shortcut for sap.m.URLHelper
@@ -74,7 +76,7 @@ sap.ui.define([
         /**
          * This method will be used to pass data between the views by assigning
          * the data to Model of the parent controll (APP)
-        **/        
+        **/
         setCustProperty: function (oProperty, oContext) {
             var oData = this.getModel("applicationModel").getData();
             oData[oProperty] = oContext
@@ -165,7 +167,19 @@ sap.ui.define([
             }
             dialog.open();
         },
-
+        /**
+         * This method will be reused for Initialliasing Table personalisation controller
+        **/
+        _initializeTablePersonalization: function (oTable) {
+            // init and activate controller
+            var oTPC = new TablePersoController({
+                table: oTable,
+                //specify the first part of persistence ids e.g. 'demoApp-productsTable-dimensionsCol'
+                componentName: "component",
+                persoService: TablePersoService
+            }).activate();
+            return oTPC;
+        },
         onInit: function () {
             this._TransferList = {};
         }

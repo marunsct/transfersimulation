@@ -59,11 +59,11 @@
             "uaa": {
                 "kind": "xsuaa"
             },
-            "CPI_API": {
+            "CPI_DEV": {
                 "kind": "rest",
                 "impl": "srv/external/CPI_API.js",
                 "credentials": {
-                    "destination": "CPI_API"
+                    "destination": "CPI_DEV"
                 }
             },
             "ECPositionManagement": {

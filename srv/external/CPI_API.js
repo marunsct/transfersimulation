@@ -2,7 +2,7 @@ const cds = require("@sap/cds");
 
 class CPI_API extends cds.RemoteService {
   async init() {
-    this.reject(["CREATE", "UPDATE", "DELETE"], "*");
+   // this.reject(["CREATE", "UPDATE", "DELETE"], "*");
 
     this.before("READ", "*", (req) => {
       try {
@@ -40,18 +40,16 @@ function parseQueryParams(select) {
 
   const apiKey = process.env.OPEN_WEATHER_API_KEY;
   if (!apiKey) {
-    throw new Error("API key is missing.");
+    //throw new Error("API key is missing.");
   }
 
   const params = {
-    appid: apiKey,
-    units: "metric",
   };
 
   for (const key of Object.keys(filter)) {
     switch (key) {
-      case "id":
-        params["id"] = filter[key];
+      case "department":
+        params["department"] = filter[key];
         break;
       case "city":
         params["q"] = filter[key];

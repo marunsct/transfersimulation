@@ -57,3 +57,33 @@
     "externalName_en_US": null,
     "externalName_en_DEBUG": null
 }
+{
+    "EmpJob": {
+        "userId": "1000",
+        "personIdExternal": "1000",
+        "department": "30000002",
+        "departmentName": "Human Resources Demo",
+        "departmentEntryDate": "2021-06-24T00:00:00.000",
+        "managerId": "NO_MANAGER",
+        "managerName": "",
+        "employmentType": "",
+        "employmentTypeName": "",
+        "employeeClass": "5559",
+        "employeeClassName": "Fixed-term (JP)",
+        "location": "JPN_TOK_0001",
+        "locationName": "",
+        "position": "400000020",
+        "positionTitle": "Sales Advisor Demo",
+        "lastName": "Tokyo",
+        "lastNameAlt1": "",
+        "lastNameAlt2": "",
+        "firstName": "Ichiro",
+        "firstNameAlt1": "",
+        "firstNameAlt2": "",
+        "eligibility": "Warning",
+        "description": "It has not been more than a year since the last transfer",
+        "transferStatus": "",
+        "transferInitiationDate": "",
+        "newPosition": ""
+    }
+}

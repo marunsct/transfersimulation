@@ -27,3 +27,32 @@ entity Employees {
         criteria       : String;
         position       : String;
 };
+
+entity EmpJob {
+    userId                 : String;
+    personIdExternal       : String;
+    department             : String;
+    departmentName         : String;
+    departmentEntryDate    : String;
+    managerId              : String;
+    managerName            : String;
+    employmentType         : String;
+    employmentTypeName     : String;
+    employeeClass          : String;
+    employeeClassName      : String;
+    location               : String;
+    locationName           : String;
+    position               : String;
+    positionTitle          : String;
+    lastName               : String;
+    lastNameAlt1           : String;
+    lastNameAlt2           : String;
+    firstName              : String;
+    firstNameAlt1          : String;
+    firstNameAlt2          : String;
+    eligibility            : String;
+    description            : String;
+    transferStatus         : String;
+    transferInitiationDate : String;
+    newPosition            : String;
+};

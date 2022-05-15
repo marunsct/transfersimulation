@@ -2,9 +2,9 @@
     "authenticationMethod": "route",
     "routes": [
         {
-            "source": "^/V3/(.*)$",
-            "target": "/V3/$1",
-            "destination": "NorthWind",
+            "source": "^/http/(.*)$",
+            "target": "/http/$1",
+            "destination": "CPI_DEV",
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },

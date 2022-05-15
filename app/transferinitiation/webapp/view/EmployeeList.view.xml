@@ -1,22 +1,14 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc"
-    xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns="sap.m"
-    xmlns:core="sap.ui.core"
-    xmlns:layout="sap.ui.layout"
-    xmlns:f="sap.f"
-    xmlns:fb="sap.ui.comp.filterbar"
-    xmlns:cust="initiator.control"
-    xmlns:dnd="sap.ui.core.dnd" controllerName="transferinitiation.controller.EmployeeList" id="EmployeeList" displayBlock="false">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:cust="initiator.control" xmlns:dnd="sap.ui.core.dnd" controllerName="transferinitiation.controller.EmployeeList" id="EmployeeList" displayBlock="false">
     <f:DynamicPage id="dynamicPageId" showFooter="{FclRouter>/footerVisible1}" headerExpanded="{FclRouter>/headerExpanded}">
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title xmlns="sap.m" text="Employee List" id="textH" class="sapUiSmallMarginTop sapUiLargeMarginBegin titleText" level="H1" />
+                    <Title xmlns="sap.m" text="Employee List" id="textH" class="sapUiSmallMarginTop sapUiLargeMarginBegin titleText" level="H1"/>
                 </f:heading>
-                <f:content />
-                <f:actions />
-                <f:navigationActions />
+                <f:content/>
+                <f:actions/>
+                <f:navigationActions/>
             </f:DynamicPageTitle>
         </f:title>
         <!-- DynamicPage Header -->
@@ -31,7 +23,7 @@
                                         <fb:control>
                                             <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'filter>/filter/department', type: 'sap.ui.model.type.String' }" showSuggestion="true" id="fDepartment" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
                                                 <suggestionItems>
-                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
                                                 </suggestionItems>
                                             </Input>
 
@@ -41,7 +33,7 @@
                                         <fb:control>
                                             <Input value="{filter>/filter/EmploymentClass}" showSuggestion="true" id="fEmploymentClass" suggest=".onSuggestClass" suggestionItems="{filter>/EmploymentClass}">
                                                 <suggestionItems>
-                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
                                                 </suggestionItems>
                                             </Input>
                                         </fb:control>
@@ -51,7 +43,7 @@
                                             <!--Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'suppInvoiceNo', type: 'sap.ui.model.type.String', constraints: { search: '^[0-9,*,a-z,A-Z]*$' }}"/  constraints: { search: '^[0-9,*,a-z,A-Z]*$' }   -->
                                             <Input value="{filter>/filter/EmploymentType}" suggestionItems="{filter>/EmploymentType}" showSuggestion="true" suggest=".onSuggestType">
                                                 <suggestionItems>
-                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
                                                 </suggestionItems>
                                             </Input>
                                         </fb:control>
@@ -61,7 +53,7 @@
                                             <Input value="{filter>/filter/location}" suggestionItems="{filter>/location}" showSuggestion="true" suggest=".onSuggestLoc">
                                                 <suggestionItems>
                                                     <!--  <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/> -->
-                                                    <core:Item text="{filter>name}" />
+                                                    <core:Item text="{filter>name}"/>
                                                 </suggestionItems>
                                             </Input>
                                         </fb:control>
@@ -71,7 +63,7 @@
                                             <!--   <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'wbsElement', type: 'sap.ui.model.type.String'}"/> -->
                                             <Input value="{filter>/filter/position}" suggestionItems="{filter>/position}" showSuggestion="true" suggest=".onSuggestPosition">
                                                 <suggestionItems>
-                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}" />
+                                                    <core:Item text="{=${filter>ID} +' '+ ${filter>name}}"/>
                                                 </suggestionItems>
                                             </Input>
                                         </fb:control>
@@ -88,121 +80,168 @@
 
               <ScrollContainer id="sc1" height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
 
-                <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="true" includeItemInSelection="false" growingScrollToLoad="false" growing="true" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" growingTriggerText="More" itemPress="_onTableItemPress">
+                <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="true" includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" growingTriggerText="More" itemPress="_onTableItemPress">
                     <dragDropConfig>
-                        <dnd:DragInfo groupName="available2selected" sourceAggregation="items" />
+                        <dnd:DragInfo groupName="available2selected" sourceAggregation="items"/>
                     </dragDropConfig>
                     <items>
-                        <ColumnListItem type="{= ${OP>userId} !== '00000528' ? 'Active' : 'Inactive'}" id="item0_copy_table0_0" vAlign="Middle" highlight="Error" navigated="{
-						parts: [
-							'settings>/navigatedItem',
-							'OP>userId'
-						],
-						formatter: '.isNavigated'
-					}">
+                        <ColumnListItem type="{= ${OP>transferStatus} === 'Awaiting Approval' ? 'Inactive' : ${OP>eligibility} === 'Error' ? 'Inactive' : 'Active'}" 
+                            id="item0_copy_table0_0" vAlign="Middle" 
+                            highlight="{= ${OP>transferStatus} === 'Awaiting Approval' ? 'Warning' : ${OP>transferStatus} === 'Approved' ? 'Success' : 'None'}" 
+                            navigated="{ parts: ['settings>/navigatedItem','OP&gt;userId'],formatter: '.isNavigated'}">
                             <customData>
-                                <core:CustomData key="status" value="{ path:'OP>userId'}" writeToDom="true" />
+                                <core:CustomData key="status" value="{ path:'OP>transferStatus'}" writeToDom="true"/>
                             </customData>
                             <cells>
-                                <Link text="{OP>userId}" id="link0" press="onViewProfile" tooltip="View Profile" />
-                                <Text text="Employee Name" id="te0" wrapping="true" />
-                                <Text text="{OP>department}" id="text4_copy_table0_0" wrapping="false" />
-                                <Text text="{OP>employeeClass}" id="text5_copy_table0_0" wrapping="false" />
-                                <Text text="{OP>employmentType}" id="text6_copy_table0_0" wrapping="false" />
-                                <Text text="{OP>location}" id="text7_copy_table0_0" wrapping="false" />
-                                <Text text="{OP>managerId}" id="text8_copy_table0_0" wrapping="false" />
-                                <ObjectStatus text="{oData>Transfer_Criteria}" state="{=${OP>Transfer_Criteria} === 'Eligible' ? 'Success' : 'Error' }" id="status0_copy_table0_0" icon="{=${OP>Transfer_Criteria} === 'Eligible' ? 'sap-icon://sys-enter-2' : 'sap-icon://status-negative' }" tooltip="Employee near to retirement, can not be transfered to new position." />
-                                <Text text="{OP>position}" id="text9_copy_table0_0" wrapping="false" />
-                                <Text text="{OP>positionNew}" id="text10_copy_table0_0" wrapping="false" />
-                                <Text text="{OP>status}" id="text11_copy_table0_0" wrapping="false" />
-                                <Button tooltip="Assign Position" id="butt_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress" />
+                                <Link text="{OP>userId}" id="link0" press="onViewProfile" tooltip="View Profile"/>
+                                <Text text="{=${OP>lastName} + ' ' + ${OP>firstName}}" id="text1" wrapping="true"/>
+                                <Text text="{OP>department}" id="text10" wrapping="false"/>
+                                <Text text="{OP>departmentName}" id="text2" wrapping="false"/>
+                                <Text text="{OP>employeeClass}" id="text11" wrapping="false"/>
+                                <Text text="{OP>employeeClassName}" id="text3" wrapping="false"/>
+                                <Text text="{OP>employmentType}" id="text12" wrapping="false"/>
+                                <Text text="{OP>employmentTypeName}" id="text4" wrapping="false"/>
+                                <Text text="{OP>location}" id="text13" wrapping="false"/>
+                                <Text text="{OP>locationName}" id="text5" wrapping="false"/>
+                                <Text text="{OP>managerId}" id="text14" wrapping="false"/>
+                                <Text text="{OP>managerName}" id="text6" wrapping="false"/>
+                                <ObjectStatus text="{oData>eligibility}" state="{=${OP>eligibility} === 'Error' ? 'Error' : ${OP>eligibility} === 'Warning' ? 'Warning' : 'Success' }" 
+                                    id="status0_copy_table0_0" icon="{=${OP>Transfer_Criteria} === 'Eligible' ? 'sap-icon://sys-enter-2' : ${OP>eligibility} === 'Warning' ? 'sap-icon://status-critical' : 'sap-icon://status-negative' }" tooltip="{OP>description}"/>
+                                <Text text="{OP>position}" id="text15" wrapping="false"/> 
+                                <Text text="{OP>positionTitle}" id="text7" wrapping="false"/> 
+                                <Text text="{OP>newPosition}" id="text8" wrapping="false"/>
+                                <Text text="{OP>transferStatus}" id="text9" wrapping="false"/>
+                                <Button tooltip="Assign Position" id="butt_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress" 
+                                    enabled="{=${OP>eligibility} === 'Error' ? false : ${OP>transferStatus} === 'Awaiting Approval' ? false : true}"/>
                             </cells>
 
                         </ColumnListItem>
 
-                    </items>
+                    </items>  
                     <columns>
 
                         <Column id="column1" minScreenWidth="Phone">
                             <header>
-                                <Label text="{i18n>employeeId}" id="label1" wrapping="true" class="columnHeader titleText" />
+                                <Label text="{i18n>employeeId}" id="label1" wrapping="true" class="columnHeader titleText"/>
 
                             </header>
 
                         </Column>
-                        <Column id="column001" minScreenWidth="Phone" hAlign="Center">
+                        <Column id="column2" minScreenWidth="Phone" hAlign="Center">
                             <header>
-                                <Label text="{i18n>employeeName}" id="label001" wrapping="true" class="columnHeader titleText" />
+                                <Label text="{i18n>employeeName}" id="label2" wrapping="true" class="columnHeader titleText"/>
 
                             </header>
 
                         </Column>
-                        <Column id="column2" demandPopin="true" minScreenWidth="Phone" popinDisplay="Inline" hAlign="Center">
+                        <Column id="column13" demandPopin="true" minScreenWidth="Phone" popinDisplay="Inline" hAlign="Center">
                             <header>
-                                <Label text="{i18n>department}" id="label2" wrapping="true" />
+                                <Label text="{i18n>departmentId}" id="label13" wrapping="true"/>
 
                             </header>
 
-                        </Column>
-                        <Column id="column3" minScreenWidth="Desktop" hAlign="Center" popinDisplay="Inline" demandPopin="true">
+                        </Column>                        
+                        <Column id="column3" demandPopin="true" minScreenWidth="Phone" popinDisplay="Inline" hAlign="Center">
                             <header>
-                                <Label id="label3" text="{i18n>class}" wrapping="true" />
+                                <Label text="{i18n>department}" id="label3" wrapping="true"/>
 
                             </header>
 
                         </Column>
+                        <Column id="column14" demandPopin="true" minScreenWidth="Phone" popinDisplay="Inline" hAlign="Center">
+                            <header>
+                                <Label text="{i18n>classId}" id="label14" wrapping="true"/>
+
+                            </header>
+
+                        </Column>                        
                         <Column id="column4" minScreenWidth="Desktop" hAlign="Center" popinDisplay="Inline" demandPopin="true">
                             <header>
-                                <Label text="{i18n>type}" id="label4" wrapping="true" />
+                                <Label id="label4" text="{i18n>class}" wrapping="true"/>
 
                             </header>
 
                         </Column>
+                        <Column id="column15" minScreenWidth="Desktop" hAlign="Center" popinDisplay="Inline" demandPopin="true">
+                            <header>
+                                <Label text="{i18n>typeId}" id="label15" wrapping="true"/>
+
+                            </header>
+
+                        </Column>                        
                         <Column id="column5" minScreenWidth="Desktop" hAlign="Center" popinDisplay="Inline" demandPopin="true">
                             <header>
-                                <Label text="{i18n>location}" id="label5" wrapping="true" />
+                                <Label text="{i18n>type}" id="label5" wrapping="true"/>
 
                             </header>
 
                         </Column>
-                        <Column id="column6" demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline" hAlign="Center">
+                        <Column id="column16" minScreenWidth="Desktop" hAlign="Center" popinDisplay="Inline" demandPopin="true">
                             <header>
-                                <Label text="{i18n>supervisor}" id="label6" wrapping="true" />
+                                <Label text="{i18n>locationId}" id="label16" wrapping="true"/>
+
+                            </header>
+
+                        </Column>
+                        <Column id="column6" minScreenWidth="Desktop" hAlign="Center" popinDisplay="Inline" demandPopin="true">
+                            <header>
+                                <Label text="{i18n>location}" id="label6" wrapping="true"/>
+
+                            </header>
+
+                        </Column>
+                        <Column id="column17" demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline" hAlign="Center">
+                            <header>
+                                <Label text="{i18n>supervisorId}" id="label17" wrapping="true"/>
+
+                            </header>
+
+                        </Column>
+                        <Column id="column7" demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline" hAlign="Center">
+                            <header>
+                                <Label text="{i18n>supervisor}" id="label7" wrapping="true"/>
 
                             </header>
 
                         </Column>
                         <Column id="column8" demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline" hAlign="Center">
                             <header>
-                                <Label id="label8" text="{i18n>criteria}" wrapping="true" />
+                                <Label id="label8" text="{i18n>criteria}" wrapping="true"/>
 
                             </header>
 
                         </Column>
-                        <Column id="column7" hAlign="Center" minScreenWidth="Desktop" popinDisplay="Inline" demandPopin="true">
+                        <Column id="column18" hAlign="Center" minScreenWidth="Desktop" popinDisplay="Inline" demandPopin="true">
                             <header>
-                                <Label text="{i18n>position}" id="label7" wrapping="true" />
+                                <Label text="{i18n>positionId}" id="label18" wrapping="true"/>
 
                             </header>
 
                         </Column>
-                        <Column id="column9" demandPopin="true" minScreenWidth="Tablet" popinDisplay="Inline" hAlign="Center">
+                        <Column id="column9" hAlign="Center" minScreenWidth="Desktop" popinDisplay="Inline" demandPopin="true">
                             <header>
-                                <Label id="label9" text="{i18n>newPosition}" wrapping="true" />
+                                <Label text="{i18n>position}" id="label9" wrapping="true"/>
 
                             </header>
 
                         </Column>
                         <Column id="column10" demandPopin="true" minScreenWidth="Tablet" popinDisplay="Inline" hAlign="Center">
                             <header>
-                                <Label id="label10" text="{i18n>status}" wrapping="true" />
+                                <Label id="label10" text="{i18n>newPosition}" wrapping="true"/>
 
                             </header>
 
                         </Column>
-                        <Column id="column11" demandPopin="true" minScreenWidth="Phone" popinDisplay="Inline" hAlign="Center">
+                        <Column id="column11" demandPopin="true" minScreenWidth="Tablet" popinDisplay="Inline" hAlign="Center">
                             <header>
-                                <Label id="label11" text="{i18n>assign}" wrapping="true" />
+                                <Label id="label11" text="{i18n>status}" wrapping="true"/>
+
+                            </header>
+
+                        </Column>
+                        <Column id="column12" demandPopin="true" minScreenWidth="Phone" popinDisplay="Inline" hAlign="Center">
+                            <header>
+                                <Label id="label12" text="{i18n>assign}" wrapping="true"/>
 
                             </header>
 
@@ -211,15 +250,16 @@
                     <headerToolbar>
                         <OverflowToolbar width="100%" id="toolbar2" class="sapUiLargeMarginEnd tblContainer">
                             <content>
-                                <ObjectStatus state="Success" id="status0_1642135399627" icon="sap-icon://sys-enter-2" text="Eligible" class="sapUiSmallMarginBegin" />
-                                <ObjectStatus state="Warning" id="status0_1642135399627_copy" icon="sap-icon://warning" text="Eligible with Warning" />
-                                <ObjectStatus state="Error" id="status0_1642135399627_copy2" icon="sap-icon://status-negative" text="Not Eligible" class="sapUiSmallMarginBeginEnd" />
-                                <ToolbarSpacer id="spacer2" />
-                                <CheckBox text="Show Eligible Employees" selected="false" id="box0" />
-                                <ToolbarSeparator id="separator0_copy" />
-                                <SearchField placeholder="Search Employee" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />
-                                <Button id="button0" tooltip="Sort" icon="sap-icon://sort" press="handleSortButtonPressed" />
-                                <Button id="button4" tooltip="Download as Excel" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiTinyMarginEnd" />
+                                <ObjectStatus state="Success" id="status0_1642135399627" icon="sap-icon://sys-enter-2" text="Eligible" class="sapUiSmallMarginBegin"/>
+                                <ObjectStatus state="Warning" id="status0_1642135399627_copy" icon="sap-icon://warning" text="Eligible with Warning"/>
+                                <ObjectStatus state="Error" id="status0_1642135399627_copy2" icon="sap-icon://status-negative" text="Not Eligible" class="sapUiSmallMarginBeginEnd"/>
+                                <ToolbarSpacer id="spacer2"/>
+                                <CheckBox text="Show Eligible Employees" selected="false" id="box0"/>
+                                <ToolbarSeparator id="separator0_copy"/>
+                                <SearchField placeholder="Search Employee" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch"/>
+                                <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings"/>
+								<Button id="button3" icon="sap-icon://refresh" press="onTablePersoRefresh"/>
+                                <Button id="button4" tooltip="Download as Excel" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiTinyMarginEnd"/>
                             </content>
                         </OverflowToolbar>
                     </headerToolbar>
