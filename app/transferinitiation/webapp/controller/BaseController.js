@@ -129,7 +129,9 @@ sap.ui.define([
                         type: ButtonType.Emphasized,
                         text: sFirstButton,
                         press: function () {
-                            pressCallback.bind(sThat)();
+                            if (pressCallback !== undefined) {
+                                pressCallback.bind(sThat)();
+                            }
                             dialog.destroy();
                         }
 
@@ -138,7 +140,10 @@ sap.ui.define([
                         text: sSecondButton,
                         type: ButtonType.Ghost,
                         press: function () {
-                            endCallback.bind(sThat)();
+                            if (endCallback !== undefined) {
+                                endCallback.bind(sThat)();
+                            }
+
                             dialog.destroy();
                         }
                     }),
@@ -155,7 +160,9 @@ sap.ui.define([
                         type: ButtonType.Emphasized,
                         text: sFirstButton,
                         press: function () {
-                            pressCallback.bind(sThat)();
+                            if (pressCallback !== undefined) {
+                                pressCallback.bind(sThat)();
+                            }
                             dialog.destroy();
                         }
 
@@ -170,15 +177,38 @@ sap.ui.define([
         /**
          * This method will be reused for Initialliasing Table personalisation controller
         **/
-        _initializeTablePersonalization: function (oTable) {
+        _initializeTablePersonalization: function (oTable, oTablePersoService) {
             // init and activate controller
             var oTPC = new TablePersoController({
                 table: oTable,
                 //specify the first part of persistence ids e.g. 'demoApp-productsTable-dimensionsCol'
                 componentName: "component",
-                persoService: TablePersoService
+                persoService: oTablePersoService
             }).activate();
             return oTPC;
+        },
+/**
+  * This method is implemented for calling the API in ASYNC mode.
+ **/
+        asyncAjax: async function (sUrl) {
+
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    url: sUrl,
+                    success: function (result) {
+                        console.log('Call answered by server'); //Second text in console
+                        resolve(result);
+                    },
+                    error: function (request, status, errorThrown) {
+                        console.log(status);
+                        reject({
+                            error: errorThrown,
+                            status: status,
+                            data: 'API returns an error'
+                        });
+                    }
+                });
+            });
         },
         onInit: function () {
             this._TransferList = {};

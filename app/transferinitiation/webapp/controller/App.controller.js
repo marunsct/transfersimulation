@@ -74,7 +74,7 @@ sap.ui.define([
                 }
             },
             onLogout: function () {
-                window.location.href = "/my/logout";
+                window.location.href = "/logout";
             },
 
             _updateUIState: function (sNewLayout) {

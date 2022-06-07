@@ -6,7 +6,8 @@ log.setLoggingLevel("info");
 
 module.exports = cds.service.impl(async function () {
     const { CurrentWeather, Empjob,
-        EmployeeJobs, Position, FODepartment, PickListValueV2, FOLocation } = this.entities;
+        EmployeeJobs, Position, FODepartment, PickListValueV2, 
+        FOLocation, TransferSettings,createTransferPlan } = this.entities;
 
     this.on("READ", CurrentWeather, async (req) => {
        // console.log("Reading weather information.");
@@ -58,18 +59,6 @@ module.exports = cds.service.impl(async function () {
         try {
             const tx = sfecei.transaction(req);
 
-            /*
-                    console.log( "printing query :" ,req.query ,"URL : ", req.req.originalUrl.split("/cpi-api"), "end");
-                    let url = "";
-                if(req.req.originalUrl.split("test=")[1]){
-                        url = "/FODepartment?$top=20&$select=externalCode,name,name_defaultValue,name_en_DEBUG,name_en_US,name_ja_JP,name_localized,parent,status&$filter=" + req.req.originalUrl.split("test=")[1];
-                }else{
-                        url = "/FODepartment?$top=20&$select=externalCode,name,name_defaultValue,name_en_DEBUG,name_en_US,name_ja_JP,name_localized,parent,status";
-
-                }
-                    const result =  await tx.get(url)
-             */
-            //(req.req.originalUrl.split("/cpi-api")[1])
             console.log(req.query)
             const result = await tx.send({
                 query: req.query,
@@ -105,6 +94,10 @@ module.exports = cds.service.impl(async function () {
             req.reject(err);
         }
     });
+    this.on("CREATE", createTransferPlan, async (req)=>{
+        const sfecei = await cds.connect.to("ECEmploymentInformation");     
+        return  sfecei.tx(req).post("/v2/upsert",req.data);
+    });
 
     //FOLocation
     this.on("READ", FOLocation, async (req) => {
@@ -112,8 +105,7 @@ module.exports = cds.service.impl(async function () {
         try {
             const tx = sfecei.transaction(req);
             const result =
-                await tx.get("/FOLocation?$select=externalCode,startDate,name,description,status,nameTranslationNav/externalCode,nameTranslationNav/foField,nameTranslationNav/value_defaultValue,nameTranslationNav/value_ja_JP,nameTranslationNav/value_en_US,nameTranslationNav/value_localized&$expand=nameTranslationNav&$top=1000&$filter=status eq 'A'")
-            /*
+               
              await tx.send({
                query: req.query,
                headers: {
@@ -121,7 +113,7 @@ module.exports = cds.service.impl(async function () {
                 // APIKey: process.env.APIKeyHubSandbox,
                },
              }); 
-             */
+   
           //  console.log(result);
             return result;
         } catch (err) {
@@ -129,7 +121,21 @@ module.exports = cds.service.impl(async function () {
             req.reject(err);
         }
     });
+    this.on("READ", TransferSettings, async (req) => {
+        const sfecei = await cds.connect.to("ECEmploymentInformation");
 
+            const tx = sfecei.transaction(req);
+              const result = await tx.send({
+                query: req.query,
+                headers: {
+                    // "Application-Interface-Key": process.env.ApplicationInterfaceKey,
+                    // APIKey: process.env.APIKeyHubSandbox,
+                },
+            });
+            console.log(result.length, "req.query");
+            return result;
+
+    });
 
     this.on("userInfo", (req) => {
         let results = {};

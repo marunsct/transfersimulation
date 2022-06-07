@@ -9,8 +9,11 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/Device",
-    "sap/ui/export/Spreadsheet"
-], function (BaseController, MessageBox, History, Button, Dialog, ButtonType, Text, Filter, FilterOperator, Device, Spreadsheet) {
+    "sap/ui/export/Spreadsheet",
+    "./TablePersonalisation/OP_TablePersoService",
+    "sap/ui/core/util/File"
+], function (BaseController, MessageBox, History, Button, Dialog, ButtonType, Text, Filter, 
+    FilterOperator, Device, Spreadsheet, TablePersoService, File) {
     "use strict";
 
     return BaseController.extend("transferinitiation.controller.OpenPositions", {
@@ -22,7 +25,12 @@ sap.ui.define([
             this._employeeId = oParams.arguments.ID;
 
             var oContext = this.getCustProperty("EmployeeContext");
-            this._employeeName = (oContext !== undefined && oContext.oModel !== undefined) ? oContext.oModel.getProperty(oContext.sPath + "/First_Name") : "";
+            if (oContext == undefined) {
+                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                oRouter.navTo("EmployeeList", true);
+            }
+            this._employeeName = (oContext !== undefined && oContext.oModel !== undefined) ?
+                (oContext.oModel.getProperty(oContext.sPath + "/lastName") + ' ' + oContext.oModel.getProperty(oContext.sPath + "/firstName")) : "";
             //this._employeeContext = oParams.arguments.context;
             if (oParams.arguments.midContext) {
                 sContext = oParams.arguments.midContext;
@@ -109,10 +117,6 @@ sap.ui.define([
             return oQuery;
 
         },
-        avatarInitialsFormatter: function (sTextValue) {
-            return typeof sTextValue === 'string' ? sTextValue.substr(0, 2) : undefined;
-
-        },
         _onExpandButtonPress: function () {
             var endColumn = this.getOwnerComponent().getSemanticHelper().getCurrentUIState().columnsVisibility.endColumn;
             var isFullScreen = this.getOwnerComponent().getSemanticHelper().getCurrentUIState().isFullScreen;
@@ -178,17 +182,47 @@ sap.ui.define([
             this._oAssignment = {};
             this._oAssignment = oEvent.getParameter("listItem").getBindingContext("OP");
             //var employee, openPositions;
-            var posId = this._oAssignment.getProperty("code");
-            var posName = this._oAssignment.getProperty("externalName_defaultValue")
+            var posId = this._oAssignment.getProperty("PositionID");
+            var posName = this._oAssignment.getProperty("ExternalName")
 
             var aCells = oEvent.getParameter("listItem").getCells();
             this._employeeName = this._employeeName ? this._employeeName : this._employeeId;
-
-            this._preDialog(posId, posName, this._employeeId, this._employeeName, this._oAssignment.sPath);
+            let empData = this.getCustProperty("EmployeeContext").oModel.getProperty(this.getCustProperty("EmployeeContext").sPath);
+            this._preDialog(posId, posName, this._employeeId, this._employeeName, this._oAssignment.sPath, empData);
 
         },
-
-        _preDialog: function (posId, posName, employeeId, employeeName, sPath) {
+        /**
+         * This method is implemented for handling the event Update started during Pagination.
+         * The API is called with parameter Top and Skip
+        **/
+        onUpdateStarted: function (oEvent) {
+            if (oEvent.getParameter("reason") === "Growing") {
+                this.byId("table0").setBusy(true);
+                var filters = this.getModel("filter").getData().filter;
+                var oFilters = this._builFilters(filters);
+                var mModel = this.getView().getModel('OP');
+                var mData = mModel.getData();
+                let _url = oFilters !== undefined ? '/http/getOpenPositionList?' + oFilters : '/http/getOpenPositionList?';
+                this._cpiAPI(_url, (this.getView().byId("table0").getGrowingThreshold()), mData.OpenPositions.result.length);
+            }
+        },
+        /**
+         * This method is implemented for Table personalisation.
+        **/
+        onPersoButtonPressed: function (oEvent) {
+            // This fucction implents the OnPress event for the Table Personalisation Button
+            var oI18n = this.getView().getModel("i18n");
+            this._oTPC.openDialog(); // Implemented in Base Controller
+        },
+        /**
+         * This method is implemented for resetting the table personalisation.
+        **/
+        onTablePersoRefresh: function () {
+            // This fucction implents the OnPress event for the Table Personalisation refresh Button
+            TablePersoService.resetPersData();
+            this._oTPC.refresh();
+        },
+        _preDialog: function (posId, posName, employeeId, employeeName, sPath, sEmpData) {
 
             var i18n = this.oView.getModel("i18n");
             var sTitle = i18n.getResourceBundle().getText("confirm");
@@ -198,18 +232,20 @@ sap.ui.define([
                 if (this._openPositions[posId].employeeId === employeeId) {
                     return;
                 }
-                this.createDialog(sTitle, i18n.getResourceBundle().getText("positionExists", this._openPositions[posId].employeeId), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath);
+                this.createDialog(sTitle, i18n.getResourceBundle().getText("positionExists", [this._openPositions[posId].employeeName, 
+                    this._openPositions[posId].employeeId]), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, 
+                    sPath, sEmpData);
 
             } else if (this._employee[employeeId] !== undefined) { //   || this._employee[this._employeeId].positionId !== undefined) {
                 this.createDialog(sTitle, i18n.getResourceBundle().getText("employeeExists",
-                    this._employee[employeeId].positionName), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath);
+                    [this._employee[employeeId].positionName, this._employee[employeeId].positionId]), sFirstButton, sSecondButton, false, posId, posName, employeeId, employeeName, sPath, sEmpData);
             } else {
-                this.createDialog(sTitle, i18n.getResourceBundle().getText("assignconfiration", [posName, employeeName]), sFirstButton, sSecondButton, true, posId, posName, employeeId, employeeName, sPath);
+                this.createDialog(sTitle, i18n.getResourceBundle().getText("assignconfiration", [posName, posId, employeeName, employeeId]), sFirstButton, sSecondButton, true, posId, posName, employeeId, employeeName, sPath, sEmpData);
 
             }
 
         },
-        createDialog: function (sTitle, sText, sFirstButton, sSecondButton, sNew, posId, posName, employeeId, employeeName, sPath) {
+        createDialog: function (sTitle, sText, sFirstButton, sSecondButton, sNew, posId, posName, employeeId, employeeName, sPath, sEmpData) {
             var dialog = new Dialog({
                 title: sTitle,
                 type: 'Message',
@@ -218,7 +254,7 @@ sap.ui.define([
                     type: ButtonType.Emphasized,
                     text: sFirstButton,
                     press: function () {
-                        this._onDialogConfirmation(sNew, this, posId, posName, employeeId, employeeName, sPath);
+                        this._onDialogConfirmation(sNew, this, posId, posName, employeeId, employeeName, sPath, sEmpData);
                         dialog.close();
                     }.bind(this)
 
@@ -237,8 +273,7 @@ sap.ui.define([
 
             dialog.open();
         },
-
-        _onDialogConfirmation: function (sNew, sThat, posId, posName, employeeId, employeeName, sPath) {
+        _onDialogConfirmation: function (sNew, sThat, posId, posName, employeeId, employeeName, sPath, sEmpData) {
             //var posId = this._oAssignment.getProperty("Position_ID");
             // var posName = this._oAssignment.getProperty("Position_Title")
             if (sNew) {
@@ -253,9 +288,7 @@ sap.ui.define([
                 sThat._openPositions[posId].employeeId = employeeId;
                 sThat._openPositions[posId].employeeName = employeeName;
                 sThat._employee[employeeId].positionId = posId;
-                sThat._employee[employeeId].positionName = posName;
-                sThat.setCustProperty("EmployeeOpenPositions", sThat._employee);
-                sThat.setCustProperty("OpenPositionsEmployee", sThat._openPositions);
+                sThat._employee[employeeId].positionName = posName;              
                 let selected = sThat.getModel("OP").getData().selected + 1;
                 sThat.getModel("OP").setProperty("/selected", selected);
 
@@ -294,8 +327,6 @@ sap.ui.define([
                         sThat.getModel("OP").setProperty(sPath + "/Name1", employeeName);
                         sThat.getModel("OP").setProperty(sPath + "/status", "assigned");
                         sThat.getModel("OP").setProperty(sPath + "/icon", 'sap-icon://private');
-                        sThat.setCustProperty("EmployeeOpenPositions", sThat._employee);
-                        sThat.setCustProperty("OpenPositionsEmployee", sThat._openPositions);
 
                     }
                 } else if (sThat._employee[employeeId] !== undefined) {
@@ -323,25 +354,62 @@ sap.ui.define([
                         sThat.getModel("OP").setProperty(sPath + "/Name1", employeeName);
                         sThat.getModel("OP").setProperty(sPath + "/status", "assigned");
                         sThat.getModel("OP").setProperty(sPath + "/icon", 'sap-icon://private');
-                        sThat.setCustProperty("EmployeeOpenPositions", sThat._employee);
-                        sThat.setCustProperty("OpenPositionsEmployee", sThat._openPositions);
                     }
                 }
             }
+            let psLevel = sThat.getModel("OP").getProperty(sPath+ '/psLevel' ) !=="" ? sThat.getModel("OP").getProperty(sPath+ '/psLevel' ) : sEmpData.psLevelL ;
+            let psGroup = sThat.getModel("OP").getProperty(sPath+ '/psGroup' ) !=="" ? sThat.getModel("OP").getProperty(sPath+ '/psGroup' ) : sEmpData.psGroupL ;
+            let transferSettings = this.getCustProperty("TransferSettings");
+            let transferData = {
+                "__metadata": {
+                    "uri": "cust_TransferSimResult"
+                },
+                externalCode: employeeId,
+                effectiveStartDate: transferSettings.effectiveStartDate,
+                cust_STATUS: "10",
+                cust_NEW_POSITION_ID: posId,
+                cust_OLD_POSITION_ID: sEmpData.position,
+                cust_DEPARTMENT: sThat.getModel("OP").getProperty(sPath+ '/DepartmentID'), 
+                cust_CURRENT_MANAGER_ID: sEmpData.managerId,
+                cust_ELIGIBITY_STATUS: sEmpData.eligibility === 'Error' ? "30" : sEmpData.eligibility === 'Warning' ? "20":"10",
+                cust_ELIGIBITY_DESCRIPTION: sEmpData.description ,
+                cust_Previous_Department: sEmpData.department,
+                cust_PS_Level: psLevel,
+                cust_PS_Group:psGroup,
+                cust_EMPLOYEE_CLASS: sThat.getModel("OP").getProperty(sPath+ '/EmployeeClassID' ),
+                externalName: employeeName,
+                cust_EMPLOYMENT_LOCATION: sThat.getModel("OP").getProperty(sPath+ '/LocationID' ),
+                cust_EMPLOYMENT_TYPE: sThat.getModel("OP").getProperty(sPath+ '/EmploymentTypeID' ),
+                cust_TRANSFER_DATE: transferSettings.effectiveStartDate,
+                cust_Company: sThat.getModel("OP").getProperty(sPath+ '/company' ),
+                cust_OTYPE: sEmpData.customString6 
+            };  
+            sThat._employee[employeeId].transferData = transferData;
+            sThat.setCustProperty("EmployeeOpenPositions", sThat._employee);
+            sThat.setCustProperty("OpenPositionsEmployee", sThat._openPositions);
         },
-        onDropSelectedEmployee: function (oEvent) {
+        onDropSelectedEmployee: async function (oEvent) {
             var oDraggedItem = oEvent.getParameter("draggedControl");
             var oDraggedItemContext = oDraggedItem.getBindingContextPath();
             var oDroppedItem = oEvent.getParameter("droppedControl");
             var oDroppedItemContext = oDroppedItem.getBindingContextPath();
-            var posId = this.getModel("OP").getProperty(oDroppedItemContext + "/code");
-            var posName = this.getModel("OP").getProperty(oDroppedItemContext + "/externalName_defaultValue");
+            if (oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext + "/eligibility") === 'Error') {
+                return;
+            }
+            var posId = this.getModel("OP").getProperty(oDroppedItemContext + "/PositionID");
+            var posName = this.getModel("OP").getProperty(oDroppedItemContext + "/ExternalName");
             var employeeId = oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext + "/userId");
-            var employeeName = oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext + "/userId");
-
-
-            this._preDialog(posId, posName, employeeId, employeeName, oDroppedItemContext);
-
+            var employeeName = (oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext + "/lastName")
+                + ' ' + oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext + "/firstName"));
+            let empData =  oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext);
+                let dependentCheck;
+            let posDepartment = this.getModel("OP").getProperty(oDroppedItemContext + "/DepartmentID");
+            this.byId("table0").setBusy(true);
+            dependentCheck = await this._checkDependant(posDepartment, employeeId);
+            this.byId("table0").setBusy(false);
+            if (dependentCheck) {
+                this._preDialog(posId, posName, employeeId, employeeName, oDroppedItemContext, empData);
+            }
         },
         onReset: function () {
             var i18n = this.oView.getModel("i18n");
@@ -369,10 +437,61 @@ sap.ui.define([
             this.getModel("OP").setData(mData);
             this._openPositions = {};
             this._employee = {};
+            this.setCustProperty("EmployeeOpenPositions", this._employee);
+            this.setCustProperty("OpenPositionsEmployee", this._openPositions);
         },
-        intiateTransfer: function () {
-            this.resetAssignments();
-            this._onPageNavButtonPress();
+        intiateTransfer: async function () {
+            let postData=[];
+            let aKeys = Object.keys(this._employee);
+            for(let i=0; i< aKeys.length;i++){
+                postData.push(this._employee[aKeys[i]].transferData);
+            }      
+            try {
+                var i18n = this.oView.getModel("i18n");
+                let results = await this._asyncInitiate(postData);
+                this._downLog = ""
+                let messages = results.d;
+                let failedTransfers ="" ;
+                let successTransfers = "";
+                for(let j=0 ; j<messages.length;j++){
+                    if(messages[j].httpCode !== 200){
+                        failedTransfers =  failedTransfers +  messages[j].key.split('externalCode=')[1] ;  
+                        if(this._downLog === "") {
+
+                            this._downLog = i18n.getResourceBundle().getText("employeeId") + '\t\t' + i18n.getResourceBundle().getText("log"); 
+                        } 
+                        this._downLog =  this._downLog + '\n' + messages[j].key.split('externalCode=')[1] + '\t\t' +  messages[j].message;
+
+                    }else if(messages[j].httpCode !== 200){
+                        successTransfers = successTransfers + messages[j].key.split('externalCode=')[1] ;
+                    }
+                }
+                let Counter = 1;
+                
+                let sFirstButton = i18n.getResourceBundle().getText("ok");
+                let sSecondButton = undefined ;
+                if(this._downLog !==""){
+                    sSecondButton = i18n.getResourceBundle().getText("download")
+                }
+                let sTitle = i18n.getResourceBundle().getText("transferResult");
+                let sText = "";
+                if(successTransfers !== ""){
+                    sText = sText +  i18n.getResourceBundle().getText("transferSuccess", [Counter,successTransfers]);
+                    Counter = Counter + 1;
+                }else if(failedTransfers !==""){
+                    sText = sText +  i18n.getResourceBundle().getText("transferError", [Counter,failedTransfers]);             
+                }
+                this.resetAssignments();
+                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.downloadLog, this);
+                
+                //this._onPageNavButtonPress();   
+            } catch (error) {
+                console.log(error)
+            }      
+           // 
+        },
+        downloadLog : function (){
+            File.save(this._downLog, "LOG", "txt", "text/txt");
         },
         onInitiateTransfer: function (oEvent) {
             // var tbl = this.getView().byId('TransferReqTable');
@@ -402,8 +521,10 @@ sap.ui.define([
             };
             this.getModel("filter").setData(filter);
         },
-        onInit: function () {
+        onInit: async function () {
 
+            // initialize and activate Table persolation controller
+            this._oTPC = this._initializeTablePersonalization(this.byId("table0"), TablePersoService);
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             this.oRouter.attachRouteMatched(this.handleRouteMatched, this);
             this.oFclModel = this.getOwnerComponent().getModel("FclRouter");
@@ -427,7 +548,8 @@ sap.ui.define([
                     "hText": "Result ",
                     "hNumbers": "(0)"
                 },
-                selected: 0
+                selected: 0,
+                count: 0
             };
             this.oView.setModel(new sap.ui.model.json.JSONModel(this._vData), 'OP');
             this.filter = {
@@ -449,19 +571,30 @@ sap.ui.define([
             this.oView.setModel(new sap.ui.model.json.JSONModel(this.filter), 'filter');
             this.oFclModel.setProperty('/headerExpanded', false);
             this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
-
+            let transferSettings = this.getCustProperty("TransferSettings") !== undefined ? this.getCustProperty("TransferSettings") : null;
+            if (transferSettings === null){
+                transferSettings = {};
+                transferSettings = await this.asyncAjax("/v2/cpi-api/TransferSettings" );
+                this.setCustProperty("TransferSettings", transferSettings.d.results[0]);                    
+            }
         },
         onAfterRendering: async function () {
 
-            this.onOdataCall([new Filter("vacant", FilterOperator.EQ, true)]);
-
+            //this.onOdataCall([new Filter("vacant", FilterOperator.EQ, true)]);
+            var url = '/http/getOpenPositionList?';
             var oInput = this.getView().byId("fposition");
+            let transferSettings = this.getCustProperty("TransferSettings") !== undefined ? this.getCustProperty("TransferSettings") : null;
+            if (transferSettings === null){
+                transferSettings = {};
+                transferSettings = await this.asyncAjax("/v2/cpi-api/TransferSettings" );
+                this.setCustProperty("TransferSettings", transferSettings.d.results[0]);                    
+            }
             jQuery.sap.delayedCall(1000, this, function () {
                 oInput.focus();
             });
             try {
-
-                var location = await this.asyncAjax("/v2/cpi-api/FOLocation");
+                this._cpiAPI(url, (this.getView().byId("table0").getGrowingThreshold() + 2), 0);
+                var location = await this.asyncAjax("/v2/cpi-api/FOLocation?$select=externalCode,startDate,name,description,status,nameTranslationNav/externalCode,nameTranslationNav/foField,nameTranslationNav/value_defaultValue,nameTranslationNav/value_ja_JP,nameTranslationNav/value_en_US,nameTranslationNav/value_localized&$expand=nameTranslationNav&$top=1000&$filter=status eq 'A'");
                 var mModel = this.getView().getModel('filter');
                 var mData = mModel.getData();
                 mData.location = [];
@@ -487,7 +620,6 @@ sap.ui.define([
 
                 mModel.setData(mData);
 
-
             } catch (error) {
                 console.log("Error while fecting location data");
                 console.log(error);
@@ -496,6 +628,9 @@ sap.ui.define([
 
         },
 
+        positionsCount: function (sSelected, sCount) {
+            return sSelected + ' of ' + sCount + ' Open Positions assigned';
+        },
         onOdataCall: function (oFilters) {
             this.byId("table0").setBusy(true);
             var oViewModel = this.getView().getModel('OP');
@@ -570,39 +705,53 @@ sap.ui.define([
             var aColumns = [];
             aColumns.push({
                 label: i18n.getResourceBundle().getText("position"),
-                property: "code"
+                property: "PositionID"
             });
             aColumns.push({
                 label: i18n.getResourceBundle().getText("positionTitle"),
-                property: "externalName_defaultValue",
+                property: "ExternalName",
 
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("departmentId"),
+                property: "DepartmentID"
             });
             aColumns.push({
                 label: i18n.getResourceBundle().getText("positionDepartment"),
-                property: "department"
+                property: "Department"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("classId"),
+                property: "EmployeeClassID",
+
             });
             aColumns.push({
                 label: i18n.getResourceBundle().getText("positionClass"),
-                property: "employeeClass",
+                property: "EmployeeClass",
 
             });
-
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("typeId"),
+                property: "EmploymentTypeID"
+            });
             aColumns.push({
                 label: i18n.getResourceBundle().getText("positionType"),
-                property: "cust_employmentType"
+                property: "EmploymentType"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("locationId"),
+                property: "LocationId",
+
             });
             aColumns.push({
                 label: i18n.getResourceBundle().getText("positionLocation"),
-                property: "location",
+                property: "Location",
 
             });
             aColumns.push({
                 label: i18n.getResourceBundle().getText("standardHours"),
-                property: "standardHours"
+                property: "StandardHours"
             });
-
-
-
 
             var mSettings = {
                 workbook: {
@@ -876,52 +1025,44 @@ sap.ui.define([
                 //oGlobalBusyDialog.close();
             }
         },
-        asyncAjax: async function (sUrl) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    url: sUrl,
-                    success: function (result) {
-                        console.log('Call answered by server'); //Second text in console
-                        resolve(result);
-                    },
-                    error: function (request, status, errorThrown) {
-                        console.log(status);
-                        reject({ data: 'Example 6 returns an error' });
-                    }
-                });
-            });
-        },
         _builFilters: function (filters) {
+            let _url = '';
             let oFilters = [];
             if (filters.department) {
-                oFilters.push(new Filter("department", FilterOperator.EQ, filters.department.split(' ')[0]))
+                oFilters.push(new Filter("department", FilterOperator.EQ, filters.department.split(' ')[0]));
+                _url = _url + 'department=' + filters.department.split(' ')[0] + '&';
             }
             if (filters.location) {
-                oFilters.push(new Filter("location", FilterOperator.EQ, filters.location.split(' ')[0]))
+                oFilters.push(new Filter("location", FilterOperator.EQ, filters.location.split(' ')[0]));
+                _url = _url + 'location=' + filters.location.split(' ')[0] + '&';
             }
             if (filters.position) {
-                oFilters.push(new Filter("code", FilterOperator.EQ, filters.position.split(' ')[0]))
+                oFilters.push(new Filter("code", FilterOperator.EQ, filters.position.split(' ')[0]));
+                _url = _url + 'code=' + filters.position.split(' ')[0] + '&';
             }
             if (filters.EmploymentClass) {
-                oFilters.push(new Filter("employeeClass", FilterOperator.EQ, filters.EmploymentClass.split(' ')[0]))
+                oFilters.push(new Filter("employeeClass", FilterOperator.EQ, filters.EmploymentClass.split(' ')[0]));
+                _url = _url + 'employeeClass=' + filters.EmploymentClass.split(' ')[0] + '&';
             }
             if (filters.EmploymentType) {
-                oFilters.push(new Filter("cust_employmentType", FilterOperator.EQ, filters.EmploymentType.split(' ')[0]))
+                oFilters.push(new Filter("cust_employmentType", FilterOperator.EQ, filters.EmploymentType.split(' ')[0]));
+                _url = _url + 'cust_employmentType=' + filters.EmploymentType.split(' ')[0] + '&';
             }
 
-            return oFilters;
+            return _url;
         },
         onSearch: function (oEvent) {
             //var oModel = this.getModel("oData");
+            var url = '/http/getOpenPositionList?';
             var filters = this.getModel("filter").getData().filter;
             var oFilters = this._builFilters(filters);
             console.log(oFilters);
             if (oFilters.length > 0) {
                 this._oFilters = oFilters;
-                this.onOdataCall(this._oFilters);
-
+                let _url = oFilters !== undefined ? url + oFilters : url;
+                this._cpiAPI(_url, this.getView().byId("table0").getGrowingThreshold() + 2, 0);
             } else {
-                this.onOdataCall([new Filter("vacant", FilterOperator.EQ, true)]);
+                this._cpiAPI(url, (this.getView().byId("table0").getGrowingThreshold() + 2), 0);
             }
         },
         onAsyncoDatacall: async function (sUrl, sFilters, sTop, sSkip, sThat) {
@@ -943,6 +1084,106 @@ sap.ui.define([
                         }.bind(sThat)
                     });
             });
+        },
+        /**
+         * This method is implemented for modularising the repeated API calls.
+        **/
+        _cpiAPI: async function (sUrl, oTop, oSkip) {
+            try {
+                this.byId("table0").setBusy(true);
+                let _urlHandle, _url;
+                if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
+                    _url = sUrl + 'lang=ja_JP&'
+                } else {
+                    _url = sUrl + 'lang=en_US&'
+                }
+                _urlHandle = _url + 'top=' + oTop + '&skip=' + oSkip;
+                let result = await this.asyncAjax(_urlHandle);
+                result = JSON.parse(result)
+                if (result !== "" && !result.Position.hasOwnProperty(length)) {
+                    result.Position = [result.Position];
+                }else if(result === ""){
+                    result = {};
+                    result.Position = [];                    
+                }
+                for (let i = 0; i < result.Position.length; i++) {
+                    result.Position[i].status = 'unassigned';
+                }
+                var mModel = this.getView().getModel('OP');
+                var mData = mModel.getData();
+                if (oSkip === 0) {
+                    mData.OpenPositions.result = result.Position;
+                } else {
+                    mData.OpenPositions.result.push.apply(mData.OpenPositions.result, result.Position);
+                }
+                mData.count = mData.OpenPositions.result.length;
+                mModel.setData(mData);
+                this.byId("table0").setBusy(false);
+
+            } catch (error) {
+                console.log(error);
+                this.byId("table0").setBusy(false);
+                throw error;
+            }
+
+            return;
+        },
+
+        _checkDependant: async function (sDepartment, sUser) {
+            try {
+                let url = '/http/dependentCheck?department=' + sDepartment + '&personIdExternal=' + sUser;
+                let result = await this.asyncAjax(url);
+                // result = JSON.parse(result)
+                if (result.includes("Success")) { //(result.status === 'Success') {
+                    return true;
+                } else {
+                    var i18n = this.oView.getModel("i18n");
+                    let sFirstButton = i18n.getResourceBundle().getText("yes");
+                    //let sSecondButton = i18n.getResourceBundle().getText("cancel");
+                    let sTitle = i18n.getResourceBundle().getText("error");
+                    let sText = i18n.getResourceBundle().getText("dependentCheck");
+                    /*
+                    if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
+                        sText = result.desc_jp
+                    } else {
+                        sText = result.desc_en
+                    }
+                    */
+                    this._createDialog(sTitle, sText, sFirstButton, undefined, undefined, undefined, sThat);
+                    return false;
+                }
+            } catch{
+                console.log(error);
+                this.byId("table0").setBusy(false);
+                throw error;
+            }
+        },
+        _asyncInitiate: async function (aBody) {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    url: '/upsert',
+                    method: "POST", 
+                    data: JSON.stringify(aBody),
+                    contentType: "application/json",
+                    headers: {
+                        "Accept": "application/json",
+                        "accept": "application/json"
+                    },
+                    
+                    success: function (result) {
+                        console.log('API call to CPI is success'); //Second text in console
+                        resolve(result);
+                    },
+                    error: function (request, status, errorThrown) {
+                        console.log(status);
+                        reject({
+                            error: request,
+                            status: status,
+                            data: 'API returns an error'
+                        });
+                    }
+                });
+            });
         }
     });
-});
+})

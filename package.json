@@ -78,7 +78,7 @@
                 "kind": "odata",
                 "model": "srv/external/ECEmploymentInformation",
                 "credentials": {
-                    "destination": "TransferSimulation-sf-api",
+                    "destination": "SFSF",
                     "path": "odata/v2"
                 }
             }

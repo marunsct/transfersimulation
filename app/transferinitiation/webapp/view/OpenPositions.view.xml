@@ -86,7 +86,9 @@
 
 
 
-                <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" class="marginBoxContent" noDataText="{i18n>terror}" id="table0" items="{OP>/OpenPositions/result}" fixedLayout="true" includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="25" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" growingTriggerText="..." itemPress="_onTableItemPress">
+                <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" class="marginBoxContent" noDataText="{i18n>terror}" id="table0" items="{OP>/OpenPositions/result}" 
+                fixedLayout="false" includeItemInSelection="true" growingScrollToLoad="true" growing="true" growingThreshold="20" updateFinished="onUpdateFinished" 
+                updateStarted="onUpdateStarted" growingTriggerText="More" itemPress="_onTableItemPress">
                     <dragDropConfig>
                         <dnd:DropInfo groupName="available2selected" targetAggregation="items" dropPosition="Between" drop="onDropSelectedEmployee"/>
                         <dnd:DragDropInfo sourceAggregation="items" targetAggregation="items" dropPosition="Between" drop="onDropSelectedEmployee"/>
@@ -101,57 +103,81 @@
                                 <HBox alignContent="Center" alignItems="Center">
                                     <items>
                                         <core:Icon src="{=${OP>icon} ? ${OP>icon} : 'sap-icon://permission' }" size="1rem" id="icon00" class="sapUiTinyMarginEnd"/>
-                                        <Text text="{OP>code}" id="text004" wrapping="true"/>
+                                        <Text text="{OP>PositionID}" id="text1" wrapping="true"/>
                                     </items>
                                 </HBox>
-                                <Text text="{OP>externalName_defaultValue}" id="text04" wrapping="true"/>
-                                <Text text="{OP>department}" id="text5" wrapping="true"/>
-                                 <Text text="{OP>employeeClass}" id="text3" wrapping="true"/>
-                                <Text text="{OP>cust_employmentType}" id="text4" wrapping="true"/>      
-                                <Text text="{OP>location}" id="text6" wrapping="true"/>
-                                <Text text="{OP>standardHours}" id="text7" wrapping="true"/>
+                                <Text text="{OP>ExternalName}" id="text2" wrapping="true"/>
+                                <Text text="{OP>DepartmentID}" id="text3" wrapping="true"/>
+                                <Text text="{OP>Department}" id="text4" wrapping="true"/>
+                                <Text text="{OP>EmployeeClassID}" id="text5" wrapping="true"/>
+                                <Text text="{OP>EmployeeClass}" id="text6" wrapping="true"/>
+                                <Text text="{OP>EmploymentTypeID}" id="text7" wrapping="true"/> 
+                                <Text text="{OP>EmploymentType}" id="text8" wrapping="true"/>
+                                <Text text="{OP>LocationID}" id="text9" wrapping="true"/>                                      
+                                <Text text="{OP>Location}" id="text10" wrapping="true"/>
+                                <Text text="{OP>StandardHours}" id="text11" wrapping="true"/>
                             </cells>
                         </ColumnListItem>
                     </items>
                     <columns>
-                        <Column id="column0" hAlign="Center">
+                        <Column id="column1" hAlign="Center">
                             <header>
-                                <Label id="label0" text="{i18n>assignTo}"/>
-                            </header>
-                        </Column>
-                        <Column id="column1">
-                            <header>
-                                <Label text="{i18n>position}" id="label1"/>
-                            </header>
-                        </Column>
-                        <Column id="column001">
-                            <header>
-                                <Label text="{i18n>positionTitle}" id="label001"/>
+                                <Label id="label1" text="{i18n>assignTo}"/>
                             </header>
                         </Column>
                         <Column id="column2">
                             <header>
-                                <Label text="{i18n>positionDepartment}" id="label2"/>
+                                <Label text="{i18n>position}" id="label2"/>
                             </header>
                         </Column>
                         <Column id="column3">
                             <header>
-                                <Label text="{i18n>positionClass}" id="label3"/>
+                                <Label text="{i18n>positionTitle}" id="label3"/>
                             </header>
                         </Column>
                         <Column id="column4">
                             <header>
-                                <Label text="{i18n>positionType}" id="label4"/>
+                                <Label text="{i18n>departmentId}" id="label4"/>
                             </header>
                         </Column>
                         <Column id="column5">
                             <header>
-                                <Label text="{i18n>positionLocation}" id="label5"/>
+                                <Label text="{i18n>positionDepartment}" id="label5"/>
                             </header>
                         </Column>
                         <Column id="column6">
                             <header>
-                                <Label text="{i18n>standardHours}" id="label6"/>
+                                <Label text="{i18n>classId}" id="label6"/>
+                            </header>
+                        </Column>
+                        <Column id="column7">
+                            <header>
+                                <Label text="{i18n>positionClass}" id="label7"/>
+                            </header>
+                        </Column>
+                        <Column id="column8">
+                            <header>
+                                <Label text="{i18n>typeId}" id="label8"/>
+                            </header>
+                        </Column>
+                        <Column id="column9">
+                            <header>
+                                <Label text="{i18n>positionType}" id="label9"/>
+                            </header>
+                        </Column>
+                        <Column id="column10">
+                            <header>
+                                <Label text="{i18n>locationId}" id="label10"/>
+                            </header>
+                        </Column>
+                        <Column id="column11">
+                            <header>
+                                <Label text="{i18n>positionLocation}" id="label11"/>
+                            </header>
+                        </Column>
+                        <Column id="column12">
+                            <header>
+                                <Label text="{i18n>standardHours}" id="label12"/>
                             </header>
                         </Column>
                     </columns>
@@ -159,18 +185,18 @@
                         <OverflowToolbar width="100%" id="toolbar2" class="sapUiLargeMarginEnd">
                             <content>
                                 <core:Icon src="sap-icon://permission" size="1rem" id="icon0"/>
-                                <Text text="Open Position" id="text8"/>
+                                <Text text="Open Position" id="text12"/>
                                 <core:Icon src="sap-icon://private" size="1rem" id="icon0_copy" class="sapUiMediumMarginBegin"/>
-                                <Text text="Assigned Position" id="text8_copy"/>
+                                <Text text="Assigned Position" id="text13"/>
                                 <ToolbarSpacer id="spacer2"/>
                                 <!-- <Button id="button0_1579056670196" press="onNavtoDetail" text="{i18n>tbnew}"/> -->
-                                <Button id="button0" icon="sap-icon://sort" press="handleSortButtonPressed"/>
+                                <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings"/>
+								<Button id="button3" icon="sap-icon://refresh" press="onTablePersoRefresh"/>
                                 <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" class="sapUiLargeMarginEnd"/>
                             </content>
                         </OverflowToolbar>
                     </headerToolbar>
                 </Table>
-
             </ScrollContainer>
             <!-- commnt scroll
 							<content/> <Text text="{i18n>theader} {/reply/hNumbers}" id="text06"/>	
@@ -180,7 +206,7 @@
         <f:footer>
             <OverflowToolbar width="auto" id="toolbar1" class="barBackground sapThemeHighlight-asBorderColor sapUiForceWidthAuto sapUiLargeMarginBeginEnd sapUiSmallMarginTop sapUiContentPadding" height="auto" design="Solid">
                 <content>
-                    <Text text="{= ${OP>/selected} + ' of 20 Open Positions assigned'}" id="text300" class="sapUiMediumMarginBegin sapThemeLightText footerText"/>
+                    <Text text="{parts : [{path : 'OP>/selected'}, {path: 'OP>/count'}],formatter:'.positionsCount'}" id="text14" class="sapUiMediumMarginBegin sapThemeLightText footerText"/>
                     <ToolbarSpacer id="spacer100"/>
                     <Button text="Reset" id="bPrevious" icon="sap-icon://refresh" class="sapUiSmallMarginEnd secondaryButton" enabled="{= ${OP>/selected} &gt; 0 }" press="onReset" type="Transparent"/>
                     <Button text="{= 'Initiate Transfer (' + ${OP>/selected} + ')'}" id="bNext" icon="sap-icon://hr-approval" type="Emphasized" class="sapUiSmallMarginEnd" enabled="{= ${OP>/selected} &gt; 0 }" press="onInitiateTransfer"/>

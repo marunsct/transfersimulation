@@ -1,0 +1,10 @@
+{
+  "cds": {
+    "requires": {
+      "ECEmploymentInformation": {
+        "kind": "odata-v2",
+        "model": "srv/external/ECEmploymentInformation"
+      }
+    }
+  }
+}

@@ -35,7 +35,7 @@ service CPI_API {
 
     @readonly
     entity FODepartment    as projection on ECPositionManagement.FODepartment {
-        externalCode,  name, name_defaultValue, name_en_DEBUG, name_en_US, name_ja_JP, name_localized, parent, status
+        externalCode,  name, name_defaultValue, name_en_DEBUG, name_en_US, name_ja_JP, name_localized, parent, status   
     };
 
     @readonly
@@ -57,7 +57,24 @@ service CPI_API {
 
     @readonly
     entity PickListValueV2 as projection on ECPositionManagement.PickListValueV2 {
-        PickListV2_effectiveStartDate, PickListV2_id, externalCode, externalStandardizedCode, lValue, label_defaultValue, label_en_US, label_ja_JP, label_localized, status
+        PickListV2_effectiveStartDate, PickListV2_id, externalCode, externalStandardizedCode, lValue, label_defaultValue, label_en_US, 
+        label_ja_JP, label_localized, status
+    };
+
+    @readonly
+    entity TransferSettings as projection on ECEmploymentInformation.cust_TransferSimSettings{
+        externalCode, effectiveStartDate, cust_DateofAnnouncement, cust_formTemplateIdY1, cust_formTemplateIdY2, cust_formTemplateIdY3,
+        cust_EffectiveMonth, cust_formTitleY3, cust_formTitleY2, cust_formTitleY1
+    };
+    
+    entity createTransferPlan as projection on ECEmploymentInformation.cust_TransferSimResult{
+        externalCode,effectiveStartDate,cust_ELIGIBITY_DESCRIPTION,lastModifiedDateTime,mdfSystemEffectiveEndDate,
+        cust_TRANSFER_DOC_FLAG,createdDateTime,cust_NEW_POSITION_ID,cust_PS_Group,cust_FUTURE_MANAGER_ID,externalName,
+        cust_EMPLOYMENT_LOCATION,cust_EMPLOYMENT_TYPE,cust_DOC_GENERATION_DT,cust_TRANSFER_DATE,mdfSystemRecordStatus,
+        cust_CURRENT_MANAGER_ID,cust_REMARKS,cust_STATUS,cust_OLD_POSITION_ID,cust_EMPLOYEE_CLASS,cust_DEPARTMENT,cust_PS_Level,
+        cust_Company,cust_OTYPE,cust_DOC_GENERATED_BY,cust_SEQUENCE_NO,cust_HR_ID,lastModifiedBy,cust_Previous_Department,
+        cust_APPROVED_DT,createdBy,cust_ELIGIBITY_STATUS
+
     };
 
     type userScopes {

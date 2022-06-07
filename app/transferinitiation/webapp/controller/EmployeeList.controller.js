@@ -16,8 +16,8 @@ sap.ui.define([
     "sap/ui/Device",
     "sap/ui/export/Spreadsheet",
     "sap/m/TablePersoController",
-	"./TablePersonalisation/TablePersoService"
-], function (BaseController, MessageBox, History, Filter, FilterOperator, Button, Dialog, ButtonType, Text, JSONModel, 
+    "./TablePersonalisation/TablePersoService"
+], function (BaseController, MessageBox, History, Filter, FilterOperator, Button, Dialog, ButtonType, Text, JSONModel,
     BindingMode, cMessage, library, Fragment, Device, Spreadsheet, TablePersoController, TablePersoService) {
     "use strict";
 
@@ -77,7 +77,7 @@ sap.ui.define([
         /**
          * This method is implemented for handling the even onPress  
          * for the table. The context for the two column layout and user id is paased to the router.
-        **/        
+        **/
         _onTableItemPress: function (oEvent) {
 
             var oBindingContext = oEvent.getParameter("listItem").getBindingContext("OP");
@@ -118,11 +118,11 @@ sap.ui.define([
                 var oFilters = this._builFilters(filters);
                 var mModel = this.getView().getModel('OP');
                 var mData = mModel.getData();
-               // this._onOdataCall('EmployeeJobs', oFilters, (this._sCount + 2), mData.EmployeeJobs.length);
-                let _url = oFilters!== undefined ? '/http/getEmpData?' + oFilters : '/http/getEmpData?'  ;             
-                this._cpiAPI( _url , (this._sCount), mData.EmployeeJobs.length);
+                // this._onOdataCall('EmployeeJobs', oFilters, (this._sCount + 2), mData.EmployeeJobs.length);
+                let _url = oFilters !== undefined ? '/http/getEmpData?' + oFilters : '/http/getEmpData?';
+                this._cpiAPI(_url, (this._sCount), ((this._skipCount * this._sCount) + 2));
+                mData.currentLength = mData.EmployeeJobs.length + this._sCount;
             }
-
         },
         /**
          * This method is implemented for handling the event onPress on employee profile link
@@ -135,13 +135,14 @@ sap.ui.define([
                 var sMidContext = oEvent.getSource().getBindingContext("OP").getPath();
                 var oNextUIState = this.getOwnerComponent().getSemanticHelper().getNextUIState(1);
                 var sNextLayout = oNextUIState.layout;
+                this.setCustProperty("EmployeeProfile", oBindingContext.getProperty(""));
                 this.oRouter.navTo("EmployeeProfile", {
                     ID: oBindingContext.getProperty("userId"),
                     beginContext: sBeginContext,
                     midContext: sMidContext,
                     layout: sNextLayout
                 }, false);
-
+                
             }.bind(this)).catch(function (err) {
                 if (err !== undefined) {
                     MessageBox.error(err.message);
@@ -193,51 +194,76 @@ sap.ui.define([
             });
             aColumns.push({
                 label: i18n.getResourceBundle().getText("employeeName"),
-                property: "",
+                property: ['lastName', 'firstName'],
+                template: '{0} {1}'
 
             });
             aColumns.push({
-                label: i18n.getResourceBundle().getText("department"),
+                label: i18n.getResourceBundle().getText("departmentId"),
                 property: "department"
             });
             aColumns.push({
-                label: i18n.getResourceBundle().getText("class"),
+                label: i18n.getResourceBundle().getText("department"),
+                property: "departmentName"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("classId"),
                 property: "employeeClass",
 
             });
-
             aColumns.push({
-                label: i18n.getResourceBundle().getText("type"),
+                label: i18n.getResourceBundle().getText("class"),
+                property: "employeeClassName",
+
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("typeId"),
                 property: "employmentType"
             });
             aColumns.push({
-                label: i18n.getResourceBundle().getText("location"),
+                label: i18n.getResourceBundle().getText("type"),
+                property: "employmentTypeName"
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("locationId"),
                 property: "location",
 
             });
             aColumns.push({
-                label: i18n.getResourceBundle().getText("supervisor"),
+                label: i18n.getResourceBundle().getText("location"),
+                property: "locationName",
+
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("supervisorId"),
                 property: "managerId"
             });
             aColumns.push({
-                label: i18n.getResourceBundle().getText("criteria"),
-                property: ""
+                label: i18n.getResourceBundle().getText("supervisor"),
+                property: "managerName"
             });
             aColumns.push({
-                label: i18n.getResourceBundle().getText("position"),
+                label: i18n.getResourceBundle().getText("criteria"),
+                property: ['eligibility', 'description'],
+                template: '{0} : {1}'
+
+            });
+            aColumns.push({
+                label: i18n.getResourceBundle().getText("positionId"),
                 property: "position"
             });
             aColumns.push({
+                label: i18n.getResourceBundle().getText("position"),
+                property: "positionTitle"
+            });
+            aColumns.push({
                 label: i18n.getResourceBundle().getText("newPosition"),
-                property: ""
+                property: "newPosition"
             });
             aColumns.push({
                 label: i18n.getResourceBundle().getText("status"),
-                property: "status"
+                property: "transferStatus"
             });
-
-
-
 
             var mSettings = {
                 workbook: {
@@ -436,27 +462,46 @@ sap.ui.define([
         /**
          * This method is implemented for handling the search event of the filterbar.
         **/
-        onSearch: function (oEvent) {
-
-            var filters = this.getModel("filter").getData().filter;
+        onSearch: async function (oEvent) {
+            var fModel = this.getView().getModel('filter');
+            var fData = fModel.getData();
+            var filters = fData.filter;
+            filters.eligible = false;
+            fModel.setData(fData);
             var oFilters = this._builFilters(filters);
+            var mModel = this.getView().getModel('OP');
+            var mData = mModel.getData();
             console.log(oFilters);
-            if (oFilters.length > 0) {
-                var fModel = this.getView().getModel('filter');
-                var fData = fModel.getData();
-                fData.currentPage = 0;
-                fModel.setData(fData);
-                this._oFilters = oFilters;
-                //this._onOdataCall('EmployeeJobs', oFilters, this._sCount, 0);
-                let _url = oFilters!== undefined ? '/http/getEmpData?' + oFilters : '/http/getEmpData?'  ;  
-                this._cpiAPI(_url , (this._sCount), 0);
+            try {
+
+                if (oFilters.length > 0) {
+                    
+                    fData.currentPage = 0;
+                    fModel.setData(fData);
+                    this._oFilters = oFilters;
+                    //this._onOdataCall('EmployeeJobs', oFilters, this._sCount, 0);
+                    let _url = oFilters !== undefined ? '/http/getEmpData?' + oFilters : '/http/getEmpData?';
+                    var _countURL = oFilters !== undefined ? '/http/getEmpCount?' + oFilters : '/http/getEmpCount?';
+                    this._cpiAPI(_url, (this._sCount), 0);
+                    mData.currentLength = this._sCount;
+                    mData.Count = await this.asyncAjax(_countURL);
+                } else {
+                    mData = this.getModel('OP').getData();
+                    var _countURL = '/http/getEmpCount?';
+                    var url = '/http/getEmpData?';
+                    mData.Count = await this.asyncAjax(_countURL);
+                    mData.currentLength = this._sCount;
+                    this._cpiAPI(url, (this._sCount + 2), 0);
+                }
+            } catch (error) {
+                throw error;
             }
         },
         /**
          * This method is implemented for creating the url by building filter values.
         **/
         _builFilters: function (filters) {
-            let _url='';
+            let _url = '';
             let oFilters = [];
             if (filters.department) {
                 oFilters.push(new Filter("department", FilterOperator.EQ, filters.department.split(' ')[0]));
@@ -494,18 +539,43 @@ sap.ui.define([
          * This method is implemented for Table personalisation.
         **/
         onPersoButtonPressed: function (oEvent) {
-			// This fucction implents the OnPress event for the Table Personalisation Button
-			var oI18n = this.getView().getModel("i18n");
-			this._oTPC.openDialog(); // Implemented in Base Controller
-		},
+            // This fucction implents the OnPress event for the Table Personalisation Button
+            var oI18n = this.getView().getModel("i18n");
+            this._oTPC.openDialog(); // Implemented in Base Controller
+        },
         /**
          * This method is implemented for resetting the table personalisation.
         **/
         onTablePersoRefresh: function () {
-			// This fucction implents the OnPress event for the Table Personalisation refresh Button
-			TablePersoService.resetPersData();
-			this._oTPC.refresh();
-		},
+            // This fucction implents the OnPress event for the Table Personalisation refresh Button
+            TablePersoService.resetPersData();
+            this._oTPC.refresh();
+        },
+        /**
+         * This method is implemented for formatting the table header text.
+        **/
+        employeeCount: function (sText, sCount, sCurrentLength) {
+            return sText + ' ( ' + sCurrentLength + ' / ' + sCount + ' ) :'
+        },
+        onEligibleCB: function (oEvent) {
+            this.byId("table0").setBusy(true);
+            var eligibleFilter;
+            if (this.getModel('filter').getData().filter.eligible) {
+                eligibleFilter = new Filter('eligibility', FilterOperator.NE, 'Error');
+                this.byId("table0").getBinding("items").filter([eligibleFilter]);
+            } else {
+                if (this._nonEligible.length > 0) {
+                    var mModel = this.getView().getModel('OP');
+                    var mData = mModel.getData();
+                    mData.EmployeeJobs.push.apply(mData.EmployeeJobs, this._nonEligible);
+                    mModel.setData(mData);
+                    this._nonEligible = [];
+                }
+                eligibleFilter = new Filter('eligibility', FilterOperator.NE, '');
+                this.byId("table0").getBinding("items").filter([eligibleFilter]);
+            }
+            this.byId("table0").setBusy(false);
+        },
         /**
          * This method is implemented for handling the Global lifecycle method onINIT.
         **/
@@ -521,12 +591,12 @@ sap.ui.define([
                 }
             }.bind(this));
             this._sCount = Math.round(((Device.resize.height - 10 - 285) / 40)) - 1;
-            
+
             if (!this.oView) {
                 this.oView = this.getView();
             }
             // initialize and activate Table persolation controller
-			this._oTPC = this._initializeTablePersonalization(this.byId("table0"));
+            this._oTPC = this._initializeTablePersonalization(this.byId("table0"), TablePersoService);
             // initialize router and attach route handler
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             this.oRouter.attachRouteMatched(this.handleRouteMatched, this);
@@ -546,7 +616,8 @@ sap.ui.define([
                     EmploymentType: "",
                     location: "",
                     supervisor: "",
-                    employee: ""
+                    employee: "",
+                    eligible: false
                 },
                 position: [],
                 department: [],
@@ -560,8 +631,10 @@ sap.ui.define([
             };
             this.oView.setModel(new sap.ui.model.json.JSONModel({}), 'fclButton');
             this.oView.setModel(new JSONModel(this.mData), 'filter');
-            this.oView.setModel(new JSONModel({ Count: 100, EmployeeJobs: [] }), 'OP');
+            this.oView.setModel(new JSONModel({ Count: 0, currentLength: 0, EmployeeJobs: [] }), 'OP');
             this.onEmployeeInit();
+            this._skipCount = 1;
+            this._nonEligible = [];
             this._oFilters = [];
 
             var oMessageManager;
@@ -580,60 +653,69 @@ sap.ui.define([
          * This method is implemented for handling the Global lifecycle method onAfterRendering.
         **/
         onAfterRendering: async function () {
-            this._sCount = Math.round(((Device.resize.height - 10 - (225 + this.getView().byId("filterbar0").$().height())) / 40)) - 2;
+            this._sCount = Math.round(((Device.resize.height - 10 - (225 + this.getView().byId("filterbar0").$().height())) / 40));
             this.getView().byId("table0").setGrowingThreshold(this._sCount);
+            var fModel = this.getView().getModel('OP');
+            var fData = fModel.getData();
             var filters = this.getModel("filter").getData().filter;
             var url = this._builFilters(filters);
-            url = url!== undefined ? '/http/getEmpData?' + url : '/http/getEmpData?'  ;
-            if (this.getCustProperty("Back") !== true) {
+            var _countURL = url !== undefined ? '/http/getEmpCount?' + url : '/http/getEmpCount?';
+            url = url !== undefined ? '/http/getEmpData?' + url : '/http/getEmpData?';
 
-                this.setCustProperty("Back", false);
-                // this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
-               // this._onOdataCall('EmployeeJobs', [], (this._sCount + 2), 0);
-                this._cpiAPI(url , (this._sCount + 2), 0);
-                var location = await this.asyncAjax("/v2/cpi-api/FOLocation");
-                var mModel = this.getView().getModel('filter');
-                var mData = mModel.getData();
-                mData.location = [];
-                let desc;
-                let sData = location.d;
-                for (var i = 0; i < sData.results.length; i++) {
-                    switch (this.getLocale()) {
-                        case "JA":
-                            desc = (sData.results[i].nameTranslationNav.value_ja_JP !== null) ? sData.results[i].nameTranslationNav.value_ja_JP : sData.results[i].nameTranslationNav.value_defaultValue;
-                            break;
-                        case "EN":
-                            desc = (sData.results[i].nameTranslationNav.value_en_US !== null) ? sData.results[i].nameTranslationNav.value_en_US : sData.results[i].nameTranslationNav.value_defaultValue;
-                            break;
-                        default:
-                            desc = sData.results[i].nameTranslationNav.value_defaultValue;
-                            break;
-                    }
-                    mData.location.push({
-                        "ID": sData.results[i].externalCode,
-                        "name": sData.results[i].externalCode + ' ' + desc
-                    });
-                };
+            try {
+                if (this.getCustProperty("Back") !== true) {
 
-                mModel.setData(mData);
-
-                var oInput = this.getView().byId("fDepartment");
-                jQuery.sap.delayedCall(1000, this, function () {
-                    oInput.focus();
-                });
-
-                console.log("cat");
-
-            } else {
-                var fModel = this.getView().getModel('OP');
-                var fData = fModel.getData();
-                // fData.currentPage = 0;
-                fModel.setData(fData);
-                if (fData.EmployeeJobs.length === 0) {
+                    this.setCustProperty("Back", false);
                     // this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
-                    //this._onOdataCall('EmployeeJobs', [], (this._sCount + 2), 0);
-                    this._cpiAPI(url , (this._sCount + 2), 0);
+                    // this._onOdataCall('EmployeeJobs', [], (this._sCount + 2), 0);
+                    fData.Count = await this.asyncAjax(_countURL);
+                    fData.currentLength = this._sCount;
+                    this._cpiAPI(url, (this._sCount + 2), 0);
+                    var location = await this.asyncAjax("/v2/cpi-api/FOLocation?$select=externalCode,startDate,name,description,status,nameTranslationNav/externalCode,nameTranslationNav/foField,nameTranslationNav/value_defaultValue,nameTranslationNav/value_ja_JP,nameTranslationNav/value_en_US,nameTranslationNav/value_localized&$expand=nameTranslationNav&$top=1000&$filter=status eq 'A'");
+                    var mModel = this.getView().getModel('filter');
+                    var mData = mModel.getData();
+                    mData.location = [];
+                    let desc;
+                    let sData = location.d;
+                    for (var i = 0; i < sData.results.length; i++) {
+                        switch (this.getLocale()) {
+                            case "JA":
+                                desc = (sData.results[i].nameTranslationNav.value_ja_JP !== null) ? sData.results[i].nameTranslationNav.value_ja_JP : sData.results[i].nameTranslationNav.value_defaultValue;
+                                break;
+                            case "EN":
+                                desc = (sData.results[i].nameTranslationNav.value_en_US !== null) ? sData.results[i].nameTranslationNav.value_en_US : sData.results[i].nameTranslationNav.value_defaultValue;
+                                break;
+                            default:
+                                desc = sData.results[i].nameTranslationNav.value_defaultValue;
+                                break;
+                        }
+                        mData.location.push({
+                            "ID": sData.results[i].externalCode,
+                            "name": sData.results[i].externalCode + ' ' + desc
+                        });
+                    };
+                    mModel.setData(mData);
+                    var oInput = this.getView().byId("fDepartment");
+                    jQuery.sap.delayedCall(1000, this, function () {
+                        oInput.focus();
+                    });
+
+                    console.log("cat");
+
+                } else {
+
+                    // fData.currentPage = 0;
+                    fModel.setData(fData);
+                    if (fData.EmployeeJobs.length === 0) {
+                        // this._onOdataCall('EmployeeJobs', [], this._sCount, 0);
+                        //this._onOdataCall('EmployeeJobs', [], (this._sCount + 2), 0);
+                        fData.Count = await this.asyncAjax(_countURL);
+                        fData.currentLength = this._sCount;
+                        this._cpiAPI(url, (this._sCount + 2), 0);
+                    }
                 }
+            } catch (error) {
+                throw error;
             }
         },
         /**
@@ -987,25 +1069,6 @@ sap.ui.define([
 
         },
         /**
-         * This method is implemented for calling the API in ASYNC mode.
-        **/
-        asyncAjax: async function (sUrl) {
-            
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    url: sUrl,
-                    success: function (result) {
-                        console.log('Call answered by server'); //Second text in console
-                        resolve(result);
-                    },
-                    error: function (request, status, errorThrown) {
-                        console.log(status);
-                        reject({ data: 'Example 6 returns an error' });
-                    }
-                });
-            });
-        },
-        /**
          * This method is implemented for suggest event for the Location.
         **/
         onSuggestLoc: function (oEvent) {
@@ -1057,7 +1120,7 @@ sap.ui.define([
         **/
         _onOdataCall: async function (oUrl, oFilters, oTop, oSkip) {
             this.byId("table0").setBusy(true);
-           // var oViewModel = this.getView().getModel('OP');
+            // var oViewModel = this.getView().getModel('OP');
             var oDataModel = this.getView().getModel("oData");
             this._oSkip = oSkip;
             oDataModel.read("/" + oUrl,
@@ -1097,46 +1160,64 @@ sap.ui.define([
         /**
          * This method is implemented for modularising the repeated API calls.
         **/
-        _cpiAPI : async function (sUrl, oTop, oSkip){
+        _cpiAPI: async function (sUrl, oTop, oSkip) {
             try {
-                this.byId("table0").setBusy(true); 
-                let _urlHandle , _url;
+                this.byId("table0").setBusy(true);
+                let _urlHandle, _url;
                 if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
                     _url = sUrl + 'lang=ja_JP&'
                 } else {
                     _url = sUrl + 'lang=en_US&'
                 }
                 _urlHandle = _url + 'top=' + oTop + '&skip=' + oSkip;
-                let result = await  this.asyncAjax(_urlHandle);
+                let result = await this.asyncAjax(_urlHandle);
                 result = JSON.parse(result)
-                if(!result.EmpJob.hasOwnProperty(length)){
+                if (result !== "" && !result.EmpJob.hasOwnProperty(length)) {
                     result.EmpJob = [result.EmpJob];
-                }                
+                } else if (result === "") {
+                    result = {};
+                    result.EmpJob = [];
+                }
                 var mModel = this.getView().getModel('OP');
                 var mData = mModel.getData();
+
                 // console.log(args);
                 //this.getView().getModel('OP').setData({ "OpenPositions": sData.results });
                 if (oSkip === 0) {
                     mData.EmployeeJobs = result.EmpJob;
+                    this._skipCount = 1;
                 } else {
-                    mData.EmployeeJobs.push.apply(mData.EmployeeJobs, result.EmpJob);;
+                    var eligibility = this.getModel('filter').getData().filter.eligible;
+                    var resultFilter = [];
+                    if (eligibility) {
+                        for (let i = 0; i < result.EmpJob.length; i++) {
+                            if (result.EmpJob.eligibility !== 'Error') {
+                                resultFilter.push(result.EmpJob[i]);
+                            } else {
+                                this._nonEligible.push(result.EmpJob);
+                            }
+                        }
+                    }else{
+                        resultFilter = result.EmpJob;
+                    }
+                    mData.EmployeeJobs.push.apply(mData.EmployeeJobs, resultFilter);
+                    this._skipCount += 1;
                 }
-
+                if (mData.currentLength > (mData.EmployeeJobs.length + this._nonEligible.length)) {
+                    mData.currentLength = mData.EmployeeJobs.length;
+                }
                 mModel.setData(mData);
-                var fModel = this.getView().getModel('filter');
-                var fData = fModel.getData();
-                fData.totalPage = Math.ceil(mData.Count / this._sCount);
-                fData.currentPage = fData.currentPage + 1;
-                fModel.setData(fData);
+                // this.onEligibleCB();
                 this.byId("table0").setBusy(false);
-                
+                // this.onEligibleCB();
+
             } catch (error) {
                 console.log(error);
                 this.byId("table0").setBusy(false);
                 throw error;
             }
 
-            return;            
+            return;
         }
     });
 });

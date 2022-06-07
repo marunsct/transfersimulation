@@ -3,6 +3,20 @@
     "authenticationMethod": "route",
     "routes": [
         {
+            "source": "^/upsert",
+            "target": "/odata/v2/upsert",
+            "destination": "SFSF",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
+            "source": "^/SFSF/odata/(.*)$",
+            "target": "/odata/$1",
+            "destination": "SFSF",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
             "source": "/v2/(.*)",
             "target": "/v2/$1",
             "destination": "srv-api",
@@ -36,6 +50,11 @@
             "destination": "ui5"
         },
         {
+            "source": "^/loggedout.html$",
+            "localDir": "resources",
+            "authenticationType": "none"
+          },
+        {
             "source": "^(.*)$",
             "target": "$1",
             "service": "html5-apps-repo-rt",
@@ -43,7 +62,7 @@
         }
     ],
     "logout": {
-        "logoutEndpoint": "/my/logout",
+        "logoutEndpoint": "/logout",
         "logoutPage": "/loggedout.html"
     }
 }
