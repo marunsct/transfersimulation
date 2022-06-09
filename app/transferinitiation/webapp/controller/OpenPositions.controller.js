@@ -374,8 +374,8 @@ sap.ui.define([
                 cust_ELIGIBITY_STATUS: sEmpData.eligibility === 'Error' ? "30" : sEmpData.eligibility === 'Warning' ? "20":"10",
                 cust_ELIGIBITY_DESCRIPTION: sEmpData.description ,
                 cust_Previous_Department: sEmpData.department,
-                cust_PS_Level: psLevel,
-                cust_PS_Group:psGroup,
+                cust_PS_Level: psLevel !== "" ? psLevel: null,
+                cust_PS_Group:psGroup !== "" ? psGroup : null,
                 cust_EMPLOYEE_CLASS: sThat.getModel("OP").getProperty(sPath+ '/EmployeeClassID' ),
                 externalName: employeeName,
                 cust_EMPLOYMENT_LOCATION: sThat.getModel("OP").getProperty(sPath+ '/LocationID' ),
@@ -439,6 +439,7 @@ sap.ui.define([
             this._employee = {};
             this.setCustProperty("EmployeeOpenPositions", this._employee);
             this.setCustProperty("OpenPositionsEmployee", this._openPositions);
+            this.setCustProperty("TransferInitiated", true);
         },
         intiateTransfer: async function () {
             let postData=[];
@@ -462,7 +463,7 @@ sap.ui.define([
                         } 
                         this._downLog =  this._downLog + '\n' + messages[j].key.split('externalCode=')[1] + '\t\t' +  messages[j].message;
 
-                    }else if(messages[j].httpCode !== 200){
+                    }else if(messages[j].httpCode === 200){
                         successTransfers = successTransfers + messages[j].key.split('externalCode=')[1] ;
                     }
                 }
@@ -483,7 +484,8 @@ sap.ui.define([
                 }
                 this.resetAssignments();
                 this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.downloadLog, this);
-                
+                var url = '/http/getOpenPositionList?';
+                this._cpiAPI(url, (this.getView().byId("table0").getGrowingThreshold() + 2), 0);
                 //this._onPageNavButtonPress();   
             } catch (error) {
                 console.log(error)

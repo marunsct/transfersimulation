@@ -90,12 +90,12 @@
         </VBox-->
             <ScrollContainer id="sc1" height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
 
-                <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="false" includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" growingTriggerText="{i18n>more}" itemPress="_onTableItemPress">
+                <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="false" includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" itemPress="_onTableItemPress">
                     <dragDropConfig>
                         <dnd:DragInfo groupName="available2selected" sourceAggregation="items" />
                     </dragDropConfig>
                     <items>
-                        <ColumnListItem type="{= ${OP>transferStatus} === 'Awaiting Approval' ? 'Inactive' : ${OP>eligibility} === 'Error' ? 'Inactive' : 'Active'}" id="item0_copy_table0_0" vAlign="Middle" highlight="{= ${OP>transferStatus} === 'Awaiting Approval' ? 'Warning' : ${OP>transferStatus} === 'Approved' ? 'Success' : 'None'}" navigated="{ parts: ['settings>/navigatedItem','OP&gt;userId'],formatter: '.isNavigated'}">
+                        <ColumnListItem type="{= ${OP>transferStatus} === 'Initiated' ? 'Inactive' : ${OP>eligibility} === 'Error' ? 'Inactive' : 'Active'}" id="item0_copy_table0_0" vAlign="Middle" highlight="{= ${OP>transferStatus} === 'Initiated' ? 'Warning' : ${OP>transferStatus} === 'Approved' ? 'Success' : 'None'}" navigated="{ parts: ['settings>/navigatedItem','OP&gt;userId'],formatter: '.isNavigated'}">
                             <customData>
                                 <core:CustomData key="status" value="{ path:'OP>transferStatus'}" writeToDom="true" />
                             </customData>
@@ -117,7 +117,7 @@
                                 <Text text="{OP>positionTitle}" id="text7" wrapping="false" />
                                 <Text text="{OP>newPosition}" id="text8" wrapping="false" />
                                 <Text text="{OP>transferStatus}" id="text9" wrapping="false" />
-                                <Button tooltip="{i18n>assign}" id="butt_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress" enabled="{=${OP>eligibility} === 'Error' ? false : ${OP>transferStatus} === 'Awaiting Approval' ? false : true}" />
+                                <Button tooltip="{i18n>assign}" id="butt_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress" enabled="{=${OP>eligibility} === 'Error' ? false : ${OP>transferStatus} === 'Initiated' ? false : true}" />
                             </cells>
 
                         </ColumnListItem>
@@ -270,6 +270,12 @@
                         </OverflowToolbar>
                     </headerToolbar>
                 </Table>
+                <FlexBox alignItems="Center" justifyContent="Center">
+                    <items>
+                        <Button text="{= ${i18n>more} + '  [ ' + ${OP>/currentLength} + ' / ' + ${OP>/Count}+ ' ] '}" type="Transparent" visible="{=${OP>/Count} === ${OP>/currentLength} ? false : true}" press="handlePagination" />
+                    </items>
+                </FlexBox>
+
 
             </ScrollContainer>
 

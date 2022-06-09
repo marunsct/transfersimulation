@@ -426,6 +426,27 @@
                                         </m:items>
 
                                     </m:VBox>
+                                    <m:VBox width="200px" direction="Column"  class="sapUiResponsiveMargin">
+                                        <m:items>
+                                            <m:Label text="{i18n>reform}" width="100%"  />
+                                            <m:HBox alignItems="Center">
+                                                <m:items>
+                                                    <m:HBox class="performanceRound" id='ai5'>
+                                                        <m:items>
+                                                        </m:items>
+                                                    </m:HBox>
+                                                    <m:Text text="{PR>/AdditionalInfo/reformText}" class="sapUiSmallMarginBegin" />
+                                                </m:items>
+                                            </m:HBox>
+                                        </m:items>
+
+                                    </m:VBox>
+                                    <m:VBox width="200px" direction="Column" class="sapUiResponsiveMargin">
+                                        <m:items>
+                                            <m:Label text="{i18n>qualification}" width="100%"/>
+                                            <m:Text text="{PR>/AdditionalInfo/q2}"/>
+                                        </m:items> 
+                                    </m:VBox>                                                                       
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy40" class="sapUiResponsiveMargin">
                                         <m:items>
                                             <m:Label text="{i18n>currentResp}" width="100%" id="label11_copy40" />

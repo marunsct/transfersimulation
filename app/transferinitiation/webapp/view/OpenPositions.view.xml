@@ -209,7 +209,7 @@
                     <Text text="{parts : [{path:'i18n>opnFooter'},{path : 'OP>/selected'}, {path: 'OP>/count'}],formatter:'jQuery.sap.formatMessage'}" id="text14" class="sapUiMediumMarginBegin sapThemeLightText footerText"/>
                     <ToolbarSpacer id="spacer100"/>
                     <Button text="Reset" id="bPrevious" icon="sap-icon://refresh" class="sapUiSmallMarginEnd secondaryButton" enabled="{= ${OP>/selected} &gt; 0 }" press="onReset" type="Transparent"/>
-                    <Button text="{= 'Initiate Transfer (' + ${OP>/selected} + ')'}" id="bNext" icon="sap-icon://hr-approval" type="Emphasized" class="sapUiSmallMarginEnd" enabled="{= ${OP>/selected} &gt; 0 }" press="onInitiateTransfer"/>
+                    <Button text="{parts : [{path:'i18n>initiateBT'},{path : 'OP>/selected'}],formatter:'jQuery.sap.formatMessage'}" id="bNext" icon="sap-icon://hr-approval" type="Emphasized" class="sapUiSmallMarginEnd" enabled="{= ${OP>/selected} &gt; 0 }" press="onInitiateTransfer"/>
                 </content>
             </OverflowToolbar>
         </f:footer>

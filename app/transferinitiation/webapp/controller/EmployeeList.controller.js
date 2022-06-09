@@ -73,6 +73,11 @@ sap.ui.define([
                 this.oFclModel.setProperty('/expandIcon/tooltip', 'Enter Full Screen Mode');
             }
 
+            if(this.getCustProperty("TransferInitiated")){
+                this.onSearch();
+                this.setCustProperty("TransferInitiated", false);
+            }
+
         },
         /**
          * This method is implemented for handling the even onPress  
@@ -120,9 +125,22 @@ sap.ui.define([
                 var mData = mModel.getData();
                 // this._onOdataCall('EmployeeJobs', oFilters, (this._sCount + 2), mData.EmployeeJobs.length);
                 let _url = oFilters !== undefined ? '/http/getEmpData?' + oFilters : '/http/getEmpData?';
-                this._cpiAPI(_url, (this._sCount), ((this._skipCount * this._sCount) + 2));
+                this._cpiAPI(_url, (this._sCount), (this._skipCount * this._sCount) );
                 mData.currentLength = mData.EmployeeJobs.length + this._sCount;
             }
+        },
+        handlePagination: function(){
+            var filters = this.getModel("filter").getData().filter;
+                var oFilters = this._builFilters(filters);
+                var mModel = this.getView().getModel('OP');
+                var mData = mModel.getData();
+                if(mData.Count === mData.currentLength){
+                    return;
+                }
+                // this._onOdataCall('EmployeeJobs', oFilters, (this._sCount + 2), mData.EmployeeJobs.length);
+                let _url = oFilters !== undefined ? '/http/getEmpData?' + oFilters : '/http/getEmpData?';
+                this._cpiAPI(_url, (this._sCount), (this._skipCount * this._sCount) );
+                mData.currentLength = mData.EmployeeJobs.length + this._sCount;
         },
         /**
          * This method is implemented for handling the event onPress on employee profile link
@@ -485,11 +503,17 @@ sap.ui.define([
                     this._cpiAPI(_url, (this._sCount), 0);
                     mData.currentLength = this._sCount;
                     mData.Count = await this.asyncAjax(_countURL);
+                    if(mData.Count.hasOwnProperty('length') && mData.Count !== ""){
+                        mData.Count = parseInt(mData.Count);
+                    }
                 } else {
                     mData = this.getModel('OP').getData();
                     var _countURL = '/http/getEmpCount?';
                     var url = '/http/getEmpData?';
                     mData.Count = await this.asyncAjax(_countURL);
+                    if(mData.Count.hasOwnProperty('length') && mData.Count !== ""){
+                        mData.Count = parseInt(mData.Count);
+                    }
                     mData.currentLength = this._sCount;
                     this._cpiAPI(url, (this._sCount + 2), 0);
                 }

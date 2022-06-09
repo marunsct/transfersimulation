@@ -370,10 +370,12 @@ sap.ui.define([
                     var ai1ID = this.byId('ai1');
                     var ai3ID = this.byId('ai3');
                     var ai4ID = this.byId('ai4');
+                    var ai5ID = this.byId('ai5');
                     this.removeStyle(ai1ID);
                     this.removeStyle(ai2ID);
                     this.removeStyle(ai3ID);
                     this.removeStyle(ai4ID);
+                    this.removeStyle(ai5ID);
                     if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
                         lang = 'ja_JP';
                     } else {
@@ -399,6 +401,7 @@ sap.ui.define([
                         ai2ID.addStyleClass(this.additionalInfo('0'));
                         ai3ID.addStyleClass(this.additionalInfo('0'));
                         ai4ID.addStyleClass(this.additionalInfo('0'));
+                        ai5ID.addStyleClass(this.additionalInfo('0'));
                         this.getModel("PR").setProperty("/AdditionalInfo", AdditionalInfo);
                         return;
                     }
@@ -430,11 +433,12 @@ sap.ui.define([
                     };
                     this.getModel("PR").setProperty("/AdditionalInfo", addInfo);
                     ai1ID.addStyleClass(this.additionalInfo(addInfo.empDev));
-                    this._count += 1;
-                    this.setBusy(this._count);
                     ai2ID.addStyleClass(this.additionalInfo(addInfo.leadership));
                     ai3ID.addStyleClass(this.additionalInfo(addInfo.performance));
                     ai4ID.addStyleClass(this.additionalInfo(addInfo.bEye));
+                    ai5ID.addStyleClass(this.additionalInfo(addInfo.reform));
+                    this._count += 1;
+                    this.setBusy(this._count);
                     console.log(addInfo);
                     // this.getModel("PR").setProperty("/EmpJob", JSON.parse(result).EmpJob);
                     // BusyIndicator.hide();
