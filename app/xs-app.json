@@ -64,6 +64,6 @@
     "logout": {
         "logoutEndpoint": "/logout",
         "logoutPage": "/loggedout.html"
-    },
+     },
     "welcomeFile": "/transferinitiation/index.html"
 }

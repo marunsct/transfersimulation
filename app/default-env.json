@@ -6,41 +6,7 @@
             "forwardAuthToken": true
         }
     ],
-    "VCAP_SERVICES": {
-		"xsuaa": [
-			{
-				"label": "xsuaa",
-				"provider": null,
-				"plan": "application",
-				"name": "TransferSimulation-xsuaa-service",
-				"tags": [
-					"xsuaa"
-				],
-				"instance_guid": "69f4ebe5-a9f9-465c-b081-106558fd6878",
-				"instance_name": "TransferSimulation-xsuaa-service",
-				"binding_guid": "a3b846f2-f7c1-40b0-a2e6-62357403220b",
-				"binding_name": null,
-				"credentials": {
-					"tenantmode": "dedicated",
-					"sburl": "https://internal-xsuaa.authentication.jp10.hana.ondemand.com",
-					"subaccountid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
-					"credential-type": "instance-secret",
-					"clientid": "sb-transfersimulation!t975",
-					"xsappname": "transfersimulation!t975",
-					"clientsecret": "sqeILNAkJEPAFKXcc4amKk3MaNo=",
-					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
-					"uaadomain": "authentication.jp10.hana.ondemand.com",
-					"verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtxX2lTr4g9sdFWyCkxveD62pqirY35LP37lTrfDmwcATJo+bNsLTX1kLugK3qBhga9iuqpI3eI+CBcujYnzVMVSyRKeJMC0rtvNX7YU5R3MYfSQ2qfW4QrRx/RU80vi53Uv9Wfd24uH9YyeoN5V0Rm2n80r2OT623wIsUjSGEYhlnwddqwvRn0vykaohx9alRQVL0LOLVqgbs225nl5hsTCNbv59q2nPk2OH+j/75+slw1pqHS2UJ6mdepBhFSdI1b63detLIKjIFiEYHQupjtr38le82xbJrTz9M5YqM5nztA/tQQSU6z+ncOxwX6jfaHCsGjtQ3BlrpHBd0vn93wIDAQAB-----END PUBLIC KEY-----",
-					"apiurl": "https://api.authentication.jp10.hana.ondemand.com",
-					"identityzone": "dev-50okhz4b",
-					"identityzoneid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
-					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
-					"zoneid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
-				},
-				"syslog_drain_url": null,
-				"volume_mounts": []
-			}
-		],
+	"VCAP_SERVICES": {
 		"destination": [
 			{
 				"label": "destination",
@@ -54,19 +20,19 @@
 				],
 				"instance_guid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
 				"instance_name": "TransferSimulation-dest-srv",
-				"binding_guid": "3563ead6-3429-4bfa-98ef-6da1b5964d0e",
+				"binding_guid": "a19adb10-c4c2-476d-b5d3-a2460ec83f92",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",
 					"clientid": "sb-clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
 					"credential-type": "binding-secret",
 					"xsappname": "clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
-					"clientsecret": "3563ead6-3429-4bfa-98ef-6da1b5964d0e$x25DMrFwUa_DCoP3X-53CdHiVj2Ap0P9gwb_cQo6UoU=",
+					"clientsecret": "a19adb10-c4c2-476d-b5d3-a2460ec83f92$gUc4ns07z6T-b0DNpj6VN0iJa0DMK_fZ3zSxLlhQPl4=",
 					"uri": "https://destination-configuration.cfapps.jp10.hana.ondemand.com",
 					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
 					"uaadomain": "authentication.jp10.hana.ondemand.com",
 					"instanceid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
-					"verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtxX2lTr4g9sdFWyCkxveD62pqirY35LP37lTrfDmwcATJo+bNsLTX1kLugK3qBhga9iuqpI3eI+CBcujYnzVMVSyRKeJMC0rtvNX7YU5R3MYfSQ2qfW4QrRx/RU80vi53Uv9Wfd24uH9YyeoN5V0Rm2n80r2OT623wIsUjSGEYhlnwddqwvRn0vykaohx9alRQVL0LOLVqgbs225nl5hsTCNbv59q2nPk2OH+j/75+slw1pqHS2UJ6mdepBhFSdI1b63detLIKjIFiEYHQupjtr38le82xbJrTz9M5YqM5nztA/tQQSU6z+ncOxwX6jfaHCsGjtQ3BlrpHBd0vn93wIDAQAB-----END PUBLIC KEY-----",
+					"verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtxX2lTr4g9sdFWyCkxve\nD62pqirY35LP37lTrfDmwcATJo+bNsLTX1kLugK3qBhga9iuqpI3eI+CBcujYnzV\nMVSyRKeJMC0rtvNX7YU5R3MYfSQ2qfW4QrRx/RU80vi53Uv9Wfd24uH9YyeoN5V0\nRm2n80r2OT623wIsUjSGEYhlnwddqwvRn0vykaohx9alRQVL0LOLVqgbs225nl5h\nsTCNbv59q2nPk2OH+j/75+slw1pqHS2UJ6mdepBhFSdI1b63detLIKjIFiEYHQup\njtr38le82xbJrTz9M5YqM5nztA/tQQSU6z+ncOxwX6jfaHCsGjtQ3BlrpHBd0vn9\n3wIDAQAB\n-----END PUBLIC KEY-----",
 					"identityzone": "dev-50okhz4b",
 					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
 				},
@@ -74,25 +40,40 @@
 				"volume_mounts": []
 			}
 		],
-		"application-logs": [
+		"xsuaa": [
 			{
-				"label": "application-logs",
+				"label": "xsuaa",
 				"provider": null,
-				"plan": "lite",
-				"name": "transfersimulation-log",
-				"tags": [],
-				"instance_guid": "e8a85d3b-056b-490f-866c-7d3d192e3f02",
-				"instance_name": "transfersimulation-log",
-				"binding_guid": "c73c6c42-2dc4-41a0-8e7f-f3562fe1cd0a",
+				"plan": "application",
+				"name": "TransferSimulation-xsuaa-service",
+				"tags": [
+					"xsuaa"
+				],
+				"instance_guid": "69f4ebe5-a9f9-465c-b081-106558fd6878",
+				"instance_name": "TransferSimulation-xsuaa-service",
+				"binding_guid": "b8e05e0c-d5ce-4f3f-b578-af2492bebda3",
 				"binding_name": null,
 				"credentials": {
-					"metrics_collector_url": "https://metrics-collector.cf.jp10.hana.ondemand.com/",
-					"metrics_collector_client_id": "c73c6c42-2dc4-41a0-8e7f-f3562fe1cd0a",
-					"metrics_collector_client_secret": "YzE1YTkwODMtMjE0NS00MDU5LWIzZDItOTQxNGRmOGYwNTBmL3RyYW5zZmVyc2ltdWxhdGlvbi1hcHByb3V0ZXIvMDAxNjc5ODctODZmYi00ZTY0LTgwNWYtMjEyOThhMzJmZTIwL0RFVi8xNGIyODU0My01ODJkLTQ5ZDUtODk3Ni0zMWU0NGI5ZmY1MTQvTmlwcG9uJTIwU2hpbnlha3UlMjBDby4lMkNMdGQuX2Rldi01MG9raHo0Yi8wNWMyYzY0Ny1lYjYwLTQwYjQtYjhiYi02NTEyYTBlZmQ2NjIvYXBwbGljYXRpb24tbG9ncy8zZTQ2NmZjNi04MzNlLTQzMGEtYTVhMS1iOWFhMjMxOTUwYzgvbGl0ZS9lOGE4NWQzYi0wNTZiLTQ5MGYtODY2Yy03ZDNkMTkyZTNmMDIvdHJhbnNmZXJzaW11bGF0aW9uLWxvZy8xMGYzMmFmYjk1OTViNDU3N2UzMzM2OWExYjZmMDE0NGMyNGUyM2JlZTk3Y2U5YmRmMWNhZDc3NzAyNTg5NzMz"
+					"tenantmode": "dedicated",
+					"sburl": "https://internal-xsuaa.authentication.jp10.hana.ondemand.com",
+					"subaccountid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
+					"credential-type": "instance-secret",
+					"clientid": "sb-transfersimulation!t975",
+					"xsappname": "transfersimulation!t975",
+					"clientsecret": "sqeILNAkJEPAFKXcc4amKk3MaNo=",
+					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
+					"uaadomain": "authentication.jp10.hana.ondemand.com",
+					"verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtxX2lTr4g9sdFWyCkxve\nD62pqirY35LP37lTrfDmwcATJo+bNsLTX1kLugK3qBhga9iuqpI3eI+CBcujYnzV\nMVSyRKeJMC0rtvNX7YU5R3MYfSQ2qfW4QrRx/RU80vi53Uv9Wfd24uH9YyeoN5V0\nRm2n80r2OT623wIsUjSGEYhlnwddqwvRn0vykaohx9alRQVL0LOLVqgbs225nl5h\nsTCNbv59q2nPk2OH+j/75+slw1pqHS2UJ6mdepBhFSdI1b63detLIKjIFiEYHQup\njtr38le82xbJrTz9M5YqM5nztA/tQQSU6z+ncOxwX6jfaHCsGjtQ3BlrpHBd0vn9\n3wIDAQAB\n-----END PUBLIC KEY-----",
+					"apiurl": "https://api.authentication.jp10.hana.ondemand.com",
+					"identityzone": "dev-50okhz4b",
+					"identityzoneid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
+					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
+					"zoneid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
 				},
 				"syslog_drain_url": null,
 				"volume_mounts": []
 			}
 		]
-    }
+
+	}
 }

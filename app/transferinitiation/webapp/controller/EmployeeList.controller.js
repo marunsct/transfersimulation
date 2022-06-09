@@ -79,18 +79,18 @@ sap.ui.define([
          * for the table. The context for the two column layout and user id is paased to the router.
         **/
         _onTableItemPress: function (oEvent) {
-
-            var oBindingContext = oEvent.getParameter("listItem").getBindingContext("OP");
+            console.log(111);
+            var oBindingContext = oEvent.getParameter("listItem") ? oEvent.getParameter("listItem").getBindingContext("OP") :oEvent.getSource().getParent().getBindingContext('OP');
             this.setCustProperty("EmployeeContext", oBindingContext);
             this._employeeContext = oBindingContext;
             this.oFclModel = this.getOwnerComponent().getModel("FclRouter");
-            this.oFclModel.setProperty('/uiSelected', oEvent.getParameter("listItem").getDomRef());
+            this.oFclModel.setProperty('/uiSelected', (oEvent.getParameter("listItem") ? oEvent.getParameter("listItem").getDomRef() : oEvent.getSource().getParent().getDomRef()));
             var oSettingsModel = this.getView().getModel('settings');
             oSettingsModel.setProperty("/navigatedItem", oBindingContext.getProperty("userId"));
 
             return new Promise(function (fnResolve) {
                 var sBeginContext = this.oFclModel.getProperty("/beginContext");
-                var sMidContext = oEvent.getParameter("listItem").getBindingContext("OP").getPath();
+                var sMidContext = oBindingContext.getPath();
                 var oNextUIState = this.getOwnerComponent().getSemanticHelper().getNextUIState(1);
                 var sNextLayout = oNextUIState.layout;
                 this.oRouter.navTo("OpenPositions", {
@@ -591,7 +591,7 @@ sap.ui.define([
                 }
             }.bind(this));
             this._sCount = Math.round(((Device.resize.height - 10 - 285) / 40)) - 1;
-
+            
             if (!this.oView) {
                 this.oView = this.getView();
             }

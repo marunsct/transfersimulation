@@ -428,7 +428,7 @@
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy40" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="{i18n>currrentResp}" width="100%" id="label11_copy40" />
+                                            <m:Label text="{i18n>currentResp}" width="100%" id="label11_copy40" />
                                             <m:Text text="{PR>/AdditionalInfo/q1}" id="text13_copy40" />
                                         </m:items>
 

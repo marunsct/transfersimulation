@@ -12,7 +12,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title xmlns="sap.m" text="Employee List" id="textH" class="sapUiSmallMarginTop sapUiLargeMarginBegin titleText" level="H1" />
+                    <Title xmlns="sap.m" text="{i18n>employeeTitle}" id="textH" class="sapUiSmallMarginTop sapUiLargeMarginBegin titleText" level="H1" />
                 </f:heading>
                 <f:content />
                 <f:actions />
@@ -90,7 +90,7 @@
         </VBox-->
             <ScrollContainer id="sc1" height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
 
-                <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="false" includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" growingTriggerText="More" itemPress="_onTableItemPress">
+                <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="false" includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" growingTriggerText="{i18n>more}" itemPress="_onTableItemPress">
                     <dragDropConfig>
                         <dnd:DragInfo groupName="available2selected" sourceAggregation="items" />
                     </dragDropConfig>
@@ -117,7 +117,7 @@
                                 <Text text="{OP>positionTitle}" id="text7" wrapping="false" />
                                 <Text text="{OP>newPosition}" id="text8" wrapping="false" />
                                 <Text text="{OP>transferStatus}" id="text9" wrapping="false" />
-                                <Button tooltip="Assign Position" id="butt_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress" enabled="{=${OP>eligibility} === 'Error' ? false : ${OP>transferStatus} === 'Awaiting Approval' ? false : true}" />
+                                <Button tooltip="{i18n>assign}" id="butt_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress" enabled="{=${OP>eligibility} === 'Error' ? false : ${OP>transferStatus} === 'Awaiting Approval' ? false : true}" />
                             </cells>
 
                         </ColumnListItem>
@@ -256,11 +256,11 @@
                         <OverflowToolbar width="100%" id="toolbar2" class="sapUiLargeMarginEnd tblContainer">
                             <content>
                                 <Title text="{parts : [{path : 'i18n>employeeTH'}, {path : 'OP>/Count'}, {path: 'OP>/currentLength'}],formatter:'.employeeCount'}" id="text16" level="H1" class="titleText" />
-                                <ObjectStatus state="Success" id="status0_1642135399627" icon="sap-icon://sys-enter-2" text="Eligible" class="sapUiSmallMarginBegin" />
-                                <ObjectStatus state="Warning" id="status0_1642135399627_copy" icon="sap-icon://warning" text="Warning" />
-                                <ObjectStatus state="Error" id="status0_1642135399627_copy2" icon="sap-icon://status-negative" text="Not Eligible" class="sapUiSmallMarginBeginEnd" />
+                                <ObjectStatus state="Success" id="status0_1642135399627" icon="sap-icon://sys-enter-2" text="{i18n>eiligible}" class="sapUiSmallMarginBegin" />
+                                <ObjectStatus state="Warning" id="status0_1642135399627_copy" icon="sap-icon://warning" text="{i18n>warning}" />
+                                <ObjectStatus state="Error" id="status0_1642135399627_copy2" icon="sap-icon://status-negative" text="{i18n>notEligible}" class="sapUiSmallMarginBeginEnd" />
                                 <ToolbarSpacer id="spacer2" />
-                                <CheckBox text="Show Eligible Employees" select="onEligibleCB" selected="{filter>/filter/eligible}" id="box0" />
+                                <CheckBox text="{i18n>showEmployee}" select="onEligibleCB" selected="{filter>/filter/eligible}" id="box0" />
                                 <ToolbarSeparator id="separator0_copy" />
                                 <SearchField placeholder="Search Employee" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />
                                 <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings" />

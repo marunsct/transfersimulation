@@ -82,7 +82,7 @@ sap.ui.define([
                     }
                 });
                 */
-               window.location.href = "/my/logout";
+               window.location.href = "/logout";
 
             },
 

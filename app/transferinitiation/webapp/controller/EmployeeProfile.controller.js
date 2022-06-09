@@ -183,6 +183,7 @@ sap.ui.define([
                     //  this.rerender();
                     if (this._employeeId !== undefined) {
                         //this.getEmpJob(this._employeeId);
+                        this.setCustProperty("EmployeeProfile", undefined);
                         this.getEmployyeProfile(this._employeeId);
                     }
                 }

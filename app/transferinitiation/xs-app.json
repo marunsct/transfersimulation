@@ -51,7 +51,7 @@
         },
         {
             "source": "^/loggedout.html$",
-            "localDir": "resources",
+            "localDir": ".",
             "authenticationType": "none"
           },
         {
@@ -64,5 +64,5 @@
     "logout": {
         "logoutEndpoint": "/logout",
         "logoutPage": "/loggedout.html"
-    }
+     }
 }
