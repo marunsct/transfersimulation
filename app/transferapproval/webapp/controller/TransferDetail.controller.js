@@ -17,7 +17,7 @@ sap.ui.define([
     function (Controller, Device, Filter, History, LayeredLayout, ForceBasedLayout, ActionButton, Node, Fragment, JSONModel) {
         "use strict";
         var STARTING_PROFILE = "Dinter";
-        var TransferRequests= {
+        var TransferRequests = {
             "TransferReq": [
                 {
                     "employeeid": "1001",
@@ -253,10 +253,126 @@ sap.ui.define([
 
                 } catch (error) {
                     console.log(error);
-                }
+                }            
 
-                /*    */
-                this._oModel = new sap.ui.model.json.JSONModel({
+
+            },
+
+
+            handleRouteMatched: function (oEvent) {
+                var oParams = oEvent.getParameters();
+                this.currentRouteName = oParams.name;
+                this._employeeId = oParams.arguments.ID;
+                var sContext;
+                this._avatarPress = false;
+
+                // this.oFclModel.setProperty('/headerExpanded', true);
+
+            },
+            _onPageNavButtonPress: function () {
+                var oHistory = History.getInstance();
+                var sPreviousHash = oHistory.getPreviousHash();
+                var oHistory = History.getInstance();
+                var sPreviousHash = oHistory.getPreviousHash();
+
+                if (sPreviousHash !== undefined) {
+                    // window.history.go(-1);
+                    this.oRouter.navTo("TransferList");
+                } else {
+                    this.oRouter.navTo("TransferList");
+                }
+            },
+            onViewProfile: function () {
+                this.oRouter.navTo("EmployeeProfile", {
+                    ID: this._employeeId
+                }, false);
+            },
+
+            onFilterSelect: function (oEvent) {
+
+            },
+            editPosition: function (oEvent) {
+                var sId = oEvent.getSource().getBindingContext("data1").getProperty("employeeid");
+                this.oRouter.navTo("OpenPositions", {
+                    ID: sId
+                }, false);
+            },
+            performanceColor: function (sGrade) {
+                switch (sGrade) {
+                    case "D":
+                        return "performanceNegative";
+                    case "C":
+                        return "performanceNeutral";
+                    case "B":
+                        return "performanceNeutralM";
+                    case "A":
+                        return "performancePositive";
+                    default:
+                        return "performanceNeutral";
+
+                }
+            },
+
+            onAfterRendering: function () {
+                var sp4ID = this.byId('hp4');
+                var sp3ID = this.byId('hp3');
+                var sp2ID = this.byId('hp2');
+                var sp1ID = this.byId('hp1');
+                var sp0ID = this.byId('hp0');
+
+                sp4ID.addStyleClass(this.performanceColor('A'));
+                sp3ID.addStyleClass(this.performanceColor('B'));
+                sp2ID.addStyleClass(this.performanceColor('C'));
+                sp1ID.addStyleClass(this.performanceColor('B'));
+                sp0ID.addStyleClass(this.performanceColor('D'));
+
+                var oData = this.getModel("data1").getData();
+                oData.TransferReq1 = [];
+                TransferRequests.TransferReq.forEach(item => {
+                    if (item.employeeid == this._employeeId) {
+                        oData.TransferReq1.push(item);
+                    }
+                })
+                oData.enabled = oData.TransferReq1[0].Status === 'Pending' ? true : false;
+                this.getModel("data1").setData(oData);
+
+            },
+            onAccept: function (oEvent) {
+                // var tbl = this.getView().byId('TransferReqTable');
+                var i18n = this.oView.getModel("i18n");
+                let sTitle = i18n.getResourceBundle().getText("confirm");
+                // var sText = i18n.getResourceBundle().getText("reject");
+                let sFirstButton = i18n.getResourceBundle().getText("yes");
+                let sSecondButton = i18n.getResourceBundle().getText("cancel");
+                let sText = i18n.getResourceBundle().getText("approveParam", [this._employeeId, '1234', '5678']);
+
+                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.callBackFunc, this);
+            },
+            onReject: function (oEvent) {
+                // var tbl = this.getView().byId('TransferReqTable');
+                var i18n = this.oView.getModel("i18n");
+                let sTitle = i18n.getResourceBundle().getText("confirm");
+                // var sText = i18n.getResourceBundle().getText("reject");
+                let sFirstButton = i18n.getResourceBundle().getText("yes");
+                let sSecondButton = i18n.getResourceBundle().getText("cancel");
+                let sText = i18n.getResourceBundle().getText("rejectParam", [this._employeeId, '1234', '5678']);
+
+                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.callBackFunc, this);
+
+            },
+            callBackFunc: function () {
+                console.log("Dialog Method");
+                // this._onPageNavButtonPress();
+            },
+            onNavigate: function () {
+                console.log("hiiiii");
+            }
+        });
+    });
+
+
+/*    onInit code removed that were part of New scope which was dropped
+                 this._oModel = new sap.ui.model.json.JSONModel({
                     "nodes": [
                         {
                             "id": "Dinter",
@@ -351,18 +467,15 @@ sap.ui.define([
 
                         }
                     ]
-                });
-                //this._oModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
+                }); 
 
-                this._sTopSupervisor = STARTING_PROFILE;
+                                this._sTopSupervisor = STARTING_PROFILE;
                 this._mExplored = [this._sTopSupervisor];
 
                 this._graph = this.byId("graph");
                 this.getView().setModel(this._oModel, "graph");
-
-                this._setFilter();
-
-                this._graph.attachEvent("beforeLayouting", function (oEvent) {
+                
+                                this._graph.attachEvent("beforeLayouting", function (oEvent) {
                     // nodes are not rendered yet (bOutput === false) so their invalidation triggers parent (graph) invalidation
                     // which results in multiple unnecessary loading
                     this._graph.preventInvalidation(true);
@@ -432,7 +545,10 @@ sap.ui.define([
                     }, this);
                     this._graph.preventInvalidation(false);
                 }.bind(this));
-            },
+
+                 this._setFilter();
+************end of on Init code
+
             _getCustomDataValue: function (oNode, sName) {
                 var aItems = oNode.getCustomData().filter(function (oData) {
                     return oData.getKey() === sName;
@@ -452,7 +568,7 @@ sap.ui.define([
                         }).then(function (oFragment) {
                             this._oQuickView = oFragment;
                             this.getView().addDependent(this._oQuickView);
-                            this._oQuickView.attachAfterOpen(this.onNavigate,  this);
+                            this._oQuickView.attachAfterOpen(this.onNavigate, this);
                             this._oQuickView.setModel(new JSONModel({
                                 icon: oNode.getBindingContext("graph").getProperty("src"),
                                 title: oNode.getBindingContext("graph").getProperty("title"),
@@ -503,7 +619,7 @@ sap.ui.define([
                     }).then(function (oFragment) {
                         this._oQuickView = oFragment;
                         this.getView().addDependent(this._oQuickView);
-                        this._oQuickView.attachAfterOpen(this.onNavigate,  this);
+                        this._oQuickView.attachAfterOpen(this.onNavigate, this);
                         this._oQuickView.setModel(new JSONModel({
                             icon: this._getCustomDataValue(oNode, "src"),
                             title: oNode.getDescription(),
@@ -539,7 +655,8 @@ sap.ui.define([
                     }.bind(this), 0);
                 }
             },
-            search: function (oEvent) {
+
+             search: function (oEvent) {
                 var sKey = oEvent.getParameter("key");
 
                 if (sKey) {
@@ -625,114 +742,7 @@ sap.ui.define([
             },
             linePress: function (oEvent) {
                 oEvent.bPreventDefault = true;
-            },
-            handleRouteMatched: function (oEvent) {
-                var oParams = oEvent.getParameters();
-                this.currentRouteName = oParams.name;
-                this._employeeId = oParams.arguments.ID;
-                var sContext;
-                this._avatarPress = false;
+            },               
+                */
 
-                // this.oFclModel.setProperty('/headerExpanded', true);
-
-            },
-            _onPageNavButtonPress: function () {
-                var oHistory = History.getInstance();
-                var sPreviousHash = oHistory.getPreviousHash();
-                var oHistory = History.getInstance();
-                var sPreviousHash = oHistory.getPreviousHash();
-
-                if (sPreviousHash !== undefined) {
-                    // window.history.go(-1);
-                    this.oRouter.navTo("TransferList");
-                } else {
-                    this.oRouter.navTo("TransferList");
-                }
-            },
-            onViewProfile: function () {
-                this.oRouter.navTo("EmployeeProfile", {
-                    ID: this._employeeId
-                }, false);
-            },
-
-            onFilterSelect: function (oEvent) {
-
-            },
-            editPosition: function (oEvent) {
-                var sId = oEvent.getSource().getBindingContext("data1").getProperty("employeeid");
-                this.oRouter.navTo("OpenPositions", {
-                    ID: sId
-                }, false);
-            },
-            performanceColor: function (sGrade) {
-                switch (sGrade) {
-                    case "D":
-                        return "performanceNegative";
-                    case "C":
-                        return "performanceNeutral";
-                    case "B":
-                        return "performanceNeutralM";
-                    case "A":
-                        return "performancePositive";
-                    default:
-                        return "performanceNeutral";
-
-                }
-            },
-
-            onAfterRendering: function () {
-                var sp4ID = this.byId('hp4');
-                var sp3ID = this.byId('hp3');
-                var sp2ID = this.byId('hp2');
-                var sp1ID = this.byId('hp1');
-                var sp0ID = this.byId('hp0');
-
-                sp4ID.addStyleClass(this.performanceColor('A'));
-                sp3ID.addStyleClass(this.performanceColor('B'));
-                sp2ID.addStyleClass(this.performanceColor('C'));
-                sp1ID.addStyleClass(this.performanceColor('B'));
-                sp0ID.addStyleClass(this.performanceColor('D'));
-
-                var oData =  this.getModel("data1").getData();
-                oData.TransferReq1 = [];
-                TransferRequests.TransferReq.forEach( item => {
-                    if (item.employeeid == this._employeeId ){
-                        oData.TransferReq1.push(item);
-                    }
-                })
-                oData.enabled = oData.TransferReq1[0].Status === 'Pending' ? true : false;
-                this.getModel("data1").setData(oData);
-
-            },
-            onAccept: function (oEvent) {
-                // var tbl = this.getView().byId('TransferReqTable');
-                var i18n = this.oView.getModel("i18n");
-                let sTitle = i18n.getResourceBundle().getText("confirm");
-                // var sText = i18n.getResourceBundle().getText("reject");
-                let sFirstButton = i18n.getResourceBundle().getText("yes");
-                let sSecondButton = i18n.getResourceBundle().getText("cancel");
-                let sText = i18n.getResourceBundle().getText("approveParam",[this._employeeId,'1234','5678']);
-
-                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.callBackFunc, this);
-            },
-            onReject: function (oEvent) {
-                // var tbl = this.getView().byId('TransferReqTable');
-                var i18n = this.oView.getModel("i18n");
-                let sTitle = i18n.getResourceBundle().getText("confirm");
-                // var sText = i18n.getResourceBundle().getText("reject");
-                let sFirstButton = i18n.getResourceBundle().getText("yes");
-                let sSecondButton = i18n.getResourceBundle().getText("cancel");
-                let sText = i18n.getResourceBundle().getText("rejectParam",[this._employeeId,'1234','5678']);
-
-                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.callBackFunc, this);
-
-            },
-            callBackFunc: function () {
-                console.log("Dialog Method");
-               // this._onPageNavButtonPress();
-            },
-            onNavigate: function(){
-                console.log("hiiiii");
-            }
-        });
-    });
+                //this._oModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);

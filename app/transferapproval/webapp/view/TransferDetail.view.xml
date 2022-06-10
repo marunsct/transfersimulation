@@ -313,12 +313,13 @@
                                             <ObjectStatus state="{=${data1>eliginility} !== 'warning' ? 'Success' : 'Warning' }" id="status0" icon="{=${data1>eliginility} !== 'warning' ? 'sap-icon://sys-enter-2' : 'sap-icon://warning-2' }" />
                                             <Text text="{data1>eliginility}" id="text4_copy_table0_0" wrapping="true" />
                                             <Text text="{data1>currentpos}" id="text5_copy_table0_0" wrapping="true" />
-                                            <HBox alignContent="Center" alignItems="Center">
+                                            <!--HBox alignContent="Center" alignItems="Center">
                                                 <items>
-                                                    <Text text="{data1>newpos}" />
+                                                    
                                                     <Button tooltip="Edit Assigned Position" class="tableButton" enabled="{=${data1>Status} === 'Pending'}" id="button0_1646328264363" press="editPosition" icon="sap-icon://edit" iconFirst="false" type="Transparent" />
                                                 </items>
-                                            </HBox>
+                                            </HBox -->
+                                            <Text text="{data1>newpos}" />
                                             <Text text="Director / HR" id="text7_copy_table0_0" wrapping="true" />
                                             <TextArea value="{data1>comments}" enabled="{=${data1>Status} === 'Pending'}" rows="3" id="area0" width="15rem"/>
                                         </cells>
@@ -406,6 +407,16 @@
                             </OverflowToolbar>
                         </content>
                     </IconTabFilter>
+
+                </items>
+            </IconTabBar>
+        </items>
+    </VBox>
+</mvc:View>
+
+
+<!-- Below commented code were developed as part of new Scope (which was dropped later due to budget constraints)
+
                     <IconTabFilter text="Transfermap" key="attachments">
                         <content>
 
@@ -427,11 +438,7 @@
                                         </ng:customData>
                                         <ng:attributes>
                                             <ng:ElementAttribute label="{graph>label}" value="{graph>value}" />
-                                        </ng:attributes>
-                                        <!--ng:image> description="{graph>title}" title="{graph>title}" width="90"
-                                            <ng:NodeImage src="{graph>src}" width="80" height="100"/>
-
-                                        </ng:image -->
+                                        </ng:attributes>                            
                                         <ng:content>
                                             <VBox direction="Column" id="vbox1" height="300px" width="200px" class="cardBorder" alignContent="SpaceBetween" justifyContent="SpaceBetween">
                                                 <items>
@@ -670,8 +677,4 @@
                             </commons:ProcessFlow>
                         </content>
                     </IconTabFilter>
-                </items>
-            </IconTabBar>
-        </items>
-    </VBox>
-</mvc:View>
+-->

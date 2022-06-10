@@ -77,7 +77,7 @@ sap.ui.define([
          * @param {*} oContext
          */
 
-        setCustProperty: function(oProperty, oContext) {
+        setCustProperty: function (oProperty, oContext) {
             var oData = this.getModel("applicationModel").getData();
 
             oData[oProperty] = oContext
@@ -132,58 +132,81 @@ sap.ui.define([
         _onMessageClose: function (sThat) {
             sThat._oPopover.close();
         },
-        
-             
-        _createDialog: function (sTitle, sText, sFirstButton, sSecondButton, pressCallback, endCallback, sThat ) {
-            
+
+
+        _createDialog: function (sTitle, sText, sFirstButton, sSecondButton, pressCallback, endCallback, sThat) {
+
             var dialog;
-            if(sSecondButton !== undefined){
-            dialog = new Dialog({
-                title: sTitle,
-                type: 'Message',
-                content: new Text({ text: sText }),
-                beginButton: new Button({
-                    type: ButtonType.Emphasized,
-                    text: sFirstButton,
-                    press: function(){
-                        pressCallback.bind(sThat)();
-                        dialog.destroy();
-                    }
+            if (sSecondButton !== undefined) {
+                dialog = new Dialog({
+                    title: sTitle,
+                    type: 'Message',
+                    content: new Text({ text: sText }),
+                    beginButton: new Button({
+                        type: ButtonType.Emphasized,
+                        text: sFirstButton,
+                        press: function () {
+                            pressCallback.bind(sThat)();
+                            dialog.destroy();
+                        }
 
-                }),
-                endButton: new Button({
-                    text: sSecondButton,
-                    press: function () {
-                        endCallback.bind(sThat)();
+                    }),
+                    endButton: new Button({
+                        text: sSecondButton,
+                        press: function () {
+                            endCallback.bind(sThat)();
+                            dialog.destroy();
+                        }
+                    }),
+                    afterClose: function () {
                         dialog.destroy();
                     }
-                }),
-                afterClose: function () {
-                    dialog.destroy();
-                }
-            });
-        } else{
-            dialog = new Dialog({
-                title: sTitle,
-                type: 'Message',
-                content: new Text({ text: sText }),
-                beginButton: new Button({
-                    type: ButtonType.Emphasized,
-                    text: sFirstButton,
-                    press: function(){
-                        pressCallback.bind(sThat)();
-                        dialog.destroy();
-                    }
+                });
+            } else {
+                dialog = new Dialog({
+                    title: sTitle,
+                    type: 'Message',
+                    content: new Text({ text: sText }),
+                    beginButton: new Button({
+                        type: ButtonType.Emphasized,
+                        text: sFirstButton,
+                        press: function () {
+                            pressCallback.bind(sThat)();
+                            dialog.destroy();
+                        }
 
-                }),
-                afterClose: function () {
-                    dialog.destroy();
-                }
-            });
-        }
+                    }),
+                    afterClose: function () {
+                        dialog.destroy();
+                    }
+                });
+            }
             dialog.open();
-        },        
+        },
+        /**
+          * This method is implemented for calling the API in ASYNC mode.
+         **/
+        asyncAjax: async function (sUrl) {
 
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    url: sUrl,
+                    success: function (result) {
+                        console.log('Call answered by server'); //Second text in console
+                        resolve(result);
+                    },
+                    error: function (request, status, errorThrown) {
+                        console.log(status);
+                        reject({
+                            error: errorThrown,
+                            status: status,
+                            request:request,
+                            data: 'API returns an error'
+                        });
+                    }
+                });
+            });
+        },
         /**
          *
          *

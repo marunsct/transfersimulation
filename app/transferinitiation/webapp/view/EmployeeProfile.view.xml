@@ -63,7 +63,7 @@
                                     </m:VBox>
                                     <m:VBox id="hbox0_16_copy3" class="sapUiSmallMarginTopBottom sapUiMediumMarginEnd" alignItems="Start" alignContent="Start" wrap="Wrap">
                                         <m:items>
-                                            <m:Label text="Performance after previous Transfer : " width="100%" id="label0_1643626362769_copy3" />
+                                            <m:Label text="{i18n>afterTransferPerformance}" width="100%" id="label0_1643626362769_copy3" />
                                             <m:HBox width="100%" direction="Row" id="vbox2_1643626264149_copy6" class="sapUiTinyMarginTop performanceContainer" alignItems="Start" alignContent="Start" justifyContent="SpaceBetween">
                                                 <m:items>
                                                     <m:VBox width="100%" class="" direction="Column" id="vbox2_1643951732334_copy2" alignItems="Center">

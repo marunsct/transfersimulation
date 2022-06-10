@@ -262,7 +262,7 @@
                                 <ToolbarSpacer id="spacer2" />
                                 <CheckBox text="{i18n>showEmployee}" select="onEligibleCB" selected="{filter>/filter/eligible}" id="box0" />
                                 <ToolbarSeparator id="separator0_copy" />
-                                <SearchField placeholder="Search Employee" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />
+                                <SearchField placeholder="{i18n>searchEmployee}" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />
                                 <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings" />
                                 <Button id="button3" icon="sap-icon://refresh" press="onTablePersoRefresh" />
                                 <Button id="button4" tooltip="Download as Excel" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiTinyMarginEnd" />

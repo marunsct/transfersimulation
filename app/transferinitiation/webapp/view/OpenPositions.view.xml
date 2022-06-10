@@ -185,9 +185,9 @@
                         <OverflowToolbar width="100%" id="toolbar2" class="sapUiLargeMarginEnd">
                             <content>
                                 <core:Icon src="sap-icon://permission" size="1rem" id="icon0"/>
-                                <Text text="Open Position" id="text12"/>
+                                <Text text="{i18n>openPosition}" id="text12"/>
                                 <core:Icon src="sap-icon://private" size="1rem" id="icon0_copy" class="sapUiMediumMarginBegin"/>
-                                <Text text="Assigned Position" id="text13"/>
+                                <Text text="{i18n>assignedPosition}" id="text13"/>
                                 <ToolbarSpacer id="spacer2"/>
                                 <!-- <Button id="button0_1579056670196" press="onNavtoDetail" text="{i18n>tbnew}"/> -->
                                 <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings"/>
@@ -208,7 +208,7 @@
                 <content>
                     <Text text="{parts : [{path:'i18n>opnFooter'},{path : 'OP>/selected'}, {path: 'OP>/count'}],formatter:'jQuery.sap.formatMessage'}" id="text14" class="sapUiMediumMarginBegin sapThemeLightText footerText"/>
                     <ToolbarSpacer id="spacer100"/>
-                    <Button text="Reset" id="bPrevious" icon="sap-icon://refresh" class="sapUiSmallMarginEnd secondaryButton" enabled="{= ${OP>/selected} &gt; 0 }" press="onReset" type="Transparent"/>
+                    <Button text="{i18n>reset}" id="bPrevious" icon="sap-icon://refresh" class="sapUiSmallMarginEnd secondaryButton" enabled="{= ${OP>/selected} &gt; 0 }" press="onReset" type="Transparent"/>
                     <Button text="{parts : [{path:'i18n>initiateBT'},{path : 'OP>/selected'}],formatter:'jQuery.sap.formatMessage'}" id="bNext" icon="sap-icon://hr-approval" type="Emphasized" class="sapUiSmallMarginEnd" enabled="{= ${OP>/selected} &gt; 0 }" press="onInitiateTransfer"/>
                 </content>
             </OverflowToolbar>
