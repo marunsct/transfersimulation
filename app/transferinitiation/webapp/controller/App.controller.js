@@ -26,18 +26,8 @@ sap.ui.define([
                 this.oRouter = this.getOwnerComponent().getRouter();
                 this.oRouter.attachRouteMatched(this.onRouteMatched, this);
                 this.oFclModel = this.getOwnerComponent().getModel("FclRouter");
-
-                return new Promise(function (fnResolve) {
-
-                    var oModel, aPromises = [];
-                    oModel = this.getOwnerComponent().getModel("oData");
-                    aPromises.push(oModel.metadataLoaded);
-                    return Promise.all(aPromises).then(function () {
-                        oViewModel.setProperty("/busy", false);
-                        oViewModel.setProperty("/delay", iOriginalBusyDelay);
-                        fnResolve();
-                    });
-                }.bind(this));
+                oViewModel.setProperty("/busy", false);
+                oViewModel.setProperty("/delay", iOriginalBusyDelay);
             },
 
             onRouteMatched: function (oEvent) {

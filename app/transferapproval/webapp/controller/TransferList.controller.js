@@ -108,7 +108,7 @@ sap.ui.define([
                     let transferSettings = this.getCustProperty("TransferSettings") !== undefined ? this.getCustProperty("TransferSettings") : null;
                     if (transferSettings === null) {
                         transferSettings = {};
-                        transferSettings = await this.asyncAjax("/v2/cpi-api/TransferSettings");
+                        transferSettings = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimSettings");
                         this.setCustProperty("TransferSettings", transferSettings.d.results[0]);
                     }
                 } catch (error) {
@@ -678,7 +678,7 @@ sap.ui.define([
             onSuggestLocation: async function () {
                 try {
                     // this._cpiAPI(url, (this.getView().byId("table0").getGrowingThreshold() + 2), 0);
-                    var location = await this.asyncAjax("/v2/cpi-api/FOLocation?$select=externalCode,startDate,name,description,status,nameTranslationNav/externalCode,nameTranslationNav/foField,nameTranslationNav/value_defaultValue,nameTranslationNav/value_ja_JP,nameTranslationNav/value_en_US,nameTranslationNav/value_localized&$expand=nameTranslationNav&$top=1000&$filter=status eq 'A'");
+                    var location = await this.asyncAjax("/SFSF/odata/v2/FOLocation?$select=externalCode,startDate,name,description,status,nameTranslationNav/externalCode,nameTranslationNav/foField,nameTranslationNav/value_defaultValue,nameTranslationNav/value_ja_JP,nameTranslationNav/value_en_US,nameTranslationNav/value_localized&$expand=nameTranslationNav&$top=1000&$filter=status eq 'A'");
                     var mModel = this.getView().getModel('filter');
                     var mData = mModel.getData();
                     mData.location = [];
@@ -718,7 +718,7 @@ sap.ui.define([
                         transferSettings = transferSettings.d.results[0];
                         this.setCustProperty("TransferSettings", transferSettings);
                     }
-                    if (new Date(Number(transferSettings.effectiveStartDate.match(/\d+/)[0])) < new Date()) {
+                    if (new Date(Number(transferSettings.cust_DateofAnnouncement.match(/\d+/)[0])) < new Date()) {
                         this.getModel('filter').setProperty('/enabled', true);
                     }
                     return transferSettings;

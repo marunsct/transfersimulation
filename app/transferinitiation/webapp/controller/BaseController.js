@@ -195,6 +195,10 @@ sap.ui.define([
             return new Promise(function (resolve, reject) {
                 $.ajax({
                     url: sUrl,
+                    headers: {
+                        "Accept": "application/json",
+                        "accept": "application/json"
+                    },
                     success: function (result) {
                         console.log('Call answered by server'); //Second text in console
                         resolve(result);

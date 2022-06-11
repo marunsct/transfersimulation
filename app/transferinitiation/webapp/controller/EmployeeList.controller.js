@@ -695,7 +695,7 @@ sap.ui.define([
                     fData.Count = await this.asyncAjax(_countURL);
                     fData.currentLength = this._sCount;
                     this._cpiAPI(url, (this._sCount + 2), 0);
-                    var location = await this.asyncAjax("/v2/cpi-api/FOLocation?$select=externalCode,startDate,name,description,status,nameTranslationNav/externalCode,nameTranslationNav/foField,nameTranslationNav/value_defaultValue,nameTranslationNav/value_ja_JP,nameTranslationNav/value_en_US,nameTranslationNav/value_localized&$expand=nameTranslationNav&$top=1000&$filter=status eq 'A'");
+                    var location = await this.asyncAjax("/SFSF/odata/v2/FOLocation?$select=externalCode,startDate,name,description,status,nameTranslationNav/externalCode,nameTranslationNav/foField,nameTranslationNav/value_defaultValue,nameTranslationNav/value_ja_JP,nameTranslationNav/value_en_US,nameTranslationNav/value_localized&$expand=nameTranslationNav&$top=1000&$filter=status eq 'A'");
                     var mModel = this.getView().getModel('filter');
                     var mData = mModel.getData();
                     mData.location = [];

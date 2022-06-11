@@ -17,27 +17,6 @@
             "csrfProtection": false
         },
         {
-            "source": "/v2/(.*)",
-            "target": "/v2/$1",
-            "destination": "srv-api",
-            "csrfProtection": false,
-            "authenticationType": "xsuaa"
-        },
-        {
-            "source": "/cpi-api-v4/(.*)$",
-            "target": "/cpi-api-v4/$1",
-            "destination": "srv-api",
-            "csrfProtection": false,
-            "authenticationType": "xsuaa"
-        },
-        {
-            "source": "/cpi-api/(.*)$",
-            "target": "/cpi-api/$1",
-            "destination": "srv-api",
-            "csrfProtection": false,
-            "authenticationType": "xsuaa"
-        },
-        {
             "source": "^/resources/(.*)$",
             "target": "/resources/$1",
             "authenticationType": "none",
@@ -58,7 +37,16 @@
             "source": "^(.*)$",
             "target": "$1",
             "service": "html5-apps-repo-rt",
-            "authenticationType": "xsuaa"
+            "authenticationType": "xsuaa",
+            "scope":{
+                "GET":["$XSAPPNAME.user"],
+                "PATCH":["$XSAPPNAME.user"],
+                "POST":["$XSAPPNAME.user"],
+                "PUT":["$XSAPPNAME.user"],
+                "DELETE":["$XSAPPNAME.user"],
+                "default":["$XSAPPNAME.user"]
+              },
+              "cacheControl": "no-cache, no-store, must-revalidate"
         }
     ],
     "logout": {

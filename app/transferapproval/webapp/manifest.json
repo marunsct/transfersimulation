@@ -19,24 +19,6 @@
         "resources": "resources.json",
         "ach": "ach",
         "dataSources": {
-            "mainService": {
-                "uri": "/cpi-api/",
-                "type": "OData",
-                "settings": {
-                    "odataVersion": "2.0",
-                    "localUri": "localService/metadata.xml"
-                }
-            },
-            "v2": {
-                "uri": "/v2/cpi-api/",
-                "type": "OData",
-                "settings": {
-                    "odataVersion": "2.0",
-                    "localUri": "localService/metadata.xml",
-                    "useBatch": false,
-                    "defaultCountMode": "None"
-                }
-            }
         }
     },
     "sap.ui": {
@@ -86,25 +68,10 @@
                     "bundleName": "transferapproval.i18n.i18n"
                 }
             },
-            "": {
-                "dataSource": "mainService",
-                "preload": true
-            },
             "i18n1": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
                     "bundleName": "initiator.i18n.i18n"
-                }
-            },
-            "oData": {
-                "dataSource": "v2",
-                "preload": true,
-                "settings": {
-                    "operationMode": "Server",
-                    "groupId": "$direct",
-                    "synchronizationMode": "None",
-                    "autoExpandSelect": true,
-                    "useBatch": false
                 }
             }
         },

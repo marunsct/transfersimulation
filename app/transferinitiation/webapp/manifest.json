@@ -12,14 +12,7 @@
         "resources": "resources.json",
         "ach": "ach",
         "dataSources": {
-            "mainService": {
-                "uri": "/v2/cpi-api/",
-                "type": "OData",
-                "settings": {
-                    "odataVersion": "2.0",
-                    "localUri": "localService/metadata.xml"
-                }
-            }
+ 
         },
         "crossNavigation": {
             "inbounds": {
@@ -80,20 +73,6 @@
                 "settings": {
                     "bundleName": "transferinitiation.i18n.i18n"
                 }
-            },
-            "oData": {
-                "dataSource": "mainService",
-                "preload": true,
-                "settings": {
-                    "operationMode": "Server",
-                    "groupId": "$direct",
-                    "synchronizationMode": "None",
-                    "autoExpandSelect": true
-                }
-            },
-            "": {
-                "dataSource": "mainService",
-                "preload": true
             }
         },
         "resources": {

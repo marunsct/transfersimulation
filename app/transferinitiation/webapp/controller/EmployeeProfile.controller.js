@@ -209,7 +209,7 @@ sap.ui.define([
             let transferSettings = this.getCustProperty("TransferSettings") !== undefined ? this.getCustProperty("TransferSettings") : null;
             if (transferSettings === null) {
                 transferSettings = {};
-                transferSettings = await this.asyncAjax("/v2/cpi-api/TransferSettings");
+                transferSettings = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimSettings");
                 this.setCustProperty("TransferSettings", transferSettings.d.results[0]);
             }
         },
@@ -274,7 +274,7 @@ sap.ui.define([
             let transferSettings = this.getCustProperty("m") !== undefined ? this.getCustProperty("TransferSettings") : null;
             if (transferSettings === null) {
                 transferSettings = {};
-                transferSettings = await this.asyncAjax("/v2/cpi-api/TransferSettings");
+                transferSettings = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimSettings");
                 this.setCustProperty("TransferSettings", transferSettings.d.results[0]);
                 transferSettings = this.getCustProperty("TransferSettings")
                 let sUrl = "/SFSF/odata/v2/FormHeader?$top=10&$filter=(formTemplateId eq '" + transferSettings.cust_formTemplateIdY1 + "' or formTemplateId eq '" + transferSettings.cust_formTemplateIdY2 + "' or formTemplateId eq '" + transferSettings.cust_formTemplateIdY3 + "') and isRated eq true and formSubjectId eq '" + sUser + "'";
