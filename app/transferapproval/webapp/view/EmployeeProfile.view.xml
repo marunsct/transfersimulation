@@ -1,4 +1,16 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.uxap" xmlns:layout="sap.ui.layout" xmlns:m="sap.m" xmlns:goals="sap.uxap.sample.SharedBlocks.goals" xmlns:personal="sap.uxap.sample.SharedBlocks.personal" xmlns:employment="sap.uxap.sample.SharedBlocks.employment" xmlns:forms="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:f="sap.f" xmlns:l="sap.ui.layout" xmlns:dnd="sap.ui.core.dnd" controllerName="transferapproval.controller.EmployeeProfile" id="EmployeeProfile" displayBlock="false">
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:m="sap.m"
+    xmlns:goals="sap.uxap.sample.SharedBlocks.goals"
+    xmlns:personal="sap.uxap.sample.SharedBlocks.personal"
+    xmlns:employment="sap.uxap.sample.SharedBlocks.employment"
+    xmlns:forms="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns:dnd="sap.ui.core.dnd" controllerName="transferapproval.controller.EmployeeProfile" id="EmployeeProfile" displayBlock="true">
 
 
     <ObjectPageLayout id="ObjectPageLayout" preserveHeaderStateOnScroll="true" upperCaseAnchorBar="false">
@@ -244,31 +256,31 @@
                                 <m:items>
                                     <m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center" width="100%" id="box1_copy3">
                                         <m:items>
-                                            <m:VBox width="200px" direction="Column"  class="sapUiResponsiveMargin">
+                                            <m:VBox width="200px" direction="Column" class="sapUiResponsiveMargin">
                                                 <m:items>
-                                                    <m:Label text="{i18n>nomId}" width="100%"  />
+                                                    <m:Label text="{i18n>nomId}" width="100%" />
                                                     <m:Text text="{PR>id}" />
                                                 </m:items>
 
                                             </m:VBox>
-                                            <m:VBox width="200px" direction="Column"  class="sapUiResponsiveMargin">
+                                            <m:VBox width="200px" direction="Column" class="sapUiResponsiveMargin">
                                                 <m:items>
-                                                    <m:Label text="{i18n>nomRank}" width="100%"  />
+                                                    <m:Label text="{i18n>nomRank}" width="100%" />
                                                     <m:Text text="{PR>rank}" />
                                                 </m:items>
 
                                             </m:VBox>
-                                            <m:VBox width="200px" direction="Column"  class="sapUiResponsiveMargin">
+                                            <m:VBox width="200px" direction="Column" class="sapUiResponsiveMargin">
                                                 <m:items>
                                                     <m:Label text="{i18n>ready}" width="100%" />
-                                                    <m:Text text="{PR>ready}"  />
+                                                    <m:Text text="{PR>ready}" />
                                                 </m:items>
 
                                             </m:VBox>
-                                            <m:VBox width="200px" direction="Column"  class="sapUiResponsiveMargin">
+                                            <m:VBox width="200px" direction="Column" class="sapUiResponsiveMargin">
                                                 <m:items>
                                                     <m:Label text="{i18n>managerNote}" width="100%" />
-                                                    <m:Text text="{PR>note}"  />
+                                                    <m:Text text="{PR>note}" />
                                                 </m:items>
 
                                             </m:VBox>
@@ -414,9 +426,9 @@
                                         </m:items>
 
                                     </m:VBox>
-                                    <m:VBox width="200px" direction="Column"  class="sapUiResponsiveMargin">
+                                    <m:VBox width="200px" direction="Column" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="{i18n>reform}" width="100%"  />
+                                            <m:Label text="{i18n>reform}" width="100%" />
                                             <m:HBox alignItems="Center">
                                                 <m:items>
                                                     <m:HBox class="performanceRound" id='ai5'>
@@ -431,10 +443,10 @@
                                     </m:VBox>
                                     <m:VBox width="200px" direction="Column" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="{i18n>qualification}" width="100%"/>
-                                            <m:Text text="{PR>/AdditionalInfo/q2}"/>
-                                        </m:items> 
-                                    </m:VBox>                                                                       
+                                            <m:Label text="{i18n>qualification}" width="100%" />
+                                            <m:Text text="{PR>/AdditionalInfo/q2}" />
+                                        </m:items>
+                                    </m:VBox>
                                     <m:VBox width="200px" direction="Column" id="vbox0_copy40" class="sapUiResponsiveMargin">
                                         <m:items>
                                             <m:Label text="{i18n>currentResp}" width="100%" id="label11_copy40" />

@@ -12,7 +12,7 @@ sap.ui.define([
            
             onInit: function () {
 
-
+                document.addEventListener('touchstart', function(){}, {passive: true});
                 var oViewModel,
                     oListSelector = this.getOwnerComponent().oListSelector,
                     iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();

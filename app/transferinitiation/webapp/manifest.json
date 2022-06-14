@@ -34,7 +34,7 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "trasfer-intiation",
+                    "semanticObject": "trasferintiation",
                     "action": "display",
                     "title": "Initiate Transfer Simulation",
                     "subTitle": "Transfer Simulation",

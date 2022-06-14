@@ -26,6 +26,21 @@
                     "odataVersion": "2.0"
                 }
             }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "fe-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "trasferapproval",
+                    "action": "display",
+                    "title": "Approve Transfer Simulation",
+                    "subTitle": "Transfer Approval",
+                    "icon": ""
+                }
+            }
         }
         },
         "sap.ui": {
@@ -88,7 +103,7 @@
                 "i18n1": {
                     "type": "sap.ui.model.resource.ResourceModel",
                     "settings": {
-                        "bundleName": "initiator.i18n.i18n"
+                        "bundleName": "transferapproval.i18n.i18n"
                     }
                 }
             },
@@ -119,6 +134,13 @@
                     },
                     {
                         "pattern": "",
+                        "name": "default",
+                        "target": [
+                            "TransferList"
+                        ]
+                    },
+                    {
+                        "pattern": "TransferList",
                         "name": "TransferList",
                         "target": [
                             "TransferList"
@@ -136,23 +158,26 @@
                     "TargetView1": {
                         "viewType": "XML",
                         "transition": "slide",
-                        "clearControlAggregation": false,
+                        "clearControlAggregation": true,
                         "viewId": "App",
                         "viewName": "App"
                     },
                     "TransferList": {
                         "controlAggregation": "content",
+                        "clearControlAggregation": true,
                         "viewName": "TransferList",
                         "viewId": "TransferList",
                         "viewLevel": 1,
-                        "transition": "slide"
+                        
+                        "transition": "flip"
                     },
                     "EmployeeProfile": {
                         "controlAggregation": "content",
+                        "clearControlAggregation": true,
                         "viewName": "EmployeeProfile",
                         "viewId": "EmployeeProfile",
                         "viewLevel": 3,
-                        "transition": "slide"
+                        "transition": "flip"
                     }
                 }
             }

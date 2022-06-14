@@ -27,13 +27,12 @@ sap.ui.define([
             var oHistory = History.getInstance();
             var sPreviousHash = oHistory.getPreviousHash();
 
-            if (sPreviousHash !== undefined) {
-                window.history.go(-1);
-            } else {
+           
                 this.oRouter.navTo("TransferList");
-            }
+           
         },
         onInit: function () {
+            document.addEventListener('touchstart', function(){}, {passive: true});
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             this.oRouter.attachRouteMatched(this.handleRouteMatched, this);
             let data = {

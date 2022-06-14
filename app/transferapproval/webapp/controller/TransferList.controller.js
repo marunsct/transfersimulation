@@ -19,6 +19,7 @@ sap.ui.define([
         return BaseController.extend("transferapproval.controller.TransferList", {
 
             onInit: async function () {
+                document.addEventListener('touchstart', function(){}, {passive: true});
                 this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 this.oRouter.attachRouteMatched(this.handleRouteMatched, this);
                 this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());

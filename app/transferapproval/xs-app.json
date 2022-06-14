@@ -60,7 +60,16 @@
             "source": "^(.*)$",
             "target": "$1",
             "service": "html5-apps-repo-rt",
-            "authenticationType": "xsuaa"
+            "authenticationType": "xsuaa",
+            "scope":{
+                "GET":["$XSAPPNAME.user"],
+                "PATCH":["$XSAPPNAME.user"],
+                "POST":["$XSAPPNAME.user"],
+                "PUT":["$XSAPPNAME.user"],
+                "DELETE":["$XSAPPNAME.user"],
+                "default":["$XSAPPNAME.user"]
+              },
+              "cacheControl": "no-cache, no-store, must-revalidate"
         }
     ],
     "logout": {

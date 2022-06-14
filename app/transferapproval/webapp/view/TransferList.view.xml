@@ -3,10 +3,11 @@
     xmlns:core="sap.ui.core"
     xmlns:layout="sap.ui.layout"
     xmlns:f="sap.f"
-    xmlns:fb="sap.ui.comp.filterbar"
-    xmlns:cust="initiator.control" controllerName="transferapproval.controller.TransferList" id="TransferList" width="">
+    xmlns:fb="sap.ui.comp.filterbar" 
+    controllerName="transferapproval.controller.TransferList" 
+    id="TransferList" displayBlock="false">
 
-    <f:DynamicPage id="dynamicPageId" showFooter="true" headerExpanded="true">
+    <f:DynamicPage id="dynamicPageId" headerExpanded="true">
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle>
@@ -73,9 +74,9 @@
                                     </fb:FilterGroupItem>
                                     <fb:FilterGroupItem groupName="G1" name="G" label="{i18n>supervisor}" labelTooltip="{i18n>supervisor}" id="item25">
                                         <fb:control>
-                                            <Input value="{filter>/filter/supervisor}" id="input7" />                                                                                           
+                                            <Input value="{filter>/filter/supervisor}" id="input7" />
                                         </fb:control>
-                                    </fb:FilterGroupItem>                                                                     
+                                    </fb:FilterGroupItem>
                                 </fb:filterGroupItems>
                             </fb:FilterBar>
                         </items>
@@ -120,7 +121,7 @@
                                     <Column id="column4">
                                         <Text text="{i18n>department}" />
                                     </Column>
-                                     <Column id="column15">
+                                    <Column id="column15">
                                         <Text text="{i18n>pdepartmentId}" />
                                     </Column>
                                     <Column id="column16">
@@ -128,22 +129,22 @@
                                     </Column>
                                     <Column id="column5">
                                         <header>
-                                            <Text text="{i18n>typeId}"  />
+                                            <Text text="{i18n>typeId}" />
                                         </header>
                                     </Column>
                                     <Column id="column6">
                                         <header>
-                                            <Text text="{i18n>type}"  />
+                                            <Text text="{i18n>type}" />
                                         </header>
                                     </Column>
-                                     <Column id="column7">
+                                    <Column id="column7">
                                         <header>
-                                            <Text text="{i18n>supervisorId}"  />
+                                            <Text text="{i18n>supervisorId}" />
                                         </header>
                                     </Column>
                                     <Column id="column8">
                                         <header>
-                                            <Text text="{i18n>supervisor}"  />
+                                            <Text text="{i18n>supervisor}" />
                                         </header>
                                     </Column>
                                     <Column id="column9" hAlign="Center">
@@ -181,7 +182,7 @@
                                             <Text text="{data>pdepartmentId}" id="tc15" />
                                             <Text text="{data>pdepartment}" id="tc16" />
                                             <Text text="{data>employmentTypeId}" id="tc5" />
-                                            <Text text="{data>employmentType}" id="tc6" wrap="true" />
+                                            <Text text="{data>employmentType}" id="tc6" />
                                             <Text text="{data>supervisorId}" id="tc9" />
                                             <Text text="{data>supervisor}" id="tc8" />
                                             <ObjectStatus state="{=${data>eligibility} !== 'warning' ? 'Success' : 'Warning' }" id="os1" icon="{=${data>eligibility} !== 'warning' ? 'sap-icon://sys-enter' : 'sap-icon://warning' }" />
@@ -191,7 +192,7 @@
                                             <Text text="{data>newpos}" id="tc13" />
                                             <Text text="{data>locationId}" id="tc17" />
                                             <Text text="{data>location}" id="tc18" />
-                                            <TextArea value="{data>comments}" id="tx14" height="2.5rem" rows="3" width="11.5rem" enabled="{=${data>Status} === 'Initiated'}" />  
+                                            <TextArea value="{data>comments}" id="tx14" height="2.5rem" rows="3" width="11.5rem" enabled="{=${data>Status} === 'Initiated'}" />
                                         </cells>
                                     </ColumnListItem>
                                 </items>
@@ -200,9 +201,9 @@
                                         <content>
                                             <Title text="Requests for Approval" id="title5" />
                                             <ToolbarSpacer id="spacer01" />
-                                            <SearchField placeholder="Search for Employee’s" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />                                                                                    
+                                            <SearchField placeholder="Search for Employee’s" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />
                                             <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings" />
-                                            <Button id="button3" icon="sap-icon://refresh" press="onTablePersoRefresh" /> 
+                                            <Button id="button3" icon="sap-icon://refresh" press="onTablePersoRefresh" />
                                             <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiTinyMarginEnd" tooltip="Download as Excel" />
                                         </content>
                                     </OverflowToolbar>

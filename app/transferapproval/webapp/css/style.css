@@ -304,11 +304,11 @@
 }
 */
 .sapFDynamicPage-Std-Tablet .sapFDynamicPageContent, .sapFDynamicPage-Std-Tablet .sapFDynamicPageContentFitContainer {
-     padding: 0rem 0rem 0 0rem; 
+     padding: 0rem 0rem 0rem 0rem !important; 
 }
 .sapFDynamicPageContent, .sapFDynamicPageContentFitContainer {
     position: relative;
-    padding: 0rem 0rem 0 0rem; 
+    padding: 0rem 0rem 0rem 0rem !important; 
 }
 .dynHeader{
     visibility: hidden;
@@ -371,3 +371,9 @@
 .sapMSelectionPanel tbody .sapMListTblSelCol {
     vertical-align: middle;
 }
+body{
+    margin-top: 0px !important;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+    margin-bottom: 0px !important;
+  }
