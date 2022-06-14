@@ -90,7 +90,7 @@
         </VBox-->
             <ScrollContainer id="sc1" height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
 
-                <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="false" includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" itemPress="_onTableItemPress">
+                <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="false" includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" growingTriggerText="..." itemPress="_onTableItemPress">
                     <dragDropConfig>
                         <dnd:DragInfo groupName="available2selected" sourceAggregation="items" />
                     </dragDropConfig>

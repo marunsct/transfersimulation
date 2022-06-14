@@ -3,7 +3,14 @@
     "sap.app": {
         "id": "transferinitiation",
         "type": "application",
-        "i18n": "i18n/i18n.properties",
+        "i18n": {
+            "bundleUrl": "i18n/i18n.properties",
+            "supportedLocales": [
+                "en",
+                "ja"
+            ],
+            "fallbackLocale": "en"
+        },
         "applicationVersion": {
             "version": "1.0.0"
         },
@@ -12,7 +19,13 @@
         "resources": "resources.json",
         "ach": "ach",
         "dataSources": {
- 
+            "mainService": {
+                "uri": "/SFSF/odata/v2/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0"
+                }
+            }
         },
         "crossNavigation": {
             "inbounds": {
@@ -68,6 +81,16 @@
             "cozy": true
         },
         "models": {
+            "oData": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true
+                }
+            },
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {

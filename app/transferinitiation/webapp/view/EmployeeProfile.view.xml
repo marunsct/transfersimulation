@@ -73,7 +73,7 @@
                                                                     <m:Text text="{PR>/Performance/rating3}" id="p3_copy2" />
                                                                 </m:items>
                                                             </m:HBox>
-                                                            <m:Text text="2020" id="text15_1643951750049_copy2" />
+                                                            <m:Text text="{PR>/Performance/ry2}" id="text15_1643951750049_copy2" />
                                                         </m:items>
                                                     </m:VBox>
                                                     <m:VBox class="sapUiTinyMarginBeginEnd" width="100%" direction="Column" id="vbox2_1643951732334_copy3" alignItems="Center">
@@ -83,7 +83,7 @@
                                                                     <m:Text text="{PR>/Performance/rating2}" id="p3_copy3" />
                                                                 </m:items>
                                                             </m:HBox>
-                                                            <m:Text text="2021" id="text15_1643951750049_copy3" />
+                                                            <m:Text text="{PR>/Performance/ry2}" id="text15_1643951750049_copy3" />
                                                         </m:items>
                                                     </m:VBox>
                                                     <m:VBox width="100%" class="" direction="Column" id="vbox2_1643951732334_copy4" alignItems="Center">
@@ -93,7 +93,7 @@
                                                                     <m:Text text="{PR>/Performance/rating1}" id="p3_copy4" />
                                                                 </m:items>
                                                             </m:HBox>
-                                                            <m:Text text="2022" id="text15_1643951750049_copy4" />
+                                                            <m:Text text="{PR>/Performance/ry1}" id="text15_1643951750049_copy4" />
                                                         </m:items>
                                                     </m:VBox>
                                                 </m:items>

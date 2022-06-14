@@ -11,9 +11,10 @@ sap.ui.define([
     "sap/ui/Device",
     "sap/ui/export/Spreadsheet",
     "./TablePersonalisation/OP_TablePersoService",
-    "sap/ui/core/util/File"
+    "sap/ui/core/util/File",
+    "sap/ui/core/BusyIndicator"
 ], function (BaseController, MessageBox, History, Button, Dialog, ButtonType, Text, Filter, 
-    FilterOperator, Device, Spreadsheet, TablePersoService, File) {
+    FilterOperator, Device, Spreadsheet, TablePersoService, File,BusyIndicator) {
     "use strict";
 
     return BaseController.extend("transferinitiation.controller.OpenPositions", {
@@ -359,6 +360,8 @@ sap.ui.define([
             }
             let psLevel = sThat.getModel("OP").getProperty(sPath+ '/psLevel' ) !=="" ? sThat.getModel("OP").getProperty(sPath+ '/psLevel' ) : sEmpData.psLevelL ;
             let psGroup = sThat.getModel("OP").getProperty(sPath+ '/psGroup' ) !=="" ? sThat.getModel("OP").getProperty(sPath+ '/psGroup' ) : sEmpData.psGroupL ;
+            let etype = sThat.getModel("OP").getProperty(sPath+ '/EmploymentTypeID' );
+            let eclass = sThat.getModel("OP").getProperty(sPath+ '/EmployeeClassID' );
             let transferSettings = this.getCustProperty("TransferSettings");
             let transferData = {
                 "__metadata": {
@@ -366,6 +369,7 @@ sap.ui.define([
                 },
                 externalCode: employeeId,
                 effectiveStartDate: transferSettings.effectiveStartDate,
+                cust_TRANSFER_DATE: transferSettings.cust_TransferDate,
                 cust_STATUS: "10",
                 cust_NEW_POSITION_ID: posId,
                 cust_OLD_POSITION_ID: sEmpData.position,
@@ -376,10 +380,10 @@ sap.ui.define([
                 cust_Previous_Department: sEmpData.department,
                 cust_PS_Level: psLevel !== "" ? psLevel: null,
                 cust_PS_Group:psGroup !== "" ? psGroup : null,
-                cust_EMPLOYEE_CLASS: sThat.getModel("OP").getProperty(sPath+ '/EmployeeClassID' ),
+                cust_EMPLOYEE_CLASS: eclass !== "" ? eclass : null,
                 externalName: employeeName,
                 cust_EMPLOYMENT_LOCATION: sThat.getModel("OP").getProperty(sPath+ '/LocationID' ),
-                cust_EMPLOYMENT_TYPE: sThat.getModel("OP").getProperty(sPath+ '/EmploymentTypeID' ),
+                cust_EMPLOYMENT_TYPE: etype !== "" ? etype : null,
                 cust_TRANSFER_DATE: transferSettings.effectiveStartDate,
                 cust_Company: sThat.getModel("OP").getProperty(sPath+ '/company' ),
                 cust_OTYPE: sEmpData.customString6 
@@ -442,6 +446,7 @@ sap.ui.define([
             this.setCustProperty("TransferInitiated", true);
         },
         intiateTransfer: async function () {
+            BusyIndicator.show(0);
             let postData=[];
             let aKeys = Object.keys(this._employee);
             for(let i=0; i< aKeys.length;i++){
@@ -483,11 +488,13 @@ sap.ui.define([
                     sText = sText +  i18n.getResourceBundle().getText("transferError", [Counter,failedTransfers]);             
                 }
                 this.resetAssignments();
+                BusyIndicator.hide();
                 this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.downloadLog, this);
                 var url = '/http/getOpenPositionList?';
                 this._cpiAPI(url, (this.getView().byId("table0").getGrowingThreshold() + 2), 0);
                 //this._onPageNavButtonPress();   
             } catch (error) {
+                BusyIndicator.hide();
                 console.log(error)
             }      
            // 

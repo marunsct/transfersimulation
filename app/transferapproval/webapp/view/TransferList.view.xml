@@ -159,7 +159,7 @@
                                             <Text text="{data>currentpos}" id="text016_copy_TransferReqTable_0_TransferReqTable_0" />
                                             <Text text="{data>newpos}" id="text16_copy_TransferReqTable_0_TransferReqTable_0" />
                                             <!--Input text="{data>comments}" id="input3" class="tableInput"/-->
-                                            <TextArea value="{data>comments}" id="area0_copy_TransferReqTable_0_TransferReqTable_0" height="2.5rem" rows="4" width="14.5rem" enabled="{=${data>Status} === 'Pending'}" />
+                                            <TextArea value="{data>comments}" id="area0_copy_TransferReqTable_0_TransferReqTable_0" height="2.5rem" rows="4" width="14.5rem" enabled="{=${data>Status} === 'Initiated'}" />
                                             <Button id="button1_0_copy_TransferReqTable_0_TransferReqTable_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress" tooltip="Go to Details Page" />
                                         </cells>
                                     </ColumnListItem>

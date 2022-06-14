@@ -2,14 +2,17 @@ sap.ui.define([
     "./BaseController",
     "sap/ui/Device",
     "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
     "sap/ui/export/Spreadsheet",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "sap/ui/core/util/File",
+    "sap/ui/core/BusyIndicator"
 
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, Device, Filter, Spreadsheet, MessageBox) {
+    function (BaseController, Device, Filter, FilterOperator, Spreadsheet, MessageBox, File, BusyIndicator) {
         "use strict";
 
         return BaseController.extend("transferapproval.controller.TransferList", {
@@ -47,8 +50,8 @@ sap.ui.define([
                         approved: '0',
                         rejected: '0',
                         pending: '0',
-                        total:'0',
-                       
+                        total: '0',
+
                     }
                     //oData.
                     // Load JSON in model
@@ -233,25 +236,25 @@ sap.ui.define([
                     sap.ui.getCore().byId(selectAllCb.attr('id')).setEnabled(true);
                 }
                 this.onSuggestLocation();
-                this.fetchCount();
+
                 this.fetchTransfers("");
             },
-            fetchCount: async function(){
+            fetchCount: async function () {
                 let settings = await this.fetchSettings();
                 let sDate = (new Date(Number(settings.effectiveStartDate.match(/\d+/)[0]))).toISOString().substring(0, 10);
-                let total = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter=effectiveStartDate eq '"+sDate+"'");
-                let approved = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter=effectiveStartDate eq '"+sDate+"' and cust_STATUS eq '20'");
-                let rejected = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter=effectiveStartDate eq '"+sDate+"' and cust_STATUS eq '30'");
-                let pending = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter=effectiveStartDate eq '"+sDate+"' and cust_STATUS eq '10'");
-                 let oData = this.getModel('data').getData();
-                 oData.total = total;
-                 oData.approved = approved;
-                 oData.rejected = rejected;
-                 oData.pending = pending;
-              //  this.getModel('data').setProperty('/approved', approved);
-              //  this.getModel('data').setProperty('/rejected', rejected);
-              //  this.getModel('data').setProperty('/pending', pending);
-              this.getModel('data').setData(oData);
+                let total = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter=effectiveStartDate eq '" + sDate + "'");
+                let approved = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter=effectiveStartDate eq '" + sDate + "' and cust_STATUS eq '20'");
+                let rejected = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter=effectiveStartDate eq '" + sDate + "' and cust_STATUS eq '30'");
+                let pending = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter=effectiveStartDate eq '" + sDate + "' and cust_STATUS eq '10'");
+                let oData = this.getModel('data').getData();
+                oData.total = total;
+                oData.approved = approved;
+                oData.rejected = rejected;
+                oData.pending = pending;
+                //  this.getModel('data').setProperty('/approved', approved);
+                //  this.getModel('data').setProperty('/rejected', rejected);
+                //  this.getModel('data').setProperty('/pending', pending);
+                this.getModel('data').setData(oData);
             },
             fFetchData: function () {
                 var oJsonParam;
@@ -392,6 +395,7 @@ sap.ui.define([
                 }
             },
             onTransferApprove: async function () {
+                BusyIndicator.show();
                 var tbl = this.getView().byId('TransferReqTable');
                 let settings = await this.fetchSettings();
                 let payload = {
@@ -399,52 +403,103 @@ sap.ui.define([
                     "custMdf": []
                 };
                 for (let i = 0; i < tbl.getSelectedItems().length; i++) {
-                    let empItem ={};
+                    let empItem = {};
                     let custItem = {}
                     let tblData = this.getModel('data').getProperty(tbl.getSelectedItems()[i].getBindingContextPath());
                     empItem.__metadata = {
                         "uri": "EmpJob"
-                   };
-                   empItem.userId = tblData.employeeid;
-                   empItem.seqNumber ="1";
-                   empItem.startDate = settings.effectiveStartDate;
-                   empItem.location = tblData.locationId;
-                   empItem.customString6 = tblData.customString6;
-                   empItem.eventReason = "TR502";
-                   empItem.position = tblData.newposId;
-                   empItem.department = tblData.departmentId;
-                   empItem.company = tblData.company;
-                   payload.EmpJob.push(empItem);
+                    };
+                    empItem.userId = tblData.employeeid;
+                    empItem.seqNumber = "1";
+                    empItem.startDate = settings.cust_TransferDate;
+                    empItem.location = tblData.locationId;
+                    empItem.customString6 = tblData.customString6;
+                    empItem.eventReason = "TR502";
+                    empItem.position = tblData.newposId;
+                    empItem.department = tblData.departmentId;
+                    empItem.company = tblData.company;
+                    payload.EmpJob.push(empItem);
 
-                   custItem.__metadata = {
-                       "uri": tblData.metadata.uri.split('v2/')[1]
-                   };
-                   custItem.externalCode = tblData.employeeid;
-                   custItem.effectiveStartDate = settings.effectiveStartDate;
-                   custItem.cust_REMARKS = tblData.company;
-                   custItem.cust_STATUS = '20';
-                   payload.custMdf.push(custItem);
+                    custItem.__metadata = {
+                        "uri": tblData.metadata.uri.split('v2/')[1]
+                    };
+                    custItem.externalCode = tblData.employeeid;
+                    custItem.effectiveStartDate = settings.effectiveStartDate;
+                    custItem.cust_REMARKS = tblData.company;
+                    custItem.cust_STATUS = '20';
+                    payload.custMdf.push(custItem);
                 }
                 console.log(JSON.stringify(payload));
+                try {
+                    var i18n = this.oView.getModel("i18n");
+                    let results = await this._cpiAPI(payload);
+                    this._downLog = ""
+                    let messages = results.d;
+                    let failedTransfers = "";
+                    let successTransfers = "";
+                    for (let j = 0; j < messages.length; j++) {
+                        if (messages[j].httpCode !== 200) {
+                            if (failedTransfers !== "") {
+                                failedTransfers = failedTransfers + ", " + messages[j].key.split('userId=')[1];
+                            } else {
+                                failedTransfers = failedTransfers + messages[j].key.split('userId=')[1];
+                            }
+                            if (this._downLog === "") {
+
+                                this._downLog = i18n.getResourceBundle().getText("employeeId") + '\t\t' + i18n.getResourceBundle().getText("log");
+                            }
+                            this._downLog = this._downLog + '\n' + messages[j].key.split('userId=')[1] + '\t\t' + messages[j].message;
+
+                        } else if (messages[j].httpCode === 200) {
+                            successTransfers = successTransfers + messages[j].key.split('userId=')[1];
+                        }
+                    }
+                    let Counter = 1;
+
+                    let sFirstButton = i18n.getResourceBundle().getText("ok");
+                    let sSecondButton = undefined;
+                    if (this._downLog !== "") {
+                        sSecondButton = i18n.getResourceBundle().getText("download")
+                    }
+                    let sTitle = i18n.getResourceBundle().getText("transferResult");
+                    let sText = "";
+                    if (successTransfers !== "") {
+                        sText = sText + i18n.getResourceBundle().getText("transferSuccess", [Counter, successTransfers]);
+                        Counter = Counter + 1;
+                    } else if (failedTransfers !== "") {
+                        sText = sText + i18n.getResourceBundle().getText("transferError", [Counter, failedTransfers]);
+                    }
+                    // this.resetAssignments();
+                    BusyIndicator.hide();
+                    this._createDialog(sTitle, sText, sFirstButton, sSecondButton, function () { this.fetchTransfers("") }, this.downloadLog, this);
+
+
+                } catch (error) {
+                    BusyIndicator.hide();
+                    console.log(error)
+                }
             },
-            onTransferReject: async function (){
+            downloadLog: function () {
+                File.save(this._downLog, "LOG", "txt", "text/txt");
+            },
+            onTransferReject: async function () {
                 var tbl = this.getView().byId('TransferReqTable');
                 let settings = await this.fetchSettings();
-                let payload =  [];
-             
+                let payload = [];
+
                 for (let i = 0; i < tbl.getSelectedItems().length; i++) {
-                   
+
                     let custItem = {}
                     let tblData = this.getModel('data').getProperty(tbl.getSelectedItems()[i].getBindingContextPath());
 
-                   custItem.__metadata = {
-                       "uri": tblData.metadata.uri.split('v2/')[1]
-                   };
-                   custItem.externalCode = tblData.employeeid;
-                   custItem.effectiveStartDate = settings.effectiveStartDate;
-                   custItem.cust_REMARKS = tblData.company;
-                   custItem.cust_STATUS = '20';
-                   payload.push(custItem);
+                    custItem.__metadata = {
+                        "uri": tblData.metadata.uri.split('v2/')[1]
+                    };
+                    custItem.externalCode = tblData.employeeid;
+                    custItem.effectiveStartDate = settings.effectiveStartDate;
+                    custItem.cust_REMARKS = tblData.comments;
+                    custItem.cust_STATUS = '20';
+                    payload.push(custItem);
                 }
                 console.log(JSON.stringify(payload));
             },
@@ -459,12 +514,81 @@ sap.ui.define([
                 if (tbl.getSelectedItems().length > 0) {
                     let sText = i18n.getResourceBundle().getText("reject");
 
-                    this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this.callBackFunc, this.callBackFunc, this);
+                    this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this.rejectTransfer, this.callBackFunc, this);
                 } else {
                     let sFirstButton = i18n.getResourceBundle().getText("ok");
                     let sText = i18n.getResourceBundle().getText("selectTransfer");
                     sTitle = i18n.getResourceBundle().getText("warning");
                     this._createDialog(sTitle, sText, sFirstButton, undefined, this.callBackFunc, this.callBackFunc, this);
+                }
+            },
+            rejectTransfer: async function () {
+                BusyIndicator.show();
+                var tbl = this.getView().byId('TransferReqTable');
+                let settings = await this.fetchSettings();
+                let payload = [];
+
+                for (let i = 0; i < tbl.getSelectedItems().length; i++) {
+                    let empItem = {};
+                    let custItem = {}
+                    let tblData = this.getModel('data').getProperty(tbl.getSelectedItems()[i].getBindingContextPath());
+
+                    custItem.__metadata = {
+                        "uri": tblData.metadata.uri.split('v2/')[1]
+                    };
+                    custItem.externalCode = tblData.employeeid;
+                    custItem.effectiveStartDate = settings.effectiveStartDate;
+                    custItem.cust_REMARKS = tblData.comments;
+                    custItem.cust_STATUS = '30';
+                    payload.push(custItem);
+                }
+                console.log(JSON.stringify(payload));
+                try {
+                    var i18n = this.oView.getModel("i18n");
+                    let results = await this.performUpsert(payload);
+                    this._downLog = ""
+                    let messages = results.d;
+                    let failedTransfers = "";
+                    let successTransfers = "";
+                    for (let j = 0; j < messages.length; j++) {
+                        if (messages[j].httpCode !== 200) {
+                            if (failedTransfers !== "") {
+                                failedTransfers = failedTransfers + ", " + messages[j].key.split('externalCode=')[1];
+                            } else {
+                                failedTransfers = failedTransfers + messages[j].key.split('externalCode=')[1];
+                            }
+                            if (this._downLog === "") {
+
+                                this._downLog = i18n.getResourceBundle().getText("employeeId") + '\t\t' + i18n.getResourceBundle().getText("log");
+                            }
+                            this._downLog = this._downLog + '\n' + messages[j].key.split('externalCode=')[1] + '\t\t' + messages[j].message;
+
+                        } else if (messages[j].httpCode === 200) {
+                            successTransfers = successTransfers + messages[j].key.split('externalCode=')[1];
+                        }
+                    }
+                    let Counter = 1;
+                    let sFirstButton = i18n.getResourceBundle().getText("ok");
+                    let sSecondButton = undefined;
+                    if (this._downLog !== "") {
+                        sSecondButton = i18n.getResourceBundle().getText("download")
+                    }
+                    let sTitle = i18n.getResourceBundle().getText("transferResult");
+                    let sText = "";
+                    if (successTransfers !== "") {
+                        sText = sText + i18n.getResourceBundle().getText("rejectSuccess", [Counter, successTransfers]);
+                        Counter = Counter + 1;
+                    } else if (failedTransfers !== "") {
+                        sText = sText + i18n.getResourceBundle().getText("rejectError", [Counter, failedTransfers]);
+                    }
+                    // this.resetAssignments();
+                    BusyIndicator.hide();
+                    this._createDialog(sTitle, sText, sFirstButton, sSecondButton, function () { this.fetchTransfers("") }, this.downloadLog, this);
+
+
+                } catch (error) {
+                    BusyIndicator.hide();
+                    console.log(error)
                 }
             },
             callBackFunc: function () {
@@ -554,6 +678,217 @@ sap.ui.define([
                     }
                 });
             },
+            /**
+             * This method is implemented for suggest event for the Employment Class.
+            **/
+            onSuggestClass: async function (oEvent) {
+                var sTerm = oEvent.getParameter("suggestValue");
+                var aFilters = [];
+                var filter1 = new Filter({
+                    filters: [new Filter("PickListV2_id", FilterOperator.EQ, 'EMPLOYEECLASS'),
+                    new Filter("status", FilterOperator.EQ, 'A')], and: true
+                });
+                var filter2 = new Filter({
+                    filters: [
+                        new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
+                        new Filter("startswith(optionId,'" + sTerm + "')", FilterOperator.EQ, true),
+                        new Filter("startswith(label_defaultValue,'" + sTerm + "')", FilterOperator.EQ, true),
+                        new Filter("startswith(label_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
+                        new Filter("startswith(label_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true)
+                    ], and: false
+                });
+                aFilters.push(
+                    new Filter({
+                        filters: [
+                            filter1,
+                            filter2
+                        ], and: true
+                    })
+                );
+
+                this.getModel('oData').read("/PickListValueV2",
+                    {
+                        async: true,
+                        urlParameters: {
+                            "$top": 40,
+                        },
+                        filters: aFilters,
+                        success: function (sData, sResult) {
+                            var mModel = this.getView().getModel('filter');
+                            var mData = mModel.getData();
+                            mData.EmploymentClass = [];
+                            let desc;
+                            for (var i = 0; i < sData.results.length; i++) {
+                                switch (this.getLocale()) {
+                                    case "JA":
+                                        desc = (sData.results[i].label_ja_JP !== null) ? sData.results[i].label_ja_JP : sData.results[i].label_defaultValue;
+                                        break;
+                                    case "EN":
+                                        desc = (sData.results[i].label_en_US !== null) ? sData.results[i].label_en_US : sData.results[i].label_defaultValue;
+                                        break;
+                                    default:
+                                        desc = sData.results[i].label_defaultValue;
+                                        break;
+                                }
+                                mData.EmploymentClass.push({
+                                    "ID": sData.results[i].externalCode,
+                                    "name": desc
+                                });
+                            }
+                            mModel.setData(mData);
+
+                        }.bind(this),
+                        error: function (sData, sResult) {
+                            console.log(sData);
+
+                        }
+                    });
+
+
+            },
+            /**
+             * This method is implemented for suggest event for the Employment Type.
+            **/
+            onSuggestType: async function (oEvent) {
+                var sTerm = oEvent.getParameter("suggestValue");
+                var aFilters = [];
+                var filter1 = new Filter({
+                    filters: [new Filter("PickListV2_id", FilterOperator.EQ, 'employmentType'),
+                    new Filter("status", FilterOperator.EQ, 'A')], and: true
+                });
+                var filter2 = new Filter({
+                    filters: [
+                        new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
+                        new Filter("startswith(label_defaultValue,'" + sTerm + "')", FilterOperator.EQ, true),
+                        new Filter("startswith(label_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
+                        new Filter("startswith(label_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true)
+                    ], and: false
+                });
+                aFilters.push(
+                    new Filter({
+                        filters: [
+                            filter1,
+                            filter2
+                        ], and: true
+                    })
+                );
+
+                this.getModel('oData').read("/PickListValueV2",
+                    {
+                        async: true,
+                        urlParameters: {
+                            "$top": 40,
+                        },
+                        filters: aFilters,
+                        success: function (sData, sResult) {
+                            var mModel = this.getView().getModel('filter');
+                            var mData = mModel.getData();
+                            mData.EmploymentType = [];
+                            let desc;
+                            for (var i = 0; i < sData.results.length; i++) {
+                                switch (this.getLocale()) {
+                                    case "JA":
+                                        desc = (sData.results[i].label_ja_JP !== null) ? sData.results[i].label_ja_JP : sData.results[i].label_defaultValue;
+                                        break;
+                                    case "EN":
+                                        desc = (sData.results[i].label_en_US !== null) ? sData.results[i].label_en_US : sData.results[i].label_defaultValue;
+                                        break;
+                                    default:
+                                        desc = sData.results[i].label_defaultValue;
+                                        break;
+                                }
+                                mData.EmploymentType.push({
+                                    "ID": sData.results[i].externalCode,
+                                    "name": desc
+                                });
+                            }
+                            mModel.setData(mData);
+
+                        }.bind(this),
+                        error: function (sData, sResult) {
+                            console.log(sData);
+
+                        }
+                    });
+
+
+            },
+            /**
+             * This method is implemented for suggest event for the Department.
+            **/
+            onSuggestDepart: async function (oEvent) {
+                var sTerm = oEvent.getParameter("suggestValue");
+                var aFilters = [];
+                if (sTerm.length > 1) {
+
+                    var filter1 = new Filter({
+                        filters: [
+                            new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
+                            new Filter("startswith(name_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true),
+                            new Filter("startswith(name_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
+                            new Filter("startswith(name,'" + sTerm + "')", FilterOperator.EQ, true)
+                            // new Filter("substringof('" + sTerm + "',externalCode)", FilterOperator.EQ, true),
+                            // new Filter("substringof('" + sTerm + "',name)", FilterOperator.EQ, true)
+                        ], and: false
+                    });
+
+                    aFilters.push(
+                        new Filter({
+                            filters: [
+                                new Filter("status", FilterOperator.EQ, 'A'),
+                                filter1
+                            ], and: true
+                        })
+                    );
+
+
+                    // new Filter("status", FilterOperator.EQ, 'A')
+                    // this.getModel('oData').read("/FODepartment?$top=20&$filter=startswith(externalCode,'" + sTerm + "') eq true or startswith(name_ja_JP,'" + sTerm + "') eq true or startswith(name,'" + sTerm + "')",
+
+                    this.getModel('oData').read("/FODepartment",
+                        {
+                            async: true,
+                            urlParameters: {
+                                "$top": 40,
+                                //  "test": "((substringof('"+ sTerm + "',externalCode) or substringof('" + sTerm + "',name)) and status eq 'A'"
+                            },
+                            filters: aFilters,
+                            success: function (sData, sResult) {
+                                var mModel = this.getView().getModel('filter');
+                                var mData = mModel.getData();
+                                mData.department = [];
+                                let desc;
+                                for (var i = 0; i < sData.results.length; i++) {
+                                    switch (this.getLocale()) {
+                                        case "JA":
+                                            desc = (sData.results[i].name_ja_JP !== null) ? sData.results[i].name_ja_JP : sData.results[i].name;
+                                            break;
+                                        case "EN":
+                                            desc = (sData.results[i].name_en_US !== null) ? sData.results[i].name_en_US : sData.results[i].name;
+                                            break;
+                                        default:
+                                            desc = sData.results[i].name;
+                                            break;
+                                    }
+                                    mData.department.push({
+                                        "ID": sData.results[i].externalCode,
+                                        "name": desc
+                                    });
+                                }
+                                mModel.setData(mData);
+                                // this.oGlobalBusyDialog.close();
+                            }.bind(this),
+                            error: function (sData, sResult) {
+                                console.log(sData);
+                                // this.oGlobalBusyDialog.close();
+                            }
+                        });
+                }
+
+            },
+            /**
+             * This method is implemented for suggest event for the Position.
+            **/
             onSuggestPosition: async function (oEvent) {
                 var sTerm = oEvent.getParameter("suggestValue");
                 var aFilters = [];
@@ -573,108 +908,56 @@ sap.ui.define([
                     aFilters.push(
                         new Filter({
                             filters: [
-                                new Filter("vacant", FilterOperator.EQ, true),
+                                new Filter("vacant", FilterOperator.EQ, false),
                                 filter1
                             ], and: true
                         })
                     );
 
-                    try {
-                        var position = await this.onAsyncoDatacall("/Position", aFilters, 30, 0, this);
-
-                        var mModel = this.getView().getModel('filter');
-                        var mData = mModel.getData();
-                        mData.position = [];
-                        let desc;
-                        let sData = position;
-                        for (var i = 0; i < sData.results.length; i++) {
-                            switch (this.getLocale()) {
-                                case "JA":
-                                    desc = (sData.results[i].externalName_ja_JP !== null) ? sData.results[i].externalName_ja_JP : sData.results[i].externalName_defaultValue;
-                                    break;
-                                case "EN":
-                                    desc = (sData.results[i].externalName_en_US !== null) ? sData.results[i].externalName_en_US : sData.results[i].externalName_defaultValue;
-                                    break;
-                                default:
-                                    desc = sData.results[i].externalName_defaultValue;
-                                    break;
+                    this.getModel('oData').read("/Position",
+                        {
+                            async: true,
+                            urlParameters: {
+                                "$top": 40,
+                            },
+                            filters: aFilters,
+                            success: function (sData, sResult) {
+                                var mModel = this.getView().getModel('filter');
+                                var mData = mModel.getData();
+                                mData.position = [];
+                                let desc;
+                                for (var i = 0; i < sData.results.length; i++) {
+                                    switch (this.getLocale()) {
+                                        case "JA":
+                                            desc = (sData.results[i].externalName_ja_JP !== null) ? sData.results[i].externalName_ja_JP : sData.results[i].externalName_defaultValue;
+                                            break;
+                                        case "EN":
+                                            desc = (sData.results[i].externalName_en_US !== null) ? sData.results[i].externalName_en_US : sData.results[i].externalName_defaultValue;
+                                            break;
+                                        default:
+                                            desc = sData.results[i].externalName_defaultValue;
+                                            break;
+                                    }
+                                    mData.position.push({
+                                        "ID": sData.results[i].code,
+                                        "name": desc
+                                    });
+                                }
+                                mModel.setData(mData);
+                                // this.oGlobalBusyDialog.close();
+                            }.bind(this),
+                            error: function (sData, sResult) {
+                                console.log(sData);
+                                //this.oGlobalBusyDialog.close();
                             }
-                            mData.position.push({
-                                "ID": sData.results[i].code,
-                                "name": desc
-                            });
-                        }
-
-                        mModel.setData(mData);
-
-
-                    } catch (error) {
-                        console.log("Error while fecting position data");
-                        console.log(error);
-                    }
+                        });
 
                     //oGlobalBusyDialog.close();
                 }
             },
-            onSuggestDepart: async function (oEvent) {
-                var sTerm = oEvent.getParameter("suggestValue");
-                var aFilters = [];
-                if (sTerm.length > 1) {
-
-                    var filter1 = new Filter({
-                        filters: [
-                            new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
-                            new Filter("startswith(name_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true),
-                            new Filter("startswith(name_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
-                            new Filter("startswith(name,'" + sTerm + "')", FilterOperator.EQ, true)
-                        ], and: false
-                    });
-
-                    aFilters.push(
-                        new Filter({
-                            filters: [
-                                new Filter("status", FilterOperator.EQ, 'A'),
-                                filter1
-                            ], and: true
-                        })
-                    );
-                    try {
-                        var depart = await this.onAsyncoDatacall("/FODepartment", aFilters, 25, 0, this);
-
-                        var mModel = this.getView().getModel('filter');
-                        var mData = mModel.getData();
-                        mData.department = [];
-                        let desc;
-                        let sData = depart;
-                        for (var i = 0; i < sData.results.length; i++) {
-                            switch (this.getLocale()) {
-                                case "JA":
-                                    desc = (sData.results[i].name_ja_JP !== null) ? sData.results[i].name_ja_JP : sData.results[i].name;
-                                    break;
-                                case "EN":
-                                    desc = (sData.results[i].name_en_US !== null) ? sData.results[i].name_en_US : sData.results[i].name;
-                                    break;
-                                default:
-                                    desc = sData.results[i].name;
-                                    break;
-                            }
-                            mData.department.push({
-                                "ID": sData.results[i].externalCode,
-                                "name": desc
-                            });
-                        }
-
-                        mModel.setData(mData);
-
-
-                    } catch (error) {
-                        console.log("Error while fecting Department data");
-                        console.log(error);
-                    }
-
-                }
-
-            },
+            /**
+             * This method is implemented for suggest event for the Locatioin.
+            **/
             onSuggestLocation: async function () {
                 try {
                     // this._cpiAPI(url, (this.getView().byId("table0").getGrowingThreshold() + 2), 0);
@@ -709,6 +992,19 @@ sap.ui.define([
                     console.log(error);
                 }
             },
+            /**
+             * This method is implemented for suggest event for the Location.
+            **/
+            onSuggestLoc: function (oEvent) {
+                var sTerm = oEvent.getParameter("suggestValue");
+                var aFilters = [];
+                if (sTerm) {
+                    aFilters.push(new Filter("name", FilterOperator.Contains, sTerm));
+                }
+
+                oEvent.getSource().getBinding("suggestionItems").filter(aFilters);
+            },
+
             fetchSettings: async function () {
                 try {
                     let transferSettings = this.getCustProperty("TransferSettings") !== undefined ? this.getCustProperty("TransferSettings") : null;
@@ -727,10 +1023,12 @@ sap.ui.define([
                 }
             },
             fetchTransfers: async function (sURL) {
+                this.fetchCount();
                 this.getView().byId("TransferReqTable").setBusy(true);
                 let settings = await this.fetchSettings();
                 var transDate = (new Date(Number(settings.effectiveStartDate.match(/\d+/)[0]))).toISOString().substring(0, 10)
-                let surl = "/SFSF/odata/v2/cust_TransferSimResult?$expand=cust_STATUSNav,cust_ELIGIBITY_STATUSNav,cust_NEW_POSITION_IDNav,externalCodeNav,cust_FUTURE_MANAGER_IDNav,createdByNav,cust_CURRENT_MANAGER_IDNav,cust_EMPLOYEE_CLASSNav,cust_OLD_POSITION_IDNav,cust_Previous_DepartmentNav,cust_EMPLOYMENT_TYPENav,cust_EMPLOYMENT_LOCATIONNav,cust_PS_GroupNav,cust_CompanyNav,cust_DEPARTMENTNav&$filter=effectiveStartDate eq '" + transDate + "' " + sURL;
+                let surl = "/SFSF/odata/v2/cust_TransferSimResult?$expand=cust_STATUSNav,cust_ELIGIBITY_STATUSNav,cust_NEW_POSITION_IDNav,externalCodeNav,cust_FUTURE_MANAGER_IDNav,createdByNav,cust_CURRENT_MANAGER_IDNav,cust_EMPLOYEE_CLASSNav,cust_OLD_POSITION_IDNav,cust_Previous_DepartmentNav,cust_EMPLOYMENT_TYPENav,cust_EMPLOYMENT_LOCATIONNav,cust_PS_GroupNav,cust_CompanyNav,cust_DEPARTMENTNav&$filter=effectiveStartDate eq '"
+                    + transDate + "' " + sURL;
 
                 $.ajax({
                     url: surl,
@@ -794,16 +1092,16 @@ sap.ui.define([
                             item.metadata = results[i].__metadata;
 
                             if (lang === 'lang=en_US') {
-                                item.name = results[i].externalCodeNav.defaultFullName;
-                                item.department = results[i].cust_DEPARTMENTNav.name_en_US;
-                                item.pdepartment = results[i].cust_Previous_DepartmentNav.name_en_US;
-                                item.employmentType = results[i].cust_EMPLOYMENT_TYPENav.label_en_US;
-                                item.supervisor = results[i].cust_CURRENT_MANAGER_IDNav.defaultFullName;
-                                item.eligibility = results[i].cust_ELIGIBITY_STATUSNav.label_en_US;
-                                item.currentpos = results[i].cust_OLD_POSITION_IDNav.externalName_en_US;
-                                item.newpos = results[i].cust_NEW_POSITION_IDNav.externalName_en_US;
-                                item.Status = results[i].cust_STATUSNav.label_defaultValue;
-                                item.location = results[i].cust_EMPLOYMENT_LOCATIONNav.name;
+                                item.name = results[i].externalCodeNav !== null ? results[i].externalCodeNav.defaultFullName : null;
+                                item.department = results[i].cust_DEPARTMENTNav !== null ? results[i].cust_DEPARTMENTNav.name_en_US : null;
+                                item.pdepartment = results[i].cust_Previous_DepartmentNav !== null ? results[i].cust_Previous_DepartmentNav.name_en_US : null;
+                                item.employmentType = results[i].cust_EMPLOYMENT_TYPENav !== null ? results[i].cust_EMPLOYMENT_TYPENav.label_en_US : null;
+                                item.supervisor = results[i].cust_CURRENT_MANAGER_IDNav !== null ? results[i].cust_CURRENT_MANAGER_IDNav.defaultFullName : null;
+                                item.eligibility = results[i].cust_ELIGIBITY_STATUSNav !== null ? results[i].cust_ELIGIBITY_STATUSNav.label_en_US : null;
+                                item.currentpos = results[i].cust_OLD_POSITION_IDNav !== null ? results[i].cust_OLD_POSITION_IDNav.externalName_en_US : null;
+                                item.newpos = results[i].cust_NEW_POSITION_IDNav !== null ? results[i].cust_NEW_POSITION_IDNav.externalName_en_US : null;
+                                item.Status = results[i].cust_STATUSNav !== null ? results[i].cust_STATUSNav.label_defaultValue : null;
+                                item.location = results[i].cust_EMPLOYMENT_LOCATIONNav !== null ? results[i].cust_EMPLOYMENT_LOCATIONNav.name : null;
                             } else {
                                 item.name = results[i].externalCodeNav.defaultFullName;
                                 item.department = results[i].cust_DEPARTMENTNav.name_ja_JP;
@@ -840,14 +1138,66 @@ sap.ui.define([
                 return new Promise(function (resolve, reject) {
                     $.ajax({
                         url: '/upsert',
-                        method: "POST", 
+                        method: "POST",
                         data: JSON.stringify(aBody),
                         contentType: "application/json",
                         headers: {
                             "Accept": "application/json",
                             "accept": "application/json"
                         },
-                        
+
+                        success: function (result) {
+                            console.log('API call to CPI is success'); //Second text in console
+                            resolve(result);
+                        },
+                        error: function (request, status, errorThrown) {
+                            console.log(status);
+                            reject({
+                                error: request,
+                                status: status,
+                                data: 'API returns an error'
+                            });
+                        }
+                    });
+                });
+            },
+            performUpsert: async function (oPayload) {
+                return new Promise(function (resolve, reject) {
+                    $.ajax({
+                        url: '/SFSF/odata/v2/upsert',
+                        method: "POST",
+                        data: JSON.stringify(oPayload),
+                        contentType: "application/json",
+                        headers: {
+                            "Accept": "application/json"
+                        },
+
+                        success: function (result) {
+                            console.log('API call to CPI is success'); //Second text in console
+                            resolve(result);
+                        },
+                        error: function (request, status, errorThrown) {
+                            console.log(status);
+                            reject({
+                                error: request,
+                                status: status,
+                                data: 'API returns an error'
+                            });
+                        }
+                    });
+                });
+            },
+            _cpiAPI: async function (aBody) {
+                return new Promise(function (resolve, reject) {
+                    $.ajax({
+                        url: '/http/UpsertJob',
+                        method: "POST",
+                        data: JSON.stringify(aBody),
+                        contentType: "application/json",
+                        headers: {
+                            "Accept": "application/json"
+                        },
+
                         success: function (result) {
                             console.log('API call to CPI is success'); //Second text in console
                             resolve(result);

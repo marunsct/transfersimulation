@@ -10,8 +10,8 @@
             "csrfProtection": false
         },
         {
-            "source": "^/SFSF/odata/(.*)$",
-            "target": "/odata/$1",
+            "source": "^/SFSF/(.*)$",
+            "target": "/$1",
             "destination": "SFSF",
             "authenticationType": "xsuaa",
             "csrfProtection": false

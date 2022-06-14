@@ -3,8 +3,6 @@ sap.ui.define([
     "sap/ui/core/routing/History",
     "sap/m/MessageBox",
     "sap/ui/core/BusyIndicator"
-
-
 ], function (BaseController, History, MessageBox, BusyIndicator) {
     "use strict";
 
@@ -131,7 +129,10 @@ sap.ui.define([
                 Performance: {
                     rating1: "",
                     rating2: "",
-                    rating3: ""
+                    rating3: "",
+                    ry1:"",
+                    ry2:"",
+                    ry3: ""
                 },
                 PerPerson: {
                     personIdExternal: "",
@@ -632,6 +633,9 @@ sap.ui.define([
                     performance.rating1 = 'NA';
                     performance.rating2 = 'NA';
                     performance.rating3 = 'NA';
+                    performance.ry1 = 'YYYY';
+                    performance.ry2 = 'YYYY';
+                    performance.ry3 = 'YYYY';
                     if (result.d.results.length === 0) {
                         this.getModel("PR").setProperty("/Performance", performance);
 
@@ -655,7 +659,9 @@ sap.ui.define([
                         lang = 'en_US';
                     }
                     let transferSettings = this.getCustProperty("TransferSettings");
-
+                    performance.ry1 = transferSettings.cust_Year1;
+                    performance.ry2 = transferSettings.cust_Year2;
+                    performance.ry3 = transferSettings.cust_Year3;
                     for (let i = 0; i < perf.length; i++) {
                         if (perf[i].formTemplateId === transferSettings.cust_formTemplateIdY1) {
                             performance.rating1 = perf[i].rating;
