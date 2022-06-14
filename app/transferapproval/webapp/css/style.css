@@ -290,12 +290,6 @@
 .sapContrast :not(.sapMBtnDisabled) .sapMBtnBack>.sapMBtnIcon, .sapContrast :not(.sapMBtnDisabled) .sapMBtnTransparent>.sapMBtnIcon, .sapContrast :not(.sapMBtnDisabled) .sapMBtnGhost>.sapMBtnIcon {
     color: #1360a1;
 }
-.sapMDialog>.sapMDialogSection {
-
-    padding: 1rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-}
 .sapContrast.sapMIBar-CTX .sapMBtnInner, .sapContrast .sapMIBar-CTX .sapMBtnInner, .sapContrast.sapMBar .sapMBtnInner, .sapContrast .sapMBar .sapMBtnInner, .sapContrast.sapMHeader-CTX .sapMBtnInner, .sapContrast .sapMHeader-CTX .sapMBtnInner, .sapContrast.sapMFooter-CTX .sapMBtnInner, .sapContrast .sapMFooter-CTX .sapMBtnInner {
     border-color: #1360a1 !important;
 }
@@ -373,4 +367,7 @@
 }
 .sapUiSizeCompact .sapFDynamicPageToggleHeaderIndicator .sapMBtnInner.sapMBtnIconFirst:not(.sapMBtnBack), .sapUiSizeCompact .sapFDynamicPageHeaderPinButton .sapMBtnInner.sapMBtnIconFirst:not(.sapMBtnBack) {
     visibility: hidden;
+}
+.sapMSelectionPanel tbody .sapMListTblSelCol {
+    vertical-align: middle;
 }

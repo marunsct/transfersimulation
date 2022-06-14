@@ -6,13 +6,14 @@ sap.ui.define([
     "sap/ui/export/Spreadsheet",
     "sap/m/MessageBox",
     "sap/ui/core/util/File",
-    "sap/ui/core/BusyIndicator"
+    "sap/ui/core/BusyIndicator",
+    "./TablePersonalisation/TablePersoService"
 
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, Device, Filter, FilterOperator, Spreadsheet, MessageBox, File, BusyIndicator) {
+    function (BaseController, Device, Filter, FilterOperator, Spreadsheet, MessageBox, File, BusyIndicator, TablePersoService) {
         "use strict";
 
         return BaseController.extend("transferapproval.controller.TransferList", {
@@ -21,37 +22,17 @@ sap.ui.define([
                 this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 this.oRouter.attachRouteMatched(this.handleRouteMatched, this);
                 this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
+                // initialize and activate Table persolation controller
+                this._oTPC = this._initializeTablePersonalization(this.byId("TransferReqTable"), TablePersoService);
                 try {
                     var sPath = jQuery.sap.getModulePath("transferapproval", "/controller/Data.json");
 
                     var oData = {
-                        TransferReq: [
-                            /*
-                            {
-                            employeeid: "",
-                            name: "",
-                            department: "",
-                            departmentId: "",
-                            employmentType: "",
-                            employmentTypeId: "",
-                            supervisor: "",
-                            supervisorId: "",
-                            eligibility: "",
-                            eligibilityId: "",
-                            currentpos: "",
-                            currentposId: "",
-                            newpos: "",
-                            newposId: "",
-                            Status: "",
-                            StatusId: "",
-                            comments: ""
-                            } */
-                        ],
+                        TransferReq: [],
                         approved: '0',
                         rejected: '0',
                         pending: '0',
                         total: '0',
-
                     }
                     //oData.
                     // Load JSON in model
@@ -63,7 +44,9 @@ sap.ui.define([
 
                         filter: {
                             position: "",
+                            pposition: "",
                             department: "",
+                            pdepartment: "",
                             EmploymentClass: "",
                             EmploymentType: "",
                             location: "",
@@ -92,9 +75,9 @@ sap.ui.define([
                     this.filter = {
                         filter: {
                             position: "",
+                            pposition: "",
                             department: "",
-                            EmploymentClass: "",
-                            EmploymentType: "",
+                            pdepartment: "",
                             location: "",
                             supervisor: "",
                             employee: ""
@@ -128,15 +111,35 @@ sap.ui.define([
                 //this.onToggleSearchField();
                 this.oFilterBar.fireInitialise();
                 this._sHeader = this.oFilterBar.getHeader();
+
+                sap.ui.getCore().attachLocalizationChanged(async function (oEvent) {
+                    var oChanges = oEvent.getParameter("changes");
+                    if (oChanges && oChanges.language) {
+                        this.fetchTransfers(await this._buildFilters());
+                    }
+                }.bind(this));
             },
             handleRouteMatched: function (oEvent) {
                 var oParams = oEvent.getParameters();
                 this.currentRouteName = oParams.name;
                 var sContext;
                 this._avatarPress = false;
-
-                // this.oFclModel.setProperty('/headerExpanded', true);
-
+            },
+            /**
+             * This method is implemented for Table personalisation.
+            **/
+            onPersoButtonPressed: function (oEvent) {
+                // This fucction implents the OnPress event for the Table Personalisation Button
+                var oI18n = this.getView().getModel("i18n");
+                this._oTPC.openDialog(); // Implemented in Base Controller
+            },
+            /**
+             * This method is implemented for resetting the table personalisation.
+            **/
+            onTablePersoRefresh: function () {
+                // This fucction implents the OnPress event for the Table Personalisation refresh Button
+                TablePersoService.resetPersData();
+                this._oTPC.refresh();
             },
             _onPageNavButtonPress: function () {
                 this.getView().getModel("jsonFile");
@@ -146,9 +149,6 @@ sap.ui.define([
                 var tbl = this.getView().byId('TransferReqTable');
                 var header = tbl.$().find('thead');
                 var selectAllCb = header.find('.sapMCb');
-                //selectAllCb.remove();
-                //sap.ui.getCore().byId(selectAllCb.attr('id')).setEnabled(false);
-
 
                 tbl.getItems().forEach(function (r) {
                     var obj = r.getBindingContext("data").getObject();
@@ -241,11 +241,12 @@ sap.ui.define([
             },
             fetchCount: async function () {
                 let settings = await this.fetchSettings();
+                let _url = await this._buildFilters();
                 let sDate = (new Date(Number(settings.effectiveStartDate.match(/\d+/)[0]))).toISOString().substring(0, 10);
-                let total = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter=effectiveStartDate eq '" + sDate + "'");
-                let approved = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter=effectiveStartDate eq '" + sDate + "' and cust_STATUS eq '20'");
-                let rejected = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter=effectiveStartDate eq '" + sDate + "' and cust_STATUS eq '30'");
-                let pending = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter=effectiveStartDate eq '" + sDate + "' and cust_STATUS eq '10'");
+                let total = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter="+_url+"effectiveStartDate eq '" + sDate + "'");
+                let approved = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter="+_url+"effectiveStartDate eq '" + sDate + "' and cust_STATUS eq '20'");
+                let rejected = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter="+_url+"effectiveStartDate eq '" + sDate + "' and cust_STATUS eq '30'");
+                let pending = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimResult/$count?$filter="+_url+"effectiveStartDate eq '" + sDate + "' and cust_STATUS eq '10'");
                 let oData = this.getModel('data').getData();
                 oData.total = total;
                 oData.approved = approved;
@@ -387,10 +388,15 @@ sap.ui.define([
                 var sSecondButton = i18n.getResourceBundle().getText("cancel");
                 if (tbl.getSelectedItems().length > 0) {
                     let sText = i18n.getResourceBundle().getText("approve");
+                    if (tbl.getSelectedItems().length > 20) {
+                        sText = i18n.getResourceBundle().getText("wLength") + sText;
+                        sTitle = i18n.getResourceBundle().getText("warning");
+                    }
                     this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this.onTransferApprove, this.callBackFunc, this);
                 } else {
                     let sFirstButton = i18n.getResourceBundle().getText("ok");
                     let sText = i18n.getResourceBundle().getText("selectTransfer");
+                    sTitle = i18n.getResourceBundle().getText("warning");
                     this._createDialog(sTitle, sText, sFirstButton, undefined, this.callBackFunc, this.callBackFunc, this);
                 }
             },
@@ -402,7 +408,8 @@ sap.ui.define([
                     "EmpJob": [],
                     "custMdf": []
                 };
-                for (let i = 0; i < tbl.getSelectedItems().length; i++) {
+                let k = tbl.getSelectedItems().length < 21 ? tbl.getSelectedItems().length : 20;
+                for (let i = 0; i < k; i++) {
                     let empItem = {};
                     let custItem = {}
                     let tblData = this.getModel('data').getProperty(tbl.getSelectedItems()[i].getBindingContextPath());
@@ -471,7 +478,7 @@ sap.ui.define([
                     }
                     // this.resetAssignments();
                     BusyIndicator.hide();
-                    this._createDialog(sTitle, sText, sFirstButton, sSecondButton, function () { this.fetchTransfers("") }, this.downloadLog, this);
+                    this._createDialog(sTitle, sText, sFirstButton, sSecondButton, async function () { this.fetchTransfers(await this._buildFilters()) }, this.downloadLog, this);
 
 
                 } catch (error) {
@@ -486,7 +493,6 @@ sap.ui.define([
                 var tbl = this.getView().byId('TransferReqTable');
                 let settings = await this.fetchSettings();
                 let payload = [];
-
                 for (let i = 0; i < tbl.getSelectedItems().length; i++) {
 
                     let custItem = {}
@@ -583,7 +589,7 @@ sap.ui.define([
                     }
                     // this.resetAssignments();
                     BusyIndicator.hide();
-                    this._createDialog(sTitle, sText, sFirstButton, sSecondButton, function () { this.fetchTransfers("") }, this.downloadLog, this);
+                    this._createDialog(sTitle, sText, sFirstButton, sSecondButton, async function () { this.fetchTransfers(await this._buildFilters()) }, this.downloadLog, this);
 
 
                 } catch (error) {
@@ -607,32 +613,74 @@ sap.ui.define([
 
                 });
                 aColumns.push({
+                    label: i18n.getResourceBundle().getText("departmentID"),
+                    property: "departmentId"
+                });
+                aColumns.push({
                     label: i18n.getResourceBundle().getText("department"),
                     property: "department"
+                });
+                aColumns.push({
+                    label: i18n.getResourceBundle().getText("pdepartmentId"),
+                    property: "pdepartmentId"
+                });
+                aColumns.push({
+                    label: i18n.getResourceBundle().getText("pdepartment"),
+                    property: "pdepartment"
+                });
+                aColumns.push({
+                    label: i18n.getResourceBundle().getText("typeId"),
+                    property: "employmentTypeId",
+
                 });
                 aColumns.push({
                     label: i18n.getResourceBundle().getText("type"),
                     property: "employmentType",
 
                 });
-
+                aColumns.push({
+                    label: i18n.getResourceBundle().getText("supervisorId"),
+                    property: "supervisorId"
+                });
                 aColumns.push({
                     label: i18n.getResourceBundle().getText("supervisor"),
                     property: "supervisor"
                 });
                 aColumns.push({
                     label: i18n.getResourceBundle().getText("criteria"),
-                    property: "eliginility",
+                    property: "eligibility",
 
+                });
+                aColumns.push({
+                    label: i18n.getResourceBundle().getText("cpositionId"),
+                    property: "currentposId"
                 });
                 aColumns.push({
                     label: i18n.getResourceBundle().getText("cposition"),
                     property: "currentpos"
                 });
                 aColumns.push({
+                    label: i18n.getResourceBundle().getText("npositionId"),
+                    property: "newposId",
+
+                });
+                aColumns.push({
                     label: i18n.getResourceBundle().getText("nposition"),
                     property: "newpos",
 
+                });
+                aColumns.push({
+                    label: i18n.getResourceBundle().getText("locationId"),
+                    property: "locationId"
+                });
+                aColumns.push({
+                    label: i18n.getResourceBundle().getText("location"),
+                    property: "location",
+
+                });
+                aColumns.push({
+                    label: i18n.getResourceBundle().getText("aStatus"),
+                    property: "Status"
                 });
                 aColumns.push({
                     label: i18n.getResourceBundle().getText("comments"),
@@ -1004,7 +1052,6 @@ sap.ui.define([
 
                 oEvent.getSource().getBinding("suggestionItems").filter(aFilters);
             },
-
             fetchSettings: async function () {
                 try {
                     let transferSettings = this.getCustProperty("TransferSettings") !== undefined ? this.getCustProperty("TransferSettings") : null;
@@ -1022,13 +1069,43 @@ sap.ui.define([
                     return null;
                 }
             },
+            onSearch: async function (){
+                this.fetchTransfers( await this._buildFilters());  
+            },
+            _buildFilters: async function () {
+                let filters = this.getModel('filter').getData().filter;
+                let _url = '';
+
+                if (filters.department) {
+                    _url = _url + "cust_DEPARTMENT eq '" + filters.department.split(" ")[0] + "' and ";
+                }
+                if (filters.location) {
+                    _url = _url + "cust_EMPLOYMENT_LOCATION eq '" + filters.location.split(" ")[0] + "' and ";
+                }
+                if (filters.position) {
+                    _url = _url + "cust_NEW_POSITION_ID eq '" + filters.position.split(" ")[0] + "' and ";
+                }
+                if (filters.pdepartment) {
+                    _url = _url + "cust_Previous_Department eq '" + filters.pdepartment.split(" ")[0] + "' and ";
+                }
+                if (filters.pposition) {
+                    _url = _url + "cust_OLD_POSITION_ID eq '" + filters.pposition.split(" ")[0] + "' and ";
+                }
+                if (filters.employee) {
+                    _url = _url + "externalCode eq '" + filters.employee + "' and ";
+                }
+                if (filters.supervisor) {
+                    _url = _url + "cust_CURRENT_MANAGER_ID eq '" + filters.supervisor + "' and ";
+                }
+                return _url;
+            },
             fetchTransfers: async function (sURL) {
                 this.fetchCount();
                 this.getView().byId("TransferReqTable").setBusy(true);
                 let settings = await this.fetchSettings();
                 var transDate = (new Date(Number(settings.effectiveStartDate.match(/\d+/)[0]))).toISOString().substring(0, 10)
-                let surl = "/SFSF/odata/v2/cust_TransferSimResult?$expand=cust_STATUSNav,cust_ELIGIBITY_STATUSNav,cust_NEW_POSITION_IDNav,externalCodeNav,cust_FUTURE_MANAGER_IDNav,createdByNav,cust_CURRENT_MANAGER_IDNav,cust_EMPLOYEE_CLASSNav,cust_OLD_POSITION_IDNav,cust_Previous_DepartmentNav,cust_EMPLOYMENT_TYPENav,cust_EMPLOYMENT_LOCATIONNav,cust_PS_GroupNav,cust_CompanyNav,cust_DEPARTMENTNav&$filter=effectiveStartDate eq '"
-                    + transDate + "' " + sURL;
+                let surl = "/SFSF/odata/v2/cust_TransferSimResult?$expand=cust_STATUSNav,cust_ELIGIBITY_STATUSNav,cust_NEW_POSITION_IDNav,externalCodeNav,cust_FUTURE_MANAGER_IDNav,createdByNav,cust_CURRENT_MANAGER_IDNav,cust_EMPLOYEE_CLASSNav,cust_OLD_POSITION_IDNav,cust_Previous_DepartmentNav,cust_EMPLOYMENT_TYPENav,cust_EMPLOYMENT_LOCATIONNav,cust_PS_GroupNav,cust_CompanyNav,cust_DEPARTMENTNav&$filter=" + sURL + "effectiveStartDate eq '"
+                    + transDate + "'";
 
                 $.ajax({
                     url: surl,
@@ -1103,16 +1180,16 @@ sap.ui.define([
                                 item.Status = results[i].cust_STATUSNav !== null ? results[i].cust_STATUSNav.label_defaultValue : null;
                                 item.location = results[i].cust_EMPLOYMENT_LOCATIONNav !== null ? results[i].cust_EMPLOYMENT_LOCATIONNav.name : null;
                             } else {
-                                item.name = results[i].externalCodeNav.defaultFullName;
-                                item.department = results[i].cust_DEPARTMENTNav.name_ja_JP;
-                                item.pdepartment = results[i].cust_Previous_DepartmentNav.name_ja_JP;
-                                item.employmentType = results[i].cust_EMPLOYMENT_TYPENav.label_ja_JP;
-                                item.supervisor = results[i].cust_CURRENT_MANAGER_IDNav.defaultFullName;
-                                item.eligibility = results[i].cust_ELIGIBITY_STATUSNav.label_ja_JP;
-                                item.currentpos = results[i].cust_OLD_POSITION_IDNav.externalName_ja_JP;
-                                item.newpos = results[i].cust_NEW_POSITION_IDNav.externalName_ja_JP;
-                                item.Status = results[i].cust_STATUSNav.label_defaultValue;
-                                item.location = results[i].cust_EMPLOYMENT_LOCATIONNav.name;
+                                item.name = results[i].externalCodeNav !== null ? results[i].externalCodeNav.defaultFullName : null;
+                                item.department = results[i].cust_DEPARTMENTNav !== null ? results[i].cust_DEPARTMENTNav.name_ja_JP : null;
+                                item.pdepartment = results[i].cust_Previous_DepartmentNav !== null ? results[i].cust_Previous_DepartmentNav.name_ja_JP : null;
+                                item.employmentType = results[i].cust_EMPLOYMENT_TYPENav !== null ? results[i].cust_EMPLOYMENT_TYPENav.label_ja_JP : null;
+                                item.supervisor = results[i].cust_CURRENT_MANAGER_IDNav !== null ? results[i].cust_CURRENT_MANAGER_IDNav.defaultFullName : null;
+                                item.eligibility = results[i].cust_ELIGIBITY_STATUSNav !== null ? results[i].cust_ELIGIBITY_STATUSNav.label_ja_JP : null;
+                                item.currentpos = results[i].cust_OLD_POSITION_IDNav !== null ? results[i].cust_OLD_POSITION_IDNav.externalName_ja_JP : null;
+                                item.newpos = results[i].cust_NEW_POSITION_IDNav !== null ? results[i].cust_NEW_POSITION_IDNav.externalName_ja_JP : null;
+                                item.Status = results[i].cust_STATUSNav !== null ? results[i].cust_STATUSNav.label_defaultValue : null;
+                                item.location = results[i].cust_EMPLOYMENT_LOCATIONNav !== null ? results[i].cust_EMPLOYMENT_LOCATIONNav.name : null;
                             }
                             oData.TransferReq.push(item);
                         }

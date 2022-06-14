@@ -667,7 +667,7 @@ sap.ui.define([
                             performance.rating1 = perf[i].rating;
                         }
                         if (perf[i].formTemplateId === transferSettings.cust_formTemplateIdY1) {
-                            performance.rating2 = '3';//perf[i].rating;
+                            performance.rating2 = perf[i].rating;
                         }
                         if (perf[i].formTemplateId === transferSettings.cust_formTemplateIdY1) {
                             performance.rating3 = perf[i].rating;

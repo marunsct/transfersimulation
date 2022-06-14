@@ -384,7 +384,6 @@ sap.ui.define([
                 externalName: employeeName,
                 cust_EMPLOYMENT_LOCATION: sThat.getModel("OP").getProperty(sPath+ '/LocationID' ),
                 cust_EMPLOYMENT_TYPE: etype !== "" ? etype : null,
-                cust_TRANSFER_DATE: transferSettings.effectiveStartDate,
                 cust_Company: sThat.getModel("OP").getProperty(sPath+ '/company' ),
                 cust_OTYPE: sEmpData.customString6 
             };  

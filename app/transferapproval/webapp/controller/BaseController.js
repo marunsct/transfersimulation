@@ -5,8 +5,10 @@ sap.ui.define([
     'sap/m/Button',
     'sap/m/Dialog',
     'sap/m/ButtonType',
-    'sap/m/Text'
-], function (Controller, UIComponent, mobileLibrary, Button, Dialog, ButtonType, Text) {
+    'sap/m/Text',
+    "sap/m/TablePersoController",
+    "./TablePersonalisation/TablePersoService"
+], function (Controller, UIComponent, mobileLibrary, Button, Dialog, ButtonType, Text, TablePersoController, TablePersoService) {
     "use strict";
 
     // shortcut for sap.m.URLHelper
@@ -132,7 +134,19 @@ sap.ui.define([
         _onMessageClose: function (sThat) {
             sThat._oPopover.close();
         },
-
+        /**
+         * This method will be reused for Initialliasing Table personalisation controller
+        **/
+        _initializeTablePersonalization: function (oTable, oTablePersoService) {
+            // init and activate controller
+            var oTPC = new TablePersoController({
+                table: oTable,
+                //specify the first part of persistence ids e.g. 'demoApp-productsTable-dimensionsCol'
+                componentName: "component",
+                persoService: oTablePersoService
+            }).activate();
+            return oTPC;
+        },
 
         _createDialog: function (sTitle, sText, sFirstButton, sSecondButton, pressCallback, endCallback, sThat) {
 
@@ -205,7 +219,7 @@ sap.ui.define([
                         reject({
                             error: errorThrown,
                             status: status,
-                            request:request,
+                            request: request,
                             data: 'API returns an error'
                         });
                     }

@@ -26,29 +26,38 @@
                         <items>
                             <fb:FilterBar xmlns:fb="sap.ui.comp.filterbar" id="filterbar0" search=".onSearch" clear=".onClear" useToolbar="true" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="true" class="" showRestoreButton="true" showClearButton="true">
                                 <fb:filterGroupItems>
-                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="{i18n>department}" visibleInFilterBar="true" labelTooltip="{i18n>department}" partOfCurrentVariant="true" id="item15">
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="{i18n>pdepartment}" visibleInFilterBar="true" labelTooltip="{i18n>pdepartment}" partOfCurrentVariant="true" id="item15">
                                         <fb:control>
-                                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'filter>/filter/department', type: 'sap.ui.model.type.String' }" showSuggestion="true" id="fDepartment" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
+                                            <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'filter>/filter/pdepartment', type: 'sap.ui.model.type.String' }" showSuggestion="true" id="fDepartment" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
                                                 <suggestionItems>
                                                     <core:Item xmlns:core="sap.ui.core" text="{=${filter>ID} +' '+ ${filter>name}}" id="item14_fDepartment_0" />
                                                 </suggestionItems>
                                             </Input>
                                         </fb:control>
                                     </fb:FilterGroupItem>
-                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="{i18n>Eligibility}" visibleInFilterBar="true" labelTooltip="{i18n>class}" partOfCurrentVariant="true" id="item17">
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="{i18n>department}" visibleInFilterBar="false" labelTooltip="{i18n>department}" partOfCurrentVariant="true" id="item17">
                                         <fb:control>
-                                            <Input value="{filter>/filter/EmploymentClass}" showSuggestion="true" id="fEmploymentClass" suggest=".onSuggestClass" suggestionItems="{filter>/EmploymentClass}">
+                                            <Input value="{filter>/filter/department}" showSuggestion="true" id="fEmploymentClass" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
                                                 <suggestionItems>
                                                     <core:Item xmlns:core="sap.ui.core" text="{=${filter>ID} +' '+ ${filter>name}}" id="item16_fEmploymentClass_0" />
                                                 </suggestionItems>
                                             </Input>
                                         </fb:control>
                                     </fb:FilterGroupItem>
-                                    <fb:FilterGroupItem groupName="G1" name="C" label="{i18n>TransferStatus}" labelTooltip="{i18n>type}" visibleInFilterBar="true" id="item19">
+                                    <fb:FilterGroupItem groupName="G1" name="C" label="{i18n>cposition}" labelTooltip="{i18n>cposition}" visibleInFilterBar="true" id="item19">
                                         <fb:control>
-                                            <Input value="{filter>/filter/EmploymentType}" suggestionItems="{filter>/EmploymentType}" showSuggestion="true" suggest=".onSuggestType" id="input4">
+                                            <Input value="{filter>/filter/pposition}" suggestionItems="{filter>/position}" showSuggestion="true" suggest=".onSuggestPosition" id="input4">
                                                 <suggestionItems>
                                                     <core:Item xmlns:core="sap.ui.core" text="{=${filter>ID} +' '+ ${filter>name}}" id="item18___input4_0" />
+                                                </suggestionItems>
+                                            </Input>
+                                        </fb:control>
+                                    </fb:FilterGroupItem>
+                                    <fb:FilterGroupItem groupName="G1" name="F" label="{i18n>nposition}" labelTooltip="{i18n>nposition}" visibleInFilterBar="false" id="item23">
+                                        <fb:control>
+                                            <Input value="{filter>/filter/position}" suggestionItems="{filter>/position}" showSuggestion="true" suggest=".onSuggestPosition" id="input6">
+                                                <suggestionItems>
+                                                    <core:Item xmlns:core="sap.ui.core" text="{=${filter>ID} +' '+ ${filter>name}}" id="item22___input6_0" />
                                                 </suggestionItems>
                                             </Input>
                                         </fb:control>
@@ -62,24 +71,11 @@
                                             </Input>
                                         </fb:control>
                                     </fb:FilterGroupItem>
-                                    <fb:FilterGroupItem groupName="G1" name="F" label="{i18n>currentposition}" labelTooltip="{i18n>position}" visibleInFilterBar="true" id="item23">
+                                    <fb:FilterGroupItem groupName="G1" name="G" label="{i18n>supervisor}" labelTooltip="{i18n>supervisor}" id="item25">
                                         <fb:control>
-                                            <Input value="{filter>/filter/position}" suggestionItems="{filter>/position}" showSuggestion="true" suggest=".onSuggestPosition" id="input6">
-                                                <suggestionItems>
-                                                    <core:Item xmlns:core="sap.ui.core" text="{=${filter>ID} +' '+ ${filter>name}}" id="item22___input6_0" />
-                                                </suggestionItems>
-                                            </Input>
+                                            <Input value="{filter>/filter/supervisor}" id="input7" />                                                                                           
                                         </fb:control>
-                                    </fb:FilterGroupItem>
-                                    <fb:FilterGroupItem groupName="G1" name="G" label="{i18n>supervisor}" labelTooltip="{i18n>position}" id="item25">
-                                        <fb:control>
-                                            <Input value="{filter>/filter/position}" suggestionItems="{filter>/supervisor}" showSuggestion="true" suggest=".onSuggestPosition" id="input7">
-                                                <suggestionItems>
-                                                    <core:Item xmlns:core="sap.ui.core" text="{=${filter>ID} +' '+ ${filter>name}}" id="item24___input7_0" />
-                                                </suggestionItems>
-                                            </Input>
-                                        </fb:control>
-                                    </fb:FilterGroupItem>
+                                    </fb:FilterGroupItem>                                                                     
                                 </fb:filterGroupItems>
                             </fb:FilterBar>
                         </items>
@@ -100,67 +96,102 @@
 
                                     <IconTabSeparator class="sapUiMediumMarginEnd " id="separator1" />
 
-                                    <IconTabFilter class="iconPositive sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://pending" iconColor="Critical" count="{data>/pending}" text="Pending for Approval" key="Initiated" iconDensityAware="false" id="filter5" />
+                                    <IconTabFilter class="iconPositive sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://pending" iconColor="Critical" count="{data>/pending}" text="{i18n>itabPending}" key="Initiated" iconDensityAware="false" id="filter5" />
 
-                                    <IconTabFilter class="iconPositive sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://sys-enter" iconColor="Positive" count="{data>/approved}" text="Approved" key="approved" id="filter6" />
+                                    <IconTabFilter class="iconPositive sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://sys-enter" iconColor="Positive" count="{data>/approved}" text="{i18n>itabApproved}" key="approved" id="filter6" />
 
-                                    <IconTabFilter class="iconNegative sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://sys-cancel" iconColor="Negative" count="{data>/rejected}" text="Rejected" key="rejected" id="filter7" />
+                                    <IconTabFilter class="iconNegative sapUiSmallMarginBegin sapUiMediumMarginEnd " icon="sap-icon://sys-cancel" iconColor="Negative" count="{data>/rejected}" text="{i18n>itabRejected}" key="rejected" id="filter7" />
 
                                 </items>
                                 <content>
                                 </content>
                             </IconTabBar>
-                            <Table id="TransferReqTable" class="custPadding" width="auto" showSeparators="Inner" items="{data>/TransferReq}" mode="MultiSelect" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" updateFinished="onLoad" selectionChange="onSelection" growing="true" growingScrollToLoad="true" includeItemInSelection="false" showUnread="false" itemPress="onItemPress" rememberSelections="true">
+                            <Table id="TransferReqTable" class="custPadding" width="auto" showSeparators="Inner" items="{data>/TransferReq}" mode="MultiSelect" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" updateFinished="onLoad" selectionChange="onSelection" growing="true" growingScrollToLoad="true" includeItemInSelection="false" showUnread="false" rememberSelections="true">
                                 <columns class="tableHeader">
-                                    <Column id="column3">
+                                    <Column id="column1">
                                         <Text text="{i18n>employeeId}" />
                                     </Column>
-                                    <Column minScreenWidth="Tablet" demandPopin="true" id="column4">
+                                    <Column minScreenWidth="Tablet" demandPopin="true" id="column2">
                                         <Text text="{i18n>name}" />
                                     </Column>
-                                    <Column id="column5">
+                                    <Column id="column3">
+                                        <Text text="{i18n>departmentId}" />
+                                    </Column>
+                                    <Column id="column4">
                                         <Text text="{i18n>department}" />
                                     </Column>
-                                    <Column id="column5_copy">
+                                     <Column id="column15">
+                                        <Text text="{i18n>pdepartmentId}" />
+                                    </Column>
+                                    <Column id="column16">
+                                        <Text text="{i18n>pdepartment}" />
+                                    </Column>
+                                    <Column id="column5">
                                         <header>
-                                            <Text text="{i18n>type}" id="text18" />
+                                            <Text text="{i18n>typeId}"  />
                                         </header>
                                     </Column>
                                     <Column id="column6">
                                         <header>
-                                            <Text text="{i18n>supervisor}" id="text19" />
+                                            <Text text="{i18n>type}"  />
                                         </header>
                                     </Column>
-                                    <Column id="column7" hAlign="Center">
-                                        <Text text="{i18n>criteria}" />
+                                     <Column id="column7">
+                                        <header>
+                                            <Text text="{i18n>supervisorId}"  />
+                                        </header>
                                     </Column>
                                     <Column id="column8">
+                                        <header>
+                                            <Text text="{i18n>supervisor}"  />
+                                        </header>
+                                    </Column>
+                                    <Column id="column9" hAlign="Center">
+                                        <Text text="{i18n>criteria}" />
+                                    </Column>
+                                    <Column id="column10">
+                                        <Text text="{i18n>cpositionId}" />
+                                    </Column>
+                                    <Column id="column11">
                                         <Text text="{i18n>cposition}" />
                                     </Column>
-                                    <Column id="column9">
+                                    <Column id="column12">
+                                        <Text text="{i18n>npositionId}" />
+                                    </Column>
+                                    <Column id="column13">
                                         <Text text="{i18n>nposition}" />
                                     </Column>
-                                    <Column id="column10" width="15rem">
-                                        <Text text="{i18n>comments}" />
+                                    <Column id="column17">
+                                        <Text text="{i18n>locationId}" />
                                     </Column>
-                                    <Column id="column11" width="3rem">
-                                        <Text text="" />
+                                    <Column id="column18">
+                                        <Text text="{i18n>location}" />
+                                    </Column>
+                                    <Column id="column14" width="12rem">
+                                        <Text text="{i18n>comments}" />
                                     </Column>
                                 </columns>
                                 <items>
                                     <ColumnListItem highlight="{=${data>Status} === 'Initiated' ? 'Warning' : ${data>Status} === 'Approved' ? 'Success' : 'Error'}" type="Active" id="item13_TransferReqTable_0_TransferReqTable_0">
                                         <cells>
-                                            <Link text="{data>employeeid}" id="link0_copy_TransferReqTable_0_TransferReqTable_0" press="onViewProfile" tooltip="View Profile" />
-                                            <Text text="{data>name}" id="text28_TransferReqTable_0_TransferReqTable_0" />
-                                            <Text text="{data>department}" id="text12_copy_TransferReqTable_0_TransferReqTable_0" />
-                                            <Text text="{data>employmentType}" id="text13_copy_TransferReqTable_0_TransferReqTable_0" />
-                                            <Text text="{data>supervisor}" id="text14_copy_TransferReqTable_0_TransferReqTable_0" />
-                                            <ObjectStatus state="{=${data>eligibility} !== 'warning' ? 'Success' : 'Warning' }" id="status0_copy_TransferReqTable_0_TransferReqTable_0" icon="{=${data>eligibility} !== 'warning' ? 'sap-icon://sys-enter' : 'sap-icon://warning' }" />
-                                            <Text text="{data>currentpos}" id="text016_copy_TransferReqTable_0_TransferReqTable_0" />
-                                            <Text text="{data>newpos}" id="text16_copy_TransferReqTable_0_TransferReqTable_0" />
-                                            <!--Input text="{data>comments}" id="input3" class="tableInput"/-->
-                                            <TextArea value="{data>comments}" id="area0_copy_TransferReqTable_0_TransferReqTable_0" height="2.5rem" rows="4" width="14.5rem" enabled="{=${data>Status} === 'Initiated'}" />
-                                            <Button id="button1_0_copy_TransferReqTable_0_TransferReqTable_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress" tooltip="Go to Details Page" />
+                                            <Link text="{data>employeeid}" id="link1" press="onViewProfile" tooltip="View Profile" />
+                                            <Text text="{data>name}" id="tc2" />
+                                            <Text text="{data>departmentId}" id="tc3" />
+                                            <Text text="{data>department}" id="tc4" />
+                                            <Text text="{data>pdepartmentId}" id="tc15" />
+                                            <Text text="{data>pdepartment}" id="tc16" />
+                                            <Text text="{data>employmentTypeId}" id="tc5" />
+                                            <Text text="{data>employmentType}" id="tc6" wrap="true" />
+                                            <Text text="{data>supervisorId}" id="tc9" />
+                                            <Text text="{data>supervisor}" id="tc8" />
+                                            <ObjectStatus state="{=${data>eligibility} !== 'warning' ? 'Success' : 'Warning' }" id="os1" icon="{=${data>eligibility} !== 'warning' ? 'sap-icon://sys-enter' : 'sap-icon://warning' }" />
+                                            <Text text="{data>currentposId}" id="tc10" />
+                                            <Text text="{data>currentpos}" id="tc11" />
+                                            <Text text="{data>newposId}" id="tc12" />
+                                            <Text text="{data>newpos}" id="tc13" />
+                                            <Text text="{data>locationId}" id="tc17" />
+                                            <Text text="{data>location}" id="tc18" />
+                                            <TextArea value="{data>comments}" id="tx14" height="2.5rem" rows="3" width="11.5rem" enabled="{=${data>Status} === 'Initiated'}" />  
                                         </cells>
                                     </ColumnListItem>
                                 </items>
@@ -169,11 +200,9 @@
                                         <content>
                                             <Title text="Requests for Approval" id="title5" />
                                             <ToolbarSpacer id="spacer01" />
-                                            <SearchField placeholder="Search for Employee’s" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />
-                                            <Button id="button0" icon="sap-icon://sort" press="handleSortButtonPressed" tooltip="Sort" />
-                                            <!-- <Button id="button0_1579056670196" press="onNavtoDetail" text="{i18n>tbnew}"/>                                        
+                                            <SearchField placeholder="Search for Employee’s" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />                                                                                    
                                             <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings" />
-                                            <Button id="button3" icon="sap-icon://refresh" press="onTablePersoRefresh" />  -->
+                                            <Button id="button3" icon="sap-icon://refresh" press="onTablePersoRefresh" /> 
                                             <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiTinyMarginEnd" tooltip="Download as Excel" />
                                         </content>
                                     </OverflowToolbar>
