@@ -256,10 +256,7 @@
     padding: 0rem 2rem 1rem 2rem;
 }
 .sapFDynamicPage-Std-Tablet .sapFDynamicPageTitle {
-    padding: 0.5px 1px 0.5px 2px !important;
-}
-.sapFDynamicPageTitle {
-    padding: 0.5px 1px 0.5px 2px !important;
+    padding: 0rem 0rem 0rem 0rem !important;
 }
 .sapUiSizeCompact .sapMGrowingListDescription {
     display: none !important;
@@ -315,10 +312,6 @@
     height: 1rem !important;
 }
 
-.sapFDynamicPage .sapFDynamicPageTitleWrapper {
-    visibility: hidden;
-    height: 8px;
-}
 */
 .sapUiSizeCompact .sapFDynamicPageToggleHeaderIndicator .sapMBtnInner.sapMBtnIconFirst:not(.sapMBtnBack), .sapUiSizeCompact .sapFDynamicPageHeaderPinButton .sapMBtnInner.sapMBtnIconFirst:not(.sapMBtnBack) {
     visibility: hidden;
@@ -371,9 +364,28 @@
 .sapMSelectionPanel tbody .sapMListTblSelCol {
     vertical-align: middle;
 }
-body{
-    margin-top: 0px !important;
-    margin-right: 0px !important;
-    margin-left: 0px !important;
-    margin-bottom: 0px !important;
-  }
+.sapFDynamicPageTitleMain>.sapFDynamicPageTitleMainInner .sapFDynamicPageTitleMainHeading .sapFDynamicPageTitleMainHeadingInner {
+     margin-top: 0rem;
+}
+.sapFDynamicPageTitle .sapFDynamicPageTitleMain {
+    background-color: #aac6de !important;
+}
+.sapFDynamicPageTitle .sapFDynamicPageTitleMain>.sapFDynamicPageTitleMainInner .sapFDynamicPageTitleMainActions {
+     padding-left: 0rem;
+}
+.sapFDynamicPageTitleMain>.sapFDynamicPageTitleMainInner .sapFDynamicPageTitleMainActions {
+
+    min-width: 0rem;
+}
+
+.sapFDynamicPageTitleMainActions {
+    padding-right: 0rem;
+}
+.sapFDynamicPageTitleMain>.sapFDynamicPageTitleMainInner .sapFDynamicPageTitleMainContent {
+    min-width: 0rem;
+    padding: 0 0 0 0rem;
+}
+.sapFDynamicPageTitle {
+
+    padding: 0rem 0rem 0rem 0rem !important; 
+}

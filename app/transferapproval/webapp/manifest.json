@@ -120,8 +120,8 @@
                     "viewType": "XML",
                     "async": true,
                     "viewPath": "transferapproval.view",
-                    "controlAggregation": "content",
-                    "controlId": "page",
+                    "controlAggregation": "pages",
+                    "controlId": "app",
                     "clearControlAggregation": true
                 },
                 "routes": [
@@ -163,7 +163,6 @@
                         "viewName": "App"
                     },
                     "TransferList": {
-                        "controlAggregation": "content",
                         "clearControlAggregation": true,
                         "viewName": "TransferList",
                         "viewId": "TransferList",
@@ -172,7 +171,7 @@
                         "transition": "flip"
                     },
                     "EmployeeProfile": {
-                        "controlAggregation": "content",
+                        
                         "clearControlAggregation": true,
                         "viewName": "EmployeeProfile",
                         "viewId": "EmployeeProfile",

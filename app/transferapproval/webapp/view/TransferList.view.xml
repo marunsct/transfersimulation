@@ -11,8 +11,21 @@
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle>
-                <f:heading class="dynHeader">
+                <f:heading >
+                    <Bar id="bar0" class="sapThemeBrand-asBackgroundColor titleBgColor">
+                            <contentLeft>
+                                <Image src="https://hcm44.sapsf.com/companyLogoServlet/?companyId=nipponshinD&amp;mod=1625099370959" width="140px" height="30px" id="image0" class="sapUiSmallMarginBegin" />
 
+                            </contentLeft>
+                            <contentMiddle>
+                                <Title xmlns="sap.m" text="{i18n>title}" id="title0" level="H1" class="titleText" titleStyle="H3" width="240px" />
+
+                            </contentMiddle>
+                            <contentRight>
+                                <Button xmlns="sap.m" text="{i18n>language}" id="buttonLang" press="onLanguageChange" />
+                                <Button xmlns="sap.m" id="buttonLout" icon="sap-icon://log" class="sapUiSmallMarginEnd" press="onLogout" />
+                            </contentRight>
+                        </Bar>
                 </f:heading>
                 <f:content />
                 <f:actions />
@@ -199,9 +212,9 @@
                                 <headerToolbar>
                                     <OverflowToolbar class="container" width="100%" id="toolbar1_1646235762452">
                                         <content>
-                                            <Title text="Requests for Approval" id="title5" />
+                                            <Title text="{i18n>rApproval}" id="title5" />
                                             <ToolbarSpacer id="spacer01" />
-                                            <SearchField placeholder="Search for Employee’s" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />
+                                            <SearchField placeholder="{i18n>searchEmployee}" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />
                                             <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings" />
                                             <Button id="button3" icon="sap-icon://refresh" press="onTablePersoRefresh" />
                                             <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiTinyMarginEnd" tooltip="Download as Excel" />
@@ -216,13 +229,13 @@
 
                         <content>
 
-                            <Text text="{= ${OP>/selectedCount} + ' Requests Selected'}" id="text3_1644219675795" class="sapUiMediumMarginBegin sapThemeLightText footerText" />
+                            <Text text="{= ${OP>/selectedCount} + ' '+${i18n>requestSelected}}" id="text3_1644219675795" class="sapUiMediumMarginBegin sapThemeLightText footerText" />
 
                             <ToolbarSpacer id="spacer1" />
 
-                            <Button press="onAccept" text="Approve" id="button0_1644211420374" enabled="{filter>/enabled}" class="sapMBtnAccept sapUiSmallMarginEnd" icon="sap-icon://sys-enter-2" type="Accept" />
+                            <Button press="onAccept" text="{i18n>bApprove}" id="button0_1644211420374" enabled="{filter>/enabled}" class="sapMBtnAccept sapUiSmallMarginEnd" icon="sap-icon://sys-enter-2" type="Accept" />
 
-                            <Button text="Reject" id="button1" class="sapUiSmallMarginEnd" icon="sap-icon://sys-cancel-2" enabled="{filter>/enabled}" type="Reject" press="onReject" />
+                            <Button text="{i18n>bReject}" id="button1" class="sapUiSmallMarginEnd" icon="sap-icon://sys-cancel-2" enabled="{filter>/enabled}" type="Reject" press="onReject" />
 
                         </content>
 

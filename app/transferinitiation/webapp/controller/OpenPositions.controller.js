@@ -468,7 +468,11 @@ sap.ui.define([
                         this._downLog =  this._downLog + '\n' + messages[j].key.split('externalCode=')[1] + '\t\t' +  messages[j].message;
 
                     }else if(messages[j].httpCode === 200){
-                        successTransfers = successTransfers + messages[j].key.split('externalCode=')[1] ;
+                        if (successTransfers !== "") {
+                            successTransfers = successTransfers + ", " + messages[j].key.split('userId=')[1];
+                        } else {
+                            successTransfers = successTransfers + messages[j].key.split('userId=')[1];
+                        }
                     }
                 }
                 let Counter = 1;

@@ -69,7 +69,7 @@ sap.ui.define([
 
                         },
                         selectedCount: 0,
-                        height: Device.resize.height - 50 - (165 + this.getView().byId("idIconTabBar").$().height() + this.getView().byId("filterbar0").$().height()) + 'px',
+                        height: Device.resize.height - 60 - (165 + this.getView().byId("idIconTabBar").$().height() + this.getView().byId("filterbar0").$().height()) + 'px',
                         height1: (Math.round(Device.resize.height * 0.7)) + 'px'
 
                     };
@@ -459,7 +459,11 @@ sap.ui.define([
                             this._downLog = this._downLog + '\n' + messages[j].key.split('userId=')[1] + '\t\t' + messages[j].message;
 
                         } else if (messages[j].httpCode === 200) {
-                            successTransfers = successTransfers + messages[j].key.split('userId=')[1];
+                            if (successTransfers !== "") {
+                                successTransfers = successTransfers + ", " + messages[j].key.split('userId=')[1];
+                            } else {
+                                successTransfers = successTransfers + messages[j].key.split('userId=')[1];
+                            }
                         }
                     }
                     let Counter = 1;

@@ -6,7 +6,8 @@
             "forwardAuthToken": true
         }
     ],
-	"VCAP_SERVICES": {
+    "VCAP_SERVICES": {
+
 		"xsuaa": [
 			{
 				"label": "xsuaa",

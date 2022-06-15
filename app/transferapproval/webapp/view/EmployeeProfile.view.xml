@@ -17,93 +17,112 @@
         <headerTitle>
             <ObjectPageDynamicHeaderTitle class="profileHeader">
                 <heading>
-                    <m:HBox class="employeeHeader" alignItems="Start" alignContent="SpaceBetween" fitContainer="true">
+                    <m:VBox>
                         <m:items>
-                            <m:HBox alignItems="Center" class="sapUiSmallMarginBottom sapUiMediumMarginEnd">
+                            <m:Bar id="bar0" class="sapThemeBrand-asBackgroundColor titleBgColor">
+                                <m:contentLeft>
+                                    <m:Image src="https://hcm44.sapsf.com/companyLogoServlet/?companyId=nipponshinD&amp;mod=1625099370959" width="140px" height="30px" id="image0" class="sapUiSmallMarginBegin" />
+
+                                </m:contentLeft>
+                                <m:contentMiddle>
+                                    <m:Title xmlns="sap.m" text="{i18n>title}" id="title0" level="H1" class="titleText" titleStyle="H3" width="240px" />
+
+                                </m:contentMiddle>
+                                <m:contentRight>
+                                    <m:Button xmlns="sap.m" text="{i18n>language}" id="buttonLang" press="onLanguageChange" />
+                                    <m:Button xmlns="sap.m" id="buttonLout" icon="sap-icon://log" class="sapUiSmallMarginEnd" press="onLogout" />
+                                </m:contentRight>
+                            </m:Bar>
+                            <m:HBox class="employeeHeader" alignItems="Start" alignContent="SpaceBetween" fitContainer="true">
                                 <m:items>
-                                    <m:Button id="button0_1643608506867" width="50px" press="_onPageNavButtonPress" class="navigationButton1" type="Back" />
-                                    <f:Avatar src="{PR>/PerPerson/phoneNum}" displaySize="L" showBorder="true" id="avatar1" />
-                                    <m:VBox direction="Column" id="vbox2" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin">
+                                    <m:HBox alignItems="Center" class="sapUiSmallMarginBottom sapUiMediumMarginEnd">
                                         <m:items>
-                                            <m:Title text="{=${PR>/EmpJob/lastName} +' '+ ${PR>/EmpJob/firstName} + ' ( ' + ${PR>/EmpJob/userId} + ' )'}" id="title6" titleStyle="H3" class="sapUiSmallMarginTop" />
-                                            <m:Text text="{PR>/EmpJob/positionTitle}" id="text9" class="sapUiSmallMarginTopBottom" />
-                                        </m:items>
-                                    </m:VBox>
-                                </m:items>
-                            </m:HBox>
-                            <m:HBox alignItems="Start" width="100%" wrap="Wrap" class="sapUiSmallMarginTopBottom  sapUiSmallMarginBegin" fitContainer="true" justifyContent="Start">
-                                <m:items>
-                                    <m:HBox width="250px" direction="Row" id="vbox2_1643626264149_copy3" class="sapUiSmallMarginTop sapUiMediumMarginEnd" height="100%" alignContent="Start" alignItems="Start">
-                                        <m:items>
-                                            <m:VBox width="auto" id="hbox0_16_copy4" wrap="Wrap" alignItems="Start" class="">
+                                            <m:Button id="button0_1643608506867" width="50px" press="_onPageNavButtonPress" class="navigationButton1" type="Back" />
+                                            <f:Avatar src="{PR>/PerPerson/phoneNum}" displaySize="L" showBorder="true" id="avatar1" />
+                                            <m:VBox direction="Column" id="vbox2" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin">
                                                 <m:items>
-                                                    <m:Label text="{=${i18n>criteria} + ' :'}" width="100%" id="label1_1643626384196_copy2" />
-                                                </m:items>
-                                            </m:VBox>
-                                            <m:VBox width="100%" id="hbox0_16_copy" alignContent="Start" wrap="Wrap" class="sapUiSmallMarginBegin">
-                                                <m:items>
-                                                    <m:ObjectStatus state="{=${PR>/EmpJob/eligibility} === 'Error' ? 'Error' : ${PR>/EmpJob/eligibility} === 'Warning' ? 'Warning' : 'Success' }" id="status0" icon="{=${PR>/EmpJob/Transfer_Criteria} === 'Eligible' ? 'sap-icon://sys-enter-2' : ${PR>/EmpJob/eligibility} === 'Warning' ? 'sap-icon://status-critical' : 'sap-icon://status-negative' }" />
-                                                    <m:Text text="{PR>/EmpJob/description}" id="text16_copy2" />
+                                                    <m:Title text="{=${PR>/EmpJob/lastName} +' '+ ${PR>/EmpJob/firstName} + ' ( ' + ${PR>/EmpJob/userId} + ' )'}" id="title6" titleStyle="H3" class="sapUiSmallMarginTop" />
+                                                    <m:Text text="{PR>/EmpJob/positionTitle}" id="text9" class="sapUiSmallMarginTopBottom" />
                                                 </m:items>
                                             </m:VBox>
                                         </m:items>
                                     </m:HBox>
-                                    <m:VBox width="250px" direction="Column" id="vbox02" class="sapUiSmallMarginTop sapUiMediumMarginEnd" alignContent="Start" alignItems="Start">
+                                    <m:HBox alignItems="Start" width="100%" wrap="Wrap" class="sapUiSmallMarginTopBottom  sapUiSmallMarginBegin" fitContainer="true" justifyContent="Start">
                                         <m:items>
-                                            <m:Label text="{i18n>contact}" id="text009" class="" />
-                                            <m:HBox class="">
-                                                <core:Icon src="sap-icon://outgoing-call" class="sapUiTinyMarginTop" />
-                                                <m:Link text="{PR>/PerPerson/phoneNum}" class="sapUiSmallMarginBegin" />
-                                            </m:HBox>
-                                            <m:HBox>
-                                                <core:Icon src="sap-icon://email" class="sapUiTinyMarginTop" />
-                                                <m:Link text="{PR>/PerPerson/email}" class="sapUiSmallMarginBegin" />
-                                            </m:HBox>
-                                        </m:items>
-                                    </m:VBox>
-                                    <m:VBox id="hbox0_16_copy3" class="sapUiSmallMarginTopBottom sapUiMediumMarginEnd" alignItems="Start" alignContent="Start" wrap="Wrap">
-                                        <m:items>
-                                            <m:Label text="{i18n>afterTransferPerformance}" width="100%" id="label0_1643626362769_copy3" />
-                                            <m:HBox width="100%" direction="Row" id="vbox2_1643626264149_copy6" class="sapUiTinyMarginTop performanceContainer" alignItems="Start" alignContent="Start" justifyContent="SpaceBetween">
+                                            <m:HBox width="250px" direction="Row" id="vbox2_1643626264149_copy3" class="sapUiSmallMarginTop sapUiMediumMarginEnd" height="100%" alignContent="Start" alignItems="Start">
                                                 <m:items>
-                                                    <m:VBox width="100%" class="" direction="Column" id="vbox2_1643951732334_copy2" alignItems="Center">
+                                                    <m:VBox width="auto" id="hbox0_16_copy4" wrap="Wrap" alignItems="Start" class="">
                                                         <m:items>
-                                                            <m:HBox width="40px" id="hp2" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
-                                                                <m:items>
-                                                                    <m:Text text="{PR>/Performance/rating3}" id="p3_copy2" />
-                                                                </m:items>
-                                                            </m:HBox>
-                                                            <m:Text text="{PR>/Performance/ry2}" id="text15_1643951750049_copy2" />
+                                                            <m:Label text="{=${i18n>criteria} + ' :'}" width="100%" id="label1_1643626384196_copy2" />
                                                         </m:items>
                                                     </m:VBox>
-                                                    <m:VBox class="sapUiTinyMarginBeginEnd" width="100%" direction="Column" id="vbox2_1643951732334_copy3" alignItems="Center">
+                                                    <m:VBox width="100%" id="hbox0_16_copy" alignContent="Start" wrap="Wrap" class="sapUiSmallMarginBegin">
                                                         <m:items>
-                                                            <m:HBox width="40px" id="hp1" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
-                                                                <m:items>
-                                                                    <m:Text text="{PR>/Performance/rating2}" id="p3_copy3" />
-                                                                </m:items>
-                                                            </m:HBox>
-                                                            <m:Text text="{PR>/Performance/ry2}" id="text15_1643951750049_copy3" />
-                                                        </m:items>
-                                                    </m:VBox>
-                                                    <m:VBox width="100%" class="" direction="Column" id="vbox2_1643951732334_copy4" alignItems="Center">
-                                                        <m:items>
-                                                            <m:HBox width="40px" id="hp0" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
-                                                                <m:items>
-                                                                    <m:Text text="{PR>/Performance/rating1}" id="p3_copy4" />
-                                                                </m:items>
-                                                            </m:HBox>
-                                                            <m:Text text="{PR>/Performance/ry1}" id="text15_1643951750049_copy4" />
+                                                            <m:ObjectStatus state="{=${PR>/EmpJob/eligibility} === 'Error' ? 'Error' : ${PR>/EmpJob/eligibility} === 'Warning' ? 'Warning' : 'Success' }" id="status0" icon="{=${PR>/EmpJob/Transfer_Criteria} === 'Eligible' ? 'sap-icon://sys-enter-2' : ${PR>/EmpJob/eligibility} === 'Warning' ? 'sap-icon://status-critical' : 'sap-icon://status-negative' }" />
+                                                            <m:Text text="{PR>/EmpJob/description}" id="text16_copy2" />
                                                         </m:items>
                                                     </m:VBox>
                                                 </m:items>
                                             </m:HBox>
+                                            <m:VBox width="250px" direction="Column" id="vbox02" class="sapUiSmallMarginTop sapUiMediumMarginEnd" alignContent="Start" alignItems="Start">
+                                                <m:items>
+                                                    <m:Label text="{i18n>contact}" id="text009" class="" />
+                                                    <m:HBox class="">
+                                                        <core:Icon src="sap-icon://outgoing-call" class="sapUiTinyMarginTop" />
+                                                        <m:Link text="{PR>/PerPerson/phoneNum}" class="sapUiSmallMarginBegin" />
+                                                    </m:HBox>
+                                                    <m:HBox>
+                                                        <core:Icon src="sap-icon://email" class="sapUiTinyMarginTop" />
+                                                        <m:Link text="{PR>/PerPerson/email}" class="sapUiSmallMarginBegin" />
+                                                    </m:HBox>
+                                                </m:items>
+                                            </m:VBox>
+                                            <m:VBox id="hbox0_16_copy3" class="sapUiSmallMarginTopBottom sapUiMediumMarginEnd" alignItems="Start" alignContent="Start" wrap="Wrap">
+                                                <m:items>
+                                                    <m:Label text="{i18n>afterTransferPerformance}" width="100%" id="label0_1643626362769_copy3" />
+                                                    <m:HBox width="100%" direction="Row" id="vbox2_1643626264149_copy6" class="sapUiTinyMarginTop performanceContainer" alignItems="Start" alignContent="Start" justifyContent="SpaceBetween">
+                                                        <m:items>
+                                                            <m:VBox width="100%" class="" direction="Column" id="vbox2_1643951732334_copy2" alignItems="Center">
+                                                                <m:items>
+                                                                    <m:HBox width="40px" id="hp2" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
+                                                                        <m:items>
+                                                                            <m:Text text="{PR>/Performance/rating3}" id="p3_copy2" />
+                                                                        </m:items>
+                                                                    </m:HBox>
+                                                                    <m:Text text="{PR>/Performance/ry2}" id="text15_1643951750049_copy2" />
+                                                                </m:items>
+                                                            </m:VBox>
+                                                            <m:VBox class="sapUiTinyMarginBeginEnd" width="100%" direction="Column" id="vbox2_1643951732334_copy3" alignItems="Center">
+                                                                <m:items>
+                                                                    <m:HBox width="40px" id="hp1" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
+                                                                        <m:items>
+                                                                            <m:Text text="{PR>/Performance/rating2}" id="p3_copy3" />
+                                                                        </m:items>
+                                                                    </m:HBox>
+                                                                    <m:Text text="{PR>/Performance/ry2}" id="text15_1643951750049_copy3" />
+                                                                </m:items>
+                                                            </m:VBox>
+                                                            <m:VBox width="100%" class="" direction="Column" id="vbox2_1643951732334_copy4" alignItems="Center">
+                                                                <m:items>
+                                                                    <m:HBox width="40px" id="hp0" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
+                                                                        <m:items>
+                                                                            <m:Text text="{PR>/Performance/rating1}" id="p3_copy4" />
+                                                                        </m:items>
+                                                                    </m:HBox>
+                                                                    <m:Text text="{PR>/Performance/ry1}" id="text15_1643951750049_copy4" />
+                                                                </m:items>
+                                                            </m:VBox>
+                                                        </m:items>
+                                                    </m:HBox>
+                                                </m:items>
+                                            </m:VBox>
                                         </m:items>
-                                    </m:VBox>
+                                    </m:HBox>
                                 </m:items>
                             </m:HBox>
                         </m:items>
-                    </m:HBox>
+                    </m:VBox>
+
                 </heading>
                 <expandedHeading>
                 </expandedHeading>
