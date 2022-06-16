@@ -87,7 +87,7 @@
 
 
                 <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" class="marginBoxContent" noDataText="{i18n>terror}" id="table0" items="{OP>/OpenPositions/result}" 
-                fixedLayout="false" includeItemInSelection="true" growingScrollToLoad="true" growing="true" growingThreshold="20" updateFinished="onUpdateFinished" 
+                fixedLayout="false" includeItemInSelection="true" growingScrollToLoad="true" growing="true" growingThreshold="50" updateFinished="onUpdateFinished" 
                 updateStarted="onUpdateStarted" growingTriggerText="More" itemPress="_onTableItemPress">
                     <dragDropConfig>
                         <dnd:DropInfo groupName="available2selected" targetAggregation="items" dropPosition="Between" drop="onDropSelectedEmployee"/>
@@ -127,12 +127,12 @@
                         </Column>
                         <Column id="column2">
                             <header>
-                                <Label text="{i18n>position}" id="label2"/>
+                                <Label text="{i18n>positionId}" id="label2"/>
                             </header>
                         </Column>
                         <Column id="column3">
                             <header>
-                                <Label text="{i18n>positionTitle}" id="label3"/>
+                                <Label text="{i18n>position}" id="label3"/>
                             </header>
                         </Column>
                         <Column id="column4">
@@ -152,7 +152,7 @@
                         </Column>
                         <Column id="column7">
                             <header>
-                                <Label text="{i18n>positionClass}" id="label7"/>
+                                <Label text="{i18n>class}" id="label7"/>
                             </header>
                         </Column>
                         <Column id="column8">
@@ -162,7 +162,7 @@
                         </Column>
                         <Column id="column9">
                             <header>
-                                <Label text="{i18n>positionType}" id="label9"/>
+                                <Label text="{i18n>type}" id="label9"/>
                             </header>
                         </Column>
                         <Column id="column10">

@@ -10,7 +10,7 @@ sap.ui.define([
     return BaseController.extend("transferinitiation.controller.EmployeeProfile", {
 
         handleRouteMatched: function (oEvent) {
-           // BusyIndicator.show();
+            // BusyIndicator.show();
             var oParams = oEvent.getParameters()
             this._employeeId = oParams.arguments.ID;
             this.currentRouteName = oParams.name;
@@ -83,7 +83,7 @@ sap.ui.define([
 
         },
         onInit: function () {
-           // BusyIndicator.show(0);
+            // BusyIndicator.show(0);
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             this.oRouter.attachRouteMatched(this.handleRouteMatched, this);
             this.oFclModel = this.getOwnerComponent().getModel("FclRouter");
@@ -122,16 +122,16 @@ sap.ui.define([
                     "psLevel": "",
                     "company": "",
                     "customString6": "",
-                    "lastTransDate":"",
-                    "psGroupL":"",
-                    "psLevelL":""
+                    "lastTransDate": "",
+                    "psGroupL": "",
+                    "psLevelL": ""
                 },
                 Performance: {
                     rating1: "",
                     rating2: "",
                     rating3: "",
-                    ry1:"",
-                    ry2:"",
+                    ry1: "",
+                    ry2: "",
                     ry3: ""
                 },
                 PerPerson: {
@@ -152,8 +152,8 @@ sap.ui.define([
                 }],
                 Photo: {},
                 prevDepartment: {
-                    id:"NA",
-                    dept:""
+                    id: "NA",
+                    dept: ""
                 },
                 AdditionalInfo: {
                     user: "",
@@ -173,7 +173,7 @@ sap.ui.define([
                 Academy: "NA"
 
             };
-            
+
             this.oView.setModel(new sap.ui.model.json.JSONModel(data), 'PR');
 
             sap.ui.getCore().attachLocalizationChanged(function (oEvent) {
@@ -265,7 +265,7 @@ sap.ui.define([
                 mData.EmpJob = this.getCustProperty("EmployeeProfile");
                 this._count += 1;
                 this.getNomination(mData.EmpJob.position)
-                this.getPrevDepart(mData.EmpJob.userId,mData.EmpJob.position, this.getFDate(mData.EmpJob.lastTransDate))
+                this.getPrevDepart(mData.EmpJob.userId, mData.EmpJob.position, this.getFDate(mData.EmpJob.lastTransDate), mData.EmpJob.lastTransDate.substring(0, 10))
             } else {
                 this.getEmpJob(sUser);
             }
@@ -288,34 +288,34 @@ sap.ui.define([
         },
         setBusy: function (sCount) {
             console.log(sCount);
-            if (sCount >= 7) {
+            if (sCount >= 8) {
                 BusyIndicator.hide()
             }
         },
         getFDate: function (sDate) {
-            let day,month, year;
-            day =sDate.substring(8,10);
-            month = sDate.substring(5,7);
-            year = sDate.substring(0,4);
-
-            if(day === "01"){
-                day = "30";
-                if(month === "01"){
-                    month = "12";
-                    year = parseInt(year) - 1;
-                }else{
-                    month = parseInt(month) - 1;
-                    month = month + "";
-                    if(month.length ===1){
-                        month = "0" + month;
-                    }
-                }
-
-            }else{
-                day = "01";
-            }
-
-            return (year + "-" + month + "-" + day)
+            let day, month, year;
+            day = sDate.substring(8, 10);
+            month = sDate.substring(5, 7);
+            year = sDate.substring(0, 4);
+            /*
+                        if(day === "01"){
+                            day = "30";
+                            if(month === "01"){
+                                month = "12";
+                                year = parseInt(year) - 1;
+                            }else{
+                                month = parseInt(month) - 1;
+                                month = month + "";
+                                if(month.length ===1){
+                                    month = "0" + month;
+                                }
+                            }
+            
+                        }else{
+                            day = "01";
+                        }
+            */
+            return (parseInt(year) - 5 + "-" + month + "-" + day)
         },
         getEmpJob: function (sUserId) {
             let lang;
@@ -341,7 +341,7 @@ sap.ui.define([
                     this._count += 1;
                     let fres = JSON.parse(result).EmpJob;
                     this.getNomination(fres.position);
-                    this.getPrevDepart(fres.userId,fres.position, this.getFDate(fres.lastTransDate));
+                    this.getPrevDepart(fres.userId, fres.position, this.getFDate(fres.lastTransDate), fres.lastTransDate.substring(0, 10));
                     this.setBusy(this._count);
                 }.bind(this),
                 error: function (request, status, errorThrown) {
@@ -404,6 +404,8 @@ sap.ui.define([
                         ai4ID.addStyleClass(this.additionalInfo('0'));
                         ai5ID.addStyleClass(this.additionalInfo('0'));
                         this.getModel("PR").setProperty("/AdditionalInfo", AdditionalInfo);
+                        this._count += 1;
+                        this.setBusy(this._count);
                         return;
                     }
                     let addInfo = {
@@ -455,7 +457,7 @@ sap.ui.define([
 
         },
         getAcadInfo: function (sUserId) {
-            let url = "/SFSF/odata/v2/Background_Education?$expand=majorNav,degreeNav,majorNav/picklistLabels&$top=2&$filter=userId eq '" + sUserId + "'";
+            let url = "/SFSF/odata/v2/Background_Education?$expand=majorNav,degreeNav,degreeNav/picklistLabels,majorNav/picklistLabels&$top=10&$filter=userId eq '" + sUserId + "'";
             $.ajax({
                 url: url,
                 method: "GET",
@@ -480,21 +482,33 @@ sap.ui.define([
                         lang = 'en_US';
                     }
 
-                    let major = "", degree;
-
-                    degree = result.d.results[0].degree;
-
-                    for (let i = 0; i < result.d.results[0].majorNav.picklistLabels.results.length; i++) {
-                        if (result.d.results[0].majorNav.picklistLabels.results[i].locale === lang) {
-                            major = result.d.results[0].majorNav.picklistLabels.results[i].label;
-                        } else {
-                            major = result.d.results[0].majorNav.picklistLabels.results[i].label;
+                    let major = "", degree = "", acdInfo = "";
+                    for (let j = 0; j < result.d.results.length; j++) {
+                        // degree = result.d.results[0].degree;
+                        for (let i = 0; i < result.d.results[j].degreeNav.picklistLabels.results.length; i++) {
+                            if (result.d.results[j].degreeNav.picklistLabels.results[i].locale === lang) {
+                                degree = result.d.results[j].degreeNav.picklistLabels.results[i].label;
+                                break;
+                            } else {
+                                degree = result.d.results[j].degreeNav.picklistLabels.results[i].label;
+                            }
+                        }
+                        for (let i = 0; i < result.d.results[j].majorNav.picklistLabels.results.length; i++) {
+                            if (result.d.results[j].majorNav.picklistLabels.results[i].locale === lang) {
+                                major = result.d.results[j].majorNav.picklistLabels.results[i].label;
+                                break;
+                            } else {
+                                major = result.d.results[j].majorNav.picklistLabels.results[i].label;
+                            }
+                        }
+                        if (degree !== null || degree !== "") {
+                            if (acdInfo !== "") {
+                                acdInfo = acdInfo + ", ";
+                            }
+                            acdInfo = acdInfo + major + " ( " + degree + " )"
                         }
                     }
-                    if (degree !== null || degree !== "") {
-                        major = major + " ( " + degree + " )"
-                    }
-                    this.getModel("PR").setProperty("/Academy", major);
+                    this.getModel("PR").setProperty("/Academy", acdInfo);
                     this._count += 1;
                     this.setBusy(this._count);
                     // this.getModel("PR").setProperty("/EmpJob", JSON.parse(result).EmpJob);
@@ -562,8 +576,8 @@ sap.ui.define([
             });
 
         },
-        getPrevDepart: function (sUser,sPositionId,sDate) {
-            let url = "/SFSF/odata/v2/EmpJob?$top=1&$expand=departmentNav&$filter=userId eq '"+sUser+"' and position ne '"+sPositionId+"'&fromDate=" + sDate;
+        getPrevDepart: function (sUser, sPositionId, sDate, sLdate) {
+            let url = "/SFSF/odata/v2/EmpJob?$expand=departmentNav&$filter=userId eq '" + sUser + "'  and startDate lt '" + sLdate + "'&fromDate=" + sDate;
             $.ajax({
                 url: url,
                 method: "GET",
@@ -575,22 +589,44 @@ sap.ui.define([
 
                 success: function (result) {
 
-                    let dept ={
-                        id:"NA",
-                        dept:""
+                    let pDept = {
+                        id: "NA",
+                        dept: ""
                     };
-                    if(result.d.results.length < 1){
+                    if (result.d.results.length < 1) {
                         this._count += 1;
                         this.setBusy(this._count);
                         return;
                     }
-                    if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
-                        dept.dept = result.d.results[0].departmentNav.name_ja_JP;
-                    } else {
-                        dept.dept = result.d.results[0].departmentNav.name_en_US;
-                    }
-                    dept.id = result.d.results[0].department;
-                    this.getModel("PR").setProperty("/prevDepartment", dept);
+                    let date, dept = result.d.results;
+                    for (let i = 0; i < dept.length; i++) {
+                        if (date === undefined) {
+                            date = new Date(Number(dept[i].startDate.match(/\d+/)[0]));
+                            console.log(date, dept[i].department);
+                            if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
+                                pDept.dept = dept[i].departmentNav.name_ja_JP;
+                            } else {
+                                pDept.dept = dept[i].departmentNav.name_en_US;
+                            }
+                            pDept.id = dept[i].department;
+                        } else {
+                            if (date < new Date(Number(dept[i].startDate.match(/\d+/)[0]))) {
+                                date = new Date(Number(dept[i].startDate.match(/\d+/)[0]));
+
+                                pDept.id = dept[i].department;
+                                if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
+                                    pDept.dept = dept[i].departmentNav.name_ja_JP !== null ? dept[i].departmentNav.name_ja_JP : dept[i].departmentNav.name ;
+                                } else {
+                                    pDept.dept = dept[i].departmentNav.name_en_US !== null ? dept[i].departmentNav.name_en_US : dept[i].departmentNav.name ;
+                                }
+                                //   pDept.dept = dept[i].department;
+                                // console.log(date, dept[i].department);
+                            }
+                        }
+                    };
+
+                    // dept.id = result.d.results[k].department;
+                    this.getModel("PR").setProperty("/prevDepartment", pDept);
                     // BusyIndicator.hide();
                     this._count += 1;
                     this.setBusy(this._count);
@@ -702,7 +738,7 @@ sap.ui.define([
             return [d[0], d[1], d[2], d[3]].join(' ');
         },
         getPerPerson: function (sUserId) {
-            let url = "/SFSF/odata/v2/EmpEmployment?$expand=photoNav,personNav,userNav,personNav/personalInfoNav,personNav/emailNav,personNav/phoneNav&$filter=userId eq '" + sUserId + "'";
+            let url = "/SFSF/odata/v2/EmpEmployment?$expand=photoNav,personNav,userNav,personNav/personalInfoNav,personNav/emailNav,personNav/phoneNav,personNav/emailNav/emailTypeNav,personNav/phoneNav/phoneTypeNav&$filter=personNav/emailNav/emailTypeNav/externalCode eq 'B' and personNav/phoneNav/phoneTypeNav/externalCode eq 'B' and userId eq '" + sUserId + "'";
             $.ajax({
                 url: url,
                 method: "GET",
@@ -713,27 +749,59 @@ sap.ui.define([
                 },
 
                 success: function (sResult) {
+                    let perPerson = {
+                        personIdExternal: 'NA',
+                        dateOfBirth: 'NA',
+                        phoneNum: 'NA',
+                        email: 'NA',
+                        date60: 'NA',
+                        hireDate: 'NA',
+                        photo: '',
+                        gender: 'NA'
+                    }
+                    if (sResult.d.results.length < 1) {
+
+                        this.getModel("PR").setProperty("/PerPerson", perPerson);
+                        this._count += 1;
+                        this.setBusy(this._count);
+                        return;
+                    }
                     let result = sResult.d.results[0].personNav;
                     let hdate = sResult.d.results[0].startDate;
-                    let perPerson = {};
                     let dob = result.dateOfBirth;
                     let photo = null;
                     let d60 = "";
                     let phone = "NA", email = "NA";
                     if (result.phoneNav.results.length > 0) {
-                        phone = result.phoneNav.results[0].phoneNumber;
+                        let phoneArr = result.phoneNav;
+                        for (let i = 0; i < phoneArr.results.length; i++) {
+
+                            if (phoneArr.results[i].phoneTypeNav.externalCode === 'B') {
+                                phone = result.phoneNav.results[i].phoneNumber;
+                            }
+
+                        }                        //phone = result.phoneNav.results[0].phoneNumber;
                     }
                     if (result.emailNav.results.length > 0) {
-                        email = result.emailNav.results[0].emailAddress
+                        let emailArr = result.emailNav;
+                        for (let i = 0; i < emailArr.results.length; i++) {
+
+                            if (emailArr.results[i].emailTypeNav.externalCode === 'B') {
+                                email = result.emailNav.results[i].emailAddress;
+                            }
+
+                        }
+                        //email = result.emailNav.results[0].emailAddress
                     }
                     if (dob) {
                         d60 = new Date(Number(dob.match(/\d+/)[0]));
                         d60.setFullYear(d60.getFullYear() + 60);
-                        d60 = this.taskDate(Date.parse(d60));
+                        d60 = d60.toISOString().substring(0, 10);
+                        //d60 = this.taskDate(Date.parse(d60));
                     }
                     if (hdate) {
-                        hdate = new Date(Number(hdate.match(/\d+/)[0]));
-                        hdate = this.taskDate(Date.parse(hdate));
+                        hdate = new Date(Number(hdate.match(/\d+/)[0])).toISOString().substring(0, 10);
+                        //hdate = this.taskDate(Date.parse(hdate));
                     }
                     if (sResult.d.results[0].photoNav.results.length > 0) {
                         photo = sResult.d.results[0].photoNav.results[0].photo;

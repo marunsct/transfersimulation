@@ -6,8 +6,7 @@
             "forwardAuthToken": true
         }
     ],
-    "VCAP_SERVICES": {
-
+	"VCAP_SERVICES": {
 		"xsuaa": [
 			{
 				"label": "xsuaa",
@@ -19,7 +18,7 @@
 				],
 				"instance_guid": "69f4ebe5-a9f9-465c-b081-106558fd6878",
 				"instance_name": "TransferSimulation-xsuaa-service",
-				"binding_guid": "35deddce-a978-4801-86c9-1ee36dc0123b",
+				"binding_guid": "c099d28f-dc0c-4a53-bdaa-a5aa6c8a6db8",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",
@@ -55,14 +54,14 @@
 				],
 				"instance_guid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
 				"instance_name": "TransferSimulation-dest-srv",
-				"binding_guid": "1bcfea7d-65d8-4019-9d29-b56b0995a279",
+				"binding_guid": "31b540ca-ad72-4883-a815-e46b04f0cb21",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",
 					"clientid": "sb-clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
 					"credential-type": "binding-secret",
 					"xsappname": "clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
-					"clientsecret": "1bcfea7d-65d8-4019-9d29-b56b0995a279$NU-xhB9rCjuYrRRPCxwej2cHzuBBcL_7PbB2HlChMS4=",
+					"clientsecret": "31b540ca-ad72-4883-a815-e46b04f0cb21$J9S9-6Ld84TpM8N-1fze7uBSdlkeZAoV08gImCvpqSM=",
 					"uri": "https://destination-configuration.cfapps.jp10.hana.ondemand.com",
 					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
 					"uaadomain": "authentication.jp10.hana.ondemand.com",

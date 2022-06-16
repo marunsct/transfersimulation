@@ -90,12 +90,16 @@
         </VBox-->
             <ScrollContainer id="sc1" height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
 
-                <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="false" includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" updateStarted="onUpdateStarted" growingTriggerText="..." itemPress="_onTableItemPress">
+                <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="false" 
+                    includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" 
+                    updateStarted="onUpdateStarted" growingTriggerText="..." itemPress="_onTableItemPress">
                     <dragDropConfig>
                         <dnd:DragInfo groupName="available2selected" sourceAggregation="items" />
                     </dragDropConfig>
                     <items>
-                        <ColumnListItem type="{= ${OP>transferStatus} === 'Initiated' ? 'Inactive' : ${OP>eligibility} === 'Error' ? 'Inactive' : 'Active'}" id="item0_copy_table0_0" vAlign="Middle" highlight="{= ${OP>transferStatus} === 'Initiated' ? 'Warning' : ${OP>transferStatus} === 'Approved' ? 'Success' : 'None'}" navigated="{ parts: ['settings>/navigatedItem','OP&gt;userId'],formatter: '.isNavigated'}">
+                        <ColumnListItem type="{= ${OP>transferStatus} === 'Initiated' ? 'Inactive' : ${OP>eligibility} === 'Error' ? 'Inactive' : 'Active'}" 
+                            id="item0_copy_table0_0" vAlign="Middle" highlight="{= ${OP>transferStatus} === 'Initiated' ? 'Success' : 'None'}" 
+                            navigated="{ parts: ['settings>/navigatedItem','OP&gt;userId'],formatter: '.isNavigated'}">
                             <customData>
                                 <core:CustomData key="status" value="{ path:'OP>transferStatus'}" writeToDom="true" />
                             </customData>
@@ -112,12 +116,15 @@
                                 <Text text="{OP>locationName}" id="text5" wrapping="false" />
                                 <Text text="{OP>managerId}" id="text14" wrapping="false" />
                                 <Text text="{OP>managerName}" id="text6" wrapping="false" />
-                                <ObjectStatus text="{oData>eligibility}" state="{=${OP>eligibility} === 'Error' ? 'Error' : ${OP>eligibility} === 'Warning' ? 'Warning' : 'Success' }" id="status0_copy_table0_0" icon="{=${OP>Transfer_Criteria} === 'Eligible' ? 'sap-icon://sys-enter-2' : ${OP>eligibility} === 'Warning' ? 'sap-icon://status-critical' : 'sap-icon://status-negative' }" tooltip="{OP>description}" />
+                                <ObjectStatus text="{oData>eligibility}" state="{=${OP>eligibility} === 'Error' ? 'Error' : ${OP>eligibility} === 'Warning' ? 'Warning' : 'Success' }" 
+                                    id="status0_copy_table0_0" icon="{=${OP>Transfer_Criteria} === 'Error' ? 'sap-icon://status-negative' : ${OP>eligibility} === 'Warning' ? 'sap-icon://status-critical' : 'sap-icon://sys-enter-2' }" 
+                                    tooltip="{OP>description}" />
                                 <Text text="{OP>position}" id="text15" wrapping="false" />
                                 <Text text="{OP>positionTitle}" id="text7" wrapping="false" />
                                 <Text text="{OP>newPosition}" id="text8" wrapping="false" />
                                 <Text text="{OP>transferStatus}" id="text9" wrapping="false" />
-                                <Button tooltip="{i18n>assign}" id="butt_0" icon="sap-icon://feeder-arrow" type="Transparent" press="_onTableItemPress" enabled="{=${OP>eligibility} === 'Error' ? false : ${OP>transferStatus} === 'Initiated' ? false : true}" />
+                                <Button tooltip="{i18n>assign}" id="butt_0" icon="sap-icon://feeder-arrow" type="Transparent" 
+                                    press="_onTableItemPress" enabled="{=${OP>eligibility} === 'Error' ? false : ${OP>transferStatus} === 'Initiated' ? false : true}" />
                             </cells>
 
                         </ColumnListItem>
@@ -237,14 +244,14 @@
                             </header>
 
                         </Column>
-                        <Column id="column11" demandPopin="true" minScreenWidth="Tablet" popinDisplay="Inline" hAlign="Center">
+                        <Column id="column11" demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline" hAlign="Center">
                             <header>
                                 <Label id="label11" text="{i18n>status}" wrapping="true" />
 
                             </header>
 
                         </Column>
-                        <Column id="column12" demandPopin="true" minScreenWidth="Phone" popinDisplay="Inline" hAlign="Center">
+                        <Column id="column12" demandPopin="false" minScreenWidth="Desktop" hAlign="Center">
                             <header>
                                 <Label id="label12" text="{i18n>assign}" wrapping="true" />
 
@@ -257,7 +264,7 @@
                             <content>
                                 <Title text="{parts : [{path : 'i18n>employeeTH'}, {path : 'OP>/Count'}, {path: 'OP>/currentLength'}],formatter:'.employeeCount'}" id="text16" level="H1" class="titleText" />
                                 <ObjectStatus state="Success" id="status0_1642135399627" icon="sap-icon://sys-enter-2" text="{i18n>eiligible}" class="sapUiSmallMarginBegin" />
-                                <ObjectStatus state="Warning" id="status0_1642135399627_copy" icon="sap-icon://warning" text="{i18n>warning}" />
+                                <ObjectStatus state="Warning" id="status0_1642135399627_copy" icon="sap-icon://status-critical" text="{i18n>warning}" />
                                 <ObjectStatus state="Error" id="status0_1642135399627_copy2" icon="sap-icon://status-negative" text="{i18n>notEligible}" class="sapUiSmallMarginBeginEnd" />
                                 <ToolbarSpacer id="spacer2" />
                                 <CheckBox text="{i18n>showEmployee}" select="onEligibleCB" selected="{filter>/filter/eligible}" id="box0" />

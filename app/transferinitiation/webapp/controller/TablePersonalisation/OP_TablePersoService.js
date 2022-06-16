@@ -67,7 +67,7 @@ sap.ui.define(["jquery.sap.global"],
 					id: "component-table0-column12",
 					order: 12,
 					text: "StandardHours",
-					visible: true
+					visible: false
 				}]
 			},
 
@@ -151,7 +151,7 @@ sap.ui.define(["jquery.sap.global"],
                         id: "component-table0-column12",
                         order: 12,
                         text: "StandardHours",
-                        visible: true
+                        visible: false
                     }]
                 };
 

@@ -498,8 +498,8 @@ sap.ui.define([
                     fModel.setData(fData);
                     this._oFilters = oFilters;
                     //this._onOdataCall('EmployeeJobs', oFilters, this._sCount, 0);
-                    let _url = oFilters !== undefined ? '/http/getEmpData?' + oFilters : '/http/getEmpData?';
-                    var _countURL = oFilters !== undefined ? '/http/getEmpCount?' + oFilters : '/http/getEmpCount?';
+                    let _url = oFilters !== undefined ? '/http/getEmpData?' + oFilters : "/http/getEmpData?";
+                    var _countURL = oFilters !== undefined ? '/http/getEmpCount?' + oFilters   : "/http/getEmpCount?";
                     this._cpiAPI(_url, (this._sCount), 0);
                     mData.currentLength = this._sCount;
                     mData.Count = await this.asyncAjax(_countURL);
