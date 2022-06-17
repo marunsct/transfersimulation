@@ -1,45 +1,94 @@
 {
-  "xsappname": "transfersimulation",
-  "tenant-mode": "dedicated",
-  "description": "Security profile of called application",
-  "scopes": [
-    {
-      "name": "$XSAPPNAME.user",
-      "description": "UAA"
-    },
+    "xsappname": "transfersimulation",
+    "tenant-mode": "dedicated",
+    "description": "Security profile of called application",
+    "scopes": [
         {
-      "name": "$XSAPPNAME.Manager",
-      "description": "Manager"
-    },
-    {
-      "name": "$XSAPPNAME.Admin",
-      "description": "Administrator"
-    },
-    {
-      "name": "$XSAPPNAME.HR",
-      "description": "HR"
+            "name": "$XSAPPNAME.user",
+            "description": "UAA"
+        },
+        {
+            "name": "$XSAPPNAME.Manager",
+            "description": "Manager"
+        },
+        {
+            "name": "$XSAPPNAME.Admin",
+            "description": "Administrator"
+        },
+        {
+            "name": "$XSAPPNAME.HR",
+            "description": "HR"
+        }
+    ],
+    "role-templates": [
+        {
+            "name": "Token_Exchange",
+            "description": "Role Template for View only Access",
+            "scope-references": [
+                "$XSAPPNAME.user"
+            ]
+        },
+        {
+            "name": "Approver",
+            "description": "Role Template for Approving the Transfer plans",
+            "scope-references": [
+                "$XSAPPNAME.user",
+                "$XSAPPNAME.HR"
+            ]
+        },
+        {
+            "name": "Intiator",
+            "description": "Role Template for Creating the Transfer plans",
+            "scope-references": [
+                "$XSAPPNAME.user",
+                "$XSAPPNAME.Manager"
+            ]
+        },
+        {
+            "name": "Administrator",
+            "description": "Role Template for Admin which gives complete Application Access",
+            "scope-references": [
+                "$XSAPPNAME.user",
+                "$XSAPPNAME.Manager",
+                "$XSAPPNAME.HR",
+                "$XSAPPNAME.Admin"
+            ]
+        }
+    ],
+    "role-collections": [
+        {
+            "name": "TransferSimulation_Viewer",
+            "description": "Role Collection for View only Access",
+            "role-template-references": [
+                "$XSAPPNAME.Token_Exchange"
+            ]
+        },
+        {
+            "name": "TransferPlan_Approver",
+            "description": "Role Collection for Approving the Transfer plans",
+            "role-template-references": [
+                "$XSAPPNAME.Approver"
+            ]
+        },
+        {
+            "name": "TransferPlan_Creator",
+            "description": "Role Collection for Creating the Transfer plans",
+            "role-template-references": [
+                "$XSAPPNAME.Intiator"
+            ]
+        },
+        {
+            "name": "Admin",
+            "description": "Role Collection for Admin which gives complete Application Access",
+            "role-template-references": [
+                "$XSAPPNAME.Administrator"
+            ]
+        }
+    ],
+    "oauth2-configuration": {
+        "redirect-uris": [
+            "https://*.applicationstudio.cloud.sap/**",
+            "https://*.cfapps.jp10.hana.ondemand.com/**"
+        ]
     }
-  ],
-  "role-templates": [
-    {
-      "name": "Token_Exchange",
-      "description": "UAA",
-      "scope-references": ["$XSAPPNAME.user"]
-    }
-  ],
-  "role-collections": [
-      {
-          "name": "TransferSimulation_Viewer",
-          "description": "collections",
-          "role-template-references": [
-              "$XSAPPNAME.Token_Exchange"
-          ]
-      }
-  ],
-  "oauth2-configuration": {
-    "redirect-uris": [
-      "https://*.applicationstudio.cloud.sap/**",
-      "https://*.cfapps.jp10.hana.ondemand.com/**"
-    ]
-  }
 }

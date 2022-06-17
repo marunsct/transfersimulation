@@ -409,6 +409,7 @@ sap.ui.define([
                     "EmpJob": [],
                     "custMdf": []
                 };
+                
                 let k = tbl.getSelectedItems().length < 21 ? tbl.getSelectedItems().length : 20;
                 for (let i = 0; i < k; i++) {
                     let empItem = {};
@@ -426,6 +427,9 @@ sap.ui.define([
                     empItem.position = tblData.newposId;
                     empItem.department = tblData.departmentId;
                     empItem.company = tblData.company;
+                    if(tblData.nsupervisorId!== null && tblData.nsupervisorId !== ""){
+                        empItem.managerId = tblData.nsupervisorId;
+                    }
                     payload.EmpJob.push(empItem);
 
                     custItem.__metadata = {
@@ -433,12 +437,13 @@ sap.ui.define([
                     };
                     custItem.externalCode = tblData.employeeid;
                     custItem.effectiveStartDate = settings.effectiveStartDate;
-                    custItem.cust_REMARKS = tblData.company;
+                    custItem.cust_REMARKS = tblData.comments;
                     custItem.cust_STATUS = '20';
                     payload.custMdf.push(custItem);
                 }
                 console.log(JSON.stringify(payload));
                 try {
+                    tbl.removeSelections(true);
                     var i18n = this.oView.getModel("i18n");
                     let results = await this._cpiAPI(payload);
                     this._downLog = ""
@@ -491,8 +496,10 @@ sap.ui.define([
                     console.log(error)
                 }
             },
-            downloadLog: function () {
+            downloadLog: async function () {
+                this.fetchTransfers(await this._buildFilters());
                 File.save(this._downLog, "LOG", "txt", "text/txt");
+                
             },
             onTransferReject: async function () {
                 var tbl = this.getView().byId('TransferReqTable');
@@ -509,7 +516,7 @@ sap.ui.define([
                     custItem.externalCode = tblData.employeeid;
                     custItem.effectiveStartDate = settings.effectiveStartDate;
                     custItem.cust_REMARKS = tblData.comments;
-                    custItem.cust_STATUS = '20';
+                    custItem.cust_STATUS = '30';
                     payload.push(custItem);
                 }
                 console.log(JSON.stringify(payload));
@@ -538,7 +545,7 @@ sap.ui.define([
                 var tbl = this.getView().byId('TransferReqTable');
                 let settings = await this.fetchSettings();
                 let payload = [];
-
+                
                 for (let i = 0; i < tbl.getSelectedItems().length; i++) {
                     let empItem = {};
                     let custItem = {}
@@ -555,6 +562,7 @@ sap.ui.define([
                 }
                 console.log(JSON.stringify(payload));
                 try {
+                    tbl.removeSelections(true);
                     var i18n = this.oView.getModel("i18n");
                     let results = await this.performUpsert(payload);
                     this._downLog = ""
@@ -618,7 +626,7 @@ sap.ui.define([
 
                 });
                 aColumns.push({
-                    label: i18n.getResourceBundle().getText("departmentID"),
+                    label: i18n.getResourceBundle().getText("departmentId"),
                     property: "departmentId"
                 });
                 aColumns.push({
@@ -650,6 +658,14 @@ sap.ui.define([
                 aColumns.push({
                     label: i18n.getResourceBundle().getText("supervisor"),
                     property: "supervisor"
+                });
+                aColumns.push({
+                    label: i18n.getResourceBundle().getText("nsupervisorId"),
+                    property: "nsupervisorId"
+                });
+                aColumns.push({
+                    label: i18n.getResourceBundle().getText("nsupervisor"),
+                    property: "nsupervisor"
                 });
                 aColumns.push({
                     label: i18n.getResourceBundle().getText("criteria"),
@@ -707,7 +723,7 @@ sap.ui.define([
                         hierarchyLevel: 'level'
                     },
                     dataSource: this.getModel("data").getData().TransferReq,
-                    fileName: "Trafer List.xlsx"
+                    fileName: "Transfer List.xlsx"
                 };
                 var oSpreadsheet = new Spreadsheet(mSettings);
                 oSpreadsheet.onprogress = function (iValue) {
@@ -1126,6 +1142,7 @@ sap.ui.define([
                         let results = result.d.results;
                         var oData = this.getModel("data").getData();
                         oData.TransferReq = [];
+                        this.getModel("data").setData(oData);
                         let lang;
                         if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
                             lang = 'lang=ja_JP';
@@ -1144,6 +1161,8 @@ sap.ui.define([
                                 employmentTypeId: "",
                                 supervisor: "",
                                 supervisorId: "",
+                                nsupervisor: "",
+                                nsupervisorId: "",
                                 eligibility: "",
                                 eligibilityId: "",
                                 currentpos: "",
@@ -1163,6 +1182,7 @@ sap.ui.define([
                             item.pdepartmentId = results[i].cust_Previous_Department;
                             item.employmentTypeId = results[i].cust_EMPLOYMENT_TYPE;
                             item.supervisorId = results[i].cust_CURRENT_MANAGER_ID;
+                            item.nsupervisorId = results[i].cust_FUTURE_MANAGER_ID;
                             item.eligibilityId = results[i].cust_ELIGIBITY_STATUS;
                             item.currentposId = results[i].cust_OLD_POSITION_ID;
                             item.newposId = results[i].cust_NEW_POSITION_ID;
@@ -1180,6 +1200,7 @@ sap.ui.define([
                                 item.pdepartment = results[i].cust_Previous_DepartmentNav !== null ? (results[i].cust_Previous_DepartmentNav.name_en_US !== null?results[i].cust_Previous_DepartmentNav.name_en_US : results[i].cust_Previous_DepartmentNav.name) : null;
                                 item.employmentType = results[i].cust_EMPLOYMENT_TYPENav !== null ? results[i].cust_EMPLOYMENT_TYPENav.label_en_US : null;
                                 item.supervisor = results[i].cust_CURRENT_MANAGER_IDNav !== null ? results[i].cust_CURRENT_MANAGER_IDNav.defaultFullName : null;
+                                item.nsupervisor = results[i].cust_FUTURE_MANAGER_IDNav !== null ? results[i].cust_FUTURE_MANAGER_IDNav.defaultFullName : null;
                                 item.eligibility = results[i].cust_ELIGIBITY_STATUSNav !== null ? results[i].cust_ELIGIBITY_STATUSNav.label_en_US : null;
                                 item.currentpos = results[i].cust_OLD_POSITION_IDNav !== null ? (results[i].cust_OLD_POSITION_IDNav.externalName_en_US !== null ? results[i].cust_OLD_POSITION_IDNav.externalName_en_US : results[i].cust_OLD_POSITION_IDNav.externalName_defaultValue): null;
                                 item.newpos = results[i].cust_NEW_POSITION_IDNav !== null ? (results[i].cust_NEW_POSITION_IDNav.externalName_en_US !== null ? results[i].cust_NEW_POSITION_IDNav.externalName_en_US : results[i].cust_NEW_POSITION_IDNav.externalName_defaultValue): null;
@@ -1193,6 +1214,7 @@ sap.ui.define([
                                 item.pdepartment = results[i].cust_Previous_DepartmentNav !== null ? (results[i].cust_Previous_DepartmentNav.name_ja_JP !== null?results[i].cust_Previous_DepartmentNav.name_ja_JP : results[i].cust_Previous_DepartmentNav.name) : null;
                                 item.employmentType = results[i].cust_EMPLOYMENT_TYPENav !== null ? results[i].cust_EMPLOYMENT_TYPENav.label_ja_JP : null;
                                 item.supervisor = results[i].cust_CURRENT_MANAGER_IDNav !== null ? results[i].cust_CURRENT_MANAGER_IDNav.defaultFullName : null;
+                                item.nsupervisor = results[i].cust_FUTURE_MANAGER_IDNav !== null ? results[i].cust_FUTURE_MANAGER_IDNav.defaultFullName : null;                                
                                 item.eligibility = results[i].cust_ELIGIBITY_STATUSNav !== null ? results[i].cust_ELIGIBITY_STATUSNav.label_ja_JP : null;
                                 //item.currentpos = results[i].cust_OLD_POSITION_IDNav !== null ? results[i].cust_OLD_POSITION_IDNav.externalName_ja_JP : null;
                                 //item.newpos = results[i].cust_NEW_POSITION_IDNav !== null ? results[i].cust_NEW_POSITION_IDNav.externalName_ja_JP : null;

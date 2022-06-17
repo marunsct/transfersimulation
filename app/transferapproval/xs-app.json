@@ -61,15 +61,35 @@
             "target": "$1",
             "service": "html5-apps-repo-rt",
             "authenticationType": "xsuaa",
-            "scope":{
-                "GET":["$XSAPPNAME.user"],
-                "PATCH":["$XSAPPNAME.user"],
-                "POST":["$XSAPPNAME.user"],
-                "PUT":["$XSAPPNAME.user"],
-                "DELETE":["$XSAPPNAME.user"],
-                "default":["$XSAPPNAME.user"]
-              },
-              "cacheControl": "no-cache, no-store, must-revalidate"
+            "scope": {
+                "GET": [
+                    "$XSAPPNAME.user",
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.HR"
+                ],
+                "PATCH": [
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.HR"
+                ],
+                "POST": [
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.HR"
+                ],
+                "PUT": [
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.HR"
+                ],
+                "DELETE": [
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.HR"
+                ],
+                "default": [
+                    "$XSAPPNAME.user",
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.HR"
+                ]
+            },
+            "cacheControl": "no-cache, no-store, must-revalidate"
         }
     ],
     "logout": {

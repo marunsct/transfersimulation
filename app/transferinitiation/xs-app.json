@@ -39,12 +39,32 @@
             "service": "html5-apps-repo-rt",
             "authenticationType": "xsuaa",
             "scope":{
-                "GET":["$XSAPPNAME.user"],
-                "PATCH":["$XSAPPNAME.user"],
-                "POST":["$XSAPPNAME.user"],
-                "PUT":["$XSAPPNAME.user"],
-                "DELETE":["$XSAPPNAME.user"],
-                "default":["$XSAPPNAME.user"]
+                "GET": [
+                    "$XSAPPNAME.user",
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.Manager"
+                ],
+                "PATCH": [
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.Manager"
+                ],
+                "POST": [
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.Manager"
+                ],
+                "PUT": [
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.Manager"
+                ],
+                "DELETE": [
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.Manager"
+                ],
+                "default": [
+                    "$XSAPPNAME.user",
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.Manager"
+                ]
               },
               "cacheControl": "no-cache, no-store, must-revalidate"
         }

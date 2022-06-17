@@ -37,12 +37,37 @@
             "localDir": ".",
             "authenticationType": "xsuaa",
             "scope":{
-                "GET":["$XSAPPNAME.user"],
-                "PATCH":["$XSAPPNAME.user"],
-                "POST":["$XSAPPNAME.user"],
-                "PUT":["$XSAPPNAME.user"],
-                "DELETE":["$XSAPPNAME.user"],
-                "default":["$XSAPPNAME.user"]
+                "GET": [
+                    "$XSAPPNAME.user",
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.Manager"
+                ],
+                "PATCH": [
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.Manager",
+                    "$XSAPPNAME.HR"
+                ],
+                "POST": [
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.Manager",
+                    "$XSAPPNAME.HR"
+                ],
+                "PUT": [
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.Manager",
+                    "$XSAPPNAME.HR"
+                ],
+                "DELETE": [
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.Manager",
+                    "$XSAPPNAME.HR"
+                ],
+                "default": [
+                    "$XSAPPNAME.user",
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.Manager",
+                    "$XSAPPNAME.HR"
+                ]
               },
             "cacheControl": "no-cache, no-store, must-revalidate"
         }

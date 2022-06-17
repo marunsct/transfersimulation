@@ -12,7 +12,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title xmlns="sap.m" text="{i18n>employeeTitle}" id="textH" class="sapUiSmallMarginTop sapUiLargeMarginBegin titleText" level="H1" />
+                    <Title xmlns="sap.m" text="{i18n>employeeTitle}" id="textH"  class="sapUiSmallMarginTop sapUiLargeMarginBegin titleText" level="H1" />
                 </f:heading>
                 <f:content />
                 <f:actions />

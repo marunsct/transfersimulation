@@ -9,6 +9,7 @@ modules:
   requires:
   - name: TransferSimulation_html_repo_runtime
   - name: TransferSimulation-xsuaa-service
+  - name: TransferSimulation-logs
   - name: TransferSimulation-dest-srv
     group: destinations
     properties:
@@ -92,6 +93,11 @@ resources:
       version: 1.0.0
     service: destination
     service-name: TransferSimulation-dest-srv
+    service-plan: lite
+- name: TransferSimulation-logs
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: application-logs
     service-plan: lite
 - name: TransferSimulation-sf-api
   type: org.cloudfoundry.existing-service

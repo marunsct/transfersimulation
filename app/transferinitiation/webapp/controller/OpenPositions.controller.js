@@ -380,6 +380,7 @@ sap.ui.define([
                 cust_OLD_POSITION_ID: sEmpData.position,
                 cust_DEPARTMENT: sThat.getModel("OP").getProperty(sPath + '/DepartmentID'),
                 cust_CURRENT_MANAGER_ID: sEmpData.managerId,
+                cust_FUTURE_MANAGER_ID : sThat.getModel("OP").getProperty(sPath + '/manager') !==""? sThat.getModel("OP").getProperty(sPath + '/manager'):null,
                 cust_ELIGIBITY_STATUS: sEmpData.eligibility === 'Warning' ? "20" : "10",
                 cust_ELIGIBITY_DESCRIPTION: sEmpData.description,
                 cust_Previous_Department: sEmpData.department,

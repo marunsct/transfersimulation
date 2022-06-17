@@ -60,44 +60,54 @@ sap.ui.define(["jquery.sap.global"],
 					order: 10,
 					text: "supervisor",
 					visible: true
+				},{
+					id: "component-TransferReqTable-column19",
+					order: 11,
+					text: "nsupervisorId",
+					visible: false
+				}, {
+					id: "component-TransferReqTable-column20",
+					order: 12,
+					text: "nsupervisor",
+					visible: true
 				}, {
 					id: "component-TransferReqTable-column9",
-					order: 11,
+					order: 13,
 					text: "criteria",
 					visible: false
 				}, {
 					id: "component-TransferReqTable-column10",
-					order: 12,
+					order: 14,
 					text: "cpositionId",
 					visible: false
 				}, {
 					id: "component-TransferReqTable-column11",
-					order: 13,
+					order: 15,
 					text: "cposition",
 					visible: true
 				}, {
 					id: "component-TransferReqTable-column12",
-					order: 14,
+					order: 16,
 					text: "npositionId",
 					visible: false
 				}, {
 					id: "component-TransferReqTable-column13",
-					order: 15,
+					order: 17,
 					text: "nposition",
 					visible: true
 				}, {
 					id: "component-TransferReqTable-column17",
-					order: 16,
+					order: 18,
 					text: "locationId",
 					visible: false
 				}, {
 					id: "component-TransferReqTable-column18",
-					order: 17,
+					order: 19,
 					text: "location",
 					visible: true
 				}, {
 					id: "component-TransferReqTable-column14",
-					order: 18,
+					order: 20,
 					text: "comments",
 					visible: true
 				}]
@@ -176,44 +186,54 @@ sap.ui.define(["jquery.sap.global"],
                         order: 10,
                         text: "supervisor",
                         visible: true
+                    },{
+                        id: "component-TransferReqTable-column19",
+                        order: 11,
+                        text: "nsupervisorId",
+                        visible: false
+                    }, {
+                        id: "component-TransferReqTable-column20",
+                        order: 12,
+                        text: "nsupervisor",
+                        visible: true
                     }, {
                         id: "component-TransferReqTable-column9",
-                        order: 11,
+                        order: 13,
                         text: "criteria",
                         visible: false
                     }, {
                         id: "component-TransferReqTable-column10",
-                        order: 12,
+                        order: 14,
                         text: "cpositionId",
                         visible: false
                     }, {
                         id: "component-TransferReqTable-column11",
-                        order: 13,
+                        order: 15,
                         text: "cposition",
                         visible: true
                     }, {
                         id: "component-TransferReqTable-column12",
-                        order: 14,
+                        order: 16,
                         text: "npositionId",
                         visible: false
                     }, {
                         id: "component-TransferReqTable-column13",
-                        order: 15,
+                        order: 17,
                         text: "nposition",
                         visible: true
                     }, {
                         id: "component-TransferReqTable-column17",
-                        order: 16,
+                        order: 18,
                         text: "locationId",
                         visible: false
                     }, {
                         id: "component-TransferReqTable-column18",
-                        order: 17,
+                        order: 19,
                         text: "location",
                         visible: true
                     }, {
                         id: "component-TransferReqTable-column14",
-                        order: 18,
+                        order: 20,
                         text: "comments",
                         visible: true
                     }]
