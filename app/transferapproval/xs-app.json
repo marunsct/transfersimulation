@@ -7,42 +7,34 @@
             "target": "/http/$1",
             "destination": "CPI_DEV",
             "authenticationType": "xsuaa",
-            "csrfProtection": false
+            "csrfProtection": false,
+            "scope": [
+                "$XSAPPNAME.Admin",
+                "$XSAPPNAME.HR"
+            ]
         },
         {
             "source": "^/upsert",
             "target": "/odata/v2/upsert",
             "destination": "SFSF",
             "authenticationType": "xsuaa",
-            "csrfProtection": false
+            "csrfProtection": false,
+            "scope": [
+                "$XSAPPNAME.Admin",
+                "$XSAPPNAME.HR"
+            ]
         },
         {
             "source": "^/SFSF/(.*)$",
             "target": "/$1",
             "destination": "SFSF",
             "authenticationType": "xsuaa",
-            "csrfProtection": false
-        },
-        {
-            "source": "/v2/(.*)",
-            "target": "/v2/$1",
-            "destination": "srv-api",
             "csrfProtection": false,
-            "authenticationType": "xsuaa"
-        },
-        {
-            "source": "/cpi-api-v4/(.*)$",
-            "target": "/cpi-api-v4/$1",
-            "destination": "srv-api",
-            "csrfProtection": false,
-            "authenticationType": "xsuaa"
-        },
-        {
-            "source": "/cpi-api/(.*)$",
-            "target": "/cpi-api/$1",
-            "destination": "srv-api",
-            "csrfProtection": false,
-            "authenticationType": "xsuaa"
+            "scope": [
+                "$XSAPPNAME.user",
+                "$XSAPPNAME.Admin",
+                "$XSAPPNAME.HR"
+            ]
         },
         {
             "source": "^/resources/(.*)$",

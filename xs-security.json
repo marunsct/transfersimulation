@@ -78,7 +78,7 @@
             ]
         },
         {
-            "name": "Admin",
+            "name": "TransferSimulation_Admin",
             "description": "Role Collection for Admin which gives complete Application Access",
             "role-template-references": [
                 "$XSAPPNAME.Administrator"

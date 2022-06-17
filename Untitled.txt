@@ -36,3 +36,6 @@ cf push transfersimulation-srv -u port -t 180
                                                             <m:Text text="2019" id="text15_1643951750049_copy"/>
                                                         </m:items>
                                                     </m:VBox>
+
+
+https://teams.microsoft.com/l/meetup-join/19%3ameeting_YWRjZmFiN2MtYzM3NS00ODk4LTlmZjgtMWY3ZWU3ZjM5Y2Rj%40thread.v2/0?context=%7b%22Tid%22%3a%22404b1967-6507-45ab-8a6d-7374a3f478be%22%2c%22Oid%22%3a%2299b618c5-c31f-4bdf-ba45-df353a552e1c%22%7d                                                    

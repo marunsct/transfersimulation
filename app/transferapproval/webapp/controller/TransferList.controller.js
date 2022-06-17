@@ -1273,7 +1273,7 @@ sap.ui.define([
             performUpsert: async function (oPayload) {
                 return new Promise(function (resolve, reject) {
                     $.ajax({
-                        url: '/SFSF/odata/v2/upsert',
+                        url: '/upsert',
                         method: "POST",
                         data: JSON.stringify(oPayload),
                         contentType: "application/json",

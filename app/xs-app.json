@@ -1,4 +1,4 @@
- {
+{
     "authenticationMethod": "route",
     "routes": [
         {
@@ -6,21 +6,38 @@
             "target": "/http/$1",
             "destination": "CPI_DEV",
             "authenticationType": "xsuaa",
-            "csrfProtection": false
+            "csrfProtection": false,
+            "scope": [
+                "$XSAPPNAME.user",
+                "$XSAPPNAME.Admin",
+                "$XSAPPNAME.Manager",
+                "$XSAPPNAME.HR"
+            ]
         },
         {
             "source": "^/upsert",
             "target": "/odata/v2/upsert",
             "destination": "SFSF",
             "authenticationType": "xsuaa",
-            "csrfProtection": false
+            "csrfProtection": false,
+            "scope": [
+                "$XSAPPNAME.Admin",
+                "$XSAPPNAME.Manager",
+                "$XSAPPNAME.HR"
+            ]
         },
         {
             "source": "^/SFSF/(.*)$",
             "target": "/$1",
             "destination": "SFSF",
             "authenticationType": "xsuaa",
-            "csrfProtection": false
+            "csrfProtection": false,
+            "scope": [
+                "$XSAPPNAME.user",
+                "$XSAPPNAME.Admin",
+                "$XSAPPNAME.Manager",
+                "$XSAPPNAME.HR"
+            ]
         },
         {
             "source": "^/user-api(.*)",
@@ -31,12 +48,12 @@
             "source": "^/loggedout.html$",
             "localDir": ".",
             "authenticationType": "none"
-          },
+        },
         {
             "source": "/(.*)",
             "localDir": ".",
             "authenticationType": "xsuaa",
-            "scope":{
+            "scope": {
                 "GET": [
                     "$XSAPPNAME.user",
                     "$XSAPPNAME.Admin",
@@ -68,13 +85,13 @@
                     "$XSAPPNAME.Manager",
                     "$XSAPPNAME.HR"
                 ]
-              },
+            },
             "cacheControl": "no-cache, no-store, must-revalidate"
         }
     ],
     "logout": {
         "logoutEndpoint": "/logout",
         "logoutPage": "/loggedout.html"
-     },
+    },
     "welcomeFile": "/transferinitiation/index.html"
 }

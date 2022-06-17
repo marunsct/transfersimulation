@@ -7,14 +7,23 @@
             "target": "/odata/v2/upsert",
             "destination": "SFSF",
             "authenticationType": "xsuaa",
-            "csrfProtection": false
+            "csrfProtection": false,
+            "scope": [
+                "$XSAPPNAME.Admin",
+                "$XSAPPNAME.Manager"
+            ]
         },
         {
             "source": "^/SFSF/(.*)$",
             "target": "/$1",
             "destination": "SFSF",
             "authenticationType": "xsuaa",
-            "csrfProtection": false
+            "csrfProtection": false,
+            "scope": [
+                "$XSAPPNAME.user",
+                "$XSAPPNAME.Admin",
+                "$XSAPPNAME.Manager"
+            ]
         },
         {
             "source": "^/resources/(.*)$",
