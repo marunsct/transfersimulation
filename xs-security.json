@@ -4,19 +4,19 @@
     "description": "Security profile of called application",
     "scopes": [
         {
-            "name": "transfersimulation.user",
+            "name": "$XSAPPNAME.user",
             "description": "UAA"
         },
         {
-            "name": "transfersimulation.Manager",
+            "name": "$XSAPPNAME.Manager",
             "description": "Manager"
         },
         {
-            "name": "transfersimulation.Admin",
+            "name": "$XSAPPNAME.Admin",
             "description": "Administrator"
         },
         {
-            "name": "transfersimulation.HR",
+            "name": "$XSAPPNAME.HR",
             "description": "HR"
         }
     ],
@@ -25,33 +25,33 @@
             "name": "Token_Exchange",
             "description": "Role Template for View only Access",
             "scope-references": [
-                "transfersimulation.user"
+                "$XSAPPNAME.user"
             ]
         },
         {
             "name": "Approver",
             "description": "Role Template for Approving the Transfer plans",
             "scope-references": [
-                "transfersimulation.user",
-                "transfersimulation.HR"
+                "$XSAPPNAME.user",
+                "$XSAPPNAME.HR"
             ]
         },
         {
             "name": "Intiator",
             "description": "Role Template for Creating the Transfer plans",
             "scope-references": [
-                "transfersimulation.user",
-                "transfersimulation.Manager"
+                "$XSAPPNAME.user",
+                "$XSAPPNAME.Manager"
             ]
         },
         {
             "name": "Administrator",
             "description": "Role Template for Admin which gives complete Application Access",
             "scope-references": [
-                "transfersimulation.user",
-                "transfersimulation.Manager",
-                "transfersimulation.HR",
-                "transfersimulation.Admin"
+                "$XSAPPNAME.user",
+                "$XSAPPNAME.Manager",
+                "$XSAPPNAME.HR",
+                "$XSAPPNAME.Admin"
             ]
         }
     ],
@@ -60,28 +60,28 @@
             "name": "TransferSimulation_Viewer",
             "description": "Role Collection for View only Access",
             "role-template-references": [
-                "transfersimulation.Token_Exchange"
+                "$XSAPPNAME.Token_Exchange"
             ]
         },
         {
             "name": "TransferPlan_Approver",
             "description": "Role Collection for Approving the Transfer plans",
             "role-template-references": [
-                "transfersimulation.Approver"
+                "$XSAPPNAME.Approver"
             ]
         },
         {
             "name": "TransferPlan_Creator",
             "description": "Role Collection for Creating the Transfer plans",
             "role-template-references": [
-                "transfersimulation.Intiator"
+                "$XSAPPNAME.Intiator"
             ]
         },
         {
             "name": "TransferSimulation_Admin",
             "description": "Role Collection for Admin which gives complete Application Access",
             "role-template-references": [
-                "transfersimulation.Administrator"
+                "$XSAPPNAME.Administrator"
             ]
         }
     ],

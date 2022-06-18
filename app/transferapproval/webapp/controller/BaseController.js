@@ -226,26 +226,43 @@ sap.ui.define([
                 });
             });
         },
-        onLogout: function(){
+        onLogout: function () {
 
             window.location.href = "/my/logout";
 
-         },
-         onRouteMatched: function (oEvent) {
-             var sRouteName = oEvent.getParameter("name");
-             var sLayout = oEvent.getParameters().arguments.layout;
-           //  this._updateUIState(sLayout);
-           //  this.currentRouteName = sRouteName;
-         },
-         onLanguageChange: function(){
-             if(sap.ui.getCore().getConfiguration().getLanguage() === 'ja'){
-                 sap.ui.getCore().getConfiguration().setLanguage('en');
+        },
+        onRouteMatched: function (oEvent) {
+            var sRouteName = oEvent.getParameter("name");
+            var sLayout = oEvent.getParameters().arguments.layout;
+            //  this._updateUIState(sLayout);
+            //  this.currentRouteName = sRouteName;
+        },
+        onLanguageChange: function () {
+            if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
+                sap.ui.getCore().getConfiguration().setLanguage('en');
 
-             }else{
-                 sap.ui.getCore().getConfiguration().setLanguage('ja') ;
-                
-             }
-         },
+            } else {
+                sap.ui.getCore().getConfiguration().setLanguage('ja');
+
+            }
+        },
+        _getUser: async function () {
+            try {
+                let user = await this.asyncAjax("/getuserinfo");
+                console.log(user);
+                this.setCustProperty("UserInfo", JSON.parse(user));
+            } catch (error) {
+                console.log(error);
+                this._timeoutError()
+
+            }
+        },
+        _timeoutError: function () {
+            var i18n = this.oView.getModel("i18n");
+            var sTitle = i18n.getResourceBundle().getText("error");
+            var sFirstButton = i18n.getResourceBundle().getText("reload");
+            thia._createDialog(sTitle, sText, sFirstButton, undefined, () => { window.location.reload(); }, undefined, this);
+        },
         /**
          *
          *

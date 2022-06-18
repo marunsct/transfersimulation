@@ -380,7 +380,7 @@ sap.ui.define([
                 cust_OLD_POSITION_ID: sEmpData.position,
                 cust_DEPARTMENT: sThat.getModel("OP").getProperty(sPath + '/DepartmentID'),
                 cust_CURRENT_MANAGER_ID: sEmpData.managerId,
-                cust_FUTURE_MANAGER_ID : sThat.getModel("OP").getProperty(sPath + '/manager') !==""? sThat.getModel("OP").getProperty(sPath + '/manager'):null,
+                cust_FUTURE_MANAGER_ID: sThat.getModel("OP").getProperty(sPath + '/manager') !== "" ? sThat.getModel("OP").getProperty(sPath + '/manager') : null,
                 cust_ELIGIBITY_STATUS: sEmpData.eligibility === 'Warning' ? "20" : "10",
                 cust_ELIGIBITY_DESCRIPTION: sEmpData.description,
                 cust_Previous_Department: sEmpData.department,
@@ -403,7 +403,7 @@ sap.ui.define([
             var oDroppedItem = oEvent.getParameter("droppedControl");
             var oDroppedItemContext = oDroppedItem.getBindingContextPath();
             if (oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext + "/eligibility") === 'Error' ||
-             oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext + "/transferStatus") !=="") {
+                oDraggedItem.getParent().getModel("OP").getProperty(oDraggedItemContext + "/transferStatus") !== "") {
                 return;
             }
             var posId = this.getModel("OP").getProperty(oDroppedItemContext + "/PositionID");
@@ -459,7 +459,13 @@ sap.ui.define([
                 postData.push(this._employee[aKeys[i]].transferData);
             }
             try {
-                var i18n = this.oView.getModel("i18n");
+                let i18n = this.oView.getModel("i18n");
+                let userInfo = this.getCustProperty("UserInfo") ? this.getCustProperty("UserInfo") : null;
+                if (userInfo === null) {
+                    await this._getUser();
+                    userInfo = this.getCustProperty("UserInfo");
+                }
+                if(userInfo.Manager === true || userInfo.Admin === true){
                 let results = await this._asyncInitiate(postData);
                 this._downLog = ""
                 let messages = results.d;
@@ -502,7 +508,16 @@ sap.ui.define([
                 this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.downloadLog, this);
                 var url = '/http/getOpenPositionList?';
                 this._cpiAPI(url, 100, 0);
-                //this._onPageNavButtonPress();   
+                //this._onPageNavButtonPress();  
+            }else{
+                this.resetAssignments();
+                BusyIndicator.hide();
+                let i18n = this.oView.getModel("i18n");
+                let sTitle = i18n.getResourceBundle().getText("error");
+                let sText = i18n.getResourceBundle().getText("authError", [userInfo.user]);
+                let sFirstButton = i18n.getResourceBundle().getText("ok");
+                this._createDialog(sTitle, sText, sFirstButton, undefined,this.callBackFunc, undefined, this);
+            } 
             } catch (error) {
                 BusyIndicator.hide();
                 console.log(error)

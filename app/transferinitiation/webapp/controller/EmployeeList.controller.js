@@ -603,7 +603,7 @@ sap.ui.define([
         /**
          * This method is implemented for handling the Global lifecycle method onINIT.
         **/
-        onInit: function () {
+        onInit: async function () {
 
             sap.ui.getCore().attachLocalizationChanged(function (oEvent) {
                 var oChanges = oEvent.getParameter("changes");
@@ -672,6 +672,7 @@ sap.ui.define([
             this.byId("table0").setBusy(true);
             var oSettingsModel = new JSONModel({ navigatedItem: "" });
             this.getView().setModel(oSettingsModel, 'settings');
+            await this._getUser();
         },
         /**
          * This method is implemented for handling the Global lifecycle method onAfterRendering.

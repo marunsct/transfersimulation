@@ -187,9 +187,9 @@ sap.ui.define([
             }).activate();
             return oTPC;
         },
-/**
-  * This method is implemented for calling the API in ASYNC mode.
- **/
+        /**
+          * This method is implemented for calling the API in ASYNC mode.
+         **/
         asyncAjax: async function (sUrl) {
 
             return new Promise(function (resolve, reject) {
@@ -208,11 +208,29 @@ sap.ui.define([
                         reject({
                             error: errorThrown,
                             status: status,
+                            request: request,
                             data: 'API returns an error'
                         });
                     }
                 });
             });
+        },
+        _getUser: async function () {
+            try {
+                let user = await this.asyncAjax("/getuserinfo");
+                console.log(user);
+                this.setCustProperty("UserInfo", JSON.parse(user));
+            } catch (error) {
+                console.log(error);
+                this._timeoutError()
+
+            }
+        },
+        _timeoutError: function () {
+            var i18n = this.oView.getModel("i18n");
+            var sTitle = i18n.getResourceBundle().getText("error");
+            var sFirstButton = i18n.getResourceBundle().getText("reload");
+            thia._createDialog(sTitle, sText, sFirstButton, undefined, ()=> {window.location.reload();}, undefined, this);
         },
         onInit: function () {
             this._TransferList = {};
