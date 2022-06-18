@@ -9,8 +9,8 @@
             "authenticationType": "xsuaa",
             "csrfProtection": false,
             "scope": [
-                "$XSAPPNAME.Admin",
-                "$XSAPPNAME.Manager"
+                "transfersimulation.Admin",
+                "transfersimulation.Manager"
             ]
         },
         {
@@ -20,9 +20,9 @@
             "authenticationType": "xsuaa",
             "csrfProtection": false,
             "scope": [
-                "$XSAPPNAME.user",
-                "$XSAPPNAME.Admin",
-                "$XSAPPNAME.Manager"
+                "transfersimulation.user",
+                "transfersimulation.Admin",
+                "transfersimulation.Manager"
             ]
         },
         {
@@ -49,30 +49,30 @@
             "authenticationType": "xsuaa",
             "scope":{
                 "GET": [
-                    "$XSAPPNAME.user",
-                    "$XSAPPNAME.Admin",
-                    "$XSAPPNAME.Manager"
+                    "transfersimulation.user",
+                    "transfersimulation.Admin",
+                    "transfersimulation.Manager"
                 ],
                 "PATCH": [
-                    "$XSAPPNAME.Admin",
-                    "$XSAPPNAME.Manager"
+                    "transfersimulation.Admin",
+                    "transfersimulation.Manager"
                 ],
                 "POST": [
-                    "$XSAPPNAME.Admin",
-                    "$XSAPPNAME.Manager"
+                    "transfersimulation.Admin",
+                    "transfersimulation.Manager"
                 ],
                 "PUT": [
-                    "$XSAPPNAME.Admin",
-                    "$XSAPPNAME.Manager"
+                    "transfersimulation.Admin",
+                    "transfersimulation.Manager"
                 ],
                 "DELETE": [
-                    "$XSAPPNAME.Admin",
-                    "$XSAPPNAME.Manager"
+                    "transfersimulation.Admin",
+                    "transfersimulation.Manager"
                 ],
                 "default": [
-                    "$XSAPPNAME.user",
-                    "$XSAPPNAME.Admin",
-                    "$XSAPPNAME.Manager"
+                    "transfersimulation.user",
+                    "transfersimulation.Admin",
+                    "transfersimulation.Manager"
                 ]
               },
               "cacheControl": "no-cache, no-store, must-revalidate"

@@ -7,6 +7,22 @@
         }
     ],
 	"VCAP_SERVICES": {
+		"application-logs": [
+			{
+				"label": "application-logs",
+				"provider": null,
+				"plan": "lite",
+				"name": "TransferSimulation-logs",
+				"tags": [],
+				"instance_guid": "16983061-487b-407f-9fd3-6ede0f2d71e7",
+				"instance_name": "TransferSimulation-logs",
+				"binding_guid": "c095e2c5-022d-4db8-8de6-b71aae63c2d9",
+				"binding_name": null,
+				"credentials": {},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		],
 		"xsuaa": [
 			{
 				"label": "xsuaa",
@@ -18,7 +34,7 @@
 				],
 				"instance_guid": "69f4ebe5-a9f9-465c-b081-106558fd6878",
 				"instance_name": "TransferSimulation-xsuaa-service",
-				"binding_guid": "78ce9d96-7fe7-4b00-bfbd-d25e18e72482",
+				"binding_guid": "90c6a9b0-9aac-4b8c-a5f0-42d881675c8b",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",
@@ -54,14 +70,14 @@
 				],
 				"instance_guid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
 				"instance_name": "TransferSimulation-dest-srv",
-				"binding_guid": "0ac4403b-abc5-4961-8093-1a42bd456d60",
+				"binding_guid": "d53112fc-aa01-4bff-8a3e-568f8728feda",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",
 					"clientid": "sb-clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
 					"credential-type": "binding-secret",
 					"xsappname": "clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
-					"clientsecret": "0ac4403b-abc5-4961-8093-1a42bd456d60$781JoBb7QZjLPQ8hko9BWuE-JhqpOcFF56YULb4qWGM=",
+					"clientsecret": "d53112fc-aa01-4bff-8a3e-568f8728feda$MKwrnet3hJVDEFdsxWyXe6iJOXvQ1emL6dUm-LqrHvE=",
 					"uri": "https://destination-configuration.cfapps.jp10.hana.ondemand.com",
 					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
 					"uaadomain": "authentication.jp10.hana.ondemand.com",
