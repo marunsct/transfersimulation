@@ -201,7 +201,8 @@ sap.ui.define([
           * This method is implemented for calling the API in ASYNC mode.
          **/
         asyncAjax: async function (sUrl) {
-
+            var self = this;
+            self.resetInactivityTimeout();
             return new Promise(function (resolve, reject) {
                 $.ajax({
                     url: sUrl,
@@ -261,7 +262,8 @@ sap.ui.define([
             var i18n = this.oView.getModel("i18n");
             var sTitle = i18n.getResourceBundle().getText("error");
             var sFirstButton = i18n.getResourceBundle().getText("reload");
-            thia._createDialog(sTitle, sText, sFirstButton, undefined, () => { window.location.reload(); }, undefined, this);
+            var sText = i18n.getResourceBundle().getText("expire");
+            this._createDialog(sTitle, sText, sFirstButton, undefined, () => { window.location.reload(); }, undefined, this);
         },
         /**
          *
@@ -270,6 +272,69 @@ sap.ui.define([
         onInit: function () {
             this._TransferList = {};
 
+        },
+        /**
+ * Set to correspond to something less than the SESSION_TIMEOUT value that you set for your approuter
+ * @see https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.04/en-US/5f77e58ec01b46f6b64ee1e2afe3ead7.html
+ */
+        countdown: 840000,  /* 14 minutes; SESSION_TIMEOUT defaults to 15 minutes */
+
+        resetCountdown: 840000,
+
+        /**
+         * Return number of milliseconds left till automatic logout
+         */
+        getInactivityTimeout: function () {
+            return this.countdown;
+        },
+
+        /**
+         * Set number of minutes left till automatic logout
+         */
+        setInactivityTimeout: function (timeout_millisec) {
+            this.countdown = timeout_millisec;
+            this.resetCountdown = this.countdown;
+        },
+
+        /**
+         * Set number of minutes left till automatic logout
+         */
+        resetInactivityTimeout: function () {
+            this.countdown = this.resetCountdown;
+        },
+
+        /**
+         * Begin counting tracking inactivity
+         */
+        startInactivityTimer: function (nTime) {
+            if (nTime === 0) {
+                nTime = 15;
+            }
+            this.setInactivityTimeout(nTime * 60 * 1000);
+            var self = this;
+            this.intervalHandle = setInterval(function () {
+                self._inactivityCountdown();
+            }, 10000);
+        },
+
+        stopInactivityTimer: function () {
+            if (this.intervalHandle != null) {
+                clearInterval(this.intervalHandle);
+                this.intervalHandle = null;
+            }
+        },
+
+        _inactivityCountdown: function () {
+            this.countdown -= 10000;
+            if (this.countdown <= 0) {
+                this.stopInactivityTimer();
+                this.resetInactivityTimeout();
+                var i18n = this.oView.getModel("i18n");
+                var sTitle = i18n.getResourceBundle().getText("error");
+                var sText = i18n.getResourceBundle().getText("expire");
+                var sFirstButton = i18n.getResourceBundle().getText("reload");
+                this._createDialog(sTitle, sText, sFirstButton, undefined, () => { window.location.reload(); }, undefined, this);
+            }
         }
     });
 

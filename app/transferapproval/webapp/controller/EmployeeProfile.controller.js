@@ -134,6 +134,7 @@ sap.ui.define([
                     }
                 }
             }.bind(this));
+            this.startInactivityTimer(15);
         },
         onAfterRendering: async function () {
             let performance = this.getModel('PR').getProperty("/Performance")
@@ -226,6 +227,8 @@ sap.ui.define([
             console.log(sCount);
             if (sCount >= 8) {
                 BusyIndicator.hide()
+                var self = this;
+                self.resetInactivityTimeout();
             }
         },
         getFDate: function (sDate) {

@@ -98,6 +98,7 @@ sap.ui.define([
                         transferSettings = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimSettings");
                         this.setCustProperty("TransferSettings", transferSettings.d.results[0]);
                     }
+
                 } catch (error) {
                     console.log(error);
                 }
@@ -119,6 +120,8 @@ sap.ui.define([
                         this.fetchTransfers(await this._buildFilters());
                     }
                 }.bind(this));
+
+                
             },
             handleRouteMatched: function (oEvent) {
                 var oParams = oEvent.getParameters();
@@ -239,6 +242,14 @@ sap.ui.define([
                 this.onSuggestLocation();
 
                 this.fetchTransfers("");
+                var self = this;
+                this.startInactivityTimer(14);
+                /**
+                 * Each time a request is issued, reset the inactivity countdown
+                 */
+                this.getModel('oData').attachRequestCompleted(function (oEvent) {
+                    self.resetInactivityTimeout();
+                }, this);
             },
             fetchCount: async function () {
                 let settings = await this.fetchSettings();
@@ -402,6 +413,8 @@ sap.ui.define([
                 }
             },
             onTransferApprove: async function () {
+                var self = this;
+                self.resetInactivityTimeout();
                 try {
                     BusyIndicator.show();
                     var tbl = this.getView().byId('TransferReqTable');
@@ -561,6 +574,8 @@ sap.ui.define([
                 }
             },
             rejectTransfer: async function () {
+                var self = this;
+                self.resetInactivityTimeout();
                 try {
                     BusyIndicator.show();
                     let userInfo = this.getCustProperty("UserInfo") ? this.getCustProperty("UserInfo") : null;
@@ -772,6 +787,8 @@ sap.ui.define([
             },
             onViewProfile: function (oEvent) {
                 var oBindingContext = oEvent.getSource().getParent().oBindingContexts.data;
+                var self = this;
+                self.resetInactivityTimeout();
                 return new Promise(function (fnResolve) {
 
                     this.oRouter.navTo("EmployeeProfile", {

@@ -73,7 +73,7 @@ sap.ui.define([
                 this.oFclModel.setProperty('/expandIcon/tooltip', 'Enter Full Screen Mode');
             }
 
-            if(this.getCustProperty("TransferInitiated")){
+            if (this.getCustProperty("TransferInitiated")) {
                 this.onSearch();
                 this.setCustProperty("TransferInitiated", false);
             }
@@ -85,7 +85,7 @@ sap.ui.define([
         **/
         _onTableItemPress: function (oEvent) {
             console.log(111);
-            var oBindingContext = oEvent.getParameter("listItem") ? oEvent.getParameter("listItem").getBindingContext("OP") :oEvent.getSource().getParent().getBindingContext('OP');
+            var oBindingContext = oEvent.getParameter("listItem") ? oEvent.getParameter("listItem").getBindingContext("OP") : oEvent.getSource().getParent().getBindingContext('OP');
             this.setCustProperty("EmployeeContext", oBindingContext);
             this._employeeContext = oBindingContext;
             this.oFclModel = this.getOwnerComponent().getModel("FclRouter");
@@ -125,22 +125,22 @@ sap.ui.define([
                 var mData = mModel.getData();
                 // this._onOdataCall('EmployeeJobs', oFilters, (this._sCount + 2), mData.EmployeeJobs.length);
                 let _url = oFilters !== undefined ? '/http/getEmpData?' + oFilters : '/http/getEmpData?';
-                this._cpiAPI(_url, (this._sCount), (this._skipCount * this._sCount) );
+                this._cpiAPI(_url, (this._sCount), (this._skipCount * this._sCount));
                 mData.currentLength = mData.EmployeeJobs.length + this._sCount;
             }
         },
-        handlePagination: function(){
+        handlePagination: function () {
             var filters = this.getModel("filter").getData().filter;
-                var oFilters = this._builFilters(filters);
-                var mModel = this.getView().getModel('OP');
-                var mData = mModel.getData();
-                if(mData.Count === mData.currentLength){
-                    return;
-                }
-                // this._onOdataCall('EmployeeJobs', oFilters, (this._sCount + 2), mData.EmployeeJobs.length);
-                let _url = oFilters !== undefined ? '/http/getEmpData?' + oFilters : '/http/getEmpData?';
-                this._cpiAPI(_url, (this._sCount), (this._skipCount * this._sCount) );
-                mData.currentLength = mData.EmployeeJobs.length + this._sCount;
+            var oFilters = this._builFilters(filters);
+            var mModel = this.getView().getModel('OP');
+            var mData = mModel.getData();
+            if (mData.Count === mData.currentLength) {
+                return;
+            }
+            // this._onOdataCall('EmployeeJobs', oFilters, (this._sCount + 2), mData.EmployeeJobs.length);
+            let _url = oFilters !== undefined ? '/http/getEmpData?' + oFilters : '/http/getEmpData?';
+            this._cpiAPI(_url, (this._sCount), (this._skipCount * this._sCount));
+            mData.currentLength = mData.EmployeeJobs.length + this._sCount;
         },
         /**
          * This method is implemented for handling the event onPress on employee profile link
@@ -160,7 +160,7 @@ sap.ui.define([
                     midContext: sMidContext,
                     layout: sNextLayout
                 }, false);
-                
+
             }.bind(this)).catch(function (err) {
                 if (err !== undefined) {
                     MessageBox.error(err.message);
@@ -493,17 +493,17 @@ sap.ui.define([
             try {
 
                 if (oFilters.length > 0) {
-                    
+
                     fData.currentPage = 0;
                     fModel.setData(fData);
                     this._oFilters = oFilters;
                     //this._onOdataCall('EmployeeJobs', oFilters, this._sCount, 0);
                     let _url = oFilters !== undefined ? '/http/getEmpData?' + oFilters : "/http/getEmpData?";
-                    var _countURL = oFilters !== undefined ? '/http/getEmpCount?' + oFilters   : "/http/getEmpCount?";
+                    var _countURL = oFilters !== undefined ? '/http/getEmpCount?' + oFilters : "/http/getEmpCount?";
                     this._cpiAPI(_url, (this._sCount), 0);
                     mData.currentLength = this._sCount;
                     mData.Count = await this.asyncAjax(_countURL);
-                    if(mData.Count.hasOwnProperty('length') && mData.Count !== ""){
+                    if (mData.Count.hasOwnProperty('length') && mData.Count !== "") {
                         mData.Count = parseInt(mData.Count);
                     }
                 } else {
@@ -511,7 +511,7 @@ sap.ui.define([
                     var _countURL = '/http/getEmpCount?';
                     var url = '/http/getEmpData?';
                     mData.Count = await this.asyncAjax(_countURL);
-                    if(mData.Count.hasOwnProperty('length') && mData.Count !== ""){
+                    if (mData.Count.hasOwnProperty('length') && mData.Count !== "") {
                         mData.Count = parseInt(mData.Count);
                     }
                     mData.currentLength = this._sCount;
@@ -615,7 +615,7 @@ sap.ui.define([
                 }
             }.bind(this));
             this._sCount = Math.round(((Device.resize.height - 10 - 285) / 40)) - 1;
-            
+
             if (!this.oView) {
                 this.oView = this.getView();
             }
@@ -673,6 +673,7 @@ sap.ui.define([
             var oSettingsModel = new JSONModel({ navigatedItem: "" });
             this.getView().setModel(oSettingsModel, 'settings');
             await this._getUser();
+            this.startInactivityTimer(14);
         },
         /**
          * This method is implemented for handling the Global lifecycle method onAfterRendering.
@@ -725,8 +726,6 @@ sap.ui.define([
                         oInput.focus();
                     });
 
-                    console.log("cat");
-
                 } else {
 
                     // fData.currentPage = 0;
@@ -742,6 +741,14 @@ sap.ui.define([
             } catch (error) {
                 throw error;
             }
+            var self = this;
+            this.startInactivityTimer(14);
+            /**
+             * Each time a request is issued, reset the inactivity countdown
+             */
+            this.getModel('oData').attachRequestCompleted(function (oEvent) {
+                self.resetInactivityTimeout();
+            }, this);
         },
         /**
          * This method is implemented for handling the Global lifecycle method onEXIT.
@@ -1222,7 +1229,7 @@ sap.ui.define([
                                 this._nonEligible.push(result.EmpJob);
                             }
                         }
-                    }else{
+                    } else {
                         resultFilter = result.EmpJob;
                     }
                     mData.EmployeeJobs.push.apply(mData.EmployeeJobs, resultFilter);

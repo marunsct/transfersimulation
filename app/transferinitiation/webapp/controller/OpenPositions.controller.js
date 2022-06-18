@@ -465,59 +465,59 @@ sap.ui.define([
                     await this._getUser();
                     userInfo = this.getCustProperty("UserInfo");
                 }
-                if(userInfo.Manager === true || userInfo.Admin === true){
-                let results = await this._asyncInitiate(postData);
-                this._downLog = ""
-                let messages = results.d;
-                let failedTransfers = "";
-                let successTransfers = "";
-                for (let j = 0; j < messages.length; j++) {
-                    if (messages[j].httpCode !== 200) {
-                        failedTransfers = failedTransfers + messages[j].key.split('externalCode=')[1];
-                        if (this._downLog === "") {
+                if (userInfo.Manager === true || userInfo.Admin === true) {
+                    let results = await this._asyncInitiate(postData);
+                    this._downLog = ""
+                    let messages = results.d;
+                    let failedTransfers = "";
+                    let successTransfers = "";
+                    for (let j = 0; j < messages.length; j++) {
+                        if (messages[j].httpCode !== 200) {
+                            failedTransfers = failedTransfers + messages[j].key.split('externalCode=')[1];
+                            if (this._downLog === "") {
 
-                            this._downLog = i18n.getResourceBundle().getText("employeeId") + '\t\t' + i18n.getResourceBundle().getText("log");
-                        }
-                        this._downLog = this._downLog + '\n' + messages[j].key.split('externalCode=')[1] + '\t\t' + messages[j].message;
+                                this._downLog = i18n.getResourceBundle().getText("employeeId") + '\t\t' + i18n.getResourceBundle().getText("log");
+                            }
+                            this._downLog = this._downLog + '\n' + messages[j].key.split('externalCode=')[1] + '\t\t' + messages[j].message;
 
-                    } else if (messages[j].httpCode === 200) {
-                        if (successTransfers !== "") {
-                            successTransfers = successTransfers + ", " + messages[j].key.split('externalCode=')[1];
-                        } else {
-                            successTransfers = successTransfers + messages[j].key.split('externalCode=')[1];
+                        } else if (messages[j].httpCode === 200) {
+                            if (successTransfers !== "") {
+                                successTransfers = successTransfers + ", " + messages[j].key.split('externalCode=')[1];
+                            } else {
+                                successTransfers = successTransfers + messages[j].key.split('externalCode=')[1];
+                            }
                         }
                     }
-                }
-                let Counter = 1;
+                    let Counter = 1;
 
-                let sFirstButton = i18n.getResourceBundle().getText("ok");
-                let sSecondButton = undefined;
-                if (this._downLog !== "") {
-                    sSecondButton = i18n.getResourceBundle().getText("download")
+                    let sFirstButton = i18n.getResourceBundle().getText("ok");
+                    let sSecondButton = undefined;
+                    if (this._downLog !== "") {
+                        sSecondButton = i18n.getResourceBundle().getText("download")
+                    }
+                    let sTitle = i18n.getResourceBundle().getText("transferResult");
+                    let sText = "";
+                    if (successTransfers !== "") {
+                        sText = sText + i18n.getResourceBundle().getText("transferSuccess", [Counter, successTransfers]);
+                        Counter = Counter + 1;
+                    } else if (failedTransfers !== "") {
+                        sText = sText + i18n.getResourceBundle().getText("transferError", [Counter, failedTransfers]);
+                    }
+                    this.resetAssignments();
+                    BusyIndicator.hide();
+                    this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.downloadLog, this);
+                    var url = '/http/getOpenPositionList?';
+                    this._cpiAPI(url, 100, 0);
+                    //this._onPageNavButtonPress();  
+                } else {
+                    this.resetAssignments();
+                    BusyIndicator.hide();
+                    let i18n = this.oView.getModel("i18n");
+                    let sTitle = i18n.getResourceBundle().getText("error");
+                    let sText = i18n.getResourceBundle().getText("authError", [userInfo.user]);
+                    let sFirstButton = i18n.getResourceBundle().getText("ok");
+                    this._createDialog(sTitle, sText, sFirstButton, undefined, this.callBackFunc, undefined, this);
                 }
-                let sTitle = i18n.getResourceBundle().getText("transferResult");
-                let sText = "";
-                if (successTransfers !== "") {
-                    sText = sText + i18n.getResourceBundle().getText("transferSuccess", [Counter, successTransfers]);
-                    Counter = Counter + 1;
-                } else if (failedTransfers !== "") {
-                    sText = sText + i18n.getResourceBundle().getText("transferError", [Counter, failedTransfers]);
-                }
-                this.resetAssignments();
-                BusyIndicator.hide();
-                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, this._onPageNavButtonPress, this.downloadLog, this);
-                var url = '/http/getOpenPositionList?';
-                this._cpiAPI(url, 100, 0);
-                //this._onPageNavButtonPress();  
-            }else{
-                this.resetAssignments();
-                BusyIndicator.hide();
-                let i18n = this.oView.getModel("i18n");
-                let sTitle = i18n.getResourceBundle().getText("error");
-                let sText = i18n.getResourceBundle().getText("authError", [userInfo.user]);
-                let sFirstButton = i18n.getResourceBundle().getText("ok");
-                this._createDialog(sTitle, sText, sFirstButton, undefined,this.callBackFunc, undefined, this);
-            } 
             } catch (error) {
                 BusyIndicator.hide();
                 console.log(error)
@@ -611,6 +611,7 @@ sap.ui.define([
                 transferSettings = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimSettings");
                 this.setCustProperty("TransferSettings", transferSettings.d.results[0]);
             }
+            this.startInactivityTimer(14);
         },
         onAfterRendering: async function () {
 
@@ -658,7 +659,7 @@ sap.ui.define([
                 console.log("Error while fecting location data");
                 console.log(error);
             }
-            console.log("new cat");
+            this.startInactivityTimer(14);
 
         },
 
@@ -809,6 +810,8 @@ sap.ui.define([
             oSpreadsheet.build()
                 .then(function () { ("Export is finished"); })
                 .catch(function (sMessage) { ("Export error: " + sMessage); });
+            var self = this;
+            self.resetInactivityTimeout();
         },
 
         onSuggest: function (oEvent) {
@@ -1193,6 +1196,8 @@ sap.ui.define([
             }
         },
         _asyncInitiate: async function (aBody) {
+            var self = this;
+            self.resetInactivityTimeout();
             return new Promise(function (resolve, reject) {
                 $.ajax({
                     url: '/upsert',

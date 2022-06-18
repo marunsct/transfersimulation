@@ -77,7 +77,8 @@ sap.ui.define([
                     MessageBox.error(err.message);
                 }
             }
-
+            var self = this;
+            self.resetInactivityTimeout();
             // var oQueryParams = this.getQueryParameters(window.location);
             // var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 
@@ -189,6 +190,7 @@ sap.ui.define([
                     }
                 }
             }.bind(this));
+            this.startInactivityTimer(14);
 
         },
         onAfterRendering: async function () {
@@ -290,6 +292,8 @@ sap.ui.define([
             console.log(sCount);
             if (sCount >= 8) {
                 BusyIndicator.hide()
+                var self = this;
+                self.resetInactivityTimeout();
             }
         },
         getFDate: function (sDate) {
@@ -615,9 +619,9 @@ sap.ui.define([
 
                                 pDept.id = dept[i].department;
                                 if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
-                                    pDept.dept = dept[i].departmentNav.name_ja_JP !== null ? dept[i].departmentNav.name_ja_JP : dept[i].departmentNav.name ;
+                                    pDept.dept = dept[i].departmentNav.name_ja_JP !== null ? dept[i].departmentNav.name_ja_JP : dept[i].departmentNav.name;
                                 } else {
-                                    pDept.dept = dept[i].departmentNav.name_en_US !== null ? dept[i].departmentNav.name_en_US : dept[i].departmentNav.name ;
+                                    pDept.dept = dept[i].departmentNav.name_en_US !== null ? dept[i].departmentNav.name_en_US : dept[i].departmentNav.name;
                                 }
                                 //   pDept.dept = dept[i].department;
                                 // console.log(date, dept[i].department);
