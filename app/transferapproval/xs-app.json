@@ -9,8 +9,8 @@
             "authenticationType": "xsuaa",
             "csrfProtection": false,
             "scope": [
-                "transfersimulation.Admin",
-                "transfersimulation.HR"
+                "$XSAPPNAME.Admin",
+                "$XSAPPNAME.HR"
             ]
         },
         {
@@ -20,8 +20,8 @@
             "authenticationType": "xsuaa",
             "csrfProtection": false,
             "scope": [
-                "transfersimulation.Admin",
-                "transfersimulation.HR"
+                "$XSAPPNAME.Admin",
+                "$XSAPPNAME.HR"
             ]
         },
         {
@@ -31,9 +31,9 @@
             "authenticationType": "xsuaa",
             "csrfProtection": false,
             "scope": [
-                "transfersimulation.user",
-                "transfersimulation.Admin",
-                "transfersimulation.HR"
+                "$XSAPPNAME.user",
+                "$XSAPPNAME.Admin",
+                "$XSAPPNAME.HR"
             ]
         },
         {
@@ -55,30 +55,30 @@
             "authenticationType": "xsuaa",
             "scope": {
                 "GET": [
-                    "transfersimulation.user",
-                    "transfersimulation.Admin",
-                    "transfersimulation.HR"
+                    "$XSAPPNAME.user",
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.HR"
                 ],
                 "PATCH": [
-                    "transfersimulation.Admin",
-                    "transfersimulation.HR"
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.HR"
                 ],
                 "POST": [
-                    "transfersimulation.Admin",
-                    "transfersimulation.HR"
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.HR"
                 ],
                 "PUT": [
-                    "transfersimulation.Admin",
-                    "transfersimulation.HR"
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.HR"
                 ],
                 "DELETE": [
-                    "transfersimulation.Admin",
-                    "transfersimulation.HR"
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.HR"
                 ],
                 "default": [
-                    "transfersimulation.user",
-                    "transfersimulation.Admin",
-                    "transfersimulation.HR"
+                    "$XSAPPNAME.user",
+                    "$XSAPPNAME.Admin",
+                    "$XSAPPNAME.HR"
                 ]
             },
             "cacheControl": "no-cache, no-store, must-revalidate"
