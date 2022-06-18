@@ -64,7 +64,7 @@ sap.ui.define([
                 }
             },
             onLogout: async function () {
-                window.location.href = "/logout";
+                window.location.href = "/my/logout";
                 
                 //  window.location.href = "/app/logout";
                // window.location.replace('/app/logout');
