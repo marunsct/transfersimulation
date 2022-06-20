@@ -1255,7 +1255,7 @@ sap.ui.define([
                                 item.employmentType = results[i].cust_EMPLOYMENT_TYPENav !== null ? results[i].cust_EMPLOYMENT_TYPENav.label_en_US : null;
                                 item.supervisor = results[i].cust_CURRENT_MANAGER_IDNav !== null ? results[i].cust_CURRENT_MANAGER_IDNav.defaultFullName : null;
                                 item.nsupervisor = results[i].cust_FUTURE_MANAGER_IDNav !== null ? results[i].cust_FUTURE_MANAGER_IDNav.defaultFullName : null;
-                                item.eligibility = results[i].cust_ELIGIBITY_STATUSNav !== null ? results[i].cust_ELIGIBITY_STATUSNav.label_en_US : null;
+                                item.eligibility = results[i].cust_ELIGIBITY_STATUSNav !== null ? results[i].cust_ELIGIBITY_STATUSNav.label_en_US : results[i].cust_ELIGIBITY_STATUSNav.label_defaultValue;
                                 item.currentpos = results[i].cust_OLD_POSITION_IDNav !== null ? (results[i].cust_OLD_POSITION_IDNav.externalName_en_US !== null ? results[i].cust_OLD_POSITION_IDNav.externalName_en_US : results[i].cust_OLD_POSITION_IDNav.externalName_defaultValue) : null;
                                 item.newpos = results[i].cust_NEW_POSITION_IDNav !== null ? (results[i].cust_NEW_POSITION_IDNav.externalName_en_US !== null ? results[i].cust_NEW_POSITION_IDNav.externalName_en_US : results[i].cust_NEW_POSITION_IDNav.externalName_defaultValue) : null;
                                 item.Status = results[i].cust_STATUSNav !== null ? results[i].cust_STATUSNav.label_defaultValue : null;
@@ -1269,7 +1269,7 @@ sap.ui.define([
                                 item.employmentType = results[i].cust_EMPLOYMENT_TYPENav !== null ? results[i].cust_EMPLOYMENT_TYPENav.label_ja_JP : null;
                                 item.supervisor = results[i].cust_CURRENT_MANAGER_IDNav !== null ? results[i].cust_CURRENT_MANAGER_IDNav.defaultFullName : null;
                                 item.nsupervisor = results[i].cust_FUTURE_MANAGER_IDNav !== null ? results[i].cust_FUTURE_MANAGER_IDNav.defaultFullName : null;
-                                item.eligibility = results[i].cust_ELIGIBITY_STATUSNav !== null ? results[i].cust_ELIGIBITY_STATUSNav.label_ja_JP : null;
+                                item.eligibility = results[i].cust_ELIGIBITY_STATUSNav !== null ? results[i].cust_ELIGIBITY_STATUSNav.label_defaultValue : null;
                                 //item.currentpos = results[i].cust_OLD_POSITION_IDNav !== null ? results[i].cust_OLD_POSITION_IDNav.externalName_ja_JP : null;
                                 //item.newpos = results[i].cust_NEW_POSITION_IDNav !== null ? results[i].cust_NEW_POSITION_IDNav.externalName_ja_JP : null;
                                 item.currentpos = results[i].cust_OLD_POSITION_IDNav !== null ? (results[i].cust_OLD_POSITION_IDNav.externalName_ja_JP !== null ? results[i].cust_OLD_POSITION_IDNav.externalName_ja_JP : results[i].cust_OLD_POSITION_IDNav.externalName_defaultValue) : null;

@@ -257,6 +257,10 @@
 }
 .sapFDynamicPage-Std-Tablet .sapFDynamicPageTitle {
     padding: 0rem 0rem 0rem 0rem !important;
+    min-height: 2rem !important;
+    background-color: #aac6de !important;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 .sapUiSizeCompact .sapMGrowingListDescription {
     display: none !important;
@@ -360,6 +364,7 @@
 }
 .sapUiSizeCompact .sapFDynamicPageToggleHeaderIndicator .sapMBtnInner.sapMBtnIconFirst:not(.sapMBtnBack), .sapUiSizeCompact .sapFDynamicPageHeaderPinButton .sapMBtnInner.sapMBtnIconFirst:not(.sapMBtnBack) {
     visibility: hidden;
+    
 }
 .sapMSelectionPanel tbody .sapMListTblSelCol {
     vertical-align: middle;
@@ -388,4 +393,8 @@
 .sapFDynamicPageTitle {
 
     padding: 0rem 0rem 0rem 0rem !important; 
+}
+.sapUiSizeCompact .sapFDynamicPageToggleHeaderIndicator {
+    cursor: not-allowed !important;
+    pointer-events: none !important;
 }

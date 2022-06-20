@@ -7,7 +7,7 @@
     xmlns:fb="sap.ui.comp.filterbar"
     xmlns:cust="initiator.control"
     xmlns:dnd="sap.ui.core.dnd" controllerName="transferinitiation.controller.EmployeeList" id="EmployeeList" displayBlock="false">
-    <f:DynamicPage id="dynamicPageId" showFooter="{FclRouter>/footerVisible1}" headerExpanded="{FclRouter>/headerExpanded}">
+    <f:DynamicPage id="dynamicPageId" showFooter="{FclRouter>/footerVisible1}" headerExpanded="{FclRouter>/headerExpanded}" preserveHeaderStateOnScroll="true">
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle>
@@ -88,10 +88,10 @@
             <!--VBox>
         <items></items>
         </VBox-->
-            <ScrollContainer id="sc1" height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
+            <ScrollContainer id="sc1" height="100%" width="100%" horizontal="false" vertical="true" focusable="false">
 
                 <Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" noDataText="{i18n>terror}" id="table0" items="{OP>/EmployeeJobs}" fixedLayout="false" 
-                    includeItemInSelection="false" growingScrollToLoad="true" growing="true" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" 
+                    includeItemInSelection="false" growingScrollToLoad="false" growing="false" growingThreshold="{filter>/top}" updateFinished="onUpdateFinished" 
                     updateStarted="onUpdateStarted" growingTriggerText="..." itemPress="_onTableItemPress">
                     <dragDropConfig>
                         <dnd:DragInfo groupName="available2selected" sourceAggregation="items" />
@@ -117,7 +117,7 @@
                                 <Text text="{OP>managerId}" id="text14" wrapping="false" />
                                 <Text text="{OP>managerName}" id="text6" wrapping="false" />
                                 <ObjectStatus text="{oData>eligibility}" state="{=${OP>eligibility} === 'Error' ? 'Error' : ${OP>eligibility} === 'Warning' ? 'Warning' : 'Success' }" 
-                                    id="status0_copy_table0_0" icon="{=${OP>Transfer_Criteria} === 'Error' ? 'sap-icon://status-negative' : ${OP>eligibility} === 'Warning' ? 'sap-icon://status-critical' : 'sap-icon://sys-enter-2' }" 
+                                    id="status0_copy_table0_0" icon="{=${OP>eligibility} === 'Error' ? 'sap-icon://status-negative' : ${OP>eligibility} === 'Warning' ? 'sap-icon://status-critical' : 'sap-icon://sys-enter-2' }" 
                                     tooltip="{OP>description}" />
                                 <Text text="{OP>position}" id="text15" wrapping="false" />
                                 <Text text="{OP>positionTitle}" id="text7" wrapping="false" />

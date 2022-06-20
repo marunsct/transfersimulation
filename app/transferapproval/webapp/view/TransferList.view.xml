@@ -7,7 +7,7 @@
     controllerName="transferapproval.controller.TransferList" 
     id="TransferList" displayBlock="false">
 
-    <f:DynamicPage id="dynamicPageId" headerExpanded="true">
+    <f:DynamicPage id="dynamicPageId" headerExpanded="true" toggleHeaderOnTitleClick="false">
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle>
@@ -210,7 +210,7 @@
                                             <Text text="{data>supervisor}" id="tc8" />
                                             <Text text="{data>nsupervisorId}" id="tc19" />
                                             <Text text="{data>nsupervisor}" id="tc20" />
-                                            <ObjectStatus state="{=${data>eligibility} !== 'warning' ? 'Success' : 'Warning' }" id="os1" icon="{=${data>eligibility} !== 'warning' ? 'sap-icon://sys-enter' : 'sap-icon://warning' }" />
+                                            <ObjectStatus state="{=${data>eligibilityId} !== '20' ? 'Success' : 'Warning' }" id="os1" icon="{=${data>eligibilityId} !== '20' ? 'sap-icon://sys-enter' : 'sap-icon://warning' }" />
                                             <Text text="{data>currentposId}" id="tc10" />
                                             <Text text="{data>currentpos}" id="tc11" />
                                             <Text text="{data>newposId}" id="tc12" />

@@ -515,7 +515,7 @@ sap.ui.define([
                         mData.Count = parseInt(mData.Count);
                     }
                     mData.currentLength = this._sCount;
-                    this._cpiAPI(url, (this._sCount + 2), 0);
+                    this._cpiAPI(url, (this._sCount), 0);
                 }
             } catch (error) {
                 throw error;
@@ -696,7 +696,7 @@ sap.ui.define([
                     // this._onOdataCall('EmployeeJobs', [], (this._sCount + 2), 0);
                     fData.Count = await this.asyncAjax(_countURL);
                     fData.currentLength = this._sCount;
-                    this._cpiAPI(url, (this._sCount + 2), 0);
+                    this._cpiAPI(url, (this._sCount ), 0);
                     var location = await this.asyncAjax("/SFSF/odata/v2/FOLocation?$select=externalCode,startDate,name,description,status,nameTranslationNav/externalCode,nameTranslationNav/foField,nameTranslationNav/value_defaultValue,nameTranslationNav/value_ja_JP,nameTranslationNav/value_en_US,nameTranslationNav/value_localized&$expand=nameTranslationNav&$top=1000&$filter=status eq 'A'");
                     var mModel = this.getView().getModel('filter');
                     var mData = mModel.getData();
@@ -735,7 +735,7 @@ sap.ui.define([
                         //this._onOdataCall('EmployeeJobs', [], (this._sCount + 2), 0);
                         fData.Count = await this.asyncAjax(_countURL);
                         fData.currentLength = this._sCount;
-                        this._cpiAPI(url, (this._sCount + 2), 0);
+                        this._cpiAPI(url, (this._sCount), 0);
                     }
                 }
             } catch (error) {
@@ -1113,40 +1113,6 @@ sap.ui.define([
             oEvent.getSource().getBinding("suggestionItems").filter(aFilters);
         },
         //################ Private APIs ###################
-        /**
-         * This method is implemented for creating dialogs.
-        **/
-        _createDialog: function (sTitle, sText, sFirstButton, sSecondButton, sTransfer) {
-            var dialog = new Dialog({
-                title: sTitle,
-                type: 'Message',
-                content: new Text({ text: sText }),
-                beginButton: new Button({
-                    type: ButtonType.Emphasized,
-                    text: sFirstButton,
-                    press: function () {
-                        if (sTransfer) {
-                            this._createTransferPlan();
-                        } else {
-                            this.resetCustProperty();
-                            this.oFclModel.setProperty('/footerVisible', false);
-                        }
-                        dialog.close();
-                    }.bind(this)
-                }),
-                endButton: new Button({
-                    text: sSecondButton,
-                    press: function () {
-                        dialog.close();
-                    }
-                }),
-                afterClose: function () {
-                    dialog.destroy();
-                }
-            });
-
-            dialog.open();
-        },
         /**
          * This method is implemented for modularising the repeated Odata calls.
         **/

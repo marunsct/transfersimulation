@@ -42,7 +42,7 @@
                                             </m:VBox>
                                             <m:VBox width="100%" id="hbox0_16_copy" alignContent="Start" wrap="Wrap" class="sapUiSmallMarginBegin">
                                                 <m:items>
-                                                    <m:ObjectStatus state="{=${PR>/EmpJob/eligibility} === 'Error' ? 'Error' : ${PR>/EmpJob/eligibility} === 'Warning' ? 'Warning' : 'Success' }" id="status0" icon="{=${PR>/EmpJob/Transfer_Criteria} === 'Error' ? 'sap-icon://status-negative'  : ${PR>/EmpJob/eligibility} === 'Warning' ? 'sap-icon://status-critical' : 'sap-icon://sys-enter-2'}" />
+                                                    <m:ObjectStatus state="{=${PR>/EmpJob/eligibility} === 'Error' ? 'Error' : ${PR>/EmpJob/eligibility} === 'Warning' ? 'Warning' : 'Success' }" id="status0" icon="{=${PR>/EmpJob/eligibility} === 'Error' ? 'sap-icon://status-negative'  : ${PR>/EmpJob/eligibility} === 'Warning' ? 'sap-icon://status-critical' : 'sap-icon://sys-enter-2'}" />
                                                     <m:Text text="{PR>/EmpJob/description}" id="text16_copy2" />
                                                 </m:items>
                                             </m:VBox>
