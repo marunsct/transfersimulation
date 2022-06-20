@@ -1206,15 +1206,17 @@ sap.ui.define([
                 }
                 mModel.setData(mData);
                 // this.onEligibleCB();
+                this.resetInactivityTimeout();
                 this.byId("table0").setBusy(false);
                 // this.onEligibleCB();
 
             } catch (error) {
+                this.resetInactivityTimeout();
                 console.log(error);
                 this.byId("table0").setBusy(false);
                 throw error;
             }
-
+            
             return;
         }
     });

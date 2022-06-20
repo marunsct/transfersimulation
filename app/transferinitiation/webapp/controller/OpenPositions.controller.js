@@ -1155,9 +1155,11 @@ sap.ui.define([
                 }
                 mData.count = mData.OpenPositions.result.length;
                 mModel.setData(mData);
+                this.resetInactivityTimeout();
                 this.byId("table0").setBusy(false);
 
             } catch (error) {
+                this.resetInactivityTimeout();
                 console.log(error);
                 this.byId("table0").setBusy(false);
                 throw error;
