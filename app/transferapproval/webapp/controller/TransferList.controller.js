@@ -1014,28 +1014,21 @@ sap.ui.define([
             **/
             onSuggestPosition: async function (oEvent) {
                 var sTerm = oEvent.getParameter("suggestValue");
-                var aFilters = [];
+               // var aFilters = [];
                 if (sTerm.length > 1) {
                     this.oGlobalBusyDialog = new sap.m.BusyDialog();
                     // this.oGlobalBusyDialog.open();
                     //aFilters.push(new Filter("name", FilterOperator.Contains, sTerm));
 
-                    var filter1 = new Filter({
+                    var aFilters = [new Filter({
                         filters: [new Filter("startswith(code,'" + sTerm + "')", FilterOperator.EQ, true),
                         new Filter("startswith(externalName_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true),
                         new Filter("startswith(externalName_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
                         new Filter("startswith(externalName_defaultValue,'" + sTerm + "')", FilterOperator.EQ, true)
                         ], and: false
-                    });
+                    })];
 
-                    aFilters.push(
-                        new Filter({
-                            filters: [
-                                new Filter("vacant", FilterOperator.EQ, false),
-                                filter1
-                            ], and: true
-                        })
-                    );
+
 
                     this.getModel('oData').read("/Position",
                         {
@@ -1248,27 +1241,27 @@ sap.ui.define([
                             item.metadata = results[i].__metadata;
 
                             if (lang === 'lang=en_US') {
-                                item.name = results[i].externalCodeNav !== null ? results[i].externalCodeNav.defaultFullName : null;
+                                item.name = results[i].externalCodeNav !== null ? results[i].externalCodeNav.lastName + " " + results[i].externalCodeNav.firstName : null;
                                 // item.department = results[i].cust_DEPARTMENTNav !== null ? results[i].cust_DEPARTMENTNav.name_en_US : null;
                                 item.department = results[i].cust_DEPARTMENTNav !== null ? (results[i].cust_DEPARTMENTNav.name_en_US !== null ? results[i].cust_DEPARTMENTNav.name_en_US : results[i].cust_DEPARTMENTNav.name) : null;
                                 item.pdepartment = results[i].cust_Previous_DepartmentNav !== null ? (results[i].cust_Previous_DepartmentNav.name_en_US !== null ? results[i].cust_Previous_DepartmentNav.name_en_US : results[i].cust_Previous_DepartmentNav.name) : null;
                                 item.employmentType = results[i].cust_EMPLOYMENT_TYPENav !== null ? results[i].cust_EMPLOYMENT_TYPENav.label_en_US : null;
-                                item.supervisor = results[i].cust_CURRENT_MANAGER_IDNav !== null ? results[i].cust_CURRENT_MANAGER_IDNav.defaultFullName : null;
-                                item.nsupervisor = results[i].cust_FUTURE_MANAGER_IDNav !== null ? results[i].cust_FUTURE_MANAGER_IDNav.defaultFullName : null;
+                                item.supervisor = results[i].cust_CURRENT_MANAGER_IDNav !== null ? results[i].cust_CURRENT_MANAGER_IDNav.lastName + " " + results[i].cust_CURRENT_MANAGER_IDNav.firstName  : null;
+                                item.nsupervisor = results[i].cust_FUTURE_MANAGER_IDNav !== null ? results[i].cust_FUTURE_MANAGER_IDNav.lastName + " " + results[i].cust_FUTURE_MANAGER_IDNav.firstName : null;
                                 item.eligibility = results[i].cust_ELIGIBITY_STATUSNav !== null ? results[i].cust_ELIGIBITY_STATUSNav.label_en_US : results[i].cust_ELIGIBITY_STATUSNav.label_defaultValue;
                                 item.currentpos = results[i].cust_OLD_POSITION_IDNav !== null ? (results[i].cust_OLD_POSITION_IDNav.externalName_en_US !== null ? results[i].cust_OLD_POSITION_IDNav.externalName_en_US : results[i].cust_OLD_POSITION_IDNav.externalName_defaultValue) : null;
                                 item.newpos = results[i].cust_NEW_POSITION_IDNav !== null ? (results[i].cust_NEW_POSITION_IDNav.externalName_en_US !== null ? results[i].cust_NEW_POSITION_IDNav.externalName_en_US : results[i].cust_NEW_POSITION_IDNav.externalName_defaultValue) : null;
                                 item.Status = results[i].cust_STATUSNav !== null ? results[i].cust_STATUSNav.label_defaultValue : null;
                                 item.location = results[i].cust_EMPLOYMENT_LOCATIONNav !== null ? results[i].cust_EMPLOYMENT_LOCATIONNav.name : null;
                             } else {
-                                item.name = results[i].externalCodeNav !== null ? results[i].externalCodeNav.defaultFullName : null;
+                                item.name = results[i].externalCodeNav !== null ? results[i].externalCodeNav.lastName + " " + results[i].externalCodeNav.firstName : null;
                                 //item.department = results[i].cust_DEPARTMENTNav !== null ? results[i].cust_DEPARTMENTNav.name_ja_JP : null;
                                 //item.pdepartment = results[i].cust_Previous_DepartmentNav !== null ? results[i].cust_Previous_DepartmentNav.name_ja_JP : null;
                                 item.department = results[i].cust_DEPARTMENTNav !== null ? (results[i].cust_DEPARTMENTNav.name_ja_JP !== null ? results[i].cust_DEPARTMENTNav.name_ja_JP : results[i].cust_DEPARTMENTNav.name) : null;
                                 item.pdepartment = results[i].cust_Previous_DepartmentNav !== null ? (results[i].cust_Previous_DepartmentNav.name_ja_JP !== null ? results[i].cust_Previous_DepartmentNav.name_ja_JP : results[i].cust_Previous_DepartmentNav.name) : null;
                                 item.employmentType = results[i].cust_EMPLOYMENT_TYPENav !== null ? results[i].cust_EMPLOYMENT_TYPENav.label_ja_JP : null;
-                                item.supervisor = results[i].cust_CURRENT_MANAGER_IDNav !== null ? results[i].cust_CURRENT_MANAGER_IDNav.defaultFullName : null;
-                                item.nsupervisor = results[i].cust_FUTURE_MANAGER_IDNav !== null ? results[i].cust_FUTURE_MANAGER_IDNav.defaultFullName : null;
+                                item.supervisor = results[i].cust_CURRENT_MANAGER_IDNav !== null ? results[i].cust_CURRENT_MANAGER_IDNav.lastName + " " + results[i].cust_CURRENT_MANAGER_IDNav.firstName  : null;
+                                item.nsupervisor = results[i].cust_FUTURE_MANAGER_IDNav !== null ? results[i].cust_FUTURE_MANAGER_IDNav.lastName + " " + results[i].cust_FUTURE_MANAGER_IDNav.firstName : null;
                                 item.eligibility = results[i].cust_ELIGIBITY_STATUSNav !== null ? results[i].cust_ELIGIBITY_STATUSNav.label_defaultValue : null;
                                 //item.currentpos = results[i].cust_OLD_POSITION_IDNav !== null ? results[i].cust_OLD_POSITION_IDNav.externalName_ja_JP : null;
                                 //item.newpos = results[i].cust_NEW_POSITION_IDNav !== null ? results[i].cust_NEW_POSITION_IDNav.externalName_ja_JP : null;

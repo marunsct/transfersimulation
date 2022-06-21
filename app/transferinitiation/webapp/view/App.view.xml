@@ -18,7 +18,7 @@
                             </contentMiddle>
                             <contentRight>
                                 <Button xmlns="sap.m" text="{i18n>language}" id="button0" press="onLanguageChange" />
-                                <Button xmlns="sap.m" id="button1" icon="sap-icon://log" class="sapUiSmallMarginEnd" press="onLogout" />
+                                <Button xmlns="sap.m" id="button1" icon="sap-icon://log" tooltip="{i18n>logout}" class="sapUiSmallMarginEnd" press="onLogout" />
                             </contentRight>
                         </Bar>
                     </customHeader>

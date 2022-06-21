@@ -485,6 +485,7 @@ sap.ui.define([
             var fData = fModel.getData();
             var filters = fData.filter;
             filters.eligible = false;
+            this.onEligibleCB();
             fModel.setData(fData);
             var oFilters = this._builFilters(filters);
             var mModel = this.getView().getModel('OP');

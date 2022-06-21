@@ -23,7 +23,7 @@
                             </contentMiddle>
                             <contentRight>
                                 <Button xmlns="sap.m" text="{i18n>language}" id="buttonLang" press="onLanguageChange" />
-                                <Button xmlns="sap.m" id="buttonLout" icon="sap-icon://log" class="sapUiSmallMarginEnd" press="onLogout" />
+                                <Button xmlns="sap.m" tooltip="{i18n>logout}" id="buttonLout" icon="sap-icon://log" class="sapUiSmallMarginEnd" press="onLogout" />
                             </contentRight>
                         </Bar>
                 </f:heading>
@@ -229,7 +229,7 @@
                                             <SearchField placeholder="{i18n>searchEmployee}" id="field0" width="215px" value="{filter>/filter/employee}" search="onSearch" />
                                             <Button id="button2" press="onPersoButtonPressed" icon="sap-icon://action-settings" />
                                             <Button id="button3" icon="sap-icon://refresh" press="onTablePersoRefresh" />
-                                            <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiTinyMarginEnd" tooltip="Download as Excel" />
+                                            <Button id="button4" icon="sap-icon://excel-attachment" press="onExcelDownload" enabled="true" class="sapUiTinyMarginEnd" tooltip="{i18n>excelDownload}" />
                                         </content>
                                     </OverflowToolbar>
                                 </headerToolbar>

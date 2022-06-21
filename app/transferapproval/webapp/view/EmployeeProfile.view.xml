@@ -30,7 +30,7 @@
                                 </m:contentMiddle>
                                 <m:contentRight>
                                     <m:Button xmlns="sap.m" text="{i18n>language}" id="buttonLang" press="onLanguageChange" />
-                                    <m:Button xmlns="sap.m" id="buttonLout" icon="sap-icon://log" class="sapUiSmallMarginEnd" press="onLogout" />
+                                    <m:Button xmlns="sap.m" id="buttonLout" tooltip="{i18n>logout}" icon="sap-icon://log" class="sapUiSmallMarginEnd" press="onLogout" />
                                 </m:contentRight>
                             </m:Bar>
                             <m:HBox class="employeeHeader" alignItems="Start" alignContent="SpaceBetween" fitContainer="true">
