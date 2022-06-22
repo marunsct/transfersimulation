@@ -210,7 +210,7 @@
                                             <Text text="{data>supervisor}" id="tc8" />
                                             <Text text="{data>nsupervisorId}" id="tc19" />
                                             <Text text="{data>nsupervisor}" id="tc20" />
-                                            <ObjectStatus state="{=${data>eligibilityId} !== '20' ? 'Success' : 'Warning' }" id="os1" icon="{=${data>eligibilityId} !== '20' ? 'sap-icon://sys-enter' : 'sap-icon://warning' }" />
+                                            <ObjectStatus state="{=${data>eligibilityId} !== '20' ? 'Success' : 'Warning' }" id="os1" icon="{=${data>eligibilityId} !== '20' ? 'sap-icon://sys-enter' : 'sap-icon://status-critical' }" />
                                             <Text text="{data>currentposId}" id="tc10" />
                                             <Text text="{data>currentpos}" id="tc11" />
                                             <Text text="{data>newposId}" id="tc12" />
@@ -247,11 +247,9 @@
 
                             <Button press="onAccept" text="{i18n>bApprove}" id="button0_1644211420374" enabled="{filter>/enabled}" class="sapMBtnAccept sapUiSmallMarginEnd" icon="sap-icon://sys-enter-2" type="Accept" />
 
-                            <Button text="{i18n>bReject}" id="button1" class="sapUiSmallMarginEnd" icon="sap-icon://sys-cancel-2" enabled="{filter>/enabled}" type="Reject" press="onReject" />
+                            <Button text="{i18n>bReject}" id="button1" class="sapUiSmallMarginEnd" icon="sap-icon://sys-cancel-2" type="Reject" press="onReject" />
 
                         </content>
-
-
 
                     </OverflowToolbar>
                 </items>

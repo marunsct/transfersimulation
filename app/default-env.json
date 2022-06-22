@@ -18,7 +18,7 @@
 				],
 				"instance_guid": "69f4ebe5-a9f9-465c-b081-106558fd6878",
 				"instance_name": "TransferSimulation-xsuaa-service",
-				"binding_guid": "70e5fbbd-ed58-4ae8-acef-264b820f2408",
+				"binding_guid": "fb038331-e246-4021-aadf-592b69a21fa8",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",
@@ -41,22 +41,6 @@
 				"volume_mounts": []
 			}
 		],
-		"application-logs": [
-			{
-				"label": "application-logs",
-				"provider": null,
-				"plan": "lite",
-				"name": "TransferSimulation-logs",
-				"tags": [],
-				"instance_guid": "16983061-487b-407f-9fd3-6ede0f2d71e7",
-				"instance_name": "TransferSimulation-logs",
-				"binding_guid": "c98b5696-0437-415f-9f20-06c7dcc6baf5",
-				"binding_name": null,
-				"credentials": {},
-				"syslog_drain_url": null,
-				"volume_mounts": []
-			}
-		],
 		"destination": [
 			{
 				"label": "destination",
@@ -70,14 +54,14 @@
 				],
 				"instance_guid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
 				"instance_name": "TransferSimulation-dest-srv",
-				"binding_guid": "fd41911a-15de-4eac-9268-b51514d82633",
+				"binding_guid": "2a49bc57-6208-4724-a818-ba5bacfa2d20",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",
 					"clientid": "sb-clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
 					"credential-type": "binding-secret",
 					"xsappname": "clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
-					"clientsecret": "fd41911a-15de-4eac-9268-b51514d82633$xYiOwjaEFv6UMDgfjUfMDjJ2feSGkn9xWyC_zc1PebM=",
+					"clientsecret": "2a49bc57-6208-4724-a818-ba5bacfa2d20$W2AiX-FR-y5Jtaxd1aEEHOdXr9jSIpkimclAAGJYapY=",
 					"uri": "https://destination-configuration.cfapps.jp10.hana.ondemand.com",
 					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
 					"uaadomain": "authentication.jp10.hana.ondemand.com",
@@ -86,6 +70,22 @@
 					"identityzone": "dev-50okhz4b",
 					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
 				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		],
+		"application-logs": [
+			{
+				"label": "application-logs",
+				"provider": null,
+				"plan": "lite",
+				"name": "TransferSimulation-logs",
+				"tags": [],
+				"instance_guid": "16983061-487b-407f-9fd3-6ede0f2d71e7",
+				"instance_name": "TransferSimulation-logs",
+				"binding_guid": "1b39120a-1608-41e1-b899-d551a1a126c1",
+				"binding_name": null,
+				"credentials": {},
 				"syslog_drain_url": null,
 				"volume_mounts": []
 			}

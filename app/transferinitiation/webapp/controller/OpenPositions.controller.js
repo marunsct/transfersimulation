@@ -177,7 +177,7 @@ sap.ui.define([
             });
 
         },
-        _onTableItemPress: function (oEvent) {
+        _onTableItemPress: async function (oEvent) {
 
             //console.log(oEvent);
             this._oAssignment = {};
@@ -189,7 +189,15 @@ sap.ui.define([
             var aCells = oEvent.getParameter("listItem").getCells();
             this._employeeName = this._employeeName ? this._employeeName : this._employeeId;
             let empData = this.getCustProperty("EmployeeContext").oModel.getProperty(this.getCustProperty("EmployeeContext").sPath);
-            this._preDialog(posId, posName, this._employeeId, this._employeeName, this._oAssignment.sPath, empData);
+            
+            let dependentCheck;
+            let posDepartment = this._oAssignment.getProperty("DepartmentID");
+            this.byId("table0").setBusy(true);
+            dependentCheck = await this._checkDependant(posDepartment, this._employeeId);
+            this.byId("table0").setBusy(false);
+            if (dependentCheck) {
+                this._preDialog(posId, posName, this._employeeId, this._employeeName, this._oAssignment.sPath, empData);
+            }
 
         },
         /**
@@ -1145,6 +1153,10 @@ sap.ui.define([
                 }
                 for (let i = 0; i < result.Position.length; i++) {
                     result.Position[i].status = 'unassigned';
+                    if(this._openPositions[result.Position[i].PositionID] !== undefined) {
+                        result.Position[i].ID1 = this._openPositions[result.Position[i].PositionID].employeeId;
+                        result.Position[i].status = 'assigned';
+                    }
                 }
                 var mModel = this.getView().getModel('OP');
                 var mData = mModel.getData();
@@ -1188,7 +1200,7 @@ sap.ui.define([
                         sText = result.desc_en
                     }
                     */
-                    this._createDialog(sTitle, sText, sFirstButton, undefined, undefined, undefined, sThat);
+                    this._createDialog(sTitle, sText, sFirstButton, undefined, undefined, undefined, this);
                     return false;
                 }
             } catch{
