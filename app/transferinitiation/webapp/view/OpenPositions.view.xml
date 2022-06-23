@@ -43,7 +43,7 @@
                                             </Input>
                                         </fb:control>
                                     </fb:FilterGroupItem>
-                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="{i18n>positionClass}" visibleInFilterBar="false" labelTooltip="{i18n>positionClass}">
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="{i18n>class}" visibleInFilterBar="false" labelTooltip="{i18n>class}">
                                         <fb:control>
                                             <Input value="{filter>/filter/EmploymentClass}" showSuggestion="true" id="fEmploymentClass" suggest=".onSuggestClass" suggestionItems="{filter>/EmploymentClass}">
                                                 <suggestionItems>

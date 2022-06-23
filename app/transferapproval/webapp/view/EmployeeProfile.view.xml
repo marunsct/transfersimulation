@@ -38,7 +38,7 @@
                                     <m:HBox alignItems="Center" class="sapUiSmallMarginBottom sapUiMediumMarginEnd">
                                         <m:items>
                                             <m:Button id="button0_1643608506867" width="50px" press="_onPageNavButtonPress" class="navigationButton1" type="Back" />
-                                            <f:Avatar src="{PR>/PerPerson/phoneNum}" displaySize="L" showBorder="true" id="avatar1" />
+                                            <f:Avatar src="{PR>/PerPerson/photo}" displaySize="L" showBorder="true" id="avatar1" />
                                             <m:VBox direction="Column" id="vbox2" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin">
                                                 <m:items>
                                                     <m:Title text="{=${PR>/EmpJob/lastName} +' '+ ${PR>/EmpJob/firstName} + ' ( ' + ${PR>/EmpJob/userId} + ' )'}" id="title6" titleStyle="H3" class="sapUiSmallMarginTop" />

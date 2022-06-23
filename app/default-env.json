@@ -7,39 +7,6 @@
         }
     ],
 	"VCAP_SERVICES": {
-		"destination": [
-			{
-				"label": "destination",
-				"provider": null,
-				"plan": "lite",
-				"name": "TransferSimulation-dest-srv",
-				"tags": [
-					"destination",
-					"conn",
-					"connsvc"
-				],
-				"instance_guid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
-				"instance_name": "TransferSimulation-dest-srv",
-				"binding_guid": "80857c9e-b0d5-4a5c-8a43-b10273d4c58b",
-				"binding_name": null,
-				"credentials": {
-					"tenantmode": "dedicated",
-					"clientid": "sb-clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
-					"credential-type": "binding-secret",
-					"xsappname": "clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
-					"clientsecret": "80857c9e-b0d5-4a5c-8a43-b10273d4c58b$Ydl8x2FCBfrPSP8TGQpHumZ21yNvJZ3hU8DNqqNpmzA=",
-					"uri": "https://destination-configuration.cfapps.jp10.hana.ondemand.com",
-					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
-					"uaadomain": "authentication.jp10.hana.ondemand.com",
-					"instanceid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
-					"verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtxX2lTr4g9sdFWyCkxve\nD62pqirY35LP37lTrfDmwcATJo+bNsLTX1kLugK3qBhga9iuqpI3eI+CBcujYnzV\nMVSyRKeJMC0rtvNX7YU5R3MYfSQ2qfW4QrRx/RU80vi53Uv9Wfd24uH9YyeoN5V0\nRm2n80r2OT623wIsUjSGEYhlnwddqwvRn0vykaohx9alRQVL0LOLVqgbs225nl5h\nsTCNbv59q2nPk2OH+j/75+slw1pqHS2UJ6mdepBhFSdI1b63detLIKjIFiEYHQup\njtr38le82xbJrTz9M5YqM5nztA/tQQSU6z+ncOxwX6jfaHCsGjtQ3BlrpHBd0vn9\n3wIDAQAB\n-----END PUBLIC KEY-----",
-					"identityzone": "dev-50okhz4b",
-					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
-				},
-				"syslog_drain_url": null,
-				"volume_mounts": []
-			}
-		],
 		"application-logs": [
 			{
 				"label": "application-logs",
@@ -49,7 +16,7 @@
 				"tags": [],
 				"instance_guid": "16983061-487b-407f-9fd3-6ede0f2d71e7",
 				"instance_name": "TransferSimulation-logs",
-				"binding_guid": "9536c71b-e003-4743-9c4c-d21be0a9784e",
+				"binding_guid": "50b7bc72-7101-4128-830e-7896e56a9771",
 				"binding_name": null,
 				"credentials": {},
 				"syslog_drain_url": null,
@@ -67,7 +34,7 @@
 				],
 				"instance_guid": "69f4ebe5-a9f9-465c-b081-106558fd6878",
 				"instance_name": "TransferSimulation-xsuaa-service",
-				"binding_guid": "80930fbf-63d2-46e6-a9ff-4d9389a5c011",
+				"binding_guid": "2eefc575-44e4-4180-8659-4b3b7ab7c644",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",
@@ -85,6 +52,39 @@
 					"identityzoneid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
 					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
 					"zoneid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
+				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		],
+		"destination": [
+			{
+				"label": "destination",
+				"provider": null,
+				"plan": "lite",
+				"name": "TransferSimulation-dest-srv",
+				"tags": [
+					"destination",
+					"conn",
+					"connsvc"
+				],
+				"instance_guid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
+				"instance_name": "TransferSimulation-dest-srv",
+				"binding_guid": "30c27cb1-7859-44f7-ae6d-3b59768f0d1f",
+				"binding_name": null,
+				"credentials": {
+					"tenantmode": "dedicated",
+					"clientid": "sb-clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
+					"credential-type": "binding-secret",
+					"xsappname": "clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
+					"clientsecret": "30c27cb1-7859-44f7-ae6d-3b59768f0d1f$N9XsMzFNT_6GoC6dUQ7703RL8aOJJqUj5m_aevzVdLc=",
+					"uri": "https://destination-configuration.cfapps.jp10.hana.ondemand.com",
+					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
+					"uaadomain": "authentication.jp10.hana.ondemand.com",
+					"instanceid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
+					"verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtxX2lTr4g9sdFWyCkxve\nD62pqirY35LP37lTrfDmwcATJo+bNsLTX1kLugK3qBhga9iuqpI3eI+CBcujYnzV\nMVSyRKeJMC0rtvNX7YU5R3MYfSQ2qfW4QrRx/RU80vi53Uv9Wfd24uH9YyeoN5V0\nRm2n80r2OT623wIsUjSGEYhlnwddqwvRn0vykaohx9alRQVL0LOLVqgbs225nl5h\nsTCNbv59q2nPk2OH+j/75+slw1pqHS2UJ6mdepBhFSdI1b63detLIKjIFiEYHQup\njtr38le82xbJrTz9M5YqM5nztA/tQQSU6z+ncOxwX6jfaHCsGjtQ3BlrpHBd0vn9\n3wIDAQAB\n-----END PUBLIC KEY-----",
+					"identityzone": "dev-50okhz4b",
+					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
 				},
 				"syslog_drain_url": null,
 				"volume_mounts": []

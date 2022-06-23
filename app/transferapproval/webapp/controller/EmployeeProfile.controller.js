@@ -743,7 +743,12 @@ sap.ui.define([
                         //hdate = this.taskDate(Date.parse(hdate));
                     }
                     if (sResult.d.results[0].photoNav.results.length > 0) {
-                        photo = sResult.d.results[0].photoNav.results[0].photo;
+                        let photoArr = sResult.d.results[0].photoNav.results;
+                        for (let j = 0; j < photoArr.length; j++) {
+                            if (photoArr[j].photoType === 26) {
+                                photo = "data:" + photoArr[j].mimeType + ";base64," + photoArr[j].photo;
+                            }
+                        }
                     }
                     perPerson = {
                         personIdExternal: result.personIdExternal,
