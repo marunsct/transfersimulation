@@ -6,7 +6,7 @@
             "forwardAuthToken": true
         }
     ],
-    "VCAP_SERVICES": {
+	"VCAP_SERVICES": {
 		"destination": [
 			{
 				"label": "destination",
@@ -20,14 +20,14 @@
 				],
 				"instance_guid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
 				"instance_name": "TransferSimulation-dest-srv",
-				"binding_guid": "7b76f187-5a9f-42c6-8eb9-491fc9e56003",
+				"binding_guid": "251246e3-db74-4c3c-b92b-535829da8dba",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",
 					"clientid": "sb-clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
 					"credential-type": "binding-secret",
 					"xsappname": "clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
-					"clientsecret": "7b76f187-5a9f-42c6-8eb9-491fc9e56003$YODoVhk7ZzoZXTTe1V8w5i_xvIgWyDsYfC3-gFrf6Tc=",
+					"clientsecret": "251246e3-db74-4c3c-b92b-535829da8dba$5H8--icHWzgwgRpgMp0wiP3YcvwaF0NIivb_Qc-pMdI=",
 					"uri": "https://destination-configuration.cfapps.jp10.hana.ondemand.com",
 					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
 					"uaadomain": "authentication.jp10.hana.ondemand.com",
@@ -49,7 +49,7 @@
 				"tags": [],
 				"instance_guid": "16983061-487b-407f-9fd3-6ede0f2d71e7",
 				"instance_name": "TransferSimulation-logs",
-				"binding_guid": "45a98e7a-f9fe-4f6b-b34b-ebdcea4c9b20",
+				"binding_guid": "fd63f3ad-9cd8-458d-b6dd-694046e09fb1",
 				"binding_name": null,
 				"credentials": {},
 				"syslog_drain_url": null,
@@ -67,7 +67,7 @@
 				],
 				"instance_guid": "69f4ebe5-a9f9-465c-b081-106558fd6878",
 				"instance_name": "TransferSimulation-xsuaa-service",
-				"binding_guid": "6c0a0180-18b1-46cf-bd23-06938919bcef",
+				"binding_guid": "1900fe70-c30e-4363-9553-e7942beacae4",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",

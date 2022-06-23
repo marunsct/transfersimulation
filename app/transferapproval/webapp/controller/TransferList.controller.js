@@ -414,6 +414,7 @@ sap.ui.define([
             },
             onTransferApprove: async function () {
                 var self = this;
+
                 self.resetInactivityTimeout();
                 try {
                     BusyIndicator.show();
@@ -429,7 +430,10 @@ sap.ui.define([
                             "EmpJob": [],
                             "custMdf": []
                         };
-
+                        var oModel = this.getView().getModel('OP');
+                        var oData = oModel.getData();
+                        oData.selectedCount = 0;
+                        oModel.setData(oData);
                         let k = tbl.getSelectedItems().length < 21 ? tbl.getSelectedItems().length : 20;
                         for (let i = 0; i < k; i++) {
                             let empItem = {};
@@ -578,6 +582,7 @@ sap.ui.define([
                 self.resetInactivityTimeout();
                 try {
                     BusyIndicator.show();
+
                     let userInfo = this.getCustProperty("UserInfo") ? this.getCustProperty("UserInfo") : null;
                     if (userInfo === null) {
                         await this._getUser();
@@ -604,7 +609,10 @@ sap.ui.define([
                             payload.push(custItem);
                         }
                         console.log(JSON.stringify(payload));
-
+                        var oModel = this.getView().getModel('OP');
+                        var oData = oModel.getData();
+                        oData.selectedCount = 0;
+                        oModel.setData(oData);
                         //tbl.removeSelections(true);
                         var i18n = this.oView.getModel("i18n");
                         let results = await this.performUpsert(payload);
