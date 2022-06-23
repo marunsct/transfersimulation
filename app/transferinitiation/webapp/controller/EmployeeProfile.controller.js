@@ -742,7 +742,7 @@ sap.ui.define([
             return [d[0], d[1], d[2], d[3]].join(' ');
         },
         getPerPerson: function (sUserId) {
-            let url = "/SFSF/odata/v2/EmpEmployment?$expand=photoNav,personNav,userNav,personNav/personalInfoNav,personNav/emailNav,personNav/phoneNav,personNav/emailNav/emailTypeNav,personNav/phoneNav/phoneTypeNav&$filter=personNav/emailNav/emailTypeNav/externalCode eq 'B' and personNav/phoneNav/phoneTypeNav/externalCode eq 'B' and userId eq '" + sUserId + "'";
+            let url = "/SFSF/odata/v2/EmpEmployment?$expand=photoNav,personNav,userNav,personNav/personalInfoNav,personNav/emailNav,personNav/phoneNav,personNav/emailNav/emailTypeNav,personNav/phoneNav/phoneTypeNav&$filter=userId eq '" + sUserId + "'";
             $.ajax({
                 url: url,
                 method: "GET",
