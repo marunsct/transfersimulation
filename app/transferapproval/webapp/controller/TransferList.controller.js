@@ -510,7 +510,8 @@ sap.ui.define([
                         if (successTransfers !== "") {
                             sText = sText + i18n.getResourceBundle().getText("transferSuccess", [Counter, successTransfers]);
                             Counter = Counter + 1;
-                        } else if (failedTransfers !== "") {
+                        } 
+                        if (failedTransfers !== "") {
                             sText = sText + i18n.getResourceBundle().getText("transferError", [Counter, failedTransfers]);
                         }
                         // this.resetAssignments();
@@ -648,7 +649,8 @@ sap.ui.define([
                         if (successTransfers !== "") {
                             sText = sText + i18n.getResourceBundle().getText("rejectSuccess", [Counter, successTransfers]);
                             Counter = Counter + 1;
-                        } else if (failedTransfers !== "") {
+                        }
+                        if (failedTransfers !== "") {
                             sText = sText + i18n.getResourceBundle().getText("rejectError", [Counter, failedTransfers]);
                         }
                         // this.resetAssignments();
