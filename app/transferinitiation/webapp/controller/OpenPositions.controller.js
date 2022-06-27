@@ -189,13 +189,24 @@ sap.ui.define([
             var aCells = oEvent.getParameter("listItem").getCells();
             this._employeeName = this._employeeName ? this._employeeName : this._employeeId;
             let empData = this.getCustProperty("EmployeeContext").oModel.getProperty(this.getCustProperty("EmployeeContext").sPath);
-            
+
             let dependentCheck;
             let posDepartment = this._oAssignment.getProperty("DepartmentID");
             this.byId("table0").setBusy(true);
             dependentCheck = await this._checkDependant(posDepartment, this._employeeId);
             this.byId("table0").setBusy(false);
-            if (dependentCheck) {
+            if (!dependentCheck) {
+                // this._preDialog(posId, posName, this._employeeId, this._employeeName, this._oAssignment.sPath, empData);
+                var i18n = this.oView.getModel("i18n");
+                let sFirstButton = i18n.getResourceBundle().getText("ok");
+                let sSecondButton = i18n.getResourceBundle().getText("cancel");
+                let sTitle = i18n.getResourceBundle().getText("warning");
+                let sText = i18n.getResourceBundle().getText("dependentCheck");
+
+                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, () => {
+                    this._preDialog(posId, posName, this._employeeId, this._employeeName, this._oAssignment.sPath, empData);
+                }, this.callBackFunc, this);
+            } else {
                 this._preDialog(posId, posName, this._employeeId, this._employeeName, this._oAssignment.sPath, empData);
             }
 
@@ -425,7 +436,18 @@ sap.ui.define([
             this.byId("table0").setBusy(true);
             dependentCheck = await this._checkDependant(posDepartment, employeeId);
             this.byId("table0").setBusy(false);
-            if (dependentCheck) {
+            if (!dependentCheck) {
+                var i18n = this.oView.getModel("i18n");
+                let sFirstButton = i18n.getResourceBundle().getText("ok");
+                let sSecondButton = i18n.getResourceBundle().getText("cancel");
+                let sTitle = i18n.getResourceBundle().getText("warning");
+                let sText = i18n.getResourceBundle().getText("dependentCheck");
+
+                this._createDialog(sTitle, sText, sFirstButton, sSecondButton, () => {
+                    this._preDialog(posId, posName, employeeId, employeeName, oDroppedItemContext, empData);
+                }, this.callBackFunc, this);
+
+            } else {
                 this._preDialog(posId, posName, employeeId, employeeName, oDroppedItemContext, empData);
             }
         },
@@ -508,7 +530,7 @@ sap.ui.define([
                     if (successTransfers !== "") {
                         sText = sText + i18n.getResourceBundle().getText("transferSuccess", [Counter, successTransfers]);
                         Counter = Counter + 1;
-                    } 
+                    }
                     if (failedTransfers !== "") {
                         sText = sText + i18n.getResourceBundle().getText("transferError", [Counter, failedTransfers]);
                     }
@@ -1154,7 +1176,7 @@ sap.ui.define([
                 }
                 for (let i = 0; i < result.Position.length; i++) {
                     result.Position[i].status = 'unassigned';
-                    if(this._openPositions[result.Position[i].PositionID] !== undefined) {
+                    if (this._openPositions[result.Position[i].PositionID] !== undefined) {
                         result.Position[i].ID1 = this._openPositions[result.Position[i].PositionID].employeeId;
                         result.Position[i].status = 'assigned';
                     }
@@ -1189,19 +1211,7 @@ sap.ui.define([
                 if (result.includes("Success")) { //(result.status === 'Success') {
                     return true;
                 } else {
-                    var i18n = this.oView.getModel("i18n");
-                    let sFirstButton = i18n.getResourceBundle().getText("yes");
-                    //let sSecondButton = i18n.getResourceBundle().getText("cancel");
-                    let sTitle = i18n.getResourceBundle().getText("error");
-                    let sText = i18n.getResourceBundle().getText("dependentCheck");
-                    /*
-                    if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
-                        sText = result.desc_jp
-                    } else {
-                        sText = result.desc_en
-                    }
-                    */
-                    this._createDialog(sTitle, sText, sFirstButton, undefined, undefined, undefined, this);
+
                     return false;
                 }
             } catch{
