@@ -20,14 +20,14 @@
 				],
 				"instance_guid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
 				"instance_name": "TransferSimulation-dest-srv",
-				"binding_guid": "251246e3-db74-4c3c-b92b-535829da8dba",
+				"binding_guid": "f2fe9a5e-50c1-4d53-85d3-5e7ad6fd9809",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",
 					"clientid": "sb-clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
 					"credential-type": "binding-secret",
 					"xsappname": "clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
-					"clientsecret": "251246e3-db74-4c3c-b92b-535829da8dba$5H8--icHWzgwgRpgMp0wiP3YcvwaF0NIivb_Qc-pMdI=",
+					"clientsecret": "f2fe9a5e-50c1-4d53-85d3-5e7ad6fd9809$tCjxKeHsZmlyLfBBqjVURbLN1vxEx4VA9lFkhAS4JRY=",
 					"uri": "https://destination-configuration.cfapps.jp10.hana.ondemand.com",
 					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
 					"uaadomain": "authentication.jp10.hana.ondemand.com",
@@ -36,22 +36,6 @@
 					"identityzone": "dev-50okhz4b",
 					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
 				},
-				"syslog_drain_url": null,
-				"volume_mounts": []
-			}
-		],
-		"application-logs": [
-			{
-				"label": "application-logs",
-				"provider": null,
-				"plan": "lite",
-				"name": "TransferSimulation-logs",
-				"tags": [],
-				"instance_guid": "16983061-487b-407f-9fd3-6ede0f2d71e7",
-				"instance_name": "TransferSimulation-logs",
-				"binding_guid": "fd63f3ad-9cd8-458d-b6dd-694046e09fb1",
-				"binding_name": null,
-				"credentials": {},
 				"syslog_drain_url": null,
 				"volume_mounts": []
 			}
@@ -67,7 +51,7 @@
 				],
 				"instance_guid": "69f4ebe5-a9f9-465c-b081-106558fd6878",
 				"instance_name": "TransferSimulation-xsuaa-service",
-				"binding_guid": "1900fe70-c30e-4363-9553-e7942beacae4",
+				"binding_guid": "c95228b7-1c20-4f91-8820-731f8708288d",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",
@@ -86,6 +70,22 @@
 					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9",
 					"zoneid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
 				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		],
+		"application-logs": [
+			{
+				"label": "application-logs",
+				"provider": null,
+				"plan": "lite",
+				"name": "TransferSimulation-logs",
+				"tags": [],
+				"instance_guid": "16983061-487b-407f-9fd3-6ede0f2d71e7",
+				"instance_name": "TransferSimulation-logs",
+				"binding_guid": "74bff3c3-75a8-48d9-846e-36d484c463fe",
+				"binding_name": null,
+				"credentials": {},
 				"syslog_drain_url": null,
 				"volume_mounts": []
 			}

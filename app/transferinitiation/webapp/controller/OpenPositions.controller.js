@@ -382,8 +382,8 @@ sap.ui.define([
                     }
                 }
             }
-            let psLevel = sThat.getModel("OP").getProperty(sPath + '/psLevel') !== "" ? sThat.getModel("OP").getProperty(sPath + '/psLevel') : sEmpData.psLevelL;
-            let psGroup = sThat.getModel("OP").getProperty(sPath + '/psGroup') !== "" ? sThat.getModel("OP").getProperty(sPath + '/psGroup') : sEmpData.psGroupL;
+            let psLevel = sThat.getModel("OP").getProperty(sPath + '/psLevelL') !== "" ? sThat.getModel("OP").getProperty(sPath + '/psLevelL') : sEmpData.psLevelL;
+            let psGroup = sThat.getModel("OP").getProperty(sPath + '/psGroupL') !== "" ? sThat.getModel("OP").getProperty(sPath + '/psGroupL') : sEmpData.psGroupL;
             let etype = sThat.getModel("OP").getProperty(sPath + '/EmploymentTypeID');
             let eclass = sThat.getModel("OP").getProperty(sPath + '/EmployeeClassID');
             let transferSettings = this.getCustProperty("TransferSettings");

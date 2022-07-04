@@ -330,7 +330,7 @@ sap.ui.define([
                 this.stopInactivityTimer();
                 this.resetInactivityTimeout();
                 var i18n = this.oView.getModel("i18n");
-                var sTitle = i18n.getResourceBundle().getText("error");
+                var sTitle = i18n.getResourceBundle().getText("serror");
                 var sText = i18n.getResourceBundle().getText("expire");
                 var sFirstButton = i18n.getResourceBundle().getText("reload");
                 this._createDialog(sTitle, sText, sFirstButton, undefined, () => { window.location.reload(); }, undefined, this);

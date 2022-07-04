@@ -138,9 +138,9 @@
         <headerContent>
         </headerContent>
         <sections>
-            <ObjectPageSection titleUppercase="false" title="{i18n>perDetails}">
+            <ObjectPageSection titleUppercase="false" title="{i18n>personalDetails}">
                 <subSections>
-                    <ObjectPageSubSection title="{i18n>perDetails}" showTitle="true">
+                    <ObjectPageSubSection title="{i18n>personalDetails}" showTitle="true">
                         <blocks>
                             <m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Start" id="box1_copy">
                                 <m:items>
@@ -259,6 +259,30 @@
                                             <m:Text text="{=${PR>/EmpJob/lastTransDate}.substr(0,10)}" id="text13_copy14" />
                                         </m:items>
 
+                                    </m:VBox>
+                                    <m:VBox width="250px" direction="Column" class="sapUiResponsiveMargin">
+                                        <m:items>
+                                            <m:Label text="{i18n>psGroup}" width="100%" />
+                                            <m:Text text="{=${PR>/EmpJob/psGroupL}!=='' ? ${PR>/EmpJob/psGroupL} : 'NA' }" />
+                                        </m:items>
+                                    </m:VBox>
+                                    <m:VBox width="250px" direction="Column" class="sapUiResponsiveMargin">
+                                        <m:items>
+                                            <m:Label text="{i18n>psLable}" width="100%" />
+                                            <m:Text text="{=${PR>/EmpJob/psLevelL}!==''? ${PR>/EmpJob/psLevelL} :'NA'}" />
+                                        </m:items>
+                                    </m:VBox>
+                                    <m:VBox width="250px" direction="Column" class="sapUiResponsiveMargin">
+                                        <m:items>
+                                            <m:Label text="{i18n>event}" width="100%" />
+                                            <m:Text text="{=${PR>/EmpJob/EventLable} +' ( '+ ${PR>/EmpJob/Event} + ' )'}" />
+                                        </m:items>
+                                    </m:VBox>
+                                    <m:VBox width="250px" direction="Column" class="sapUiResponsiveMargin">
+                                        <m:items>
+                                            <m:Label text="{i18n>eventReason}" width="100%" />
+                                            <m:Text text="{=${PR>/EmpJob/EventReasonLable} +' ( '+ ${PR>/EmpJob/EventReason} + ' )'}" />
+                                        </m:items>
                                     </m:VBox>
                                 </m:items>
                             </m:FlexBox>

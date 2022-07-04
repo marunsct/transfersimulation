@@ -25,7 +25,7 @@
                         <items>
                             <fb:FilterBar id="filterbar0" search=".onSearch" clear="onClearFilter" useToolbar="true" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="true">
                                 <fb:filterGroupItems>
-                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" visibleInFilterBar="true" label="{i18n>position}">
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" partOfCurrentVariant="true"  visibleInFilterBar="true" label="{i18n>position}">
                                         <fb:control>
                                             <Input value="{filter>/filter/position}" suggestionItems="{filter>/position}" showSuggestion="true" suggest=".onSuggestPosition" id="fposition">
                                                 <suggestionItems>
@@ -34,7 +34,7 @@
                                             </Input>
                                         </fb:control>
                                     </fb:FilterGroupItem>
-                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="{i18n>positionDepartment}" visibleInFilterBar="true" labelTooltip="{i18n>department}">
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="{i18n>positionDepartment}" partOfCurrentVariant="true"  visibleInFilterBar="true" labelTooltip="{i18n>department}">
                                         <fb:control>
                                             <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'filter>/filter/department', type: 'sap.ui.model.type.String' }" showSuggestion="true" id="fDepartment" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
                                                 <suggestionItems>
@@ -62,7 +62,7 @@
                                             </Input>
                                         </fb:control>
                                     </fb:FilterGroupItem>
-                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="F" visibleInFilterBar="true" label="{i18n>positionLocation}" labelTooltip="{i18n>positionLocation}">
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="F" visibleInFilterBar="true" partOfCurrentVariant="true"  label="{i18n>positionLocation}" labelTooltip="{i18n>positionLocation}">
                                         <fb:control>
                                             <Input value="{filter>/filter/location}" suggestionItems="{filter>/location}" showSuggestion="true" suggest=".onSuggestLoc">
                                                 <suggestionItems>

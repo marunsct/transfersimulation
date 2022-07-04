@@ -25,9 +25,9 @@
                 <f:content>
                     <VBox fitContainer="true">
                         <items>
-                            <fb:FilterBar id="filterbar0" search=".onSearch" clear=".onClear" useToolbar="true" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="true" class="">
+                            <fb:FilterBar id="filterbar0" showRestoreButton="true"  search=".onSearch" clear=".onClear" useToolbar="true" showGoOnFB="true" showClearOnFB="true" showFilterConfiguration="true" class="">
                                 <fb:filterGroupItems>
-                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="{i18n>department}" visibleInFilterBar="true" labelTooltip="{i18n>department}">
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="{i18n>department}" visibleInFilterBar="true" partOfCurrentVariant="true" labelTooltip="{i18n>department}">
                                         <fb:control>
                                             <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'filter>/filter/department', type: 'sap.ui.model.type.String' }" showSuggestion="true" id="fDepartment" suggest=".onSuggestDepart" suggestionItems="{filter>/department}">
                                                 <suggestionItems>
@@ -56,7 +56,7 @@
                                             </Input>
                                         </fb:control>
                                     </fb:FilterGroupItem>
-                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="D" label="{i18n>location}" visibleInFilterBar="true" labelTooltip="{i18n>location}">
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="D" label="{i18n>location}" partOfCurrentVariant="true" visibleInFilterBar="true" labelTooltip="{i18n>location}">
                                         <fb:control>
                                             <Input value="{filter>/filter/location}" suggestionItems="{filter>/location}" showSuggestion="true" suggest=".onSuggestLoc">
                                                 <suggestionItems>
@@ -66,7 +66,7 @@
                                             </Input>
                                         </fb:control>
                                     </fb:FilterGroupItem>
-                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="F" visibleInFilterBar="true" label="{i18n>position}" labelTooltip="{i18n>position}">
+                                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="F" partOfCurrentVariant="true" visibleInFilterBar="true" label="{i18n>position}" labelTooltip="{i18n>position}">
                                         <fb:control>
                                             <!--   <Input validationError="handleValidationError" validationSuccess="handleValidationSuccess" value="{path:'wbsElement', type: 'sap.ui.model.type.String'}"/> -->
                                             <Input value="{filter>/filter/position}" suggestionItems="{filter>/position}" showSuggestion="true" suggest=".onSuggestPosition">
@@ -97,8 +97,8 @@
                         <dnd:DragInfo groupName="available2selected" sourceAggregation="items" />
                     </dragDropConfig>
                     <items>
-                        <ColumnListItem type="{= ${OP>transferStatus} === 'Initiated' ? 'Inactive' : ${OP>eligibility} === 'Error' ? 'Inactive' : 'Active'}" 
-                            id="item0_copy_table0_0" vAlign="Middle" highlight="{= ${OP>transferStatus} === 'Initiated' ? 'Success' : 'None'}" 
+                        <ColumnListItem type="{= ${OP>transferStatus} === ${i18n>transStatus} ? 'Inactive' : ${OP>eligibility} === 'Error' ? 'Inactive' : 'Active'}" 
+                            id="item0_copy_table0_0" vAlign="Middle" highlight="{= ${OP>transferStatus} === ${i18n>transStatus} ? 'Success' : 'None'}" 
                             navigated="{ parts: ['settings>/navigatedItem','OP&gt;userId'],formatter: '.isNavigated'}">
                             <customData>
                                 <core:CustomData key="status" value="{ path:'OP>transferStatus'}" writeToDom="true" />
@@ -124,7 +124,7 @@
                                 <Text text="{OP>newPosition}" id="text8" wrapping="false" />
                                 <Text text="{OP>transferStatus}" id="text9" wrapping="false" />
                                 <Button tooltip="{i18n>assign}" id="butt_0" icon="sap-icon://feeder-arrow" type="Transparent" 
-                                    press="_onTableItemPress" enabled="{=${OP>eligibility} === 'Error' ? false : ${OP>transferStatus} === 'Initiated' ? false : true}" />
+                                    press="_onTableItemPress" enabled="{=${OP>eligibility} === 'Error' ? false : ${OP>transferStatus} === ${i18n>transStatus} ? false : true}" />
                             </cells>
 
                         </ColumnListItem>
@@ -146,7 +146,7 @@
                             </header>
 
                         </Column>
-                        <Column id="column13" demandPopin="true" minScreenWidth="Phone" popinDisplay="Inline" hAlign="Center">
+                        <Column id="column13" demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline" hAlign="Center">
                             <header>
                                 <Label text="{i18n>departmentId}" id="label13" wrapping="true" />
 
@@ -160,7 +160,7 @@
                             </header>
 
                         </Column>
-                        <Column id="column14" demandPopin="true" minScreenWidth="Phone" popinDisplay="Inline" hAlign="Center">
+                        <Column id="column14" demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline" hAlign="Center">
                             <header>
                                 <Label text="{i18n>classId}" id="label14" wrapping="true" />
 
@@ -237,7 +237,7 @@
                             </header>
 
                         </Column>
-                        <Column id="column10" demandPopin="true" minScreenWidth="Tablet" popinDisplay="Inline" hAlign="Center">
+                        <Column id="column10" demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline" hAlign="Center">
                             <header>
                                 <Label id="label10" text="{i18n>newPosition}" wrapping="true" />
 

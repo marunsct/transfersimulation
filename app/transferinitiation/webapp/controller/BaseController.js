@@ -13,6 +13,7 @@ sap.ui.define([
 
     // shortcut for sap.m.URLHelper
     var URLHelper = mobileLibrary.URLHelper;
+    var ResetAllMode =  mobileLibrary.ResetAllMode;
 
     return Controller.extend("transferinitiation.controller.BaseController", {
 		/**
@@ -186,6 +187,7 @@ sap.ui.define([
                 table: oTable,
                 //specify the first part of persistence ids e.g. 'demoApp-productsTable-dimensionsCol'
                 componentName: "component",
+                resetAllMode: ResetAllMode.ServiceReset,
                 persoService: oTablePersoService
             }).activate();
             return oTPC;
@@ -232,7 +234,7 @@ sap.ui.define([
         },
         _timeoutError: function () {
             var i18n = this.oView.getModel("i18n");
-            var sTitle = i18n.getResourceBundle().getText("error");
+            var sTitle = i18n.getResourceBundle().getText("serror");
             var sFirstButton = i18n.getResourceBundle().getText("reload");
             var sText = i18n.getResourceBundle().getText("expire");
             this._createDialog(sTitle, sText, sFirstButton, undefined, () => { window.location.reload(); }, undefined, this);
@@ -302,7 +304,7 @@ sap.ui.define([
                 this.stopInactivityTimer();
                 this.resetInactivityTimeout();
                 var i18n = this.oView.getModel("i18n");
-                var sTitle = i18n.getResourceBundle().getText("error");
+                var sTitle = i18n.getResourceBundle().getText("serror");
                 var sText = i18n.getResourceBundle().getText("expire");
                 var sFirstButton = i18n.getResourceBundle().getText("reload");
                 this._createDialog(sTitle, sText, sFirstButton, undefined, () => { window.location.reload(); }, undefined, this);

@@ -447,6 +447,12 @@ sap.ui.define([
                             empItem.startDate = settings.cust_TransferDate;
                             empItem.location = tblData.locationId;
                             empItem.customString6 = tblData.customString6;
+                            if(tblData.customString7 != null){
+                               // empItem.customString7 = tblData.customString7; 
+                            }
+                            if(tblData.customString8 != null){
+                              //  empItem.customString8 = tblData.customString8; 
+                            }
                             empItem.eventReason = "TR502";
                             empItem.position = tblData.newposId;
                             empItem.department = tblData.departmentId;
@@ -1232,7 +1238,9 @@ sap.ui.define([
                                 company: "",
                                 customString6: "",
                                 location: "",
-                                locationId: ""
+                                locationId: "",
+                                customString7:"",
+                                customString8:""
                             };
                             item.employeeid = results[i].externalCode;
                             item.departmentId = results[i].cust_DEPARTMENT;
@@ -1248,6 +1256,8 @@ sap.ui.define([
                             item.company = results[i].cust_Company;
                             item.customString6 = results[i].cust_OTYPE;
                             item.locationId = results[i].cust_EMPLOYMENT_LOCATION;
+                            item.customString7 = results[i].cust_PS_Group
+                            item.customString8 = results[i].cust_PS_Level
                             item.metadata = results[i].__metadata;
 
                             if (lang === 'lang=en_US') {
