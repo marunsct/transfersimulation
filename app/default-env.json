@@ -7,39 +7,6 @@
         }
     ],
 	"VCAP_SERVICES": {
-		"destination": [
-			{
-				"label": "destination",
-				"provider": null,
-				"plan": "lite",
-				"name": "TransferSimulation-dest-srv",
-				"tags": [
-					"destination",
-					"conn",
-					"connsvc"
-				],
-				"instance_guid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
-				"instance_name": "TransferSimulation-dest-srv",
-				"binding_guid": "f2fe9a5e-50c1-4d53-85d3-5e7ad6fd9809",
-				"binding_name": null,
-				"credentials": {
-					"tenantmode": "dedicated",
-					"clientid": "sb-clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
-					"credential-type": "binding-secret",
-					"xsappname": "clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
-					"clientsecret": "f2fe9a5e-50c1-4d53-85d3-5e7ad6fd9809$tCjxKeHsZmlyLfBBqjVURbLN1vxEx4VA9lFkhAS4JRY=",
-					"uri": "https://destination-configuration.cfapps.jp10.hana.ondemand.com",
-					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
-					"uaadomain": "authentication.jp10.hana.ondemand.com",
-					"instanceid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
-					"verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtxX2lTr4g9sdFWyCkxve\nD62pqirY35LP37lTrfDmwcATJo+bNsLTX1kLugK3qBhga9iuqpI3eI+CBcujYnzV\nMVSyRKeJMC0rtvNX7YU5R3MYfSQ2qfW4QrRx/RU80vi53Uv9Wfd24uH9YyeoN5V0\nRm2n80r2OT623wIsUjSGEYhlnwddqwvRn0vykaohx9alRQVL0LOLVqgbs225nl5h\nsTCNbv59q2nPk2OH+j/75+slw1pqHS2UJ6mdepBhFSdI1b63detLIKjIFiEYHQup\njtr38le82xbJrTz9M5YqM5nztA/tQQSU6z+ncOxwX6jfaHCsGjtQ3BlrpHBd0vn9\n3wIDAQAB\n-----END PUBLIC KEY-----",
-					"identityzone": "dev-50okhz4b",
-					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
-				},
-				"syslog_drain_url": null,
-				"volume_mounts": []
-			}
-		],
 		"xsuaa": [
 			{
 				"label": "xsuaa",
@@ -51,7 +18,7 @@
 				],
 				"instance_guid": "69f4ebe5-a9f9-465c-b081-106558fd6878",
 				"instance_name": "TransferSimulation-xsuaa-service",
-				"binding_guid": "c95228b7-1c20-4f91-8820-731f8708288d",
+				"binding_guid": "e0640545-954f-49ce-8b33-5b3bab2ef79d",
 				"binding_name": null,
 				"credentials": {
 					"tenantmode": "dedicated",
@@ -74,6 +41,39 @@
 				"volume_mounts": []
 			}
 		],
+		"destination": [
+			{
+				"label": "destination",
+				"provider": null,
+				"plan": "lite",
+				"name": "TransferSimulation-dest-srv",
+				"tags": [
+					"destination",
+					"conn",
+					"connsvc"
+				],
+				"instance_guid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
+				"instance_name": "TransferSimulation-dest-srv",
+				"binding_guid": "6d0d4c92-308e-42fa-8f9b-5723ca7c69eb",
+				"binding_name": null,
+				"credentials": {
+					"tenantmode": "dedicated",
+					"clientid": "sb-clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
+					"credential-type": "binding-secret",
+					"xsappname": "clone6340dec1ab3b48918cd32f6ab777fa96!b975|destination-xsappname!b5",
+					"clientsecret": "6d0d4c92-308e-42fa-8f9b-5723ca7c69eb$v8N8DB55miTlozkz7h5HX4HCsCzzWV4-kjWH_V_C1OM=",
+					"uri": "https://destination-configuration.cfapps.jp10.hana.ondemand.com",
+					"url": "https://dev-50okhz4b.authentication.jp10.hana.ondemand.com",
+					"uaadomain": "authentication.jp10.hana.ondemand.com",
+					"instanceid": "6340dec1-ab3b-4891-8cd3-2f6ab777fa96",
+					"verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtxX2lTr4g9sdFWyCkxve\nD62pqirY35LP37lTrfDmwcATJo+bNsLTX1kLugK3qBhga9iuqpI3eI+CBcujYnzV\nMVSyRKeJMC0rtvNX7YU5R3MYfSQ2qfW4QrRx/RU80vi53Uv9Wfd24uH9YyeoN5V0\nRm2n80r2OT623wIsUjSGEYhlnwddqwvRn0vykaohx9alRQVL0LOLVqgbs225nl5h\nsTCNbv59q2nPk2OH+j/75+slw1pqHS2UJ6mdepBhFSdI1b63detLIKjIFiEYHQup\njtr38le82xbJrTz9M5YqM5nztA/tQQSU6z+ncOxwX6jfaHCsGjtQ3BlrpHBd0vn9\n3wIDAQAB\n-----END PUBLIC KEY-----",
+					"identityzone": "dev-50okhz4b",
+					"tenantid": "b5667342-0d8e-4edb-8f58-876d0101b7d9"
+				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		],
 		"application-logs": [
 			{
 				"label": "application-logs",
@@ -83,7 +83,7 @@
 				"tags": [],
 				"instance_guid": "16983061-487b-407f-9fd3-6ede0f2d71e7",
 				"instance_name": "TransferSimulation-logs",
-				"binding_guid": "74bff3c3-75a8-48d9-846e-36d484c463fe",
+				"binding_guid": "95b09581-039b-4d5c-99ea-c771deb65ec8",
 				"binding_name": null,
 				"credentials": {},
 				"syslog_drain_url": null,

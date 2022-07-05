@@ -786,6 +786,7 @@ sap.ui.define([
                 filters: [new Filter("PickListV2_id", FilterOperator.EQ, 'EMPLOYEECLASS'),
                 new Filter("status", FilterOperator.EQ, 'A')], and: true
             });
+            /*
             var filter2 = new Filter({
                 filters: [
                     new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
@@ -793,6 +794,15 @@ sap.ui.define([
                     new Filter("startswith(label_defaultValue,'" + sTerm + "')", FilterOperator.EQ, true),
                     new Filter("startswith(label_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
                     new Filter("startswith(label_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true)
+                ], and: false
+            });
+            */
+            let filter2 = new Filter({
+                filters: [
+                    new Filter("externalCode", FilterOperator.Contains, sTerm),
+                    new Filter("label_defaultValue", FilterOperator.Contains, sTerm),
+                    new Filter("label_en_US", FilterOperator.Contains, sTerm),
+                    new Filter("label_ja_JP", FilterOperator.Contains, sTerm)
                 ], and: false
             });
             aFilters.push(
@@ -808,7 +818,7 @@ sap.ui.define([
                 {
                     async: true,
                     urlParameters: {
-                        "$top": 20,
+                        "$top": 200,
                     },
                     filters: aFilters,
                     success: function (sData, sResult) {
@@ -854,12 +864,13 @@ sap.ui.define([
                 filters: [new Filter("PickListV2_id", FilterOperator.EQ, 'employmentType'),
                 new Filter("status", FilterOperator.EQ, 'A')], and: true
             });
-            var filter2 = new Filter({
+
+            let filter2 = new Filter({
                 filters: [
-                    new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(label_defaultValue,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(label_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(label_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true)
+                    new Filter("externalCode", FilterOperator.Contains, sTerm),
+                    new Filter("label_defaultValue", FilterOperator.Contains, sTerm),
+                    new Filter("label_en_US", FilterOperator.Contains, sTerm),
+                    new Filter("label_ja_JP", FilterOperator.Contains, sTerm)
                 ], and: false
             });
             aFilters.push(
@@ -938,49 +949,8 @@ sap.ui.define([
                         ], and: true
                     })
                 );
-
-
-                // new Filter("status", FilterOperator.EQ, 'A')
-                // this.getModel('oData').read("/FODepartment?$top=20&$filter=startswith(externalCode,'" + sTerm + "') eq true or startswith(name_ja_JP,'" + sTerm + "') eq true or startswith(name,'" + sTerm + "')",
-
-                this.getModel('oData').read("/FODepartment",
-                    {
-                        async: true,
-                        urlParameters: {
-                            "$top": 20,
-                            //  "test": "((substringof('"+ sTerm + "',externalCode) or substringof('" + sTerm + "',name)) and status eq 'A'"
-                        },
-                        filters: aFilters,
-                        success: function (sData, sResult) {
-                            var mModel = this.getView().getModel('filter');
-                            var mData = mModel.getData();
-                            mData.department = [];
-                            let desc;
-                            for (var i = 0; i < sData.results.length; i++) {
-                                switch (this.getLocale()) {
-                                    case "JA":
-                                        desc = (sData.results[i].name_ja_JP !== null) ? sData.results[i].name_ja_JP : sData.results[i].name;
-                                        break;
-                                    case "EN":
-                                        desc = (sData.results[i].name_en_US !== null) ? sData.results[i].name_en_US : sData.results[i].name;
-                                        break;
-                                    default:
-                                        desc = sData.results[i].name;
-                                        break;
-                                }
-                                mData.department.push({
-                                    "ID": sData.results[i].externalCode,
-                                    "name": desc
-                                });
-                            }
-                            mModel.setData(mData);
-                            // this.oGlobalBusyDialog.close();
-                        }.bind(this),
-                        error: function (sData, sResult) {
-                            console.log(sData);
-                            // this.oGlobalBusyDialog.close();
-                        }
-                    });
+                
+                this._onSuggestDepart(sTerm);
             }
 
         },
@@ -1012,44 +982,7 @@ sap.ui.define([
                     })
                 );
 
-                this.getModel('oData').read("/Position",
-                    {
-                        async: true,
-                        urlParameters: {
-                            "$top": 20,
-                        },
-                        filters: aFilters,
-                        success: function (sData, sResult) {
-                            var mModel = this.getView().getModel('filter');
-                            var mData = mModel.getData();
-                            mData.position = [];
-                            let desc;
-                            for (var i = 0; i < sData.results.length; i++) {
-                                switch (this.getLocale()) {
-                                    case "JA":
-                                        desc = (sData.results[i].externalName_ja_JP !== null) ? sData.results[i].externalName_ja_JP : sData.results[i].externalName_defaultValue;
-                                        break;
-                                    case "EN":
-                                        desc = (sData.results[i].externalName_en_US !== null) ? sData.results[i].externalName_en_US : sData.results[i].externalName_defaultValue;
-                                        break;
-                                    default:
-                                        desc = sData.results[i].externalName_defaultValue;
-                                        break;
-                                }
-                                mData.position.push({
-                                    "ID": sData.results[i].code,
-                                    "name": desc
-                                });
-                            }
-                            mModel.setData(mData);
-                            // this.oGlobalBusyDialog.close();
-                        }.bind(this),
-                        error: function (sData, sResult) {
-                            console.log(sData);
-                            //this.oGlobalBusyDialog.close();
-                        }
-                    });
-
+                this._onSuggestPosition(sTerm)
                 //oGlobalBusyDialog.close();
             }
         },

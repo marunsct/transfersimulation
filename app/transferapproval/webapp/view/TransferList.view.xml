@@ -192,7 +192,7 @@
                                         <Text text="{i18n>location}" />
                                     </Column>
                                     <Column id="column21">
-                                        <Text text="{i18n>lGrade}" />
+                                        <Text text="{i18n>grade}" />
                                     </Column>
                                     <Column id="column14" width="12rem">
                                         <Text text="{i18n>comments}" />
@@ -220,7 +220,7 @@
                                             <Text text="{data>newpos}" id="tc13" />
                                             <Text text="{data>locationId}" id="tc17" />
                                             <Text text="{data>location}" id="tc18" />
-                                            <Text text="{{data>location}}" id="tc21" />
+                                            <Text text="{=${data>cust_PS_Group} + ' ' + ${data>cust_PS_Level}}" id="tc21" />
                                             <TextArea value="{data>comments}" id="tx14" height="2.5rem" rows="3" width="11.5rem" enabled="{=${data>Status} === 'Initiated'}" />
                                         </cells>
                                     </ColumnListItem>

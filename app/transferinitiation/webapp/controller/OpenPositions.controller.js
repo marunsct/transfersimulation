@@ -862,14 +862,17 @@ sap.ui.define([
                 filters: [new Filter("PickListV2_id", FilterOperator.EQ, 'EMPLOYEECLASS'),
                 new Filter("status", FilterOperator.EQ, 'A')], and: true
             });
-            var filter2 = new Filter({
+
+
+            let filter2 = new Filter({
                 filters: [
-                    new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(label_defaultValue,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(label_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(label_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true)
+                    new Filter("externalCode", FilterOperator.Contains, sTerm),
+                    new Filter("label_defaultValue", FilterOperator.Contains, sTerm),
+                    new Filter("label_en_US", FilterOperator.Contains, sTerm),
+                    new Filter("label_ja_JP", FilterOperator.Contains, sTerm)
                 ], and: false
             });
+
             aFilters.push(
                 new Filter({
                     filters: [
@@ -920,12 +923,12 @@ sap.ui.define([
                 filters: [new Filter("PickListV2_id", FilterOperator.EQ, 'employmentType'),
                 new Filter("status", FilterOperator.EQ, 'A')], and: true
             });
-            var filter2 = new Filter({
+            let filter2 = new Filter({
                 filters: [
-                    new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(label_defaultValue,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(label_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(label_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true)
+                    new Filter("externalCode", FilterOperator.Contains, sTerm),
+                    new Filter("label_defaultValue", FilterOperator.Contains, sTerm),
+                    new Filter("label_en_US", FilterOperator.Contains, sTerm),
+                    new Filter("label_ja_JP", FilterOperator.Contains, sTerm)
                 ], and: false
             });
             aFilters.push(
@@ -979,10 +982,10 @@ sap.ui.define([
 
                 var filter1 = new Filter({
                     filters: [
-                        new Filter("startswith(externalCode,'" + sTerm + "')", FilterOperator.EQ, true),
-                        new Filter("startswith(name_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true),
-                        new Filter("startswith(name_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
-                        new Filter("startswith(name,'" + sTerm + "')", FilterOperator.EQ, true)
+                        new Filter("externalCode", FilterOperator.Contains, sTerm),
+                        new Filter("name_ja_JP", FilterOperator.Contains, sTerm),
+                        new Filter("name_en_US", FilterOperator.Contains, sTerm),
+                        new Filter("name", FilterOperator.Contains, sTerm)
                     ], and: false
                 });
 
@@ -1040,10 +1043,10 @@ sap.ui.define([
                 //aFilters.push(new Filter("name", FilterOperator.Contains, sTerm));
 
                 var filter1 = new Filter({
-                    filters: [new Filter("startswith(code,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(externalName_ja_JP,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(externalName_en_US,'" + sTerm + "')", FilterOperator.EQ, true),
-                    new Filter("startswith(externalName_defaultValue,'" + sTerm + "')", FilterOperator.EQ, true)
+                    filters: [new Filter("code", FilterOperator.Contains, sTerm),
+                    new Filter("externalName_ja_JP", FilterOperator.Contains, sTerm),
+                    new Filter("externalName_en_US", FilterOperator.Contains, sTerm),
+                    new Filter("externalName_defaultValue", FilterOperator.Contains, sTerm)
                     ], and: false
                 });
 

@@ -309,6 +309,95 @@ sap.ui.define([
                 var sFirstButton = i18n.getResourceBundle().getText("reload");
                 this._createDialog(sTitle, sText, sFirstButton, undefined, () => { window.location.reload(); }, undefined, this);
             }
+        },
+
+        _onSuggestDepart : function (sTerm) {
+            let filterUrl = "(startswith(name_en_US,'" + sTerm +"') or startswith(name,'" + sTerm +"') or startswith(externalCode,'" + sTerm +"') or startswith(name_ja_JP,'" + sTerm +"'))"
+
+                // new Filter("status", FilterOperator.EQ, 'A')
+                // this.getModel('oData').read("/FODepartment?$top=20&$filter=startswith(externalCode,'" + sTerm + "') eq true or startswith(name_ja_JP,'" + sTerm + "') eq true or startswith(name,'" + sTerm + "')",
+
+                this.getModel('oData').read( "/FODepartment",
+                    {
+                        async: true,
+                        urlParameters: {
+                            "$top": 20,
+                            "$filter":filterUrl
+                            //  "test": "((substringof('"+ sTerm + "',externalCode) or substringof('" + sTerm + "',name)) and status eq 'A'"
+                        },
+                        //filters: aFilters,
+                        success: function (sData, sResult) {
+                            var mModel = this.getView().getModel('filter');
+                            var mData = mModel.getData();
+                            mData.department = [];
+                            let desc;
+                            for (var i = 0; i < sData.results.length; i++) {
+                                switch (this.getLocale()) {
+                                    case "JA":
+                                        desc = (sData.results[i].name_ja_JP !== null) ? sData.results[i].name_ja_JP : sData.results[i].name;
+                                        break;
+                                    case "EN":
+                                        desc = (sData.results[i].name_en_US !== null) ? sData.results[i].name_en_US : sData.results[i].name;
+                                        break;
+                                    default:
+                                        desc = sData.results[i].name;
+                                        break;
+                                }
+                                mData.department.push({
+                                    "ID": sData.results[i].externalCode,
+                                    "name": desc
+                                });
+                            }
+                            mModel.setData(mData);
+                            // this.oGlobalBusyDialog.close();
+                        }.bind(this),
+                        error: function (sData, sResult) {
+                            console.log(sData);
+                            // this.oGlobalBusyDialog.close();
+                        }
+                    });
+        },
+        _onSuggestPosition : function (sTerm) {
+            let filterUrl = "startswith(externalName_ja_JP,'" + sTerm +"') or startswith(externalName_en_US,'" + sTerm +"') or startswith(code,'" + sTerm +"') or startswith(externalName_defaultValue,'" + sTerm +"')"
+            this.getModel('oData').read("/Position",
+                    {
+                        async: true,
+                        urlParameters: {
+                            "$top": 20,
+                            "$filter":filterUrl
+                        },
+                       // filters: aFilters,
+                        success: function (sData, sResult) {
+                            var mModel = this.getView().getModel('filter');
+                            var mData = mModel.getData();
+                            mData.position = [];
+                            let desc;
+                            for (var i = 0; i < sData.results.length; i++) {
+                                switch (this.getLocale()) {
+                                    case "JA":
+                                        desc = (sData.results[i].externalName_ja_JP !== null) ? sData.results[i].externalName_ja_JP : sData.results[i].externalName_defaultValue;
+                                        break;
+                                    case "EN":
+                                        desc = (sData.results[i].externalName_en_US !== null) ? sData.results[i].externalName_en_US : sData.results[i].externalName_defaultValue;
+                                        break;
+                                    default:
+                                        desc = sData.results[i].externalName_defaultValue;
+                                        break;
+                                }
+                                mData.position.push({
+                                    "ID": sData.results[i].code,
+                                    "name": desc
+                                });
+                            }
+                            mModel.setData(mData);
+                            // this.oGlobalBusyDialog.close();
+                        }.bind(this),
+                        error: function (sData, sResult) {
+                            console.log(sData);
+                            //this.oGlobalBusyDialog.close();
+                        }
+                    });
+
         }
     });
 
