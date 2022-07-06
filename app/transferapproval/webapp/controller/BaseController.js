@@ -13,6 +13,7 @@ sap.ui.define([
 
     // shortcut for sap.m.URLHelper
     var URLHelper = mobileLibrary.URLHelper;
+    var ResetAllMode =  mobileLibrary.ResetAllMode;
 
     return Controller.extend("transferapproval.controller.BaseController", {
 		/**
@@ -143,6 +144,7 @@ sap.ui.define([
                 table: oTable,
                 //specify the first part of persistence ids e.g. 'demoApp-productsTable-dimensionsCol'
                 componentName: "component",
+                resetAllMode: ResetAllMode.ServiceReset,
                 persoService: oTablePersoService
             }).activate();
             return oTPC;
