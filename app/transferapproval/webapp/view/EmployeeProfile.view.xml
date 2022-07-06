@@ -485,13 +485,13 @@
                                     </m:VBox>
                                     <m:VBox width="250px" direction="Column" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="{i18n>qualification}" width="100%" />
+                                            <m:Label text="{i18n>qualification}" width="100%" wrapping="true"/>
                                             <m:Text text="{PR>/AdditionalInfo/q2}" />
                                         </m:items>
                                     </m:VBox>
                                     <m:VBox width="250px" direction="Column" id="vbox0_copy40" class="sapUiResponsiveMargin">
                                         <m:items>
-                                            <m:Label text="{i18n>currentResp}" width="100%" id="label11_copy40" />
+                                            <m:Label text="{i18n>currentResp}" width="100%" id="label11_copy40" wrapping="true"/>
                                             <m:Text text="{PR>/AdditionalInfo/q1}" id="text13_copy40" />
                                         </m:items>
 
