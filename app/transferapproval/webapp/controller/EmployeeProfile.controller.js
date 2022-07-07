@@ -27,12 +27,12 @@ sap.ui.define([
             var oHistory = History.getInstance();
             var sPreviousHash = oHistory.getPreviousHash();
 
-           
-                this.oRouter.navTo("TransferList");
-           
+
+            this.oRouter.navTo("TransferList");
+
         },
         onInit: function () {
-            document.addEventListener('touchstart', function(){}, {passive: true});
+            document.addEventListener('touchstart', function () { }, { passive: true });
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             this.oRouter.attachRouteMatched(this.handleRouteMatched, this);
             let data = {
@@ -215,12 +215,13 @@ sap.ui.define([
                 transferSettings = await this.asyncAjax("/SFSF/odata/v2/cust_TransferSimSettings");
                 this.setCustProperty("TransferSettings", transferSettings.d.results[0]);
                 transferSettings = this.getCustProperty("TransferSettings")
-                let sUrl = "/SFSF/odata/v2/FormHeader?$top=10&$filter=(formTemplateId eq '" + transferSettings.cust_formTemplateIdY1 + "' or formTemplateId eq '" + transferSettings.cust_formTemplateIdY2 + "' or formTemplateId eq '" + transferSettings.cust_formTemplateIdY3 + "') and isRated eq true and formSubjectId eq '" + sUser + "'";
-                this.getPerformance(sUrl);
-            } else {
-                let sUrl = "/SFSF/odata/v2/FormHeader?$top=10&$filter=(formTemplateId eq '" + transferSettings.cust_formTemplateIdY1 + "' or formTemplateId eq '" + transferSettings.cust_formTemplateIdY2 + "' or formTemplateId eq '" + transferSettings.cust_formTemplateIdY3 + "') and isRated eq true and formSubjectId eq '" + sUser + "'";
-                this.getPerformance(sUrl);
             }
+            let sUrl = "/SFSF/odata/v2/FormHeader?$top=10&$filter=(formTemplateId eq '" + transferSettings.cust_formTemplateIdY1 + 
+                            "' or formTemplateId eq '" + transferSettings.cust_formTemplateIdY2 + "' or formTemplateId eq '" + transferSettings.cust_formTemplateIdY3 + 
+                            "' or formTemplateId eq '" + transferSettings.cust_formTitleY1 + "' or formTemplateId eq '" + transferSettings.cust_formTitleY2 +"' or formTemplateId eq '" + transferSettings.cust_formTitleY3 +
+                            "') and isRated eq true and formSubjectId eq '" + sUser + "'";
+            this.getPerformance(sUrl);
+
             oModel.setData(mData);
         },
         setBusy: function (sCount) {
@@ -540,7 +541,8 @@ sap.ui.define([
                     let date, dept = result.d.results;
                     for (let i = 0; i < dept.length; i++) {
                         if (date === undefined) {
-                            date = new Date(Number(dept[i].startDate.match(/\d+/)[0]));
+                            date = new Date(parseInt(dept[i].startDate.split('(')[1].split(')')[0]));
+                            //new Date(Number(dept[i].startDate.match(/\d+/)[0]));
                             console.log(date, dept[i].department);
                             if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
                                 pDept.dept = dept[i].departmentNav.name_ja_JP;
@@ -549,14 +551,16 @@ sap.ui.define([
                             }
                             pDept.id = dept[i].department;
                         } else {
-                            if (date < new Date(Number(dept[i].startDate.match(/\d+/)[0]))) {
-                                date = new Date(Number(dept[i].startDate.match(/\d+/)[0]));
+                            if (date < new Date(parseInt(dept[i].startDate.split('(')[1].split(')')[0]))) {
+                                //(date < new Date(Number(dept[i].startDate.match(/\d+/)[0]))) {
+                                date = new Date(parseInt(dept[i].startDate.split('(')[1].split(')')[0]));
+                                //new Date(Number(dept[i].startDate.match(/\d+/)[0]));
 
                                 pDept.id = dept[i].department;
                                 if (sap.ui.getCore().getConfiguration().getLanguage() === 'ja') {
-                                    pDept.dept = dept[i].departmentNav.name_ja_JP !== null ? dept[i].departmentNav.name_ja_JP : dept[i].departmentNav.name ;
+                                    pDept.dept = dept[i].departmentNav.name_ja_JP !== null ? dept[i].departmentNav.name_ja_JP : dept[i].departmentNav.name;
                                 } else {
-                                    pDept.dept = dept[i].departmentNav.name_en_US !== null ? dept[i].departmentNav.name_en_US : dept[i].departmentNav.name ;
+                                    pDept.dept = dept[i].departmentNav.name_en_US !== null ? dept[i].departmentNav.name_en_US : dept[i].departmentNav.name;
                                 }
                                 //   pDept.dept = dept[i].department;
                                 // console.log(date, dept[i].department);
@@ -638,13 +642,13 @@ sap.ui.define([
                     performance.ry2 = transferSettings.cust_Year2;
                     performance.ry3 = transferSettings.cust_Year3;
                     for (let i = 0; i < perf.length; i++) {
-                        if (perf[i].formTemplateId === transferSettings.cust_formTemplateIdY1) {
+                        if (perf[i].formTemplateId === transferSettings.cust_formTemplateIdY1 || perf[i].formTemplateId === transferSettings.cust_formTitleY1 ) {
                             performance.rating1 = perf[i].rating;
                         }
-                        if (perf[i].formTemplateId === transferSettings.cust_formTemplateIdY1) {
+                        if (perf[i].formTemplateId === transferSettings.cust_formTemplateIdY2 || perf[i].formTemplateId === transferSettings.cust_formTitleY2) {
                             performance.rating2 = perf[i].rating;
                         }
-                        if (perf[i].formTemplateId === transferSettings.cust_formTemplateIdY1) {
+                        if (perf[i].formTemplateId === transferSettings.cust_formTemplateIdY3 || perf[i].formTemplateId === transferSettings.cust_formTitleY3) {
                             performance.rating3 = perf[i].rating;
                         }
                     }
@@ -652,9 +656,9 @@ sap.ui.define([
                     sp2ID.addStyleClass(this.performanceColor(performance.rating3));
                     sp1ID.addStyleClass(this.performanceColor(performance.rating2));
                     sp0ID.addStyleClass(this.performanceColor(performance.rating1));
-                    rp2ID.addStyleClass(this.performanceColor(performance.rating3));
+                    rp2ID.addStyleClass(this.performanceColor(performance.rating1));
                     rp1ID.addStyleClass(this.performanceColor(performance.rating2));
-                    rp0ID.addStyleClass(this.performanceColor(performance.rating1));
+                    rp0ID.addStyleClass(this.performanceColor(performance.rating3));
                     console.log(performance);
                     // this.getModel("PR").setProperty("/EmpJob", JSON.parse(result).EmpJob);
                     // BusyIndicator.hide();
@@ -733,13 +737,15 @@ sap.ui.define([
                         //email = result.emailNav.results[0].emailAddress
                     }
                     if (dob) {
-                        d60 = new Date(Number(dob.match(/\d+/)[0]));
+                        d60 = new Date(parseInt(dob.split('(')[1].split(')')[0]));
+                        //new Date(Number(dob.match(/\d+/)[0]));
                         d60.setFullYear(d60.getFullYear() + 60);
                         d60 = d60.toISOString().substring(0, 10);
                         //d60 = this.taskDate(Date.parse(d60));
                     }
                     if (hdate) {
-                        hdate = new Date(Number(hdate.match(/\d+/)[0])).toISOString().substring(0, 10);
+                        hdate = new Date(parseInt(hdate.split('(')[1].split(')')[0])).toISOString().substring(0, 10);
+                        //new Date(Number(hdate.match(/\d+/)[0])).toISOString().substring(0, 10);
                         //hdate = this.taskDate(Date.parse(hdate));
                     }
                     if (sResult.d.results[0].photoNav.results.length > 0) {

@@ -69,11 +69,11 @@
                                                     <m:Label text="{i18n>contact}" id="text009" class="" />
                                                     <m:HBox class="">
                                                         <core:Icon src="sap-icon://outgoing-call" class="sapUiTinyMarginTop" />
-                                                        <m:Link text="{PR>/PerPerson/phoneNum}" class="sapUiSmallMarginBegin" />
+                                                        <m:Text text="{PR>/PerPerson/phoneNum}" class="sapUiSmallMarginBegin sapUiTinyMarginTop" />
                                                     </m:HBox>
                                                     <m:HBox>
                                                         <core:Icon src="sap-icon://email" class="sapUiTinyMarginTop" />
-                                                        <m:Link text="{PR>/PerPerson/email}" class="sapUiSmallMarginBegin" />
+                                                        <m:Text text="{PR>/PerPerson/email}" class="sapUiSmallMarginBegin sapUiTinyMarginTop" />
                                                     </m:HBox>
                                                 </m:items>
                                             </m:VBox>
@@ -89,7 +89,7 @@
                                                                             <m:Text text="{PR>/Performance/rating3}" id="p3_copy2" />
                                                                         </m:items>
                                                                     </m:HBox>
-                                                                    <m:Text text="{PR>/Performance/ry2}" id="text15_1643951750049_copy2" />
+                                                                    <m:Text text="{PR>/Performance/ry3}" id="text15_1643951750049_copy2" />
                                                                 </m:items>
                                                             </m:VBox>
                                                             <m:VBox class="sapUiTinyMarginBeginEnd" width="100%" direction="Column" id="vbox2_1643951732334_copy3" alignItems="Center">
@@ -357,7 +357,7 @@
                                                     <m:Text text="Rating N1" id="text13_cpy31" class="sapUiSmallMarginEnd" />
                                                     <m:HBox id='rp2' width="40px" class="" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
                                                         <m:items>
-                                                            <m:Text text="{PR>/Performance/rating3}" id="p003" />
+                                                            <m:Text text="{PR>/Performance/rating1}" id="p003" />
                                                         </m:items>
                                                     </m:HBox>
                                                 </m:items>
@@ -389,7 +389,7 @@
                                                     <m:Text text="Rating N3" id="tt13_cpy31" class="sapUiSmallMarginEnd" />
                                                     <m:HBox id='rp0' width="40px" class="" alignItems="Center" alignContent="Center" justifyContent="Center" height="25px">
                                                         <m:items>
-                                                            <m:Text text="{PR>/Performance/rating1}" id="part003" />
+                                                            <m:Text text="{PR>/Performance/rating3}" id="part003" />
                                                         </m:items>
                                                     </m:HBox>
                                                 </m:items>
