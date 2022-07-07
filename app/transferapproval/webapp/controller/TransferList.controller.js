@@ -453,6 +453,12 @@ sap.ui.define([
                             if (tblData.customString8 != null) {
                                   empItem.customString8 = tblData.customString8; 
                             }
+                            if(tblData.employmentClassOptionId !== null ){
+                                empItem.employeeClass = tblData.employmentClassOptionId;
+                            }
+                            if(tblData.employmentTypeOptionId != null){
+                                empItem.employmentType = tblData.employmentTypeOptionId;
+                            }                            
                             empItem.eventReason = "TR502";
                             empItem.position = tblData.newposId;
                             empItem.department = tblData.departmentId;
@@ -1191,7 +1197,7 @@ sap.ui.define([
                 this.getView().byId("TransferReqTable").setBusy(true);
                 let settings = await this.fetchSettings();
                 var transDate = (new Date(Number(settings.effectiveStartDate.match(/\d+/)[0]))).toISOString().substring(0, 10)
-                let surl = "/SFSF/odata/v2/cust_TransferSimResult?$expand=cust_STATUSNav,cust_ELIGIBITY_STATUSNav,cust_NEW_POSITION_IDNav,externalCodeNav,cust_FUTURE_MANAGER_IDNav,createdByNav,cust_CURRENT_MANAGER_IDNav,cust_EMPLOYEE_CLASSNav,cust_OLD_POSITION_IDNav,cust_Previous_DepartmentNav,cust_EMPLOYMENT_TYPENav,cust_EMPLOYMENT_LOCATIONNav,cust_PS_GroupNav,cust_CompanyNav,cust_DEPARTMENTNav,cust_PS_LevelNav&$select=externalCode,cust_DEPARTMENT,cust_Previous_Department,cust_EMPLOYMENT_TYPE,cust_CURRENT_MANAGER_ID,cust_FUTURE_MANAGER_ID,cust_ELIGIBITY_STATUS,cust_OLD_POSITION_ID,cust_NEW_POSITION_ID,cust_STATUS,cust_REMARKS,cust_Company,cust_OTYPE,cust_EMPLOYMENT_LOCATION,cust_PS_Group,cust_PS_Level,externalCodeNav/lastName,externalCodeNav/firstName,cust_DEPARTMENTNav/name_en_US,cust_DEPARTMENTNav/name,cust_Previous_DepartmentNav/name_en_US,cust_Previous_DepartmentNav/name,cust_EMPLOYMENT_TYPENav/label_en_US,cust_CURRENT_MANAGER_IDNav/lastName,cust_CURRENT_MANAGER_IDNav/firstName,cust_FUTURE_MANAGER_IDNav/lastName,cust_FUTURE_MANAGER_IDNav/firstName,cust_ELIGIBITY_STATUSNav/label_en_US,cust_ELIGIBITY_STATUSNav/label_defaultValue,cust_OLD_POSITION_IDNav/externalName_en_US,cust_OLD_POSITION_IDNav/externalName_defaultValue,cust_NEW_POSITION_IDNav/externalName_en_US,cust_NEW_POSITION_IDNav/externalName_defaultValue,cust_STATUSNav/label_defaultValue,cust_EMPLOYMENT_LOCATIONNav/name,cust_DEPARTMENTNav/name_ja_JP,cust_Previous_DepartmentNav/name_ja_JP,cust_DEPARTMENTNav/name_ja_JP,cust_Previous_DepartmentNav/name_ja_JP,cust_EMPLOYMENT_TYPENav/label_ja_JP,cust_OLD_POSITION_IDNav/externalName_ja_JP,cust_NEW_POSITION_IDNav/externalName_ja_JP,cust_OLD_POSITION_IDNav/externalName_ja_JP,cust_PS_LevelNav/optionId,cust_PS_GroupNav/optionId&$filter=" 
+                let surl = "/SFSF/odata/v2/cust_TransferSimResult?$expand=cust_STATUSNav,cust_ELIGIBITY_STATUSNav,cust_NEW_POSITION_IDNav,externalCodeNav,cust_FUTURE_MANAGER_IDNav,createdByNav,cust_CURRENT_MANAGER_IDNav,cust_EMPLOYEE_CLASSNav,cust_OLD_POSITION_IDNav,cust_Previous_DepartmentNav,cust_EMPLOYMENT_TYPENav,cust_EMPLOYMENT_LOCATIONNav,cust_PS_GroupNav,cust_CompanyNav,cust_DEPARTMENTNav,cust_PS_LevelNav&$select=externalCode,cust_DEPARTMENT,cust_Previous_Department,cust_EMPLOYMENT_TYPE,cust_CURRENT_MANAGER_ID,cust_FUTURE_MANAGER_ID,cust_ELIGIBITY_STATUS,cust_OLD_POSITION_ID,cust_NEW_POSITION_ID,cust_STATUS,cust_REMARKS,cust_Company,cust_OTYPE,cust_EMPLOYMENT_LOCATION,cust_PS_Group,cust_PS_Level,externalCodeNav/lastName,externalCodeNav/firstName,cust_DEPARTMENTNav/name_en_US,cust_DEPARTMENTNav/name,cust_Previous_DepartmentNav/name_en_US,cust_Previous_DepartmentNav/name,cust_EMPLOYMENT_TYPENav/label_en_US,cust_CURRENT_MANAGER_IDNav/lastName,cust_CURRENT_MANAGER_IDNav/firstName,cust_FUTURE_MANAGER_IDNav/lastName,cust_FUTURE_MANAGER_IDNav/firstName,cust_ELIGIBITY_STATUSNav/label_en_US,cust_ELIGIBITY_STATUSNav/label_defaultValue,cust_OLD_POSITION_IDNav/externalName_en_US,cust_OLD_POSITION_IDNav/externalName_defaultValue,cust_NEW_POSITION_IDNav/externalName_en_US,cust_NEW_POSITION_IDNav/externalName_defaultValue,cust_STATUSNav/label_defaultValue,cust_EMPLOYMENT_LOCATIONNav/name,cust_DEPARTMENTNav/name_ja_JP,cust_Previous_DepartmentNav/name_ja_JP,cust_DEPARTMENTNav/name_ja_JP,cust_Previous_DepartmentNav/name_ja_JP,cust_EMPLOYMENT_TYPENav/label_ja_JP,cust_OLD_POSITION_IDNav/externalName_ja_JP,cust_NEW_POSITION_IDNav/externalName_ja_JP,cust_OLD_POSITION_IDNav/externalName_ja_JP,cust_PS_LevelNav/optionId,cust_PS_GroupNav/optionId,cust_EMPLOYEE_CLASS,cust_EMPLOYEE_CLASSNav/optionId,cust_EMPLOYMENT_TYPENav/optionId&$filter=" 
                 + sURL + "effectiveStartDate eq '" + transDate + "'";
 
                 $.ajax({
@@ -1249,6 +1255,8 @@ sap.ui.define([
                             item.departmentId = results[i].cust_DEPARTMENT;
                             item.pdepartmentId = results[i].cust_Previous_Department;
                             item.employmentTypeId = results[i].cust_EMPLOYMENT_TYPE;
+                            item.employmentTypeOptionId = results[i].cust_EMPLOYMENT_TYPENav !== null ? results[i].cust_EMPLOYMENT_TYPENav.optionId : null;
+                            item.employmentClassOptionId = results[i].cust_EMPLOYEE_CLASSNav !== null ? results[i].cust_EMPLOYEE_CLASSNav.optionId : null;
                             item.supervisorId = results[i].cust_CURRENT_MANAGER_ID;
                             item.nsupervisorId = results[i].cust_FUTURE_MANAGER_ID;
                             item.eligibilityId = results[i].cust_ELIGIBITY_STATUS;
